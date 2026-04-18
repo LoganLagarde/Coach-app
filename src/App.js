@@ -32,45 +32,73 @@ const MUSCLE_GROUPS = {
   "Pectoraux":["bench_press","incline_press","dips","cable_fly","pushup","bench_dumbbell"],
   "Épaules":["overhead_press","lateral_raise","face_pull","shrug"],
   "Triceps":["overhead_press","dips","tricep_pushdown","skull_crusher","bench_press"],
-  "Dorsaux":["pullup","barbell_row","dumbbell_row","lat_pulldown","deadlift"],
+  "Dorsaux":["pullup","barbell_row","dumbbell_row","lat_pulldown","deadlift","gorilla_row"],
   "Biceps":["pullup","bicep_curl","hammer_curl","barbell_row"],
-  "Quadriceps":["squat","lunge","leg_press","bulgarian_split","rdl"],
+  "Quadriceps":["squat","back_squat","front_squat","zercher_squat","goblet_squat","lunge","leg_press","bulgarian_split"],
   "Ischio-jamb.":["deadlift","rdl","leg_curl","glute_bridge","lunge"],
-  "Fessiers":["squat","rdl","glute_bridge","bulgarian_split","lunge","hip90"],
-  "Abdominaux":["plank","ab_crunch","mountainclimber"],
-  "Cardio":["run","bike","burpee","jumpingjack","jump_rope","box_jump","battle_rope","rowing_machine","hiit_sprint","assault_bike","kettlebell_swing"],
-  "Mobilité":["hip90","pigeon","catcow","worldsgreatest","thoracic_rot","hip_flexor","ankle_mob","foam_roll","shoulder_mob"],
+  "Fessiers":["squat","back_squat","rdl","glute_bridge","bulgarian_split","lunge","hip90"],
+  "Abdominaux":["plank","ab_crunch","ab_wheel","leg_raise","russian_twist","hollow_body","dragon_flag","pallof_press","sit_up","cable_crunch"],
+  "Cardio":["run","bike","rowing_machine","assault_bike","skierg","jumpingjack","jump_rope","hiit_sprint"],
+  "Functional":["kb_russian_swing","kb_american_swing","kb_snatch","kb_tgu","kb_clean_press","gorilla_row","farmer_walk","wall_ball","box_jump","thruster","clean_jerk","barbell_snatch","battle_rope"],
+};
+
+// Cardio type detection for specific fields
+const CARDIO_TYPE = {
+  run: "run",
+  bike: "watts", rowing_machine: "watts", assault_bike: "watts", skierg: "watts",
+  jumpingjack: "duration", jump_rope: "duration", hiit_sprint: "duration",
+  box_jump: "functional", battle_rope: "duration",
 };
 
 const LIBRARY = [
-  { id:"squat",           name:"Squat",                cat:"Legs",       muscles:"Quadriceps, Fessiers, Ischio",      tip:"Pieds largeur épaules, genoux dans l'axe." },
-  { id:"deadlift",        name:"Deadlift",             cat:"Pull",       muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps." },
-  { id:"bench_press",     name:"Développé couché",     cat:"Push",       muscles:"Pectoraux, Triceps, Épaules ant.",  tip:"Omoplates rétractées, coudes à 45°." },
-  { id:"pullup",          name:"Traction",             cat:"Pull",       muscles:"Grand dorsal, Biceps, Rhomboïdes",  tip:"Dépression scapulaire avant de tirer." },
-  { id:"lunge",           name:"Fente avant",          cat:"Legs",       muscles:"Quadriceps, Fessiers, Mollets",     tip:"Genou avant à 90°, genou arrière près du sol." },
+  // PUSH
+  { id:"bench_press",     name:"Développé couché",     cat:"Push",       muscles:"Pectoraux, Triceps, Épaules",       tip:"Omoplates rétractées, coudes à 45°." },
   { id:"overhead_press",  name:"Développé militaire",  cat:"Push",       muscles:"Épaules, Triceps, Trapèzes",        tip:"Gainage abdominal, barre dans l'axe." },
-  { id:"barbell_row",     name:"Rowing barre",         cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes, Biceps",  tip:"Dos plat, tirage vers le nombril." },
-  { id:"hip90",           name:"Hip 90/90",            cat:"Mobilité",   muscles:"Rotateurs hanche, Fessiers",        tip:"Deux jambes à 90°, bascule lente." },
-  { id:"burpee",          name:"Burpee",               cat:"Cardio",     muscles:"Full body, Explosivité",            tip:"Planche stricte en bas, saut explosif." },
-  { id:"run",             name:"Course / Jogging",     cat:"Cardio",     muscles:"Quadriceps, Ischio, Mollets",       tip:"Foulée médio-pied, 170-180 pas/min." },
+  { id:"incline_press",   name:"Développé incliné",    cat:"Push",       muscles:"Pectoraux sup., Épaules",           tip:"Inclinaison 30-45°, contrôle en descente." },
   { id:"dips",            name:"Dips",                 cat:"Push",       muscles:"Triceps, Pectoraux inférieurs",     tip:"Légère inclinaison avant pour les pectoraux." },
   { id:"lateral_raise",   name:"Élévations latérales", cat:"Push",       muscles:"Deltoïdes latéraux",                tip:"Coudes légèrement fléchis, jusqu'à l'horizontal." },
-  { id:"bicep_curl",      name:"Curl biceps",          cat:"Pull",       muscles:"Biceps, Brachial",                  tip:"Coudes fixes, supination en haut." },
+  { id:"tricep_pushdown", name:"Pushdown triceps",     cat:"Push",       muscles:"Triceps",                           tip:"Coudes fixes contre le corps." },
+  { id:"cable_fly",       name:"Écarté poulie",        cat:"Push",       muscles:"Pectoraux, Deltoïdes ant.",         tip:"Légère flexion des coudes, arc de cercle." },
+  { id:"skull_crusher",   name:"Skull crusher",        cat:"Push",       muscles:"Triceps long",                      tip:"Coudes fixes, descente vers le front." },
+  { id:"pushup",          name:"Pompes",               cat:"Push",       muscles:"Pectoraux, Triceps, Épaules",       tip:"Corps gainé, coudes à 45°." },
+  { id:"bench_dumbbell",  name:"Développé haltères",   cat:"Push",       muscles:"Pectoraux, Triceps",                tip:"Grande amplitude, coudes à 45°." },
+  // PULL
+  { id:"pullup",          name:"Traction",             cat:"Pull",       muscles:"Grand dorsal, Biceps, Rhomboïdes",  tip:"Dépression scapulaire avant de tirer." },
+  { id:"barbell_row",     name:"Rowing barre",         cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes, Biceps",  tip:"Dos plat, tirage vers le nombril." },
+  { id:"dumbbell_row",    name:"Rowing haltère",       cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes",          tip:"Coude près du corps, tirage jusqu'à la hanche." },
   { id:"lat_pulldown",    name:"Tirage poulie haute",  cat:"Pull",       muscles:"Grand dorsal, Biceps",              tip:"Tirage vers le sternum." },
+  { id:"face_pull",       name:"Face pull",            cat:"Pull",       muscles:"Deltoïdes post., Rhomboïdes",       tip:"Tirer vers le visage, coudes hauts." },
+  { id:"bicep_curl",      name:"Curl biceps",          cat:"Pull",       muscles:"Biceps, Brachial",                  tip:"Coudes fixes, supination en haut." },
+  { id:"hammer_curl",     name:"Curl marteau",         cat:"Pull",       muscles:"Biceps, Brachioradial",             tip:"Prise neutre, coudes fixes." },
+  { id:"shrug",           name:"Haussements épaules",  cat:"Pull",       muscles:"Trapèzes supérieurs",               tip:"Mouvement vertical pur, pas de rotation." },
+  { id:"deadlift",        name:"Deadlift",             cat:"Pull",       muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps." },
+  // LEGS
+  { id:"squat",           name:"Squat",                cat:"Legs",       muscles:"Quadriceps, Fessiers, Ischio",      tip:"Pieds largeur épaules, genoux dans l'axe." },
+  { id:"back_squat",      name:"Back Squat",           cat:"Legs",       muscles:"Quadriceps, Fessiers, Ischio",      tip:"Barre haute sur les trapèzes, dos droit." },
+  { id:"front_squat",     name:"Front Squat",          cat:"Legs",       muscles:"Quadriceps, Core, Épaules",         tip:"Coudes hauts, barre sur les deltoïdes." },
+  { id:"zercher_squat",   name:"Zercher Squat",        cat:"Legs",       muscles:"Quadriceps, Core, Biceps",          tip:"Barre dans le creux des coudes, dos droit." },
+  { id:"goblet_squat",    name:"Goblet Squat",         cat:"Legs",       muscles:"Quadriceps, Fessiers, Core",        tip:"KB ou haltère contre la poitrine, talons au sol." },
+  { id:"lunge",           name:"Fente avant",          cat:"Legs",       muscles:"Quadriceps, Fessiers, Mollets",     tip:"Genou avant à 90°, genou arrière près du sol." },
   { id:"rdl",             name:"Romanian Deadlift",    cat:"Legs",       muscles:"Ischio-jambiers, Fessiers",         tip:"Charnière hanche, dos plat." },
   { id:"leg_press",       name:"Presse à cuisses",     cat:"Legs",       muscles:"Quadriceps, Fessiers",              tip:"Pieds à largeur d'épaules, genoux dans l'axe." },
   { id:"leg_curl",        name:"Leg curl",             cat:"Legs",       muscles:"Ischio-jambiers",                   tip:"Contraction complète, descente contrôlée." },
   { id:"calf_raise",      name:"Mollets debout",       cat:"Legs",       muscles:"Mollets, Soléaire",                 tip:"Amplitude complète, pause en haut." },
   { id:"glute_bridge",    name:"Pont fessier",         cat:"Legs",       muscles:"Fessiers, Ischio-jambiers",         tip:"Poussée sur les talons, contraction en haut." },
   { id:"bulgarian_split", name:"Fente bulgare",        cat:"Legs",       muscles:"Quadriceps, Fessiers",              tip:"Pied arrière surélevé, genou avant à 90°." },
-  { id:"pushup",          name:"Pompes",               cat:"Push",       muscles:"Pectoraux, Triceps, Épaules",       tip:"Corps gainé, coudes à 45°." },
+  // MUSCULATION
   { id:"plank",           name:"Gainage planche",      cat:"Musculation",muscles:"Abdominaux, Lombaires, Épaules",    tip:"Corps aligné, hanches ne tombent pas." },
-  { id:"ab_crunch",       name:"Crunch abdominaux",    cat:"Musculation",muscles:"Grand droit abdominal",             tip:"Expiration en montant, ne pas tirer la nuque." },
-  { id:"hammer_curl",     name:"Curl marteau",         cat:"Pull",       muscles:"Biceps, Brachioradial",             tip:"Prise neutre, coudes fixes." },
-  { id:"face_pull",       name:"Face pull",            cat:"Pull",       muscles:"Deltoïdes post., Rhomboïdes",       tip:"Tirer vers le visage, coudes hauts." },
-  { id:"cable_fly",       name:"Écarté poulie",        cat:"Push",       muscles:"Pectoraux, Deltoïdes ant.",         tip:"Légère flexion des coudes, arc de cercle." },
-  { id:"skull_crusher",   name:"Skull crusher",        cat:"Push",       muscles:"Triceps long",                      tip:"Coudes fixes, descente vers le front." },
-  { id:"shrug",           name:"Haussements épaules",  cat:"Pull",       muscles:"Trapèzes supérieurs",               tip:"Mouvement vertical pur, pas de rotation." },
+  { id:"hip90",           name:"Hip 90/90",            cat:"Musculation",muscles:"Rotateurs hanche, Fessiers",        tip:"Deux jambes à 90°, bascule lente." },
+  // ABDOS
+  { id:"ab_crunch",       name:"Crunch",               cat:"Abdos",      muscles:"Grand droit abdominal",             tip:"Expiration en montant, ne pas tirer la nuque." },
+  { id:"ab_wheel",        name:"Ab Wheel (roulette)",  cat:"Abdos",      muscles:"Grand droit, Core profond",         tip:"Dos plat, bras tendus, ne pas creuser les reins." },
+  { id:"leg_raise",       name:"Relevé de jambes",     cat:"Abdos",      muscles:"Abdominaux bas, Fléchisseurs hanche", tip:"Lombaires au sol, jambes quasi tendues." },
+  { id:"russian_twist",   name:"Russian Twist KB",     cat:"Abdos",      muscles:"Obliques, Grand droit",             tip:"Pieds levés, rotation complète de chaque côté." },
+  { id:"hollow_body",     name:"Hollow Body",          cat:"Abdos",      muscles:"Core profond, Grand droit",         tip:"Bas du dos au sol, membres en extension." },
+  { id:"dragon_flag",     name:"Dragon Flag",          cat:"Abdos",      muscles:"Grand droit, Core complet",         tip:"Corps rigide, descente lente et contrôlée." },
+  { id:"pallof_press",    name:"Pallof Press",         cat:"Abdos",      muscles:"Obliques, Core anti-rotation",      tip:"Résister à la rotation, bras tendus devant." },
+  { id:"sit_up",          name:"Sit-up",               cat:"Abdos",      muscles:"Grand droit, Fléchisseurs hanche",  tip:"Mouvement complet, expiration en montant." },
+  { id:"cable_crunch",    name:"Crunch poulie haute",  cat:"Abdos",      muscles:"Grand droit abdominal",             tip:"Flexion du tronc, ne pas tirer avec les bras." },
+  // MOBILITÉ
   { id:"pigeon",          name:"Pigeon yoga",          cat:"Mobilité",   muscles:"Psoas, Rotateurs hanche",           tip:"Hanches au sol, 60-90s par côté." },
   { id:"catcow",          name:"Chat / Vache",         cat:"Mobilité",   muscles:"Rachis, Multifides",                tip:"Mouvement fluide avec la respiration." },
   { id:"worldsgreatest",  name:"World's Greatest",     cat:"Mobilité",   muscles:"Full body, Hanche, Thoracique",     tip:"Rotation thoracique complète." },
@@ -78,39 +106,49 @@ const LIBRARY = [
   { id:"hip_flexor",      name:"Étirement psoas",      cat:"Mobilité",   muscles:"Psoas, Quadriceps",                 tip:"Bassin en rétroversion, avancer doucement." },
   { id:"ankle_mob",       name:"Mobilité cheville",    cat:"Mobilité",   muscles:"Tibial antérieur, Mollets",         tip:"Genou dans l'axe du pied, talon au sol." },
   { id:"foam_roll",       name:"Foam roll dos",        cat:"Mobilité",   muscles:"Érecteurs, Thoracique",             tip:"Pause 20-30s sur les zones tendues." },
-  { id:"bike",            name:"Vélo / Cycling",       cat:"Cardio",     muscles:"Quadriceps, Fessiers, Cardio",      tip:"Selle à hauteur de hanche, 80-90 rpm." },
-  { id:"rowing_machine",  name:"Rameur",               cat:"Cardio",     muscles:"Full body, Dos, Cardio",            tip:"Jambes d'abord, puis dos, puis bras." },
-  { id:"jumpingjack",     name:"Jumping Jack",         cat:"Cardio",     muscles:"Cardio, Coordination",              tip:"Rythme constant, atterrissage amorti." },
-  { id:"mountainclimber", name:"Mountain Climber",     cat:"Cardio",     muscles:"Abdominaux, Cardio, Épaules",       tip:"Hanches basses, genoux qui remontent vite." },
-  { id:"jump_rope",       name:"Corde à sauter",       cat:"Cardio",     muscles:"Mollets, Cardio, Coordination",     tip:"Sauts légers, poignets qui tournent." },
-  { id:"box_jump",        name:"Box Jump",             cat:"Cardio",     muscles:"Quadriceps, Fessiers, Explosivité", tip:"Atterrissage amorti, hanches en arrière." },
-  { id:"battle_rope",     name:"Battle Rope",          cat:"Cardio",     muscles:"Épaules, Bras, Cardio",             tip:"Genoux fléchis, ondulations continues." },
-  { id:"kettlebell_swing",name:"Kettlebell Swing",     cat:"Cardio",     muscles:"Fessiers, Ischio, Épaules",         tip:"Charnière hanche, projection des hanches." },
-  { id:"hiit_sprint",     name:"Sprint HIIT",          cat:"Cardio",     muscles:"Full body, Explosivité",            tip:"Effort max 20s, récup 40s." },
-  { id:"incline_press",   name:"Développé incliné",    cat:"Push",       muscles:"Pectoraux sup., Épaules",           tip:"Inclinaison 30-45°, contrôle en descente." },
-  { id:"tricep_pushdown", name:"Pushdown triceps",     cat:"Push",       muscles:"Triceps",                           tip:"Coudes fixes contre le corps." },
-  { id:"dumbbell_row",    name:"Rowing haltère",       cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes",          tip:"Coude près du corps, tirage jusqu'à la hanche." },
-  { id:"bench_dumbbell",  name:"Développé haltères",   cat:"Push",       muscles:"Pectoraux, Triceps",                tip:"Grande amplitude, coudes à 45°." },
-  { id:"assault_bike",    name:"Assault bike",         cat:"Cardio",     muscles:"Full body, Bras, Cardio",           tip:"Push/pull simultané bras et jambes." },
   { id:"shoulder_mob",    name:"Mobilité épaule",      cat:"Mobilité",   muscles:"Coiffe des rotateurs",              tip:"Mouvements lents et contrôlés." },
+  // CARDIO
+  { id:"run",             name:"Course / Jogging",     cat:"Cardio",     muscles:"Quadriceps, Ischio, Mollets",       tip:"Foulée médio-pied, 170-180 pas/min.",        cardioType:"run" },
+  { id:"bike",            name:"Vélo / Cycling",       cat:"Cardio",     muscles:"Quadriceps, Fessiers, Cardio",      tip:"Selle à hauteur de hanche, 80-90 rpm.",      cardioType:"watts" },
+  { id:"rowing_machine",  name:"Rameur",               cat:"Cardio",     muscles:"Full body, Dos, Cardio",            tip:"Jambes d'abord, puis dos, puis bras.",        cardioType:"watts" },
+  { id:"assault_bike",    name:"Assault Bike",         cat:"Cardio",     muscles:"Full body, Bras, Cardio",           tip:"Push/pull simultané bras et jambes.",         cardioType:"watts" },
+  { id:"skierg",          name:"SkiErg",               cat:"Cardio",     muscles:"Dorsaux, Épaules, Cardio",          tip:"Traction double bras, genoux légèrement fléchis.", cardioType:"watts" },
+  { id:"jumpingjack",     name:"Jumping Jack",         cat:"Cardio",     muscles:"Cardio, Coordination",              tip:"Rythme constant, atterrissage amorti.",       cardioType:"duration" },
+  { id:"jump_rope",       name:"Corde à sauter",       cat:"Cardio",     muscles:"Mollets, Cardio, Coordination",     tip:"Sauts légers, poignets qui tournent.",        cardioType:"duration" },
+  { id:"hiit_sprint",     name:"Sprint HIIT",          cat:"Cardio",     muscles:"Full body, Explosivité",            tip:"Effort max 20s, récup 40s.",                  cardioType:"run" },
+  // FUNCTIONAL
+  { id:"kb_russian_swing",name:"KB Russian Swing",     cat:"Functional", muscles:"Fessiers, Ischio, Lombaires",       tip:"Charnière hanche pure, KB jusqu'aux épaules." },
+  { id:"kb_american_swing",name:"KB American Swing",   cat:"Functional", muscles:"Fessiers, Épaules, Full body",      tip:"KB au-dessus de la tête, bras tendus en haut." },
+  { id:"kb_snatch",       name:"KB Snatch",            cat:"Functional", muscles:"Full body, Épaules, Ischio",        tip:"Mouvement explosif, rotation du poignet en haut." },
+  { id:"kb_tgu",          name:"KB Turkish Get-Up",    cat:"Functional", muscles:"Full body, Stabilité, Épaules",     tip:"Regard sur la KB tout au long du mouvement." },
+  { id:"kb_clean_press",  name:"KB Clean & Press",     cat:"Functional", muscles:"Full body, Épaules, Jambes",        tip:"Clean explosif, presse stricte au-dessus." },
+  { id:"gorilla_row",     name:"Gorilla Row",          cat:"Functional", muscles:"Grand dorsal, Biceps, Core",        tip:"2 KB au sol, row alterné en gardant les hanches stables." },
+  { id:"farmer_walk",     name:"Farmer Walk",          cat:"Functional", muscles:"Trapèzes, Core, Avant-bras, Jambes", tip:"Dos droit, pas contrôlés, charge lourde." },
+  { id:"wall_ball",       name:"Wall Ball Shot",       cat:"Functional", muscles:"Full body, Quadriceps, Épaules",    tip:"Squat profond, lancer explosif à la cible." },
+  { id:"box_jump",        name:"Box Jump",             cat:"Functional", muscles:"Quadriceps, Fessiers, Explosivité", tip:"Atterrissage amorti, hanches en arrière." },
+  { id:"thruster",        name:"Thruster",             cat:"Functional", muscles:"Full body, Quadriceps, Épaules",    tip:"Squat + press en un mouvement continu." },
+  { id:"clean_jerk",      name:"Clean & Jerk",         cat:"Functional", muscles:"Full body, Olympique",              tip:"Phase 1 clean, phase 2 jerk au-dessus." },
+  { id:"barbell_snatch",  name:"Snatch barre",         cat:"Functional", muscles:"Full body, Explosivité, Olympique", tip:"Prise large, barre proche du corps, extension complète." },
+  { id:"battle_rope",     name:"Battle Rope",          cat:"Cardio",     muscles:"Épaules, Bras, Cardio",             tip:"Genoux fléchis, ondulations continues.",      cardioType:"duration" },
 ];
 
-const CATS = ["Tous","Push","Pull","Legs","Musculation","Mobilité","Cardio"];
-const CAT_COLOR = { Push:"#1a6fff", Pull:"#8b5cf6", Legs:"#22c55e", Musculation:"#1a6fff", Mobilité:"#22c55e", Cardio:"#f59e0b" };
+const CATS = ["Tous","Push","Pull","Legs","Musculation","Abdos","Mobilité","Cardio","Functional"];
+const CAT_COLOR = {
+  Push:"#1a6fff", Pull:"#8b5cf6", Legs:"#22c55e", Musculation:"#1a6fff",
+  Abdos:"#e63946", Mobilité:"#22c55e", Cardio:"#f59e0b", Functional:"#f97316"
+};
 const MONTH_NAMES = { "01":"Janvier","02":"Février","03":"Mars","04":"Avril","05":"Mai","06":"Juin","07":"Juillet","08":"Août","09":"Septembre","10":"Octobre","11":"Novembre","12":"Décembre" };
 const STATUS_OPTIONS = ["actif","pause","inactif"];
 const STATUS_COLOR = { actif:"#22c55e", pause:"#f59e0b", inactif:"#3d5278" };
 
-// 1RM formula (Epley)
 const calc1RM = (load, reps) => {
-  if (!load||!reps||+reps===0) return null;
-  return Math.round(+load * (1 + +reps/30));
+  if (!load||!reps||+reps===0||+reps>30) return null;
+  return Math.round(+load*(1++reps/30));
 };
 
-// RPE color
 const rpeColor = (rpe) => {
   if (!rpe) return "#3d5278";
-  const r = +rpe;
+  const r=+rpe;
   if (r<=4) return "#22c55e";
   if (r<=6) return "#f59e0b";
   if (r<=8) return "#f97316";
@@ -119,12 +157,22 @@ const rpeColor = (rpe) => {
 
 const rpeLabel = (rpe) => {
   if (!rpe) return "";
-  const r = +rpe;
+  const r=+rpe;
   if (r<=3) return "Facile";
   if (r<=5) return "Modéré";
   if (r<=7) return "Difficile";
   if (r<=9) return "Très dur";
   return "Maximal";
+};
+
+// Zone cardio colors
+const zoneColor = (z) => {
+  const zones = { "1":"#3b82f6","2":"#22c55e","3":"#f59e0b","4":"#f97316","5":"#e63946" };
+  return zones[z]||"#3d5278";
+};
+const zoneLabel = (z) => {
+  const labels = { "1":"Récup","2":"Aérobie","3":"Tempo","4":"Seuil","5":"VO2max" };
+  return labels[z]||"";
 };
 
 const SAMPLE_CLIENTS = [{
@@ -133,10 +181,12 @@ const SAMPLE_CLIENTS = [{
   sessions:[
     { id:"s1", date:"2026-04-15", present:true, duration:90, note:"Mobilité hanches", exercises:[
       { id:"se1", libId:"deadlift", name:"Deadlift", sets:"4", reps:"8", load:"80", rest:"120", rpe:"7" },
-      { id:"se2", libId:"squat", name:"Squat", sets:"4", reps:"10", load:"60", rest:"90", rpe:"6" },
+      { id:"se2", libId:"back_squat", name:"Back Squat", sets:"4", reps:"6", load:"100", rest:"150", rpe:"8" },
+      { id:"se3", libId:"run", name:"Course", duration:"20", speed:"12", zone:"2", cardioType:"run" },
     ]},
-    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Cardio HIIT", exercises:[
-      { id:"se3", libId:"bench_press", name:"Développé couché", sets:"4", reps:"6", load:"90", rest:"150", rpe:"8" },
+    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Cardio + KB", exercises:[
+      { id:"se4", libId:"kb_russian_swing", name:"KB Russian Swing", sets:"5", reps:"15", load:"24", rest:"60", rpe:"7" },
+      { id:"se5", libId:"rowing_machine", name:"Rameur", duration:"15", watts:"200", zone:"3", cardioType:"watts" },
     ]},
     { id:"s3", date:"2026-03-03", present:false, duration:0, note:"Absent — voyage", exercises:[] },
   ],
@@ -148,7 +198,7 @@ const SAMPLE_CLIENTS = [{
   programs:[{ id:"p1", name:"Mobilité & Renforcement", weeks:8, startDate:"2026-03-01",
     exercises:[
       { id:"e1", name:"Hip 90/90", sets:"3", reps:"45s", load:"", note:"Chaque côté", libId:"hip90" },
-      { id:"e2", name:"Deadlift",  sets:"4", reps:"8",   load:"60kg", note:"", libId:"deadlift" },
+      { id:"e2", name:"Back Squat", sets:"4", reps:"6", load:"100kg", note:"", libId:"back_squat" },
     ]
   }],
   goals:[
@@ -220,7 +270,7 @@ const SwipeToDelete = ({ children, onDelete }) => {
   function onTouchStart(e) { setStartX(e.touches[0].clientX); }
   function onTouchMove(e) {
     if (startX===null||confirming) return;
-    const diff = e.touches[0].clientX - startX;
+    const diff=e.touches[0].clientX-startX;
     if (diff<0) setOffsetX(Math.max(diff,-100));
     else if (revealed) setOffsetX(Math.min(diff-100,0));
   }
@@ -239,10 +289,10 @@ const SwipeToDelete = ({ children, onDelete }) => {
       <div style={{ position:"absolute", right:0, top:0, bottom:0, width:100, display:"flex", flexDirection:"column", borderRadius:"0 14px 14px 0", overflow:"hidden" }}>
         <button onClick={handleDelete} style={{ flex:1, background:"#e63946", border:"none", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:2 }}>
           <span style={{ fontSize:16 }}>🗑️</span>
-          <span style={{ color:"#fff", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase" }}>Supprimer</span>
+          <span style={{ color:"#fff", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, textTransform:"uppercase" }}>Supprimer</span>
         </button>
         <button onClick={handleCancel} style={{ flex:0.6, background:"#0f2040", border:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>
-          <span style={{ color:"#7a90b8", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase" }}>Annuler</span>
+          <span style={{ color:"#7a90b8", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, textTransform:"uppercase" }}>Annuler</span>
         </button>
       </div>
       <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}
@@ -254,12 +304,12 @@ const SwipeToDelete = ({ children, onDelete }) => {
 };
 
 const StatusDot = ({ status }) => {
-  const color = status==="live"?"#22c55e":status==="connecting"?"#f59e0b":"#3d5278";
-  const label = status==="live"?"Sync temps réel active":status==="connecting"?"Connexion Firebase...":"Mode local";
+  const color=status==="live"?"#22c55e":status==="connecting"?"#f59e0b":"#3d5278";
+  const label=status==="live"?"Sync temps réel active":status==="connecting"?"Connexion Firebase...":"Mode local";
   return (
     <div style={{ display:"flex", alignItems:"center", gap:6, padding:"5px 14px", background:"#04080f", borderBottom:"1px solid #0f2040" }}>
       <div style={{ width:6, height:6, borderRadius:"50%", background:color, boxShadow:status==="live"?`0 0 6px ${color}`:"none" }}/>
-      <span style={{ fontSize:10, color:"#3d5278", fontFamily:"'Barlow',sans-serif" }}>{label}</span>
+      <span style={{ fontSize:10, color:"#3d5278" }}>{label}</span>
     </div>
   );
 };
@@ -267,8 +317,8 @@ const StatusDot = ({ status }) => {
 // ── RPE SELECTOR ──────────────────────────────────────────────────────────────
 const RPESelector = ({ value, onChange }) => (
   <div style={{ width:"100%" }}>
-    <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", fontFamily:"'Barlow',sans-serif", display:"block", marginBottom:4 }}>
-      RPE {value ? `${value}/10 — ${rpeLabel(value)}` : ""}
+    <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", display:"block", marginBottom:4 }}>
+      RPE {value?`${value}/10 — ${rpeLabel(value)}`:""}
     </label>
     <div style={{ display:"flex", gap:3 }}>
       {[1,2,3,4,5,6,7,8,9,10].map(n=>(
@@ -281,6 +331,69 @@ const RPESelector = ({ value, onChange }) => (
   </div>
 );
 
+// ── ZONE SELECTOR (Cardio) ────────────────────────────────────────────────────
+const ZoneSelector = ({ value, onChange }) => (
+  <div style={{ width:"100%" }}>
+    <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", display:"block", marginBottom:4 }}>
+      Zone {value?`${value} — ${zoneLabel(value)}`:""}
+    </label>
+    <div style={{ display:"flex", gap:4 }}>
+      {["1","2","3","4","5"].map(z=>(
+        <button key={z} onClick={()=>onChange(value===z?"":z)}
+          style={{ flex:1, padding:"8px 0", borderRadius:6, border:`1px solid ${value===z?zoneColor(z)+"88":"#0f2040"}`, background:value===z?zoneColor(z)+"22":"transparent", color:value===z?zoneColor(z):"#3d5278", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:12, cursor:"pointer", transition:"all .15s" }}>
+          Z{z}
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
+// ── CARDIO FIELDS ─────────────────────────────────────────────────────────────
+const CardioFields = ({ ex, onChange }) => {
+  const type = ex.cardioType || "duration";
+  return (
+    <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+      <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+        <Field label="Durée (min)" type="number" value={ex.duration||""} onChange={v=>onChange("duration",v)} placeholder="20" half/>
+        {type==="run" && <Field label="Vitesse km/h" type="number" value={ex.speed||""} onChange={v=>onChange("speed",v)} placeholder="12" half/>}
+        {type==="watts" && <Field label="Watts" type="number" value={ex.watts||""} onChange={v=>onChange("watts",v)} placeholder="200" half/>}
+      </div>
+      <ZoneSelector value={ex.zone||""} onChange={v=>onChange("zone",v)}/>
+    </div>
+  );
+};
+
+// ── EXERCISE FIELDS (strength or cardio) ─────────────────────────────────────
+const ExerciseFields = ({ ex, onChange, onRemove, idx }) => {
+  const libEx = LIBRARY.find(l=>l.id===ex.libId);
+  const isCardio = libEx?.cat==="Cardio";
+  const isFunctional = libEx?.cat==="Functional";
+  return (
+    <div style={{ background:"#0a1628", borderRadius:10, padding:10, marginBottom:8, border:"1px solid #0f2040" }}>
+      <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:8 }}>
+        <div style={{ width:32, height:16, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+        <span style={{ flex:1, fontSize:13, fontWeight:700 }}>{ex.name}</span>
+        {libEx && <Badge label={libEx.cat} color={CAT_COLOR[libEx.cat]||"#1a6fff"}/>}
+        <button onClick={onRemove} style={{ background:"none", border:"none", color:"#e63946", cursor:"pointer", fontSize:16, padding:0, flexShrink:0 }}>✕</button>
+      </div>
+      {isCardio ? (
+        <CardioFields ex={ex} onChange={(field,val)=>onChange(idx,field,val)}/>
+      ) : (
+        <div>
+          <div style={{ display:"flex", gap:6, flexWrap:"wrap", marginBottom:8 }}>
+            <Field label="Séries" type="number" value={ex.sets||""} onChange={v=>onChange(idx,"sets",v)} placeholder="3" third/>
+            <Field label="Reps" type="number" value={ex.reps||""} onChange={v=>onChange(idx,"reps",v)} placeholder="10" third/>
+            <Field label="Charge kg" type="number" value={ex.load||""} onChange={v=>onChange(idx,"load",v)} placeholder="0" third/>
+            <Field label="Repos sec" type="number" value={ex.rest||""} onChange={v=>onChange(idx,"rest",v)} placeholder="60" half/>
+            <Field label="Note" value={ex.note||""} onChange={v=>onChange(idx,"note",v)} placeholder="Remarque..." half/>
+          </div>
+          <RPESelector value={ex.rpe||""} onChange={v=>onChange(idx,"rpe",v)}/>
+        </div>
+      )}
+    </div>
+  );
+};
+
 // ── PROGRESSION CHARTS ────────────────────────────────────────────────────────
 const ProgressionCharts = ({ metrics }) => {
   if (!metrics||metrics.length<2) return (
@@ -288,17 +401,17 @@ const ProgressionCharts = ({ metrics }) => {
       Ajoute au moins 2 mesures pour voir les graphiques 📈
     </div>
   );
-  const sorted = [...metrics].reverse();
+  const sorted=[...metrics].reverse();
   const MiniChart = ({ data, label, color, unit="" }) => {
-    const vals = data.filter(v=>v>0);
+    const vals=data.filter(v=>v>0);
     if (vals.length<2) return null;
     const min=Math.min(...vals)-1, max=Math.max(...vals)+1;
     const W=260, H=60;
-    const pts = data.map((v,i)=>({ x:(i/(data.length-1))*(W-20)+10, y:v>0?H-((v-min)/(max-min))*(H-16)-4:null, v })).filter(p=>p.y!==null);
-    const path = pts.map((p,i)=>`${i===0?"M":"L"} ${p.x} ${p.y}`).join(" ");
-    const area = `${path} L ${pts[pts.length-1].x} ${H} L ${pts[0].x} ${H} Z`;
-    const delta = vals[vals.length-1]-vals[0];
-    const isGood = (label==="Poids"||label==="MG %") ? delta<=0 : delta>=0;
+    const pts=data.map((v,i)=>({ x:(i/(data.length-1))*(W-20)+10, y:v>0?H-((v-min)/(max-min))*(H-16)-4:null, v })).filter(p=>p.y!==null);
+    const path=pts.map((p,i)=>`${i===0?"M":"L"} ${p.x} ${p.y}`).join(" ");
+    const area=`${path} L ${pts[pts.length-1].x} ${H} L ${pts[0].x} ${H} Z`;
+    const delta=vals[vals.length-1]-vals[0];
+    const isGood=(label==="Poids"||label==="MG %")?delta<=0:delta>=0;
     return (
       <div style={{ background:"#04080f", borderRadius:10, padding:"12px 14px", marginBottom:10, border:"1px solid #0f2040" }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:8 }}>
@@ -338,19 +451,19 @@ const ProgressionCharts = ({ metrics }) => {
 
 // ── CHARGES TAB ───────────────────────────────────────────────────────────────
 const ChargesTab = ({ sessions }) => {
-  const bestPerEx = {};
+  const bestPerEx={};
   sessions.forEach(s=>{
     (s.exercises||[]).forEach(ex=>{
-      if (!ex.libId||!ex.load||+ex.load<=0) return;
+      const libEx=LIBRARY.find(l=>l.id===ex.libId);
+      if (!ex.libId||libEx?.cat==="Cardio") return;
+      if (!ex.load||+ex.load<=0) return;
       const load=+ex.load, reps=+ex.reps||0;
       if (!bestPerEx[ex.libId]||load>bestPerEx[ex.libId].load||(load===bestPerEx[ex.libId].load&&reps>bestPerEx[ex.libId].reps)) {
         bestPerEx[ex.libId]={ libId:ex.libId, name:ex.name, load, reps, date:s.date, rpe:ex.rpe };
       }
     });
   });
-
-  // Load history per exercise for mini chart
-  const loadHistory = {};
+  const loadHistory={};
   sessions.forEach(s=>{
     (s.exercises||[]).forEach(ex=>{
       if (!ex.libId||!ex.load||+ex.load<=0) return;
@@ -358,10 +471,8 @@ const ChargesTab = ({ sessions }) => {
       loadHistory[ex.libId].push({ date:s.date, load:+ex.load, reps:+ex.reps||0 });
     });
   });
-
-  const entries = Object.values(bestPerEx).sort((a,b)=>b.load-a.load);
-  const maxLoad = entries.length ? Math.max(...entries.map(e=>e.load)) : 1;
-
+  const entries=Object.values(bestPerEx).sort((a,b)=>b.load-a.load);
+  const maxLoad=entries.length?Math.max(...entries.map(e=>e.load)):1;
   if (!entries.length) return (
     <div style={{ textAlign:"center", color:"#3d5278", padding:60 }}>
       <div style={{ fontSize:32, marginBottom:12 }}>🏋️</div>
@@ -369,7 +480,6 @@ const ChargesTab = ({ sessions }) => {
       <div style={{ fontSize:12 }}>Ajoute des exercices avec charges dans tes séances</div>
     </div>
   );
-
   return (
     <div className="fu">
       <div style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:14, display:"flex", alignItems:"center", gap:8 }}>
@@ -381,8 +491,6 @@ const ChargesTab = ({ sessions }) => {
         const history=(loadHistory[ex.libId]||[]).sort((a,b)=>a.date.localeCompare(b.date));
         const prevBest=history.length>1?history.slice(0,-1).reduce((max,h)=>h.load>max?h.load:max,0):0;
         const delta=prevBest>0?ex.load-prevBest:null;
-
-        // Mini sparkline for load history
         const sparkLoads=history.map(h=>h.load);
         const sparkMin=sparkLoads.length>1?Math.min(...sparkLoads)-2:0;
         const sparkMax=sparkLoads.length>1?Math.max(...sparkLoads)+2:ex.load+10;
@@ -392,50 +500,36 @@ const ChargesTab = ({ sessions }) => {
           y:SH-((l-sparkMin)/(sparkMax-sparkMin||1))*(SH-6)-3
         }));
         const sparkPath=sparkPts.map((p,idx)=>`${idx===0?"M":"L"} ${p.x} ${p.y}`).join(" ");
-
         return (
           <div key={ex.libId} className="ch fu" style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:10, animationDelay:`${i*.04}s` }}>
             <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:10 }}>
-              <div style={{ width:48, height:24, borderRadius:8, overflow:"hidden", flexShrink:0 }}>
-                <AnatomySVG id={ex.libId}/>
-              </div>
+              <div style={{ width:48, height:24, borderRadius:8, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
               <div style={{ flex:1, minWidth:0 }}>
                 <div style={{ fontWeight:800, fontSize:15, fontFamily:"'Barlow Condensed',sans-serif", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{ex.name}</div>
                 {libEx&&<div style={{ fontSize:10, color:"#3d5278" }}>{libEx.muscles}</div>}
                 <div style={{ fontSize:10, color:"#3d5278" }}>📅 {ex.date}</div>
               </div>
               <div style={{ textAlign:"right", flexShrink:0 }}>
-                <div style={{ fontSize:26, fontWeight:900, color:"#f59e0b", fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1 }}>
-                  {ex.load}<span style={{ fontSize:12 }}>kg</span>
-                </div>
+                <div style={{ fontSize:26, fontWeight:900, color:"#f59e0b", fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1 }}>{ex.load}<span style={{ fontSize:12 }}>kg</span></div>
                 <div style={{ fontSize:11, color:"#7a90b8" }}>× {ex.reps} reps</div>
                 {ex.rpe&&<div style={{ fontSize:10, color:rpeColor(ex.rpe), fontWeight:700 }}>RPE {ex.rpe}</div>}
-                {delta!==null&&(
-                  <div style={{ fontSize:11, color:delta>=0?"#22c55e":"#e63946", fontWeight:700 }}>
-                    {delta>=0?"▲":"▼"} {Math.abs(delta)}kg
-                  </div>
-                )}
+                {delta!==null&&<div style={{ fontSize:11, color:delta>=0?"#22c55e":"#e63946", fontWeight:700 }}>{delta>=0?"▲":"▼"} {Math.abs(delta)}kg</div>}
               </div>
             </div>
-
-            {/* 1RM */}
             {orm&&(
               <div style={{ background:"#0a1628", borderRadius:10, padding:"8px 12px", marginBottom:10, display:"flex", justifyContent:"space-between", alignItems:"center", border:"1px solid #1a6fff22" }}>
                 <span style={{ fontSize:11, color:"#7a90b8", fontWeight:600 }}>1RM estimé (Epley)</span>
                 <span style={{ fontSize:18, fontWeight:900, color:"#1a6fff", fontFamily:"'Barlow Condensed',sans-serif" }}>{orm} kg</span>
               </div>
             )}
-
-            {/* Mini sparkline */}
             {sparkLoads.length>1&&(
               <div style={{ marginBottom:8 }}>
-                <svg width="100%" viewBox={`0 0 ${SW} ${SH}`} style={{ overflow:"visible" }}>
+                <svg width="100%" viewBox={`0 0 ${SW} ${SH}`}>
                   <path d={sparkPath} fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
                   {sparkPts.map((p,idx)=>(<circle key={idx} cx={p.x} cy={p.y} r="2.5" fill="#f59e0b" opacity="0.8"/>))}
                 </svg>
               </div>
             )}
-
             <Bar value={(ex.load/maxLoad)*100} color="#f59e0b" h={3}/>
           </div>
         );
@@ -446,42 +540,34 @@ const ChargesTab = ({ sessions }) => {
 
 // ── MONTHLY REPORT ────────────────────────────────────────────────────────────
 const MonthlyReport = ({ sessions, metrics }) => {
-  const now = new Date();
-  const currentMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
-  const prevMonth = now.getMonth()===0
-    ? `${now.getFullYear()-1}-12`
-    : `${now.getFullYear()}-${String(now.getMonth()).padStart(2,"0")}`;
-
-  const thisSessions = sessions.filter(s=>s.date?.startsWith(currentMonth));
-  const prevSessions = sessions.filter(s=>s.date?.startsWith(prevMonth));
-  const thisPresent = thisSessions.filter(s=>s.present).length;
-  const prevPresent = prevSessions.filter(s=>s.present).length;
-
-  const thisMetrics = metrics.filter(m=>m.date?.startsWith(currentMonth));
-  const prevMetrics = metrics.filter(m=>m.date?.startsWith(prevMonth));
-  const lastWeight = thisMetrics[0]?.weight || prevMetrics[0]?.weight;
-  const firstWeight = thisMetrics[thisMetrics.length-1]?.weight || prevMetrics[prevMetrics.length-1]?.weight;
-  const weightDelta = lastWeight&&firstWeight ? +(lastWeight-firstWeight).toFixed(1) : null;
-
-  const monthLabel = MONTH_NAMES[String(now.getMonth()+1).padStart(2,"0")];
-
+  const now=new Date();
+  const currentMonth=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
+  const prevMonth=now.getMonth()===0?`${now.getFullYear()-1}-12`:`${now.getFullYear()}-${String(now.getMonth()).padStart(2,"0")}`;
+  const thisSessions=sessions.filter(s=>s.date?.startsWith(currentMonth));
+  const prevSessions=sessions.filter(s=>s.date?.startsWith(prevMonth));
+  const thisPresent=thisSessions.filter(s=>s.present).length;
+  const prevPresent=prevSessions.filter(s=>s.present).length;
+  const thisMetrics=metrics.filter(m=>m.date?.startsWith(currentMonth));
+  const prevMetrics=metrics.filter(m=>m.date?.startsWith(prevMonth));
+  const lastWeight=thisMetrics[0]?.weight||prevMetrics[0]?.weight;
+  const firstWeight=thisMetrics[thisMetrics.length-1]?.weight||prevMetrics[prevMetrics.length-1]?.weight;
+  const weightDelta=lastWeight&&firstWeight?+(lastWeight-firstWeight).toFixed(1):null;
+  const monthLabel=MONTH_NAMES[String(now.getMonth()+1).padStart(2,"0")];
   return (
     <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
       <div style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:12, display:"flex", alignItems:"center", gap:8 }}>
         <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>BILAN {monthLabel}
       </div>
-      <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+      <div style={{ display:"flex", gap:8 }}>
         {[
-          { l:"Séances", v:thisPresent, prev:prevPresent, c:"#1a6fff", suf:"" },
-          { l:"Absences", v:thisSessions.filter(s=>!s.present).length, prev:prevSessions.filter(s=>!s.present).length, c:"#e63946", suf:"" },
+          { l:"Séances", v:thisPresent, prev:prevPresent, c:"#1a6fff" },
+          { l:"Absences", v:thisSessions.filter(s=>!s.present).length, prev:prevSessions.filter(s=>!s.present).length, c:"#e63946" },
           { l:"Δ Poids", v:weightDelta!==null?`${weightDelta>0?"+":""}${weightDelta}kg`:"—", c:weightDelta!==null?(weightDelta<=0?"#22c55e":"#e63946"):"#3d5278", noDelta:true },
         ].map(s=>(
-          <div key={s.l} style={{ flex:1, background:"#04080f", borderRadius:10, padding:"10px 12px", border:"1px solid #0f2040", minWidth:80 }}>
+          <div key={s.l} style={{ flex:1, background:"#04080f", borderRadius:10, padding:"10px 12px", border:"1px solid #0f2040" }}>
             <div style={{ fontSize:9, color:"#3d5278", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:4 }}>{s.l}</div>
             <div style={{ fontSize:20, fontWeight:900, color:s.c, fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1 }}>{s.v}</div>
-            {!s.noDelta&&s.prev!==undefined&&(
-              <div style={{ fontSize:9, color:"#3d5278", marginTop:2 }}>vs {s.prev} mois préc.</div>
-            )}
+            {!s.noDelta&&<div style={{ fontSize:9, color:"#3d5278", marginTop:2 }}>vs {s.prev} mois préc.</div>}
           </div>
         ))}
       </div>
@@ -496,7 +582,7 @@ const SessionExercisePicker = ({ onAdd, onClose }) => {
   const [selMuscle, setSelMuscle] = useState("Pectoraux");
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState([]);
-  const filtered = LIBRARY.filter(ex=>{
+  const filtered=LIBRARY.filter(ex=>{
     if (search) return ex.name.toLowerCase().includes(search.toLowerCase())||ex.muscles.toLowerCase().includes(search.toLowerCase());
     if (mode==="cat") return ex.cat===selCat;
     if (mode==="muscle") return (MUSCLE_GROUPS[selMuscle]||[]).includes(ex.id);
@@ -522,7 +608,7 @@ const SessionExercisePicker = ({ onAdd, onClose }) => {
           </div>
           {mode==="cat"&&(
             <div style={{ display:"flex", gap:4, marginBottom:8, overflowX:"auto", paddingBottom:4 }}>
-              {["Push","Pull","Legs","Musculation","Mobilité","Cardio"].map(cat=>(
+              {CATS.filter(c=>c!=="Tous").map(cat=>(
                 <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"3px 10px", borderRadius:99, border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
               ))}
             </div>
@@ -547,6 +633,7 @@ const SessionExercisePicker = ({ onAdd, onClose }) => {
                 <div style={{ fontWeight:700, fontSize:12, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{ex.name}</div>
                 <div style={{ fontSize:9, color:"#3d5278" }}>{ex.muscles}</div>
               </div>
+              <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
               <div style={{ width:18, height:18, borderRadius:5, border:`2px solid ${isSel?"#1a6fff":"#0f2040"}`, background:isSel?"#1a6fff":"transparent", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:10, color:"#fff", fontWeight:900 }}>{isSel?"✓":""}</div>
             </div>
           );
@@ -564,15 +651,22 @@ const PPLGenerator = ({ onAdd }) => {
   const TYPES = {
     Push:["bench_press","overhead_press","incline_press","dips","lateral_raise","tricep_pushdown","cable_fly","pushup","bench_dumbbell"],
     Pull:["pullup","barbell_row","deadlift","lat_pulldown","face_pull","bicep_curl","hammer_curl","dumbbell_row"],
-    Legs:["squat","rdl","lunge","bulgarian_split","leg_press","leg_curl","calf_raise","glute_bridge"],
-    Cardio:["run","bike","burpee","jumpingjack","mountainclimber","jump_rope","box_jump","battle_rope","kettlebell_swing"],
+    Legs:["squat","back_squat","front_squat","rdl","lunge","bulgarian_split","leg_press","leg_curl","calf_raise","glute_bridge","goblet_squat"],
+    Abdos:["ab_crunch","ab_wheel","leg_raise","russian_twist","hollow_body","sit_up","pallof_press"],
+    Cardio:["run","bike","rowing_machine","assault_bike","skierg","jump_rope"],
+    Functional:["kb_russian_swing","kb_american_swing","kb_snatch","gorilla_row","farmer_walk","wall_ball","thruster","box_jump"],
     Mobilité:["hip90","pigeon","catcow","worldsgreatest","thoracic_rot","hip_flexor","ankle_mob","foam_roll"],
   };
   function generate() {
     const pool=TYPES[type]||[];
     const shuffled=[...pool].sort(()=>Math.random()-.5);
-    const count=type==="Cardio"||type==="Mobilité"?5:6;
-    setGenerated(shuffled.slice(0,count).map(id=>{ const ex=LIBRARY.find(l=>l.id===id); return ex?{...ex,sets:"4",reps:type==="Cardio"?"30s":type==="Mobilité"?"60s":"8-12",load:"",rest:"60",rpe:""}:null; }).filter(Boolean));
+    const count=type==="Cardio"?4:type==="Mobilité"?5:6;
+    setGenerated(shuffled.slice(0,count).map(id=>{
+      const ex=LIBRARY.find(l=>l.id===id);
+      if (!ex) return null;
+      if (ex.cat==="Cardio") return {...ex, duration:"20", zone:"2", cardioType:ex.cardioType||"duration"};
+      return {...ex, sets:"4", reps:type==="Mobilité"?"60s":"8-12", load:"", rest:"60", rpe:""};
+    }).filter(Boolean));
   }
   return (
     <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
@@ -588,8 +682,11 @@ const PPLGenerator = ({ onAdd }) => {
           {generated.map((ex,i)=>(
             <div key={i} style={{ display:"flex", alignItems:"center", gap:10, padding:"8px 0", borderBottom:i<generated.length-1?"1px solid #0f2040":"none" }}>
               <div style={{ width:36, height:18, borderRadius:6, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
-              <div style={{ flex:1 }}><div style={{ fontWeight:700, fontSize:13 }}>{ex.name}</div><div style={{ fontSize:10, color:"#3d5278" }}>{ex.muscles}</div></div>
-              <Badge label={`${ex.sets}×${ex.reps}`} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
+              <div style={{ flex:1 }}>
+                <div style={{ fontWeight:700, fontSize:13 }}>{ex.name}</div>
+                <div style={{ fontSize:10, color:"#3d5278" }}>{ex.muscles}</div>
+              </div>
+              <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
             </div>
           ))}
           <div style={{ marginTop:12, display:"flex", gap:8 }}>
@@ -632,11 +729,11 @@ export default function App() {
   const cl = clients.find(c=>c.id===selId);
 
   useEffect(()=>{
-    const unsub = onSnapshot(doc(db,"coach","data"), snap=>{
+    const unsub=onSnapshot(doc(db,"coach","data"),snap=>{
       if (snap.exists()) { setClients(snap.data().clients||[]); }
       else { saveToFirebase(SAMPLE_CLIENTS); }
       setFbStatus("live");
-    }, ()=>setFbStatus("local"));
+    },()=>setFbStatus("local"));
     return unsub;
   },[]);
 
@@ -679,7 +776,7 @@ export default function App() {
 
   function doAddSession() {
     if (!newS.date||!cl) return;
-    const sess = { id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration, exercises:pendingSession.exercises||[] };
+    const sess={ id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration, exercises:pendingSession.exercises||[] };
     up(selId,{sessions:[sess,...cl.sessions]});
     setNewS({date:"",present:true,duration:"",note:""});
     setPendingSession({exercises:[]}); setShowExPicker(false); setShowNewSession(false);
@@ -692,10 +789,18 @@ export default function App() {
   }
 
   function addExercisesToSession(exs) {
-    setPendingSession(p=>({...p, exercises:[...p.exercises, ...exs.map(ex=>({
-      id:"se"+Date.now()+Math.random(), libId:ex.id, name:ex.name,
-      sets:"3", reps:"10", load:"", rest:"60", rpe:""
-    }))]}));
+    setPendingSession(p=>({...p,exercises:[...p.exercises,...exs.map(ex=>{
+      const libEx=LIBRARY.find(l=>l.id===ex.id);
+      const isCardio=libEx?.cat==="Cardio";
+      return {
+        id:"se"+Date.now()+Math.random(), libId:ex.id, name:ex.name,
+        cardioType:libEx?.cardioType||"",
+        ...(isCardio
+          ? { duration:"", speed:"", watts:"", zone:"" }
+          : { sets:"3", reps:"10", load:"", rest:"60", rpe:"", note:"" }
+        )
+      };
+    })]}));
   }
 
   function updatePendingEx(idx,field,val) {
@@ -740,7 +845,7 @@ export default function App() {
 
   function doAddGeneratedExercises(pid,exercises) {
     if (!cl) return;
-    const newExs=exercises.map(ex=>({id:"e"+Date.now()+Math.random(),name:ex.name,sets:ex.sets,reps:ex.reps,load:"",rest:"60",rpe:"",note:"",libId:ex.id}));
+    const newExs=exercises.map(ex=>({id:"e"+Date.now()+Math.random(),name:ex.name,sets:ex.sets||"",reps:ex.reps||"",load:"",rest:"60",rpe:"",note:"",libId:ex.id,cardioType:ex.cardioType||""}));
     up(selId,{programs:cl.programs.map(p=>p.id===pid?{...p,exercises:[...p.exercises,...newExs]}:p)});
     setShowGenerator(false); setGeneratorPid(null);
   }
@@ -781,6 +886,7 @@ export default function App() {
                   <div style={{ fontWeight:800,fontSize:13,fontFamily:"'Barlow Condensed',sans-serif",lineHeight:1.2 }}>{ex.name}</div>
                   <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
                 </div>
+                <div style={{ fontSize:10,color:"#7a90b8",marginBottom:4 }}>{ex.muscles}</div>
                 {libSel===ex.id&&(
                   <div style={{ marginTop:8,padding:"8px 10px",background:"#000",borderRadius:8,border:"1px solid #0f2040" }}>
                     <div style={{ fontSize:11,color:"#e8edf5" }}>💡 {ex.tip}</div>
@@ -797,9 +903,9 @@ export default function App() {
 
   // ── DASHBOARD ──────────────────────────────────────────────────────────────
   if (view==="dash") {
-    const activeClients=clients.filter(c=>c.status!=="inactif");
     const total=clients.reduce((a,c)=>a+c.sessions.filter(s=>s.present).length,0);
     const actif=clients.filter(c=>c.status==="actif").length;
+    const activeClients=clients.filter(c=>c.status!=="inactif");
     const att=activeClients.length?Math.round(activeClients.reduce((a,c)=>{ if(!c.sessions.length)return a; return a+c.sessions.filter(s=>s.present).length/c.sessions.length; },0)/activeClients.length*100):0;
     return wrap(<>
       <div style={{ padding:"20px 16px 0" }}>
@@ -830,7 +936,7 @@ export default function App() {
           const lw=c.metrics[0];
           return (
             <div key={c.id} className="ch fu" onClick={()=>openClient(c.id)}
-              style={{ background:"#070d1a",border:`1px solid ${c.status==="inactif"?"#0f2040":c.status==="pause"?"#f59e0b22":"#0f2040"}`,borderRadius:14,padding:15,marginBottom:10,cursor:"pointer",animationDelay:`${i*.05}s`,opacity:c.status==="inactif"?0.5:1 }}>
+              style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:15,marginBottom:10,cursor:"pointer",animationDelay:`${i*.05}s`,opacity:c.status==="inactif"?0.5:1 }}>
               <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:10 }}>
                 <Avatar name={c.name}/>
                 <div style={{ flex:1,minWidth:0 }}>
@@ -854,7 +960,6 @@ export default function App() {
         {!clients.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:60 }}>Aucun client — ajoutes-en un !</div>}
       </div>
 
-      {/* Add client modal */}
       {addOpen&&(
         <div style={{ position:"fixed",inset:0,background:"#000c",display:"flex",alignItems:"flex-end",zIndex:99 }} onClick={()=>setAddOpen(false)}>
           <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:"20px 20px 0 0",padding:"24px 18px 40px",width:"100%",maxHeight:"90vh",overflowY:"auto" }}>
@@ -882,7 +987,6 @@ export default function App() {
         </div>
       )}
 
-      {/* Confirm delete modal */}
       {confirmDelete&&(
         <div style={{ position:"fixed",inset:0,background:"#000c",display:"flex",alignItems:"center",justifyContent:"center",zIndex:99,padding:24 }} onClick={()=>setConfirmDelete(null)}>
           <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #e6394644",borderRadius:20,padding:24,width:"100%",maxWidth:360 }}>
@@ -905,13 +1009,7 @@ export default function App() {
     const wd=lw&&pw?+(lw.weight-pw.weight).toFixed(1):null;
     const done=cl.goals.filter(g=>g.done).length;
     const gPct=cl.goals.length?Math.round(done/cl.goals.length*100):0;
-    const TABS=[
-      {id:"sessions",label:"Séances"},
-      {id:"metrics",label:"Métriques"},
-      {id:"programs",label:"Programme"},
-      {id:"goals",label:"Objectifs"},
-      {id:"charges",label:"Charges"},
-    ];
+    const TABS=[{id:"sessions",label:"Séances"},{id:"metrics",label:"Métriques"},{id:"programs",label:"Programme"},{id:"goals",label:"Objectifs"},{id:"charges",label:"Charges"}];
     const sessionsByMonth=cl.sessions.reduce((acc,s)=>{
       const month=s.date?s.date.slice(0,7):"inconnu";
       if (!acc[month]) acc[month]=[];
@@ -919,7 +1017,6 @@ export default function App() {
     },{});
     const sortedMonths=Object.keys(sessionsByMonth).sort((a,b)=>b.localeCompare(a));
 
-    // Edit client form
     if (editingClient&&editC) return wrap(<>
       <div style={{ padding:"16px" }}>
         <button onClick={()=>{ setEditingClient(false); setEditC(null); }} style={{ background:"none",border:"none",color:"#7a90b8",cursor:"pointer",fontSize:12,marginBottom:14,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Retour</button>
@@ -927,7 +1024,7 @@ export default function App() {
         <div style={{ display:"flex",flexDirection:"column",gap:12 }}>
           <Field label="Nom complet" value={editC.name} onChange={v=>setEditC(p=>({...p,name:v}))} placeholder="ex. Tony Parker"/>
           <div style={{ display:"flex",gap:8 }}>
-            <Field label="Âge" type="number" value={String(editC.age)} onChange={v=>setEditC(p=>({...p,age:v}))} placeholder="30" half/>
+            <Field label="Âge" type="number" value={String(editC.age||"")} onChange={v=>setEditC(p=>({...p,age:v}))} placeholder="30" half/>
             <Field label="Sport" value={editC.sport} onChange={v=>setEditC(p=>({...p,sport:v}))} placeholder="Basketball..." half/>
           </div>
           <Field label="Objectif" value={editC.objective} onChange={v=>setEditC(p=>({...p,objective:v}))} placeholder="Objectif principal..."/>
@@ -983,7 +1080,7 @@ export default function App() {
           <div>
             <div style={{ fontSize:24,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",lineHeight:1 }}>{cl.name.toUpperCase()}</div>
             <div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{cl.sport} · {cl.age} ans · depuis {cl.since}</div>
-            <div style={{ display:"flex",gap:6,marginTop:5,flexWrap:"wrap" }}>
+            <div style={{ display:"flex",gap:6,marginTop:5,flexWrap:"wrap",alignItems:"center" }}>
               <Badge label={cl.status} color={STATUS_COLOR[cl.status]||"#3d5278"}/>
               {cl.notes&&<span style={{ fontSize:10,color:"#3d5278",fontStyle:"italic" }}>{cl.notes.slice(0,40)}{cl.notes.length>40?"...":""}</span>}
             </div>
@@ -1018,7 +1115,6 @@ export default function App() {
         {/* ── SESSIONS ── */}
         {tab==="sessions"&&<div className="fu">
           <MonthlyReport sessions={cl.sessions} metrics={cl.metrics}/>
-
           {!showNewSession?(
             <button onClick={()=>setShowNewSession(true)} style={{ width:"100%",background:"#070d1a",border:"2px dashed #1a6fff44",borderRadius:14,padding:"14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:14,letterSpacing:"0.06em",textTransform:"uppercase",cursor:"pointer",marginBottom:16,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
               + Nouvelle séance
@@ -1046,21 +1142,7 @@ export default function App() {
                 <div style={{ marginTop:10,marginBottom:10 }}>
                   <div style={{ fontSize:10,color:"#3d5278",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:8 }}>Exercices ({pendingSession.exercises.length})</div>
                   {pendingSession.exercises.map((ex,i)=>(
-                    <div key={i} style={{ background:"#0a1628",borderRadius:10,padding:10,marginBottom:8,border:"1px solid #0f2040" }}>
-                      <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:8 }}>
-                        <div style={{ width:32,height:16,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-                        <span style={{ flex:1,fontSize:13,fontWeight:700 }}>{ex.name}</span>
-                        <button onClick={()=>removeSessionEx(i)} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:16,padding:0,flexShrink:0 }}>✕</button>
-                      </div>
-                      <div style={{ display:"flex",gap:6,flexWrap:"wrap",marginBottom:8 }}>
-                        <Field label="Séries" type="number" value={ex.sets} onChange={v=>updatePendingEx(i,"sets",v)} placeholder="3" third/>
-                        <Field label="Reps" type="number" value={ex.reps} onChange={v=>updatePendingEx(i,"reps",v)} placeholder="10" third/>
-                        <Field label="Charge kg" type="number" value={ex.load} onChange={v=>updatePendingEx(i,"load",v)} placeholder="0" third/>
-                        <Field label="Repos sec" type="number" value={ex.rest} onChange={v=>updatePendingEx(i,"rest",v)} placeholder="60" half/>
-                        <Field label="Note" value={ex.note||""} onChange={v=>updatePendingEx(i,"note",v)} placeholder="Remarque..." half/>
-                      </div>
-                      <RPESelector value={ex.rpe||""} onChange={v=>updatePendingEx(i,"rpe",v)}/>
-                    </div>
+                    <ExerciseFields key={i} ex={ex} idx={i} onChange={updatePendingEx} onRemove={()=>removeSessionEx(i)}/>
                   ))}
                 </div>
               )}
@@ -1084,21 +1166,7 @@ export default function App() {
                   <Field label="Notes" value={editingSession.note||""} onChange={v=>setEditingSession(p=>({...p,note:v}))} placeholder="Observations..."/>
                 </div>
                 {(editingSession.exercises||[]).map((ex,i)=>(
-                  <div key={i} style={{ background:"#000",borderRadius:10,padding:10,marginBottom:8,border:"1px solid #0f2040" }}>
-                    <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:8 }}>
-                      <div style={{ width:32,height:16,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-                      <span style={{ flex:1,fontSize:13,fontWeight:700 }}>{ex.name}</span>
-                      <button onClick={()=>removeEditSessionEx(i)} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:16,padding:0 }}>✕</button>
-                    </div>
-                    <div style={{ display:"flex",gap:6,flexWrap:"wrap",marginBottom:8 }}>
-                      <Field label="Séries" type="number" value={String(ex.sets||"")} onChange={v=>updateEditSessionEx(i,"sets",v)} placeholder="3" third/>
-                      <Field label="Reps" type="number" value={String(ex.reps||"")} onChange={v=>updateEditSessionEx(i,"reps",v)} placeholder="10" third/>
-                      <Field label="Charge kg" type="number" value={String(ex.load||"")} onChange={v=>updateEditSessionEx(i,"load",v)} placeholder="0" third/>
-                      <Field label="Repos sec" type="number" value={String(ex.rest||"")} onChange={v=>updateEditSessionEx(i,"rest",v)} placeholder="60" half/>
-                      <Field label="Note" value={ex.note||""} onChange={v=>updateEditSessionEx(i,"note",v)} placeholder="Remarque..." half/>
-                    </div>
-                    <RPESelector value={String(ex.rpe||"")} onChange={v=>updateEditSessionEx(i,"rpe",v)}/>
-                  </div>
+                  <ExerciseFields key={i} ex={ex} idx={i} onChange={updateEditSessionEx} onRemove={()=>removeEditSessionEx(i)}/>
                 ))}
                 <div style={{ display:"flex",gap:10,marginTop:14 }}>
                   <Btn onClick={doSaveEditSession}>💾 Enregistrer</Btn>
@@ -1138,18 +1206,29 @@ export default function App() {
                           {s.note&&<div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{s.note}</div>}
                           {s.exercises&&s.exercises.length>0&&(
                             <div style={{ marginTop:8 }}>
-                              {s.exercises.map((ex,j)=>(
-                                <div key={j} style={{ display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:j<s.exercises.length-1?"1px solid #0f204044":"none" }}>
-                                  <div style={{ width:24,height:12,borderRadius:3,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-                                  <span style={{ fontSize:11,color:"#e8edf5",fontWeight:600,flex:1 }}>{ex.name}</span>
-                                  <div style={{ display:"flex",gap:4,flexShrink:0,flexWrap:"wrap",justifyContent:"flex-end" }}>
-                                    {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
-                                    {ex.load&&+ex.load>0&&<Badge label={`${ex.load}kg`} color="#f59e0b"/>}
-                                    {ex.rest&&+ex.rest>0&&<Badge label={`${ex.rest}s`} color="#3d5278"/>}
-                                    {ex.rpe&&<Badge label={`RPE${ex.rpe}`} color={rpeColor(ex.rpe)}/>}
+                              {s.exercises.map((ex,j)=>{
+                                const libEx=LIBRARY.find(l=>l.id===ex.libId);
+                                const isCardio=libEx?.cat==="Cardio";
+                                return (
+                                  <div key={j} style={{ display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:j<s.exercises.length-1?"1px solid #0f204044":"none" }}>
+                                    <div style={{ width:24,height:12,borderRadius:3,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                                    <span style={{ fontSize:11,color:"#e8edf5",fontWeight:600,flex:1 }}>{ex.name}</span>
+                                    <div style={{ display:"flex",gap:4,flexShrink:0,flexWrap:"wrap",justifyContent:"flex-end" }}>
+                                      {isCardio ? <>
+                                        {ex.duration&&<Badge label={`${ex.duration}min`} color="#f59e0b"/>}
+                                        {ex.speed&&<Badge label={`${ex.speed}km/h`} color="#22c55e"/>}
+                                        {ex.watts&&<Badge label={`${ex.watts}W`} color="#8b5cf6"/>}
+                                        {ex.zone&&<Badge label={`Z${ex.zone}`} color={zoneColor(ex.zone)}/>}
+                                      </> : <>
+                                        {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
+                                        {ex.load&&+ex.load>0&&<Badge label={`${ex.load}kg`} color="#f59e0b"/>}
+                                        {ex.rest&&+ex.rest>0&&<Badge label={`${ex.rest}s`} color="#3d5278"/>}
+                                        {ex.rpe&&<Badge label={`RPE${ex.rpe}`} color={rpeColor(ex.rpe)}/>}
+                                      </>}
+                                    </div>
                                   </div>
-                                </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           )}
                         </div>
@@ -1258,10 +1337,10 @@ export default function App() {
                   )}
                   <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
                     <Field label="Exercice" value={newEx.name} onChange={v=>setNewEx(p=>({...p,name:v}))} placeholder="ex. Squat"/>
-                    <Field label="Séries" value={newEx.sets} onChange={v=>setNewEx(p=>({...p,sets:v}))} placeholder="4" third/>
-                    <Field label="Reps" value={newEx.reps} onChange={v=>setNewEx(p=>({...p,reps:v}))} placeholder="8" third/>
-                    <Field label="Charge" value={newEx.load} onChange={v=>setNewEx(p=>({...p,load:v}))} placeholder="70kg" third/>
-                    <Field label="Note" value={newEx.note} onChange={v=>setNewEx(p=>({...p,note:v}))} placeholder="Indication..."/>
+                    <Field label="Séries" value={newEx.sets||""} onChange={v=>setNewEx(p=>({...p,sets:v}))} placeholder="4" third/>
+                    <Field label="Reps" value={newEx.reps||""} onChange={v=>setNewEx(p=>({...p,reps:v}))} placeholder="8" third/>
+                    <Field label="Charge" value={newEx.load||""} onChange={v=>setNewEx(p=>({...p,load:v}))} placeholder="70kg" third/>
+                    <Field label="Note" value={newEx.note||""} onChange={v=>setNewEx(p=>({...p,note:v}))} placeholder="Indication..."/>
                   </div>
                   <div style={{ display:"flex",gap:8,marginTop:10 }}>
                     <Btn small onClick={()=>doAddExercise(prog.id)}>Ajouter</Btn>
@@ -1272,19 +1351,22 @@ export default function App() {
               {prog.exercises.map((ex,j)=>{
                 const lib=LIBRARY.find(l=>l.id===ex.libId);
                 const orm=calc1RM(ex.load,ex.reps);
-                return <div key={j} style={{ display:"flex",alignItems:"center",padding:"11px 14px",gap:10,borderBottom:j<prog.exercises.length-1?"1px solid #0f2040":"none" }}>
-                  {lib?<div style={{ width:44,height:22,borderRadius:6,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={lib.id}/></div>
-                  :<div style={{ width:24,height:24,borderRadius:6,background:"#1a6fff1a",border:"1px solid #1a6fff44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:800,color:"#1a6fff",flexShrink:0 }}>{j+1}</div>}
-                  <div style={{ flex:1 }}>
-                    <div style={{ fontWeight:700,fontSize:14 }}>{ex.name}</div>
-                    {orm&&<div style={{ fontSize:10,color:"#3d5278" }}>1RM estimé : <b style={{ color:"#1a6fff" }}>{orm}kg</b></div>}
-                    {ex.note&&<div style={{ fontSize:11,color:"#3d5278" }}>{ex.note}</div>}
+                return (
+                  <div key={j} style={{ display:"flex",alignItems:"center",padding:"11px 14px",gap:10,borderBottom:j<prog.exercises.length-1?"1px solid #0f2040":"none" }}>
+                    {lib?<div style={{ width:44,height:22,borderRadius:6,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={lib.id}/></div>
+                    :<div style={{ width:24,height:24,borderRadius:6,background:"#1a6fff1a",border:"1px solid #1a6fff44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:800,color:"#1a6fff",flexShrink:0 }}>{j+1}</div>}
+                    <div style={{ flex:1 }}>
+                      <div style={{ fontWeight:700,fontSize:14 }}>{ex.name}</div>
+                      {orm&&<div style={{ fontSize:10,color:"#3d5278" }}>1RM estimé : <b style={{ color:"#1a6fff" }}>{orm}kg</b></div>}
+                      {ex.note&&<div style={{ fontSize:11,color:"#3d5278" }}>{ex.note}</div>}
+                    </div>
+                    <div style={{ display:"flex",gap:5,flexWrap:"wrap",justifyContent:"flex-end" }}>
+                      {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
+                      {ex.load&&<Badge label={ex.load} color="#f59e0b"/>}
+                      {lib&&<Badge label={lib.cat} color={CAT_COLOR[lib.cat]||"#1a6fff"}/>}
+                    </div>
                   </div>
-                  <div style={{ display:"flex",gap:5,flexWrap:"wrap",justifyContent:"flex-end" }}>
-                    {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
-                    {ex.load&&<Badge label={ex.load} color="#f59e0b"/>}
-                  </div>
-                </div>;
+                );
               })}
               {!prog.exercises.length&&<div style={{ padding:"14px",color:"#3d5278",fontSize:12 }}>Aucun exercice — utilise le générateur ou ajoutes-en un !</div>}
             </div>
