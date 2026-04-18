@@ -110,9 +110,12 @@ const SAMPLE_CLIENTS = [{
   id:"tony", name:"Tony Parker", age:41, sport:"Basketball", since:"2024-01", status:"actif",
   objective:"Maintien forme & mobilité", progress:78,
   sessions:[
-    { id:"s1", date:"2026-04-15", present:true,  duration:90, note:"Mobilité hanches + renforcement excentrique", exercises:[] },
-    { id:"s2", date:"2026-04-10", present:true,  duration:75, note:"Cardio HIIT", exercises:[] },
-    { id:"s3", date:"2026-03-03", present:false, duration:0,  note:"Absent — voyage", exercises:[] },
+    { id:"s1", date:"2026-04-15", present:true, duration:90, note:"Mobilité hanches", exercises:[
+      { id:"se1", libId:"deadlift", name:"Deadlift", sets:"4", reps:"8", load:"80", rest:"120" },
+      { id:"se2", libId:"squat", name:"Squat", sets:"4", reps:"10", load:"60", rest:"90" },
+    ]},
+    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Cardio HIIT", exercises:[] },
+    { id:"s3", date:"2026-03-03", present:false, duration:0, note:"Absent — voyage", exercises:[] },
   ],
   metrics:[
     { date:"2026-04-01", weight:92.0, chest:104, waist:86, hips:98, fatPct:14.2 },
@@ -160,14 +163,19 @@ const Bar = ({ value, color, h=5 }) => (
   </div>
 );
 
-const Field = ({ label, value, onChange, type="text", placeholder, half }) => (
-  <div style={{ display:"flex", flexDirection:"column", gap:4, width:half?"calc(50% - 4px)":"100%", flexShrink:0 }}>
-    {label && <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", fontFamily:"'Barlow',sans-serif" }}>{label}</label>}
-    <input type={type} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder}
-      style={{ background:"#000", border:"1.5px solid #0f2040", borderRadius:8, padding:"9px 10px", color:"#e8edf5", fontSize:13, fontFamily:"'Barlow',sans-serif", outline:"none", width:"100%", colorScheme:"dark", boxSizing:"border-box" }}
-      onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
-  </div>
-);
+const Field = ({ label, value, onChange, type="text", placeholder, half, third }) => {
+  let width = "100%";
+  if (half) width = "calc(50% - 4px)";
+  if (third) width = "calc(33% - 4px)";
+  return (
+    <div style={{ display:"flex", flexDirection:"column", gap:4, width, flexShrink:0 }}>
+      {label && <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", fontFamily:"'Barlow',sans-serif" }}>{label}</label>}
+      <input type={type} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder}
+        style={{ background:"#000", border:"1.5px solid #0f2040", borderRadius:8, padding:"9px 10px", color:"#e8edf5", fontSize:13, fontFamily:"'Barlow',sans-serif", outline:"none", width:"100%", colorScheme:"dark", boxSizing:"border-box" }}
+        onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
+    </div>
+  );
+};
 
 const Btn = ({ children, onClick, ghost, small, danger }) => (
   <button onClick={onClick} style={{ padding:small?"6px 14px":"10px 22px", borderRadius:8, cursor:"pointer", border:ghost?"1.5px solid #0f2040":danger?"1.5px solid #e6394644":"none", background:ghost?"transparent":danger?"#e6394618":"#1a6fff", color:ghost?"#7a90b8":danger?"#e63946":"#fff", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:small?11:14, letterSpacing:"0.06em", textTransform:"uppercase", transition:"all .15s" }}>{children}</button>
@@ -243,8 +251,7 @@ const ProgressionCharts = ({ metrics }) => {
   const MiniChart = ({ data, label, color, unit="" }) => {
     const vals = data.filter(v=>v>0);
     if (vals.length<2) return null;
-    const min = Math.min(...vals)-1;
-    const max = Math.max(...vals)+1;
+    const min=Math.min(...vals)-1, max=Math.max(...vals)+1;
     const W=260, H=60;
     const pts = data.map((v,i)=>({ x:(i/(data.length-1))*(W-20)+10, y:v>0?H-((v-min)/(max-min))*(H-16)-4:null, v })).filter(p=>p.y!==null);
     const path = pts.map((p,i)=>`${i===0?"M":"L"} ${p.x} ${p.y}`).join(" ");
@@ -288,6 +295,82 @@ const ProgressionCharts = ({ metrics }) => {
   );
 };
 
+// ── CHARGES TRACKER ───────────────────────────────────────────────────────────
+const ChargesTab = ({ sessions }) => {
+  // Extract best performance per exercise from all sessions
+  const bestPerEx = {};
+  sessions.forEach(s => {
+    (s.exercises||[]).forEach(ex => {
+      if (!ex.libId || !ex.load || +ex.load <= 0) return;
+      const key = ex.libId;
+      const load = +ex.load;
+      const reps = +ex.reps || 0;
+      if (!bestPerEx[key] || load > bestPerEx[key].load || (load === bestPerEx[key].load && reps > bestPerEx[key].reps)) {
+        bestPerEx[key] = { libId:ex.libId, name:ex.name, load, reps, date:s.date };
+      }
+    });
+  });
+
+  const entries = Object.values(bestPerEx).sort((a,b) => b.load - a.load);
+
+  if (entries.length === 0) return (
+    <div style={{ textAlign:"center", color:"#3d5278", padding:60 }}>
+      <div style={{ fontSize:32, marginBottom:12 }}>🏋️</div>
+      <div style={{ fontSize:14, fontWeight:700, marginBottom:6 }}>Aucune charge enregistrée</div>
+      <div style={{ fontSize:12 }}>Ajoute des exercices avec charges dans tes séances</div>
+    </div>
+  );
+
+  return (
+    <div className="fu">
+      <div style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:14, display:"flex", alignItems:"center", gap:8 }}>
+        <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>
+        RECORDS DE CHARGES
+      </div>
+      {entries.map((ex, i) => {
+        const libEx = LIBRARY.find(l=>l.id===ex.libId);
+        // Find progression - compare to previous best
+        const prevSessions = sessions.filter(s=>s.date < ex.date);
+        let prevBest = 0;
+        prevSessions.forEach(s=>{
+          (s.exercises||[]).forEach(e=>{
+            if (e.libId===ex.libId && +e.load > prevBest) prevBest = +e.load;
+          });
+        });
+        const delta = prevBest > 0 ? ex.load - prevBest : null;
+        return (
+          <div key={ex.libId} className="ch fu" style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:10, animationDelay:`${i*.04}s` }}>
+            <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+              <div style={{ width:48, height:24, borderRadius:8, overflow:"hidden", flexShrink:0 }}>
+                <AnatomySVG id={ex.libId}/>
+              </div>
+              <div style={{ flex:1, minWidth:0 }}>
+                <div style={{ fontWeight:800, fontSize:15, fontFamily:"'Barlow Condensed',sans-serif", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{ex.name}</div>
+                {libEx && <div style={{ fontSize:10, color:"#3d5278", marginTop:2 }}>{libEx.muscles}</div>}
+                <div style={{ fontSize:10, color:"#3d5278", marginTop:2 }}>📅 {ex.date}</div>
+              </div>
+              <div style={{ textAlign:"right", flexShrink:0 }}>
+                <div style={{ fontSize:26, fontWeight:900, color:"#f59e0b", fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1 }}>{ex.load}<span style={{ fontSize:13 }}>kg</span></div>
+                <div style={{ fontSize:11, color:"#7a90b8", marginTop:2 }}>× {ex.reps} reps</div>
+                {delta !== null && (
+                  <div style={{ fontSize:11, color:delta>=0?"#22c55e":"#e63946", fontWeight:700, marginTop:2 }}>
+                    {delta>=0?"▲":"▼"} {Math.abs(delta)}kg
+                  </div>
+                )}
+              </div>
+            </div>
+            {/* Mini progress bar based on load */}
+            <div style={{ marginTop:10 }}>
+              <Bar value={Math.min(100, (ex.load / Math.max(...entries.map(e=>e.load))) * 100)} color="#f59e0b" h={4}/>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+// ── SESSION EXERCISE PICKER ───────────────────────────────────────────────────
 const SessionExercisePicker = ({ onAdd, onClose }) => {
   const [mode, setMode] = useState("cat");
   const [selCat, setSelCat] = useState("Push");
@@ -350,9 +433,7 @@ const SessionExercisePicker = ({ onAdd, onClose }) => {
         })}
         {filtered.length===0&&<div style={{ textAlign:"center", color:"#3d5278", padding:16, fontSize:11 }}>Aucun exercice trouvé</div>}
       </div>
-      {selected.length>0&&(
-        <Btn small onClick={confirm}>✅ Ajouter {selected.length} exercice{selected.length>1?"s":""}</Btn>
-      )}
+      {selected.length>0&&<Btn small onClick={confirm}>✅ Ajouter {selected.length} exercice{selected.length>1?"s":""}</Btn>}
     </div>
   );
 };
@@ -371,7 +452,7 @@ const PPLGenerator = ({ onAdd }) => {
     const pool=TYPES[type]||[];
     const shuffled=[...pool].sort(()=>Math.random()-.5);
     const count=type==="Cardio"||type==="Mobilité"?5:6;
-    setGenerated(shuffled.slice(0,count).map(id=>{ const ex=LIBRARY.find(l=>l.id===id); return ex?{...ex,sets:type==="Cardio"?"4":type==="Mobilité"?"3":"4",reps:type==="Cardio"?"30s":type==="Mobilité"?"60s":"8-12",load:""}:null; }).filter(Boolean));
+    setGenerated(shuffled.slice(0,count).map(id=>{ const ex=LIBRARY.find(l=>l.id===id); return ex?{...ex,sets:type==="Cardio"?"4":type==="Mobilité"?"3":"4",reps:type==="Cardio"?"30s":type==="Mobilité"?"60s":"8-12",load:"",rest:"60"}:null; }).filter(Boolean));
   }
   return (
     <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
@@ -444,13 +525,9 @@ export default function App() {
   const up = (id,patch) => sync(clients.map(c=>c.id===id?{...c,...patch}:c));
 
   const openClient = (id) => {
-    setSelId(id);
-    setView("client");
-    setTab("sessions");
-    setShowNewSession(false);
-    setNewS({date:"",present:true,duration:"",note:""});
-    setPendingSession({exercises:[]});
-    setShowExPicker(false);
+    setSelId(id); setView("client"); setTab("sessions");
+    setShowNewSession(false); setNewS({date:"",present:true,duration:"",note:""});
+    setPendingSession({exercises:[]}); setShowExPicker(false);
   };
 
   function doAddClient() {
@@ -464,13 +541,18 @@ export default function App() {
     const sess = { id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration, exercises:pendingSession.exercises||[] };
     up(selId,{sessions:[sess,...cl.sessions]});
     setNewS({date:"",present:true,duration:"",note:""});
-    setPendingSession({exercises:[]});
-    setShowExPicker(false);
-    setShowNewSession(false);
+    setPendingSession({exercises:[]}); setShowExPicker(false); setShowNewSession(false);
   }
 
   function addExercisesToSession(exs) {
-    setPendingSession(p=>({...p,exercises:[...p.exercises,...exs.map(ex=>({id:"se"+Date.now()+Math.random(),libId:ex.id,name:ex.name,sets:"3",reps:"10",load:"",note:""}))]}));
+    setPendingSession(p=>({...p, exercises:[...p.exercises, ...exs.map(ex=>({
+      id:"se"+Date.now()+Math.random(), libId:ex.id, name:ex.name,
+      sets:"3", reps:"10", load:"", rest:"60"
+    }))]}));
+  }
+
+  function updatePendingEx(idx, field, val) {
+    setPendingSession(p=>({...p, exercises:p.exercises.map((ex,i)=>i===idx?{...ex,[field]:val}:ex)}));
   }
 
   function removeSessionEx(idx) {
@@ -503,7 +585,7 @@ export default function App() {
 
   function doAddGeneratedExercises(pid,exercises) {
     if (!cl) return;
-    const newExs = exercises.map(ex=>({id:"e"+Date.now()+Math.random(),name:ex.name,sets:ex.sets,reps:ex.reps,load:"",note:"",libId:ex.id}));
+    const newExs = exercises.map(ex=>({id:"e"+Date.now()+Math.random(),name:ex.name,sets:ex.sets,reps:ex.reps,load:"",rest:"60",note:"",libId:ex.id}));
     up(selId,{programs:cl.programs.map(p=>p.id===pid?{...p,exercises:[...p.exercises,...newExs]}:p)});
     setShowGenerator(false); setGeneratorPid(null);
   }
@@ -645,14 +727,17 @@ export default function App() {
     const wd=lw&&pw?+(lw.weight-pw.weight).toFixed(1):null;
     const done=cl.goals.filter(g=>g.done).length;
     const gPct=cl.goals.length?Math.round(done/cl.goals.length*100):0;
-    const TABS=[{id:"sessions",label:"Séances"},{id:"metrics",label:"Métriques"},{id:"programs",label:"Programme"},{id:"goals",label:"Objectifs"}];
-
-    // Group sessions by month
+    const TABS=[
+      {id:"sessions",label:"Séances"},
+      {id:"metrics",label:"Métriques"},
+      {id:"programs",label:"Programme"},
+      {id:"goals",label:"Objectifs"},
+      {id:"charges",label:"Charges"},
+    ];
     const sessionsByMonth = cl.sessions.reduce((acc,s)=>{
-      const month = s.date?s.date.slice(0,7):"inconnu";
+      const month=s.date?s.date.slice(0,7):"inconnu";
       if (!acc[month]) acc[month]=[];
-      acc[month].push(s);
-      return acc;
+      acc[month].push(s); return acc;
     },{});
     const sortedMonths = Object.keys(sessionsByMonth).sort((a,b)=>b.localeCompare(a));
 
@@ -684,9 +769,9 @@ export default function App() {
       </div>
 
       <div style={{ padding:"10px 14px",background:"#04080f",borderBottom:"1px solid #0f2040" }}>
-        <div style={{ display:"flex",gap:2,background:"#070d1a",borderRadius:10,padding:3,border:"1px solid #0f2040" }}>
+        <div style={{ display:"flex",gap:2,background:"#070d1a",borderRadius:10,padding:3,border:"1px solid #0f2040",overflowX:"auto" }}>
           {TABS.map(t=>(
-            <button key={t.id} onClick={()=>setTab(t.id)} style={{ flex:1,padding:"8px 4px",borderRadius:8,border:"none",cursor:"pointer",background:tab===t.id?"#112240":"transparent",color:tab===t.id?"#e8edf5":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",transition:"all .2s",borderBottom:tab===t.id?"2px solid #1a6fff":"2px solid transparent" }}>{t.label}</button>
+            <button key={t.id} onClick={()=>setTab(t.id)} style={{ flex:1,padding:"8px 4px",borderRadius:8,border:"none",cursor:"pointer",background:tab===t.id?"#112240":"transparent",color:tab===t.id?"#e8edf5":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase",transition:"all .2s",borderBottom:tab===t.id?"2px solid #1a6fff":"2px solid transparent",flexShrink:0,whiteSpace:"nowrap" }}>{t.label}</button>
           ))}
         </div>
       </div>
@@ -695,8 +780,6 @@ export default function App() {
 
         {/* ── SESSIONS ── */}
         {tab==="sessions"&&<div className="fu">
-
-          {/* Bouton + Nouvelle séance */}
           {!showNewSession?(
             <button onClick={()=>setShowNewSession(true)} style={{ width:"100%",background:"#070d1a",border:"2px dashed #1a6fff44",borderRadius:14,padding:"14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:14,letterSpacing:"0.06em",textTransform:"uppercase",cursor:"pointer",marginBottom:16,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
               + Nouvelle séance
@@ -720,14 +803,25 @@ export default function App() {
                 💪 {showExPicker?"Fermer":"Ajouter des exercices"}
               </button>
               {showExPicker&&<SessionExercisePicker onAdd={addExercisesToSession} onClose={()=>setShowExPicker(false)}/>}
+
+              {/* Exercises with sets/reps/load/rest fields */}
               {pendingSession.exercises.length>0&&(
                 <div style={{ marginTop:10,marginBottom:10 }}>
-                  <div style={{ fontSize:10,color:"#3d5278",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:6 }}>Exercices sélectionnés ({pendingSession.exercises.length})</div>
+                  <div style={{ fontSize:10,color:"#3d5278",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:8 }}>Exercices ({pendingSession.exercises.length})</div>
                   {pendingSession.exercises.map((ex,i)=>(
-                    <div key={i} style={{ display:"flex",alignItems:"center",gap:8,padding:"6px 8px",background:"#0a1628",borderRadius:8,marginBottom:4 }}>
-                      <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-                      <span style={{ flex:1,fontSize:12,fontWeight:600 }}>{ex.name}</span>
-                      <button onClick={()=>removeSessionEx(i)} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:14,padding:0 }}>✕</button>
+                    <div key={i} style={{ background:"#0a1628",borderRadius:10,padding:10,marginBottom:8,border:"1px solid #0f2040" }}>
+                      <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:8 }}>
+                        <div style={{ width:32,height:16,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                        <span style={{ flex:1,fontSize:13,fontWeight:700 }}>{ex.name}</span>
+                        <button onClick={()=>removeSessionEx(i)} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:16,padding:0,flexShrink:0 }}>✕</button>
+                      </div>
+                      <div style={{ display:"flex",gap:6,flexWrap:"wrap" }}>
+                        <Field label="Séries" type="number" value={ex.sets} onChange={v=>updatePendingEx(i,"sets",v)} placeholder="3" third/>
+                        <Field label="Reps" type="number" value={ex.reps} onChange={v=>updatePendingEx(i,"reps",v)} placeholder="10" third/>
+                        <Field label="Charge kg" type="number" value={ex.load} onChange={v=>updatePendingEx(i,"load",v)} placeholder="0" third/>
+                        <Field label="Repos sec" type="number" value={ex.rest} onChange={v=>updatePendingEx(i,"rest",v)} placeholder="60" half/>
+                        <Field label="Note" value={ex.note||""} onChange={v=>updatePendingEx(i,"note",v)} placeholder="Remarque..." half/>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -736,16 +830,14 @@ export default function App() {
             </div>
           )}
 
-          {/* Sessions groupées par mois */}
           {sortedMonths.length===0?(
             <div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucune séance enregistrée</div>
           ):sortedMonths.map(month=>{
-            const [year,m] = month.split("-");
-            const label = `${MONTH_NAMES[m]||m} ${year}`;
-            const sessions = [...sessionsByMonth[month]].sort((a,b)=>b.date.localeCompare(a.date));
+            const [year,m]=month.split("-");
+            const label=`${MONTH_NAMES[m]||m} ${year}`;
+            const sessions=[...sessionsByMonth[month]].sort((a,b)=>b.date.localeCompare(a.date));
             return (
               <div key={month} style={{ marginBottom:20 }}>
-                {/* Month divider */}
                 <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:10 }}>
                   <div style={{ flex:1,height:1,background:"#0f2040" }}/>
                   <span style={{ fontSize:10,fontWeight:700,color:"#3d5278",letterSpacing:"0.1em",textTransform:"uppercase",flexShrink:0 }}>{label}</span>
@@ -765,11 +857,16 @@ export default function App() {
                         </div>
                         {s.note&&<div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{s.note}</div>}
                         {s.exercises&&s.exercises.length>0&&(
-                          <div style={{ marginTop:8,display:"flex",flexWrap:"wrap",gap:4 }}>
+                          <div style={{ marginTop:8 }}>
                             {s.exercises.map((ex,j)=>(
-                              <div key={j} style={{ display:"flex",alignItems:"center",gap:4,background:"#0a1628",borderRadius:6,padding:"3px 7px" }}>
-                                <div style={{ width:20,height:10,borderRadius:3,overflow:"hidden" }}><AnatomySVG id={ex.libId}/></div>
-                                <span style={{ fontSize:10,color:"#7a90b8" }}>{ex.name}</span>
+                              <div key={j} style={{ display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:j<s.exercises.length-1?"1px solid #0f204044":"none" }}>
+                                <div style={{ width:24,height:12,borderRadius:3,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                                <span style={{ fontSize:11,color:"#e8edf5",fontWeight:600,flex:1 }}>{ex.name}</span>
+                                <div style={{ display:"flex",gap:4,flexShrink:0 }}>
+                                  {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
+                                  {ex.load&&+ex.load>0&&<Badge label={`${ex.load}kg`} color="#f59e0b"/>}
+                                  {ex.rest&&+ex.rest>0&&<Badge label={`${ex.rest}s`} color="#3d5278"/>}
+                                </div>
                               </div>
                             ))}
                           </div>
@@ -879,10 +976,10 @@ export default function App() {
                   )}
                   <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
                     <Field label="Exercice" value={newEx.name} onChange={v=>setNewEx(p=>({...p,name:v}))} placeholder="ex. Squat"/>
-                    <Field label="Séries" value={newEx.sets} onChange={v=>setNewEx(p=>({...p,sets:v}))} placeholder="4" half/>
-                    <Field label="Reps" value={newEx.reps} onChange={v=>setNewEx(p=>({...p,reps:v}))} placeholder="8" half/>
-                    <Field label="Charge" value={newEx.load} onChange={v=>setNewEx(p=>({...p,load:v}))} placeholder="70kg" half/>
-                    <Field label="Note" value={newEx.note} onChange={v=>setNewEx(p=>({...p,note:v}))} placeholder="Indication..." half/>
+                    <Field label="Séries" value={newEx.sets} onChange={v=>setNewEx(p=>({...p,sets:v}))} placeholder="4" third/>
+                    <Field label="Reps" value={newEx.reps} onChange={v=>setNewEx(p=>({...p,reps:v}))} placeholder="8" third/>
+                    <Field label="Charge" value={newEx.load} onChange={v=>setNewEx(p=>({...p,load:v}))} placeholder="70kg" third/>
+                    <Field label="Note" value={newEx.note} onChange={v=>setNewEx(p=>({...p,note:v}))} placeholder="Indication..."/>
                   </div>
                   <div style={{ display:"flex",gap:8,marginTop:10 }}>
                     <Btn small onClick={()=>doAddExercise(prog.id)}>Ajouter</Btn>
@@ -899,8 +996,8 @@ export default function App() {
                     <div style={{ fontWeight:700,fontSize:14 }}>{ex.name}</div>
                     {ex.note&&<div style={{ fontSize:11,color:"#3d5278" }}>{ex.note}</div>}
                   </div>
-                  <div style={{ display:"flex",gap:5 }}>
-                    {ex.sets&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
+                  <div style={{ display:"flex",gap:5,flexWrap:"wrap",justifyContent:"flex-end" }}>
+                    {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
                     {ex.load&&<Badge label={ex.load} color="#f59e0b"/>}
                   </div>
                 </div>;
@@ -931,7 +1028,7 @@ export default function App() {
           </div>
           {cl.goals.map((g,i)=>(
             <div key={g.id} className="ch fu" onClick={()=>up(selId,{goals:cl.goals.map(x=>x.id===g.id?{...x,done:!x.done}:x)})}
-              style={{ background:g.done?"#22c55e0e":"#070d1a",border:`1px solid ${g.done?"#22c55e44":"#0f2040"}`,borderRadius:12,padding:"13px 14px",marginBottom:8,cursor:"pointer",display:"flex",alignItems:"center",gap:12,animationDelay:`${i*.04}s` }}>
+              style={{ background:g.done?"#22c55e0e":"#070d1a",border:`1px solid ${g.done?"#22c55e44":"#0f2040"}`,borderRadius:12,padding:"13px 14px",marginBottom:8,cursor:"pointer",display:"flex",alignItems:"center",gap:12 }}>
               <div style={{ width:22,height:22,borderRadius:6,flexShrink:0,background:g.done?"#22c55e":"transparent",border:`2px solid ${g.done?"#22c55e":"#0f2040"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,color:"#000",fontWeight:900 }}>{g.done?"✓":""}</div>
               <div style={{ flex:1 }}>
                 <div style={{ fontWeight:700,fontSize:14,textDecoration:g.done?"line-through":"none",color:g.done?"#7a90b8":"#e8edf5" }}>{g.label}</div>
@@ -942,6 +1039,9 @@ export default function App() {
           ))}
           {!cl.goals.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucun objectif défini</div>}
         </div>}
+
+        {/* ── CHARGES ── */}
+        {tab==="charges"&&<ChargesTab sessions={cl.sessions}/>}
 
       </div>
     </>);
