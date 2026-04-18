@@ -19,315 +19,100 @@ const AnatomySVG = ({ id }) => {
   const body = { fill:BodyColor, stroke:BodyStroke, strokeWidth:1.5 };
   const muscle = { fill:MuscleRed, stroke:"#ff6b7a", strokeWidth:1 };
   const muscleO = { fill:MuscleOrange, stroke:"#fbbf24", strokeWidth:1 };
-
   const illustrations = {
-    squat:(
-      <svg style={s} viewBox="0 0 200 120" fill="none">
-        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
-        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
-        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-        <circle cx="50" cy="16" r="7" {...body}/><rect x="46" y="23" width="8" height="18" rx="3" {...body}/>
-        <rect x="43" y="28" width="6" height="14" rx="2" {...body}/><rect x="51" y="28" width="6" height="14" rx="2" {...body}/>
-        <rect x="45" y="41" width="5" height="20" rx="2" {...body}/><rect x="50" y="41" width="5" height="20" rx="2" {...body}/>
-        <rect x="44" y="61" width="5" height="14" rx="2" {...body}/><rect x="51" y="61" width="5" height="14" rx="2" {...body}/>
-        <circle cx="150" cy="22" r="7" {...body}/><rect x="146" y="29" width="8" height="14" rx="3" {...body}/>
-        <rect x="140" y="33" width="7" height="12" rx="2" {...body}/><rect x="153" y="33" width="7" height="12" rx="2" {...body}/>
-        <rect x="141" y="45" width="7" height="22" rx="3" {...muscle}/><rect x="152" y="45" width="7" height="22" rx="3" {...muscle}/>
-        <rect x="144" y="42" width="12" height="8" rx="3" {...muscleO}/>
-        <rect x="141" y="67" width="6" height="16" rx="2" {...body}/><rect x="153" y="67" width="6" height="16" rx="2" {...body}/>
-        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Quadriceps • Fessiers</text>
-      </svg>
-    ),
-    deadlift:(
-      <svg style={s} viewBox="0 0 200 120" fill="none">
-        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
-        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
-        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-        <circle cx="55" cy="28" r="7" {...body}/><rect x="51" y="35" width="8" height="14" rx="3" {...muscle}/>
-        <rect x="44" y="38" width="6" height="12" rx="2" {...body}/><rect x="61" y="38" width="6" height="12" rx="2" {...body}/>
-        <rect x="46" y="49" width="6" height="18" rx="2" {...body}/><rect x="53" y="49" width="6" height="18" rx="2" {...body}/>
-        <rect x="45" y="67" width="5" height="14" rx="2" {...body}/><rect x="52" y="67" width="5" height="14" rx="2" {...body}/>
-        <rect x="16" y="79" width="60" height="4" rx="2" fill="#1a6fff" opacity="0.7"/>
-        <rect x="12" y="77" width="8" height="8" rx="2" fill="#1a6fff"/><rect x="68" y="77" width="8" height="8" rx="2" fill="#1a6fff"/>
-        <circle cx="150" cy="14" r="7" {...body}/><rect x="146" y="21" width="8" height="18" rx="3" {...body}/>
-        <rect x="140" y="39" width="6" height="22" rx="3" {...muscle}/><rect x="154" y="39" width="6" height="22" rx="3" {...muscle}/>
-        <rect x="144" y="28" width="12" height="10" rx="3" {...muscleO}/>
-        <rect x="139" y="61" width="6" height="14" rx="2" {...body}/><rect x="155" y="61" width="6" height="14" rx="2" {...body}/>
-        <rect x="120" y="36" width="60" height="4" rx="2" fill="#22c55e" opacity="0.7"/>
-        <rect x="116" y="34" width="8" height="8" rx="2" fill="#22c55e"/><rect x="176" y="34" width="8" height="8" rx="2" fill="#22c55e"/>
-        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Ischio-jambiers • Lombaires</text>
-      </svg>
-    ),
-    bench_press:(
-      <svg style={s} viewBox="0 0 200 120" fill="none">
-        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
-        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
-        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-        <rect x="10" y="72" width="80" height="7" rx="3" fill="#112240"/>
-        <circle cx="50" cy="46" r="7" {...body}/><rect x="46" y="53" width="8" height="19" rx="3" {...body}/>
-        <rect x="36" y="54" width="10" height="12" rx="3" {...muscle}/><rect x="54" y="54" width="10" height="12" rx="3" {...muscle}/>
-        <line x1="26" y1="32" x2="36" y2="56" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <line x1="74" y1="32" x2="64" y2="56" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <rect x="18" y="20" width="64" height="5" rx="2" fill="#1a6fff" opacity="0.8"/>
-        <rect x="12" y="17" width="10" height="11" rx="2" fill="#1a6fff"/><rect x="78" y="17" width="10" height="11" rx="2" fill="#1a6fff"/>
-        <rect x="110" y="72" width="80" height="7" rx="3" fill="#112240"/>
-        <circle cx="150" cy="46" r="7" {...body}/><rect x="146" y="53" width="8" height="19" rx="3" {...body}/>
-        <rect x="136" y="54" width="10" height="12" rx="3" {...muscle}/><rect x="154" y="54" width="10" height="12" rx="3" {...muscle}/>
-        <line x1="128" y1="58" x2="138" y2="58" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <line x1="162" y1="58" x2="172" y2="58" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <rect x="120" y="56" width="60" height="5" rx="2" fill="#22c55e" opacity="0.8"/>
-        <rect x="114" y="53" width="10" height="11" rx="2" fill="#22c55e"/><rect x="176" y="53" width="10" height="11" rx="2" fill="#22c55e"/>
-        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Pectoraux • Triceps</text>
-      </svg>
-    ),
-    pullup:(
-      <svg style={s} viewBox="0 0 200 120" fill="none">
-        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
-        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
-        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-        <rect x="10" y="14" width="80" height="5" rx="2" fill="#1a6fff" opacity="0.6"/>
-        <rect x="110" y="14" width="80" height="5" rx="2" fill="#1a6fff" opacity="0.6"/>
-        <circle cx="50" cy="36" r="7" {...body}/>
-        <line x1="36" y1="19" x2="44" y2="32" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <line x1="64" y1="19" x2="56" y2="32" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <rect x="46" y="43" width="8" height="20" rx="3" {...body}/>
-        <rect x="44" y="63" width="5" height="22" rx="2" {...body}/><rect x="51" y="63" width="5" height="22" rx="2" {...body}/>
-        <circle cx="150" cy="24" r="7" {...body}/>
-        <line x1="136" y1="19" x2="142" y2="24" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <line x1="164" y1="19" x2="158" y2="24" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <rect x="138" y="31" width="9" height="18" rx="3" {...muscle}/><rect x="153" y="31" width="9" height="18" rx="3" {...muscle}/>
-        <rect x="136" y="22" width="5" height="10" rx="2" {...muscleO}/><rect x="159" y="22" width="5" height="10" rx="2" {...muscleO}/>
-        <rect x="146" y="49" width="8" height="18" rx="3" {...body}/>
-        <rect x="144" y="67" width="5" height="20" rx="2" {...body}/><rect x="151" y="67" width="5" height="20" rx="2" {...body}/>
-        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Grand dorsal • Biceps</text>
-      </svg>
-    ),
-    overhead_press:(
-      <svg style={s} viewBox="0 0 200 120" fill="none">
-        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
-        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
-        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-        <circle cx="50" cy="32" r="7" {...body}/><rect x="46" y="39" width="8" height="18" rx="3" {...body}/>
-        <rect x="34" y="38" width="10" height="10" rx="4" {...muscle}/><rect x="56" y="38" width="10" height="10" rx="4" {...muscle}/>
-        <line x1="34" y1="42" x2="22" y2="48" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <line x1="66" y1="42" x2="78" y2="48" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <rect x="18" y="40" width="64" height="4" rx="2" fill="#1a6fff" opacity="0.8"/>
-        <rect x="12" y="38" width="8" height="8" rx="2" fill="#1a6fff"/><rect x="80" y="38" width="8" height="8" rx="2" fill="#1a6fff"/>
-        <rect x="45" y="57" width="10" height="24" rx="3" {...body}/>
-        <rect x="43" y="81" width="6" height="18" rx="2" {...body}/><rect x="51" y="81" width="6" height="18" rx="2" {...body}/>
-        <circle cx="150" cy="42" r="7" {...body}/><rect x="146" y="49" width="8" height="18" rx="3" {...body}/>
-        <rect x="134" y="48" width="10" height="10" rx="4" {...muscle}/><rect x="156" y="48" width="10" height="10" rx="4" {...muscle}/>
-        <rect x="131" y="36" width="6" height="14" rx="2" {...muscleO}/><rect x="163" y="36" width="6" height="14" rx="2" {...muscleO}/>
-        <line x1="134" y1="48" x2="128" y2="22" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <line x1="166" y1="48" x2="172" y2="22" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <rect x="120" y="14" width="60" height="4" rx="2" fill="#22c55e" opacity="0.8"/>
-        <rect x="114" y="12" width="8" height="8" rx="2" fill="#22c55e"/><rect x="178" y="12" width="8" height="8" rx="2" fill="#22c55e"/>
-        <rect x="145" y="67" width="10" height="24" rx="3" {...body}/>
-        <rect x="143" y="91" width="6" height="18" rx="2" {...body}/><rect x="151" y="91" width="6" height="18" rx="2" {...body}/>
-        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Épaules • Triceps</text>
-      </svg>
-    ),
-    barbell_row:(
-      <svg style={s} viewBox="0 0 200 120" fill="none">
-        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
-        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
-        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-        <circle cx="50" cy="30" r="7" {...body}/><rect x="46" y="37" width="8" height="14" rx="3" {...body}/>
-        <rect x="38" y="40" width="7" height="12" rx="2" {...body}/><rect x="55" y="40" width="7" height="12" rx="2" {...body}/>
-        <rect x="44" y="51" width="6" height="20" rx="2" {...body}/><rect x="50" y="51" width="6" height="20" rx="2" {...body}/>
-        <rect x="43" y="71" width="5" height="14" rx="2" {...body}/><rect x="50" y="71" width="5" height="14" rx="2" {...body}/>
-        <line x1="38" y1="46" x2="22" y2="80" stroke={BodyColor} strokeWidth="3" strokeLinecap="round"/>
-        <rect x="10" y="80" width="56" height="4" rx="2" fill="#1a6fff" opacity="0.7"/>
-        <rect x="6" y="78" width="7" height="8" rx="2" fill="#1a6fff"/><rect x="60" y="78" width="7" height="8" rx="2" fill="#1a6fff"/>
-        <circle cx="150" cy="30" r="7" {...body}/><rect x="146" y="37" width="8" height="14" rx="3" {...body}/>
-        <rect x="137" y="38" width="8" height="16" rx="3" {...muscle}/><rect x="155" y="38" width="8" height="16" rx="3" {...muscle}/>
-        <rect x="143" y="36" width="14" height="8" rx="3" {...muscleO}/>
-        <rect x="144" y="51" width="6" height="20" rx="2" {...body}/><rect x="150" y="51" width="6" height="20" rx="2" {...body}/>
-        <rect x="143" y="71" width="5" height="14" rx="2" {...body}/><rect x="150" y="71" width="5" height="14" rx="2" {...body}/>
-        <line x1="137" y1="46" x2="122" y2="54" stroke={BodyColor} strokeWidth="3" strokeLinecap="round"/>
-        <rect x="110" y="52" width="56" height="4" rx="2" fill="#22c55e" opacity="0.7"/>
-        <rect x="106" y="50" width="7" height="8" rx="2" fill="#22c55e"/><rect x="160" y="50" width="7" height="8" rx="2" fill="#22c55e"/>
-        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Grand dorsal • Rhomboïdes</text>
-      </svg>
-    ),
-    lunge:(
-      <svg style={s} viewBox="0 0 200 120" fill="none">
-        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
-        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
-        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-        <circle cx="50" cy="16" r="7" {...body}/><rect x="46" y="23" width="8" height="18" rx="3" {...body}/>
-        <rect x="43" y="28" width="6" height="14" rx="2" {...body}/><rect x="51" y="28" width="6" height="14" rx="2" {...body}/>
-        <rect x="45" y="41" width="5" height="20" rx="2" {...body}/><rect x="50" y="41" width="5" height="20" rx="2" {...body}/>
-        <rect x="44" y="61" width="5" height="14" rx="2" {...body}/><rect x="51" y="61" width="5" height="14" rx="2" {...body}/>
-        <circle cx="148" cy="20" r="7" {...body}/><rect x="144" y="27" width="8" height="14" rx="3" {...body}/>
-        <rect x="138" y="30" width="6" height="12" rx="2" {...body}/><rect x="154" y="30" width="6" height="12" rx="2" {...body}/>
-        <rect x="138" y="41" width="7" height="24" rx="3" {...muscle}/>
-        <rect x="155" y="38" width="7" height="20" rx="3" {...muscleO}/>
-        <rect x="137" y="65" width="6" height="16" rx="2" {...body}/>
-        <rect x="154" y="58" width="6" height="16" rx="2" {...body}/>
-        <text x="150" y="117" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Quadriceps • Fessiers</text>
-      </svg>
-    ),
-    hip90:(
-      <svg style={s} viewBox="0 0 200 120" fill="none">
-        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
-        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
-        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-        <circle cx="50" cy="42" r="7" {...body}/><rect x="46" y="49" width="8" height="18" rx="3" {...body}/>
-        <rect x="38" y="56" width="8" height="12" rx="2" {...body}/><rect x="54" y="56" width="8" height="12" rx="2" {...body}/>
-        <rect x="30" y="67" width="20" height="6" rx="3" {...body}/><rect x="50" y="67" width="20" height="6" rx="3" {...body}/>
-        <rect x="30" y="73" width="6" height="16" rx="2" {...body}/><rect x="44" y="73" width="6" height="16" rx="2" {...body}/>
-        <circle cx="150" cy="38" r="7" {...body}/><rect x="146" y="45" width="8" height="18" rx="3" {...body}/>
-        <rect x="135" y="52" width="8" height="12" rx="2" {...body}/><rect x="157" y="52" width="8" height="12" rx="2" {...body}/>
-        <rect x="130" y="63" width="20" height="8" rx="4" {...muscle}/><rect x="150" y="63" width="20" height="8" rx="4" {...muscle}/>
-        <rect x="130" y="71" width="6" height="16" rx="2" {...body}/><rect x="144" y="71" width="6" height="16" rx="2" {...body}/>
-        <line x1="138" y1="56" x2="118" y2="68" stroke={BodyColor} strokeWidth="3" strokeLinecap="round"/>
-        <text x="150" y="117" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Rotateurs hanche • Fessiers</text>
-      </svg>
-    ),
-    burpee:(
-      <svg style={s} viewBox="0 0 200 120" fill="none">
-        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">PLANCHE</text>
-        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">SAUT</text>
-        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-        <circle cx="68" cy="42" r="6" {...body}/>
-        <rect x="38" y="58" width="42" height="7" rx="3" {...body}/>
-        <rect x="64" y="48" width="6" height="12" rx="2" {...body}/>
-        <rect x="28" y="60" width="6" height="12" rx="2" {...body}/><rect x="76" y="60" width="6" height="12" rx="2" {...body}/>
-        <rect x="44" y="56" width="26" height="7" rx="3" {...muscle}/>
-        <circle cx="150" cy="16" r="7" {...body}/><rect x="146" y="23" width="8" height="18" rx="3" {...body}/>
-        <line x1="128" y1="14" x2="146" y2="28" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <line x1="172" y1="14" x2="154" y2="28" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
-        <rect x="140" y="41" width="6" height="20" rx="2" {...muscle}/><rect x="154" y="41" width="6" height="20" rx="2" {...muscle}/>
-        <rect x="138" y="61" width="6" height="18" rx="2" {...body}/><rect x="156" y="61" width="6" height="18" rx="2" {...body}/>
-        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Full body • Cardio</text>
-      </svg>
-    ),
-    run:(
-      <svg style={s} viewBox="0 0 200 120" fill="none">
-        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">APPUI</text>
-        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FOULÉE</text>
-        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-        <circle cx="50" cy="20" r="7" {...body}/><rect x="46" y="27" width="8" height="16" rx="3" {...body}/>
-        <rect x="36" y="33" width="8" height="12" rx="2" {...body}/><rect x="56" y="33" width="8" height="12" rx="2" {...body}/>
-        <rect x="43" y="43" width="6" height="20" rx="2" {...body}/><rect x="51" y="43" width="6" height="20" rx="2" {...body}/>
-        <rect x="41" y="63" width="6" height="16" rx="2" {...body}/><rect x="51" y="63" width="6" height="16" rx="2" {...body}/>
-        <circle cx="150" cy="18" r="7" {...body}/><rect x="146" y="25" width="8" height="16" rx="3" {...body}/>
-        <rect x="133" y="30" width="8" height="12" rx="2" {...body}/><rect x="159" y="30" width="8" height="12" rx="2" {...body}/>
-        <rect x="138" y="41" width="7" height="20" rx="3" {...muscle}/>
-        <rect x="156" y="38" width="7" height="18" rx="3" {...muscleO}/>
-        <rect x="137" y="61" width="6" height="16" rx="2" {...body}/><rect x="155" y="56" width="6" height="14" rx="2" {...body}/>
-        <text x="150" y="117" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Quadriceps • Ischio • Mollets</text>
-      </svg>
-    ),
+    squat:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="50" cy="16" r="7" {...body}/><rect x="46" y="23" width="8" height="18" rx="3" {...body}/><rect x="43" y="28" width="6" height="14" rx="2" {...body}/><rect x="51" y="28" width="6" height="14" rx="2" {...body}/><rect x="45" y="41" width="5" height="20" rx="2" {...body}/><rect x="50" y="41" width="5" height="20" rx="2" {...body}/><rect x="44" y="61" width="5" height="14" rx="2" {...body}/><rect x="51" y="61" width="5" height="14" rx="2" {...body}/><circle cx="150" cy="22" r="7" {...body}/><rect x="146" y="29" width="8" height="14" rx="3" {...body}/><rect x="140" y="33" width="7" height="12" rx="2" {...body}/><rect x="153" y="33" width="7" height="12" rx="2" {...body}/><rect x="141" y="45" width="7" height="22" rx="3" {...muscle}/><rect x="152" y="45" width="7" height="22" rx="3" {...muscle}/><rect x="144" y="42" width="12" height="8" rx="3" {...muscleO}/><rect x="141" y="67" width="6" height="16" rx="2" {...body}/><rect x="153" y="67" width="6" height="16" rx="2" {...body}/><text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Quadriceps • Fessiers</text></svg>),
+    deadlift:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="55" cy="28" r="7" {...body}/><rect x="51" y="35" width="8" height="14" rx="3" {...muscle}/><rect x="44" y="38" width="6" height="12" rx="2" {...body}/><rect x="61" y="38" width="6" height="12" rx="2" {...body}/><rect x="46" y="49" width="6" height="18" rx="2" {...body}/><rect x="53" y="49" width="6" height="18" rx="2" {...body}/><rect x="45" y="67" width="5" height="14" rx="2" {...body}/><rect x="52" y="67" width="5" height="14" rx="2" {...body}/><rect x="16" y="79" width="60" height="4" rx="2" fill="#1a6fff" opacity="0.7"/><rect x="12" y="77" width="8" height="8" rx="2" fill="#1a6fff"/><rect x="68" y="77" width="8" height="8" rx="2" fill="#1a6fff"/><circle cx="150" cy="14" r="7" {...body}/><rect x="146" y="21" width="8" height="18" rx="3" {...body}/><rect x="140" y="39" width="6" height="22" rx="3" {...muscle}/><rect x="154" y="39" width="6" height="22" rx="3" {...muscle}/><rect x="144" y="28" width="12" height="10" rx="3" {...muscleO}/><rect x="139" y="61" width="6" height="14" rx="2" {...body}/><rect x="155" y="61" width="6" height="14" rx="2" {...body}/><rect x="120" y="36" width="60" height="4" rx="2" fill="#22c55e" opacity="0.7"/><rect x="116" y="34" width="8" height="8" rx="2" fill="#22c55e"/><rect x="176" y="34" width="8" height="8" rx="2" fill="#22c55e"/><text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Ischio-jambiers • Lombaires</text></svg>),
+    bench_press:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><rect x="10" y="72" width="80" height="7" rx="3" fill="#112240"/><circle cx="50" cy="46" r="7" {...body}/><rect x="46" y="53" width="8" height="19" rx="3" {...body}/><rect x="36" y="54" width="10" height="12" rx="3" {...muscle}/><rect x="54" y="54" width="10" height="12" rx="3" {...muscle}/><line x1="26" y1="32" x2="36" y2="56" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><line x1="74" y1="32" x2="64" y2="56" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><rect x="18" y="20" width="64" height="5" rx="2" fill="#1a6fff" opacity="0.8"/><rect x="12" y="17" width="10" height="11" rx="2" fill="#1a6fff"/><rect x="78" y="17" width="10" height="11" rx="2" fill="#1a6fff"/><rect x="110" y="72" width="80" height="7" rx="3" fill="#112240"/><circle cx="150" cy="46" r="7" {...body}/><rect x="146" y="53" width="8" height="19" rx="3" {...body}/><rect x="136" y="54" width="10" height="12" rx="3" {...muscle}/><rect x="154" y="54" width="10" height="12" rx="3" {...muscle}/><line x1="128" y1="58" x2="138" y2="58" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><line x1="162" y1="58" x2="172" y2="58" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><rect x="120" y="56" width="60" height="5" rx="2" fill="#22c55e" opacity="0.8"/><rect x="114" y="53" width="10" height="11" rx="2" fill="#22c55e"/><rect x="176" y="53" width="10" height="11" rx="2" fill="#22c55e"/><text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Pectoraux • Triceps</text></svg>),
+    pullup:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><rect x="10" y="14" width="80" height="5" rx="2" fill="#1a6fff" opacity="0.6"/><rect x="110" y="14" width="80" height="5" rx="2" fill="#1a6fff" opacity="0.6"/><circle cx="50" cy="36" r="7" {...body}/><line x1="36" y1="19" x2="44" y2="32" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><line x1="64" y1="19" x2="56" y2="32" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><rect x="46" y="43" width="8" height="20" rx="3" {...body}/><rect x="44" y="63" width="5" height="22" rx="2" {...body}/><rect x="51" y="63" width="5" height="22" rx="2" {...body}/><circle cx="150" cy="24" r="7" {...body}/><line x1="136" y1="19" x2="142" y2="24" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><line x1="164" y1="19" x2="158" y2="24" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><rect x="138" y="31" width="9" height="18" rx="3" {...muscle}/><rect x="153" y="31" width="9" height="18" rx="3" {...muscle}/><rect x="136" y="22" width="5" height="10" rx="2" {...muscleO}/><rect x="159" y="22" width="5" height="10" rx="2" {...muscleO}/><rect x="146" y="49" width="8" height="18" rx="3" {...body}/><rect x="144" y="67" width="5" height="20" rx="2" {...body}/><rect x="151" y="67" width="5" height="20" rx="2" {...body}/><text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Grand dorsal • Biceps</text></svg>),
+    overhead_press:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="50" cy="32" r="7" {...body}/><rect x="46" y="39" width="8" height="18" rx="3" {...body}/><rect x="34" y="38" width="10" height="10" rx="4" {...muscle}/><rect x="56" y="38" width="10" height="10" rx="4" {...muscle}/><line x1="34" y1="42" x2="22" y2="48" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><line x1="66" y1="42" x2="78" y2="48" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><rect x="18" y="40" width="64" height="4" rx="2" fill="#1a6fff" opacity="0.8"/><rect x="12" y="38" width="8" height="8" rx="2" fill="#1a6fff"/><rect x="80" y="38" width="8" height="8" rx="2" fill="#1a6fff"/><rect x="45" y="57" width="10" height="24" rx="3" {...body}/><rect x="43" y="81" width="6" height="18" rx="2" {...body}/><rect x="51" y="81" width="6" height="18" rx="2" {...body}/><circle cx="150" cy="42" r="7" {...body}/><rect x="146" y="49" width="8" height="18" rx="3" {...body}/><rect x="134" y="48" width="10" height="10" rx="4" {...muscle}/><rect x="156" y="48" width="10" height="10" rx="4" {...muscle}/><rect x="131" y="36" width="6" height="14" rx="2" {...muscleO}/><rect x="163" y="36" width="6" height="14" rx="2" {...muscleO}/><line x1="134" y1="48" x2="128" y2="22" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><line x1="166" y1="48" x2="172" y2="22" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><rect x="120" y="14" width="60" height="4" rx="2" fill="#22c55e" opacity="0.8"/><rect x="114" y="12" width="8" height="8" rx="2" fill="#22c55e"/><rect x="178" y="12" width="8" height="8" rx="2" fill="#22c55e"/><rect x="145" y="67" width="10" height="24" rx="3" {...body}/><rect x="143" y="91" width="6" height="18" rx="2" {...body}/><rect x="151" y="91" width="6" height="18" rx="2" {...body}/><text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Épaules • Triceps</text></svg>),
+    barbell_row:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="50" cy="30" r="7" {...body}/><rect x="46" y="37" width="8" height="14" rx="3" {...body}/><rect x="38" y="40" width="7" height="12" rx="2" {...body}/><rect x="55" y="40" width="7" height="12" rx="2" {...body}/><rect x="44" y="51" width="6" height="20" rx="2" {...body}/><rect x="50" y="51" width="6" height="20" rx="2" {...body}/><rect x="43" y="71" width="5" height="14" rx="2" {...body}/><rect x="50" y="71" width="5" height="14" rx="2" {...body}/><line x1="38" y1="46" x2="22" y2="80" stroke={BodyColor} strokeWidth="3" strokeLinecap="round"/><rect x="10" y="80" width="56" height="4" rx="2" fill="#1a6fff" opacity="0.7"/><rect x="6" y="78" width="7" height="8" rx="2" fill="#1a6fff"/><rect x="60" y="78" width="7" height="8" rx="2" fill="#1a6fff"/><circle cx="150" cy="30" r="7" {...body}/><rect x="146" y="37" width="8" height="14" rx="3" {...body}/><rect x="137" y="38" width="8" height="16" rx="3" {...muscle}/><rect x="155" y="38" width="8" height="16" rx="3" {...muscle}/><rect x="143" y="36" width="14" height="8" rx="3" {...muscleO}/><rect x="144" y="51" width="6" height="20" rx="2" {...body}/><rect x="150" y="51" width="6" height="20" rx="2" {...body}/><rect x="143" y="71" width="5" height="14" rx="2" {...body}/><rect x="150" y="71" width="5" height="14" rx="2" {...body}/><line x1="137" y1="46" x2="122" y2="54" stroke={BodyColor} strokeWidth="3" strokeLinecap="round"/><rect x="110" y="52" width="56" height="4" rx="2" fill="#22c55e" opacity="0.7"/><rect x="106" y="50" width="7" height="8" rx="2" fill="#22c55e"/><rect x="160" y="50" width="7" height="8" rx="2" fill="#22c55e"/><text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Grand dorsal • Rhomboïdes</text></svg>),
+    lunge:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="50" cy="16" r="7" {...body}/><rect x="46" y="23" width="8" height="18" rx="3" {...body}/><rect x="43" y="28" width="6" height="14" rx="2" {...body}/><rect x="51" y="28" width="6" height="14" rx="2" {...body}/><rect x="45" y="41" width="5" height="20" rx="2" {...body}/><rect x="50" y="41" width="5" height="20" rx="2" {...body}/><rect x="44" y="61" width="5" height="14" rx="2" {...body}/><rect x="51" y="61" width="5" height="14" rx="2" {...body}/><circle cx="148" cy="20" r="7" {...body}/><rect x="144" y="27" width="8" height="14" rx="3" {...body}/><rect x="138" y="30" width="6" height="12" rx="2" {...body}/><rect x="154" y="30" width="6" height="12" rx="2" {...body}/><rect x="138" y="41" width="7" height="24" rx="3" {...muscle}/><rect x="155" y="38" width="7" height="20" rx="3" {...muscleO}/><rect x="137" y="65" width="6" height="16" rx="2" {...body}/><rect x="154" y="58" width="6" height="16" rx="2" {...body}/><text x="150" y="117" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Quadriceps • Fessiers</text></svg>),
+    hip90:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="50" cy="42" r="7" {...body}/><rect x="46" y="49" width="8" height="18" rx="3" {...body}/><rect x="38" y="56" width="8" height="12" rx="2" {...body}/><rect x="54" y="56" width="8" height="12" rx="2" {...body}/><rect x="30" y="67" width="20" height="6" rx="3" {...body}/><rect x="50" y="67" width="20" height="6" rx="3" {...body}/><rect x="30" y="73" width="6" height="16" rx="2" {...body}/><rect x="44" y="73" width="6" height="16" rx="2" {...body}/><circle cx="150" cy="38" r="7" {...body}/><rect x="146" y="45" width="8" height="18" rx="3" {...body}/><rect x="135" y="52" width="8" height="12" rx="2" {...body}/><rect x="157" y="52" width="8" height="12" rx="2" {...body}/><rect x="130" y="63" width="20" height="8" rx="4" {...muscle}/><rect x="150" y="63" width="20" height="8" rx="4" {...muscle}/><rect x="130" y="71" width="6" height="16" rx="2" {...body}/><rect x="144" y="71" width="6" height="16" rx="2" {...body}/><line x1="138" y1="56" x2="118" y2="68" stroke={BodyColor} strokeWidth="3" strokeLinecap="round"/><text x="150" y="117" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Rotateurs hanche • Fessiers</text></svg>),
+    burpee:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">PLANCHE</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">SAUT</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="68" cy="42" r="6" {...body}/><rect x="38" y="58" width="42" height="7" rx="3" {...body}/><rect x="64" y="48" width="6" height="12" rx="2" {...body}/><rect x="28" y="60" width="6" height="12" rx="2" {...body}/><rect x="76" y="60" width="6" height="12" rx="2" {...body}/><rect x="44" y="56" width="26" height="7" rx="3" {...muscle}/><circle cx="150" cy="16" r="7" {...body}/><rect x="146" y="23" width="8" height="18" rx="3" {...body}/><line x1="128" y1="14" x2="146" y2="28" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><line x1="172" y1="14" x2="154" y2="28" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><rect x="140" y="41" width="6" height="20" rx="2" {...muscle}/><rect x="154" y="41" width="6" height="20" rx="2" {...muscle}/><rect x="138" y="61" width="6" height="18" rx="2" {...body}/><rect x="156" y="61" width="6" height="18" rx="2" {...body}/><text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Full body • Cardio</text></svg>),
+    run:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">APPUI</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FOULÉE</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="50" cy="20" r="7" {...body}/><rect x="46" y="27" width="8" height="16" rx="3" {...body}/><rect x="36" y="33" width="8" height="12" rx="2" {...body}/><rect x="56" y="33" width="8" height="12" rx="2" {...body}/><rect x="43" y="43" width="6" height="20" rx="2" {...body}/><rect x="51" y="43" width="6" height="20" rx="2" {...body}/><rect x="41" y="63" width="6" height="16" rx="2" {...body}/><rect x="51" y="63" width="6" height="16" rx="2" {...body}/><circle cx="150" cy="18" r="7" {...body}/><rect x="146" y="25" width="8" height="16" rx="3" {...body}/><rect x="133" y="30" width="8" height="12" rx="2" {...body}/><rect x="159" y="30" width="8" height="12" rx="2" {...body}/><rect x="138" y="41" width="7" height="20" rx="3" {...muscle}/><rect x="156" y="38" width="7" height="18" rx="3" {...muscleO}/><rect x="137" y="61" width="6" height="16" rx="2" {...body}/><rect x="155" y="56" width="6" height="14" rx="2" {...body}/><text x="150" y="117" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Quadriceps • Ischio • Mollets</text></svg>),
   };
-
-  const defaultSVG = (
-    <svg style={s} viewBox="0 0 200 120" fill="none">
-      <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
-      <circle cx="50" cy="24" r="8" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="44" y="32" width="12" height="22" rx="4" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="36" y="36" width="8" height="18" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="56" y="36" width="8" height="18" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="42" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="51" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="41" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="50" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <circle cx="150" cy="24" r="8" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="144" y="32" width="12" height="22" rx="4" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/>
-      <rect x="136" y="36" width="8" height="18" rx="3" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/>
-      <rect x="156" y="36" width="8" height="18" rx="3" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/>
-      <rect x="142" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="151" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="141" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-      <rect x="150" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
-    </svg>
-  );
-
-  return (
-    <div style={{ width:"100%", aspectRatio:"2/1", background:"#04080f", borderRadius:10, overflow:"hidden", display:"flex", alignItems:"center", justifyContent:"center", padding:6 }}>
-      {illustrations[id] || defaultSVG}
-    </div>
-  );
+  const defaultSVG = (<svg style={s} viewBox="0 0 200 120" fill="none"><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="50" cy="24" r="8" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="44" y="32" width="12" height="22" rx="4" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="36" y="36" width="8" height="18" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="56" y="36" width="8" height="18" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="42" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="51" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="41" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="50" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><circle cx="150" cy="24" r="8" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="144" y="32" width="12" height="22" rx="4" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/><rect x="136" y="36" width="8" height="18" rx="3" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/><rect x="156" y="36" width="8" height="18" rx="3" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/><rect x="142" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="151" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="141" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="150" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/></svg>);
+  return (<div style={{ width:"100%", aspectRatio:"2/1", background:"#04080f", borderRadius:10, overflow:"hidden", display:"flex", alignItems:"center", justifyContent:"center", padding:6 }}>{illustrations[id]||defaultSVG}</div>);
 };
 
 const MUSCLE_GROUPS = {
-  "Pectoraux":    ["bench_press","incline_press","dips","cable_fly","pushup","bench_dumbbell"],
-  "Épaules":      ["overhead_press","lateral_raise","face_pull","shrug"],
-  "Triceps":      ["overhead_press","dips","tricep_pushdown","skull_crusher","bench_press"],
-  "Dorsaux":      ["pullup","barbell_row","dumbbell_row","lat_pulldown","deadlift"],
-  "Biceps":       ["pullup","bicep_curl","hammer_curl","barbell_row"],
-  "Quadriceps":   ["squat","lunge","leg_press","bulgarian_split","rdl"],
-  "Ischio-jamb.": ["deadlift","rdl","leg_curl","glute_bridge","lunge"],
-  "Fessiers":     ["squat","rdl","glute_bridge","bulgarian_split","lunge","hip90"],
-  "Abdominaux":   ["plank","ab_crunch","mountainclimber"],
-  "Cardio":       ["run","bike","burpee","jumpingjack","jump_rope","box_jump","battle_rope","rowing_machine","hiit_sprint","assault_bike","kettlebell_swing"],
-  "Mobilité":     ["hip90","pigeon","catcow","worldsgreatest","thoracic_rot","hip_flexor","ankle_mob","foam_roll","shoulder_mob"],
+  "Pectoraux":["bench_press","incline_press","dips","cable_fly","pushup","bench_dumbbell"],
+  "Épaules":["overhead_press","lateral_raise","face_pull","shrug"],
+  "Triceps":["overhead_press","dips","tricep_pushdown","skull_crusher","bench_press"],
+  "Dorsaux":["pullup","barbell_row","dumbbell_row","lat_pulldown","deadlift"],
+  "Biceps":["pullup","bicep_curl","hammer_curl","barbell_row"],
+  "Quadriceps":["squat","lunge","leg_press","bulgarian_split","rdl"],
+  "Ischio-jamb.":["deadlift","rdl","leg_curl","glute_bridge","lunge"],
+  "Fessiers":["squat","rdl","glute_bridge","bulgarian_split","lunge","hip90"],
+  "Abdominaux":["plank","ab_crunch","mountainclimber"],
+  "Cardio":["run","bike","burpee","jumpingjack","jump_rope","box_jump","battle_rope","rowing_machine","hiit_sprint","assault_bike","kettlebell_swing"],
+  "Mobilité":["hip90","pigeon","catcow","worldsgreatest","thoracic_rot","hip_flexor","ankle_mob","foam_roll","shoulder_mob"],
 };
 
 const LIBRARY = [
-  { id:"squat",           name:"Squat",                 cat:"Legs",        muscles:"Quadriceps, Fessiers, Ischio",      tip:"Pieds largeur épaules, genoux dans l'axe." },
-  { id:"deadlift",        name:"Deadlift",              cat:"Pull",        muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps." },
-  { id:"bench_press",     name:"Développé couché",      cat:"Push",        muscles:"Pectoraux, Triceps, Épaules ant.",  tip:"Omoplates rétractées, coudes à 45°." },
-  { id:"pullup",          name:"Traction",              cat:"Pull",        muscles:"Grand dorsal, Biceps, Rhomboïdes",  tip:"Dépression scapulaire avant de tirer." },
-  { id:"lunge",           name:"Fente avant",           cat:"Legs",        muscles:"Quadriceps, Fessiers, Mollets",     tip:"Genou avant à 90°, genou arrière près du sol." },
-  { id:"overhead_press",  name:"Développé militaire",   cat:"Push",        muscles:"Épaules, Triceps, Trapèzes",        tip:"Gainage abdominal, barre dans l'axe." },
-  { id:"barbell_row",     name:"Rowing barre",          cat:"Pull",        muscles:"Grand dorsal, Rhomboïdes, Biceps",  tip:"Dos plat, tirage vers le nombril." },
-  { id:"hip90",           name:"Hip 90/90",             cat:"Mobilité",    muscles:"Rotateurs hanche, Fessiers",        tip:"Deux jambes à 90°, bascule lente." },
-  { id:"burpee",          name:"Burpee",                cat:"Cardio",      muscles:"Full body, Explosivité",            tip:"Planche stricte en bas, saut explosif." },
-  { id:"run",             name:"Course / Jogging",      cat:"Cardio",      muscles:"Quadriceps, Ischio, Mollets",       tip:"Foulée médio-pied, 170-180 pas/min." },
-  { id:"dips",            name:"Dips",                  cat:"Push",        muscles:"Triceps, Pectoraux inférieurs",     tip:"Légère inclinaison avant pour les pectoraux." },
-  { id:"lateral_raise",   name:"Élévations latérales",  cat:"Push",        muscles:"Deltoïdes latéraux",                tip:"Coudes légèrement fléchis, jusqu'à l'horizontal." },
-  { id:"bicep_curl",      name:"Curl biceps",           cat:"Pull",        muscles:"Biceps, Brachial",                  tip:"Coudes fixes, supination en haut." },
-  { id:"lat_pulldown",    name:"Tirage poulie haute",   cat:"Pull",        muscles:"Grand dorsal, Biceps",              tip:"Tirage vers le sternum." },
-  { id:"rdl",             name:"Romanian Deadlift",     cat:"Legs",        muscles:"Ischio-jambiers, Fessiers",         tip:"Charnière hanche, dos plat." },
-  { id:"leg_press",       name:"Presse à cuisses",      cat:"Legs",        muscles:"Quadriceps, Fessiers",              tip:"Pieds à largeur d'épaules, genoux dans l'axe." },
-  { id:"leg_curl",        name:"Leg curl",              cat:"Legs",        muscles:"Ischio-jambiers",                   tip:"Contraction complète, descente contrôlée." },
-  { id:"calf_raise",      name:"Mollets debout",        cat:"Legs",        muscles:"Mollets, Soléaire",                 tip:"Amplitude complète, pause en haut." },
-  { id:"glute_bridge",    name:"Pont fessier",          cat:"Legs",        muscles:"Fessiers, Ischio-jambiers",         tip:"Poussée sur les talons, contraction en haut." },
-  { id:"bulgarian_split", name:"Fente bulgare",         cat:"Legs",        muscles:"Quadriceps, Fessiers",              tip:"Pied arrière surélevé, genou avant à 90°." },
-  { id:"pushup",          name:"Pompes",                cat:"Push",        muscles:"Pectoraux, Triceps, Épaules",       tip:"Corps gainé, coudes à 45°." },
-  { id:"plank",           name:"Gainage planche",       cat:"Musculation", muscles:"Abdominaux, Lombaires, Épaules",    tip:"Corps aligné, hanches ne tombent pas." },
-  { id:"ab_crunch",       name:"Crunch abdominaux",     cat:"Musculation", muscles:"Grand droit abdominal",             tip:"Expiration en montant, ne pas tirer la nuque." },
-  { id:"hammer_curl",     name:"Curl marteau",          cat:"Pull",        muscles:"Biceps, Brachioradial",             tip:"Prise neutre, coudes fixes." },
-  { id:"face_pull",       name:"Face pull",             cat:"Pull",        muscles:"Deltoïdes post., Rhomboïdes",       tip:"Tirer vers le visage, coudes hauts." },
-  { id:"cable_fly",       name:"Écarté poulie",         cat:"Push",        muscles:"Pectoraux, Deltoïdes ant.",         tip:"Légère flexion des coudes, arc de cercle." },
-  { id:"skull_crusher",   name:"Skull crusher",         cat:"Push",        muscles:"Triceps long",                      tip:"Coudes fixes, descente vers le front." },
-  { id:"shrug",           name:"Haussements épaules",   cat:"Pull",        muscles:"Trapèzes supérieurs",               tip:"Mouvement vertical pur, pas de rotation." },
-  { id:"pigeon",          name:"Pigeon yoga",           cat:"Mobilité",    muscles:"Psoas, Rotateurs hanche",           tip:"Hanches au sol, 60-90s par côté." },
-  { id:"catcow",          name:"Chat / Vache",          cat:"Mobilité",    muscles:"Rachis, Multifides",                tip:"Mouvement fluide avec la respiration." },
-  { id:"worldsgreatest",  name:"World's Greatest",      cat:"Mobilité",    muscles:"Full body, Hanche, Thoracique",     tip:"Rotation thoracique complète." },
-  { id:"thoracic_rot",    name:"Rotation thoracique",   cat:"Mobilité",    muscles:"Rachis thoracique, Obliques",       tip:"Regard suit la main, amplitude max." },
-  { id:"hip_flexor",      name:"Étirement psoas",       cat:"Mobilité",    muscles:"Psoas, Quadriceps",                 tip:"Bassin en rétroversion, avancer doucement." },
-  { id:"ankle_mob",       name:"Mobilité cheville",     cat:"Mobilité",    muscles:"Tibial antérieur, Mollets",         tip:"Genou dans l'axe du pied, talon au sol." },
-  { id:"foam_roll",       name:"Foam roll dos",         cat:"Mobilité",    muscles:"Érecteurs, Thoracique",             tip:"Pause 20-30s sur les zones tendues." },
-  { id:"bike",            name:"Vélo / Cycling",        cat:"Cardio",      muscles:"Quadriceps, Fessiers, Cardio",      tip:"Selle à hauteur de hanche, 80-90 rpm." },
-  { id:"rowing_machine",  name:"Rameur",                cat:"Cardio",      muscles:"Full body, Dos, Cardio",            tip:"Jambes d'abord, puis dos, puis bras." },
-  { id:"jumpingjack",     name:"Jumping Jack",          cat:"Cardio",      muscles:"Cardio, Coordination",              tip:"Rythme constant, atterrissage amorti." },
-  { id:"mountainclimber", name:"Mountain Climber",      cat:"Cardio",      muscles:"Abdominaux, Cardio, Épaules",       tip:"Hanches basses, genoux qui remontent vite." },
-  { id:"jump_rope",       name:"Corde à sauter",        cat:"Cardio",      muscles:"Mollets, Cardio, Coordination",     tip:"Sauts légers, poignets qui tournent." },
-  { id:"box_jump",        name:"Box Jump",              cat:"Cardio",      muscles:"Quadriceps, Fessiers, Explosivité", tip:"Atterrissage amorti, hanches en arrière." },
-  { id:"battle_rope",     name:"Battle Rope",           cat:"Cardio",      muscles:"Épaules, Bras, Cardio",             tip:"Genoux fléchis, ondulations continues." },
-  { id:"kettlebell_swing",name:"Kettlebell Swing",      cat:"Cardio",      muscles:"Fessiers, Ischio, Épaules",         tip:"Charnière hanche, projection des hanches." },
-  { id:"hiit_sprint",     name:"Sprint HIIT",           cat:"Cardio",      muscles:"Full body, Explosivité",            tip:"Effort max 20s, récup 40s." },
-  { id:"incline_press",   name:"Développé incliné",     cat:"Push",        muscles:"Pectoraux sup., Épaules",           tip:"Inclinaison 30-45°, contrôle en descente." },
-  { id:"tricep_pushdown", name:"Pushdown triceps",      cat:"Push",        muscles:"Triceps",                           tip:"Coudes fixes contre le corps." },
-  { id:"dumbbell_row",    name:"Rowing haltère",        cat:"Pull",        muscles:"Grand dorsal, Rhomboïdes",          tip:"Coude près du corps, tirage jusqu'à la hanche." },
-  { id:"bench_dumbbell",  name:"Développé haltères",    cat:"Push",        muscles:"Pectoraux, Triceps",                tip:"Grande amplitude, coudes à 45°." },
-  { id:"assault_bike",    name:"Assault bike",          cat:"Cardio",      muscles:"Full body, Bras, Cardio",           tip:"Push/pull simultané bras et jambes." },
-  { id:"shoulder_mob",    name:"Mobilité épaule",       cat:"Mobilité",    muscles:"Coiffe des rotateurs",              tip:"Mouvements lents et contrôlés." },
+  { id:"squat",           name:"Squat",                cat:"Legs",       muscles:"Quadriceps, Fessiers, Ischio",      tip:"Pieds largeur épaules, genoux dans l'axe." },
+  { id:"deadlift",        name:"Deadlift",             cat:"Pull",       muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps." },
+  { id:"bench_press",     name:"Développé couché",     cat:"Push",       muscles:"Pectoraux, Triceps, Épaules ant.",  tip:"Omoplates rétractées, coudes à 45°." },
+  { id:"pullup",          name:"Traction",             cat:"Pull",       muscles:"Grand dorsal, Biceps, Rhomboïdes",  tip:"Dépression scapulaire avant de tirer." },
+  { id:"lunge",           name:"Fente avant",          cat:"Legs",       muscles:"Quadriceps, Fessiers, Mollets",     tip:"Genou avant à 90°, genou arrière près du sol." },
+  { id:"overhead_press",  name:"Développé militaire",  cat:"Push",       muscles:"Épaules, Triceps, Trapèzes",        tip:"Gainage abdominal, barre dans l'axe." },
+  { id:"barbell_row",     name:"Rowing barre",         cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes, Biceps",  tip:"Dos plat, tirage vers le nombril." },
+  { id:"hip90",           name:"Hip 90/90",            cat:"Mobilité",   muscles:"Rotateurs hanche, Fessiers",        tip:"Deux jambes à 90°, bascule lente." },
+  { id:"burpee",          name:"Burpee",               cat:"Cardio",     muscles:"Full body, Explosivité",            tip:"Planche stricte en bas, saut explosif." },
+  { id:"run",             name:"Course / Jogging",     cat:"Cardio",     muscles:"Quadriceps, Ischio, Mollets",       tip:"Foulée médio-pied, 170-180 pas/min." },
+  { id:"dips",            name:"Dips",                 cat:"Push",       muscles:"Triceps, Pectoraux inférieurs",     tip:"Légère inclinaison avant pour les pectoraux." },
+  { id:"lateral_raise",   name:"Élévations latérales", cat:"Push",       muscles:"Deltoïdes latéraux",                tip:"Coudes légèrement fléchis, jusqu'à l'horizontal." },
+  { id:"bicep_curl",      name:"Curl biceps",          cat:"Pull",       muscles:"Biceps, Brachial",                  tip:"Coudes fixes, supination en haut." },
+  { id:"lat_pulldown",    name:"Tirage poulie haute",  cat:"Pull",       muscles:"Grand dorsal, Biceps",              tip:"Tirage vers le sternum." },
+  { id:"rdl",             name:"Romanian Deadlift",    cat:"Legs",       muscles:"Ischio-jambiers, Fessiers",         tip:"Charnière hanche, dos plat." },
+  { id:"leg_press",       name:"Presse à cuisses",     cat:"Legs",       muscles:"Quadriceps, Fessiers",              tip:"Pieds à largeur d'épaules, genoux dans l'axe." },
+  { id:"leg_curl",        name:"Leg curl",             cat:"Legs",       muscles:"Ischio-jambiers",                   tip:"Contraction complète, descente contrôlée." },
+  { id:"calf_raise",      name:"Mollets debout",       cat:"Legs",       muscles:"Mollets, Soléaire",                 tip:"Amplitude complète, pause en haut." },
+  { id:"glute_bridge",    name:"Pont fessier",         cat:"Legs",       muscles:"Fessiers, Ischio-jambiers",         tip:"Poussée sur les talons, contraction en haut." },
+  { id:"bulgarian_split", name:"Fente bulgare",        cat:"Legs",       muscles:"Quadriceps, Fessiers",              tip:"Pied arrière surélevé, genou avant à 90°." },
+  { id:"pushup",          name:"Pompes",               cat:"Push",       muscles:"Pectoraux, Triceps, Épaules",       tip:"Corps gainé, coudes à 45°." },
+  { id:"plank",           name:"Gainage planche",      cat:"Musculation",muscles:"Abdominaux, Lombaires, Épaules",    tip:"Corps aligné, hanches ne tombent pas." },
+  { id:"ab_crunch",       name:"Crunch abdominaux",    cat:"Musculation",muscles:"Grand droit abdominal",             tip:"Expiration en montant, ne pas tirer la nuque." },
+  { id:"hammer_curl",     name:"Curl marteau",         cat:"Pull",       muscles:"Biceps, Brachioradial",             tip:"Prise neutre, coudes fixes." },
+  { id:"face_pull",       name:"Face pull",            cat:"Pull",       muscles:"Deltoïdes post., Rhomboïdes",       tip:"Tirer vers le visage, coudes hauts." },
+  { id:"cable_fly",       name:"Écarté poulie",        cat:"Push",       muscles:"Pectoraux, Deltoïdes ant.",         tip:"Légère flexion des coudes, arc de cercle." },
+  { id:"skull_crusher",   name:"Skull crusher",        cat:"Push",       muscles:"Triceps long",                      tip:"Coudes fixes, descente vers le front." },
+  { id:"shrug",           name:"Haussements épaules",  cat:"Pull",       muscles:"Trapèzes supérieurs",               tip:"Mouvement vertical pur, pas de rotation." },
+  { id:"pigeon",          name:"Pigeon yoga",          cat:"Mobilité",   muscles:"Psoas, Rotateurs hanche",           tip:"Hanches au sol, 60-90s par côté." },
+  { id:"catcow",          name:"Chat / Vache",         cat:"Mobilité",   muscles:"Rachis, Multifides",                tip:"Mouvement fluide avec la respiration." },
+  { id:"worldsgreatest",  name:"World's Greatest",     cat:"Mobilité",   muscles:"Full body, Hanche, Thoracique",     tip:"Rotation thoracique complète." },
+  { id:"thoracic_rot",    name:"Rotation thoracique",  cat:"Mobilité",   muscles:"Rachis thoracique, Obliques",       tip:"Regard suit la main, amplitude max." },
+  { id:"hip_flexor",      name:"Étirement psoas",      cat:"Mobilité",   muscles:"Psoas, Quadriceps",                 tip:"Bassin en rétroversion, avancer doucement." },
+  { id:"ankle_mob",       name:"Mobilité cheville",    cat:"Mobilité",   muscles:"Tibial antérieur, Mollets",         tip:"Genou dans l'axe du pied, talon au sol." },
+  { id:"foam_roll",       name:"Foam roll dos",        cat:"Mobilité",   muscles:"Érecteurs, Thoracique",             tip:"Pause 20-30s sur les zones tendues." },
+  { id:"bike",            name:"Vélo / Cycling",       cat:"Cardio",     muscles:"Quadriceps, Fessiers, Cardio",      tip:"Selle à hauteur de hanche, 80-90 rpm." },
+  { id:"rowing_machine",  name:"Rameur",               cat:"Cardio",     muscles:"Full body, Dos, Cardio",            tip:"Jambes d'abord, puis dos, puis bras." },
+  { id:"jumpingjack",     name:"Jumping Jack",         cat:"Cardio",     muscles:"Cardio, Coordination",              tip:"Rythme constant, atterrissage amorti." },
+  { id:"mountainclimber", name:"Mountain Climber",     cat:"Cardio",     muscles:"Abdominaux, Cardio, Épaules",       tip:"Hanches basses, genoux qui remontent vite." },
+  { id:"jump_rope",       name:"Corde à sauter",       cat:"Cardio",     muscles:"Mollets, Cardio, Coordination",     tip:"Sauts légers, poignets qui tournent." },
+  { id:"box_jump",        name:"Box Jump",             cat:"Cardio",     muscles:"Quadriceps, Fessiers, Explosivité", tip:"Atterrissage amorti, hanches en arrière." },
+  { id:"battle_rope",     name:"Battle Rope",          cat:"Cardio",     muscles:"Épaules, Bras, Cardio",             tip:"Genoux fléchis, ondulations continues." },
+  { id:"kettlebell_swing",name:"Kettlebell Swing",     cat:"Cardio",     muscles:"Fessiers, Ischio, Épaules",         tip:"Charnière hanche, projection des hanches." },
+  { id:"hiit_sprint",     name:"Sprint HIIT",          cat:"Cardio",     muscles:"Full body, Explosivité",            tip:"Effort max 20s, récup 40s." },
+  { id:"incline_press",   name:"Développé incliné",    cat:"Push",       muscles:"Pectoraux sup., Épaules",           tip:"Inclinaison 30-45°, contrôle en descente." },
+  { id:"tricep_pushdown", name:"Pushdown triceps",     cat:"Push",       muscles:"Triceps",                           tip:"Coudes fixes contre le corps." },
+  { id:"dumbbell_row",    name:"Rowing haltère",       cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes",          tip:"Coude près du corps, tirage jusqu'à la hanche." },
+  { id:"bench_dumbbell",  name:"Développé haltères",   cat:"Push",       muscles:"Pectoraux, Triceps",                tip:"Grande amplitude, coudes à 45°." },
+  { id:"assault_bike",    name:"Assault bike",         cat:"Cardio",     muscles:"Full body, Bras, Cardio",           tip:"Push/pull simultané bras et jambes." },
+  { id:"shoulder_mob",    name:"Mobilité épaule",      cat:"Mobilité",   muscles:"Coiffe des rotateurs",              tip:"Mouvements lents et contrôlés." },
 ];
 
 const CATS = ["Tous","Push","Pull","Legs","Musculation","Mobilité","Cardio"];
 const CAT_COLOR = { Push:"#1a6fff", Pull:"#8b5cf6", Legs:"#22c55e", Musculation:"#1a6fff", Mobilité:"#22c55e", Cardio:"#f59e0b" };
+const MONTH_NAMES = { "01":"Janvier","02":"Février","03":"Mars","04":"Avril","05":"Mai","06":"Juin","07":"Juillet","08":"Août","09":"Septembre","10":"Octobre","11":"Novembre","12":"Décembre" };
 
 const SAMPLE_CLIENTS = [{
   id:"tony", name:"Tony Parker", age:41, sport:"Basketball", since:"2024-01", status:"actif",
   objective:"Maintien forme & mobilité", progress:78,
   sessions:[
-    { id:"s1", date:"2026-04-15", present:true, duration:90, note:"Mobilité hanches + renforcement excentrique", exercises:[] },
-    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Cardio HIIT", exercises:[] },
-    { id:"s3", date:"2026-04-03", present:false, duration:0, note:"Absent — voyage", exercises:[] },
+    { id:"s1", date:"2026-04-15", present:true,  duration:90, note:"Mobilité hanches + renforcement excentrique", exercises:[] },
+    { id:"s2", date:"2026-04-10", present:true,  duration:75, note:"Cardio HIIT", exercises:[] },
+    { id:"s3", date:"2026-03-03", present:false, duration:0,  note:"Absent — voyage", exercises:[] },
   ],
   metrics:[
     { date:"2026-04-01", weight:92.0, chest:104, waist:86, hips:98, fatPct:14.2 },
@@ -395,8 +180,47 @@ const SecTitle = ({ c }) => (
   </div>
 );
 
-
-
+const SwipeToDelete = ({ children, onDelete }) => {
+  const [startX, setStartX] = useState(null);
+  const [offsetX, setOffsetX] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const [confirming, setConfirming] = useState(false);
+  const threshold = -75;
+  function onTouchStart(e) { setStartX(e.touches[0].clientX); }
+  function onTouchMove(e) {
+    if (startX===null||confirming) return;
+    const diff = e.touches[0].clientX - startX;
+    if (diff<0) setOffsetX(Math.max(diff,-100));
+    else if (revealed) setOffsetX(Math.min(diff-100,0));
+  }
+  function onTouchEnd() {
+    setStartX(null);
+    if (offsetX<threshold) { setOffsetX(-100); setRevealed(true); }
+    else { setOffsetX(0); setRevealed(false); }
+  }
+  function handleDelete() {
+    setConfirming(true);
+    setTimeout(()=>{ onDelete(); setConfirming(false); setOffsetX(0); setRevealed(false); },300);
+  }
+  function handleCancel() { setOffsetX(0); setRevealed(false); }
+  return (
+    <div style={{ position:"relative", overflow:"hidden", borderRadius:14, marginBottom:10 }}>
+      <div style={{ position:"absolute", right:0, top:0, bottom:0, width:100, display:"flex", flexDirection:"column", borderRadius:"0 14px 14px 0", overflow:"hidden" }}>
+        <button onClick={handleDelete} style={{ flex:1, background:"#e63946", border:"none", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:2 }}>
+          <span style={{ fontSize:16 }}>🗑️</span>
+          <span style={{ color:"#fff", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase" }}>Supprimer</span>
+        </button>
+        <button onClick={handleCancel} style={{ flex:0.6, background:"#0f2040", border:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>
+          <span style={{ color:"#7a90b8", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase" }}>Annuler</span>
+        </button>
+      </div>
+      <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}
+        style={{ transform:`translateX(${confirming?-120:offsetX}px)`, transition:startX?'none':'transform .3s ease', position:"relative", zIndex:1 }}>
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const StatusDot = ({ status }) => {
   const color = status==="live"?"#22c55e":status==="connecting"?"#f59e0b":"#3d5278";
@@ -409,88 +233,24 @@ const StatusDot = ({ status }) => {
   );
 };
 
-const SwipeToDelete = ({ children, onDelete }) => {
-  const [startX, setStartX] = useState(null);
-  const [offsetX, setOffsetX] = useState(0);
-  const [revealed, setRevealed] = useState(false);
-  const [confirming, setConfirming] = useState(false);
-  const threshold = -75;
-
-  function onTouchStart(e) { setStartX(e.touches[0].clientX); }
-  function onTouchMove(e) {
-    if (startX === null || confirming) return;
-    const diff = e.touches[0].clientX - startX;
-    if (diff < 0) setOffsetX(Math.max(diff, -100));
-    else if (revealed) setOffsetX(Math.min(diff - 100, 0));
-  }
-  function onTouchEnd() {
-    setStartX(null);
-    if (offsetX < threshold) {
-      setOffsetX(-100); setRevealed(true);
-    } else {
-      setOffsetX(0); setRevealed(false);
-    }
-  }
-  function handleDelete() {
-    setConfirming(true);
-    setTimeout(() => { onDelete(); setConfirming(false); setOffsetX(0); setRevealed(false); }, 300);
-  }
-  function handleCancel() {
-    setOffsetX(0); setRevealed(false);
-  }
-
-  return (
-    <div style={{ position:"relative", overflow:"hidden", borderRadius:14, marginBottom:10 }}>
-      {/* Delete button revealed */}
-      <div style={{ position:"absolute", right:0, top:0, bottom:0, width:100, display:"flex", flexDirection:"column", borderRadius:"0 14px 14px 0", overflow:"hidden" }}>
-        <button onClick={handleDelete} style={{ flex:1, background:"#e63946", border:"none", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:2 }}>
-          <span style={{ fontSize:16 }}>🗑️</span>
-          <span style={{ color:"#fff", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase" }}>Supprimer</span>
-        </button>
-        <button onClick={handleCancel} style={{ flex:0.6, background:"#0f2040", border:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>
-          <span style={{ color:"#7a90b8", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase" }}>Annuler</span>
-        </button>
-      </div>
-      {/* Content */}
-      <div
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-        style={{ transform:`translateX(${confirming?-120:offsetX}px)`, transition:startX?'none':'transform .3s ease', position:"relative", zIndex:1 }}
-      >
-        {children}
-      </div>
-    </div>
-  );
-};
-
-
-// ── PROGRESSION CHARTS ────────────────────────────────────────────────────────
 const ProgressionCharts = ({ metrics }) => {
-  if (!metrics || metrics.length < 2) return (
+  if (!metrics||metrics.length<2) return (
     <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:16, marginBottom:14, textAlign:"center", color:"#3d5278", fontSize:12 }}>
       Ajoute au moins 2 mesures pour voir les graphiques 📈
     </div>
   );
-
   const sorted = [...metrics].reverse();
-
   const MiniChart = ({ data, label, color, unit="" }) => {
-    const vals = data.filter(v => v > 0);
-    if (vals.length < 2) return null;
-    const min = Math.min(...vals) - 1;
-    const max = Math.max(...vals) + 1;
-    const W = 260, H = 60;
-    const pts = data.map((v, i) => ({
-      x: (i / (data.length - 1)) * (W - 20) + 10,
-      y: v > 0 ? H - ((v - min) / (max - min)) * (H - 16) - 4 : null,
-      v
-    })).filter(p => p.y !== null);
-    const path = pts.map((p, i) => `${i===0?"M":"L"} ${p.x} ${p.y}`).join(" ");
+    const vals = data.filter(v=>v>0);
+    if (vals.length<2) return null;
+    const min = Math.min(...vals)-1;
+    const max = Math.max(...vals)+1;
+    const W=260, H=60;
+    const pts = data.map((v,i)=>({ x:(i/(data.length-1))*(W-20)+10, y:v>0?H-((v-min)/(max-min))*(H-16)-4:null, v })).filter(p=>p.y!==null);
+    const path = pts.map((p,i)=>`${i===0?"M":"L"} ${p.x} ${p.y}`).join(" ");
     const area = `${path} L ${pts[pts.length-1].x} ${H} L ${pts[0].x} ${H} Z`;
-    const delta = vals[vals.length-1] - vals[0];
-    const isGood = (label==="Poids" || label==="MG %") ? delta <= 0 : delta >= 0;
-
+    const delta = vals[vals.length-1]-vals[0];
+    const isGood = (label==="Poids"||label==="MG %") ? delta<=0 : delta>=0;
     return (
       <div style={{ background:"#04080f", borderRadius:10, padding:"12px 14px", marginBottom:10, border:"1px solid #0f2040" }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:8 }}>
@@ -502,14 +262,10 @@ const ProgressionCharts = ({ metrics }) => {
           </div>
         </div>
         <svg width="100%" viewBox={`0 0 ${W} ${H}`}>
-          {[0,1,2].map(i=>(
-            <line key={i} x1="10" y1={H-i*(H-16)/2-4} x2={W-10} y2={H-i*(H-16)/2-4} stroke="#0f2040" strokeWidth="1" strokeDasharray="4,4"/>
-          ))}
+          {[0,1,2].map(i=>(<line key={i} x1="10" y1={H-i*(H-16)/2-4} x2={W-10} y2={H-i*(H-16)/2-4} stroke="#0f2040" strokeWidth="1" strokeDasharray="4,4"/>))}
           <path d={area} fill={color} opacity="0.08"/>
           <path d={path} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          {pts.map((p,i)=>(
-            <circle key={i} cx={p.x} cy={p.y} r="3.5" fill={color} stroke="#000" strokeWidth="1.5"/>
-          ))}
+          {pts.map((p,i)=>(<circle key={i} cx={p.x} cy={p.y} r="3.5" fill={color} stroke="#000" strokeWidth="1.5"/>))}
         </svg>
         <div style={{ display:"flex", justifyContent:"space-between", marginTop:4 }}>
           <span style={{ fontSize:9, color:"#3d5278" }}>{sorted[0]?.date?.slice(5)}</span>
@@ -518,12 +274,10 @@ const ProgressionCharts = ({ metrics }) => {
       </div>
     );
   };
-
   return (
     <div style={{ marginBottom:14 }}>
       <div style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:12, display:"flex", alignItems:"center", gap:8 }}>
-        <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>
-        TABLEAUX DE PROGRESSION
+        <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>TABLEAUX DE PROGRESSION
       </div>
       <MiniChart data={sorted.map(m=>m.weight)} label="Poids" color="#1a6fff" unit="kg"/>
       <MiniChart data={sorted.map(m=>m.fatPct)} label="MG %" color="#e63946" unit="%"/>
@@ -534,117 +288,90 @@ const ProgressionCharts = ({ metrics }) => {
   );
 };
 
-// ── SESSION EXERCISE PICKER ───────────────────────────────────────────────────
 const SessionExercisePicker = ({ onAdd, onClose }) => {
-  const [mode, setMode] = useState("cat"); // cat | muscle
+  const [mode, setMode] = useState("cat");
   const [selCat, setSelCat] = useState("Push");
   const [selMuscle, setSelMuscle] = useState("Pectoraux");
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState([]);
-
-  const filtered = LIBRARY.filter(ex => {
-    if (search) return ex.name.toLowerCase().includes(search.toLowerCase()) || ex.muscles.toLowerCase().includes(search.toLowerCase());
+  const filtered = LIBRARY.filter(ex=>{
+    if (search) return ex.name.toLowerCase().includes(search.toLowerCase())||ex.muscles.toLowerCase().includes(search.toLowerCase());
     if (mode==="cat") return ex.cat===selCat;
     if (mode==="muscle") return (MUSCLE_GROUPS[selMuscle]||[]).includes(ex.id);
     return true;
   });
-
-  function toggleEx(ex) {
-    setSelected(prev => prev.find(e=>e.id===ex.id) ? prev.filter(e=>e.id!==ex.id) : [...prev, ex]);
-  }
-
-  function confirm() {
-    onAdd(selected);
-    onClose();
-  }
-
+  function toggleEx(ex) { setSelected(prev=>prev.find(e=>e.id===ex.id)?prev.filter(e=>e.id!==ex.id):[...prev,ex]); }
+  function confirm() { onAdd(selected); onClose(); }
   return (
-    <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
-      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12 }}>
-        <SecTitle c="Ajouter des exercices"/>
+    <div style={{ background:"#0a1628", border:"1px solid #0f2040", borderRadius:12, padding:12, marginBottom:10 }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
+        <span style={{ fontSize:11, fontWeight:700, color:"#1a6fff", textTransform:"uppercase", letterSpacing:"0.08em" }}>Choisir des exercices</span>
         <Btn small ghost onClick={onClose}>✕</Btn>
       </div>
-
-      {/* Search */}
       <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 Rechercher..."
-        style={{ width:"100%", background:"#000", border:"1.5px solid #0f2040", borderRadius:8, padding:"8px 12px", color:"#e8edf5", fontSize:13, fontFamily:"'Barlow',sans-serif", outline:"none", marginBottom:10, colorScheme:"dark", boxSizing:"border-box" }}
+        style={{ width:"100%", background:"#000", border:"1.5px solid #0f2040", borderRadius:8, padding:"7px 10px", color:"#e8edf5", fontSize:12, fontFamily:"'Barlow',sans-serif", outline:"none", marginBottom:8, colorScheme:"dark", boxSizing:"border-box" }}
         onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
-
-      {/* Mode tabs */}
-      {!search && (
-        <div style={{ display:"flex", gap:6, marginBottom:10 }}>
-          <button onClick={()=>setMode("cat")} style={{ padding:"5px 14px", borderRadius:99, border:`1px solid ${mode==="cat"?"#1a6fff":"#0f2040"}`, background:mode==="cat"?"#1a6fff22":"transparent", color:mode==="cat"?"#1a6fff":"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:11, textTransform:"uppercase", cursor:"pointer" }}>Type</button>
-          <button onClick={()=>setMode("muscle")} style={{ padding:"5px 14px", borderRadius:99, border:`1px solid ${mode==="muscle"?"#22c55e":"#0f2040"}`, background:mode==="muscle"?"#22c55e22":"transparent", color:mode==="muscle"?"#22c55e":"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:11, textTransform:"uppercase", cursor:"pointer" }}>Muscle</button>
-        </div>
+      {!search&&(
+        <>
+          <div style={{ display:"flex", gap:5, marginBottom:8 }}>
+            <button onClick={()=>setMode("cat")} style={{ padding:"4px 12px", borderRadius:99, border:`1px solid ${mode==="cat"?"#1a6fff":"#0f2040"}`, background:mode==="cat"?"#1a6fff22":"transparent", color:mode==="cat"?"#1a6fff":"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer" }}>Type</button>
+            <button onClick={()=>setMode("muscle")} style={{ padding:"4px 12px", borderRadius:99, border:`1px solid ${mode==="muscle"?"#22c55e":"#0f2040"}`, background:mode==="muscle"?"#22c55e22":"transparent", color:mode==="muscle"?"#22c55e":"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer" }}>Muscle</button>
+          </div>
+          {mode==="cat"&&(
+            <div style={{ display:"flex", gap:4, marginBottom:8, overflowX:"auto", paddingBottom:4 }}>
+              {["Push","Pull","Legs","Musculation","Mobilité","Cardio"].map(cat=>(
+                <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"3px 10px", borderRadius:99, border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
+              ))}
+            </div>
+          )}
+          {mode==="muscle"&&(
+            <div style={{ display:"flex", gap:4, marginBottom:8, overflowX:"auto", paddingBottom:4 }}>
+              {Object.keys(MUSCLE_GROUPS).map(mg=>(
+                <button key={mg} onClick={()=>setSelMuscle(mg)} style={{ padding:"3px 10px", borderRadius:99, border:`1px solid ${selMuscle===mg?"#22c55e":"#0f2040"}`, background:selMuscle===mg?"#22c55e22":"transparent", color:selMuscle===mg?"#22c55e":"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:9, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{mg}</button>
+              ))}
+            </div>
+          )}
+        </>
       )}
-
-      {/* Category or muscle filter */}
-      {!search && mode==="cat" && (
-        <div style={{ display:"flex", gap:5, marginBottom:10, overflowX:"auto", paddingBottom:4 }}>
-          {["Push","Pull","Legs","Musculation","Mobilité","Cardio"].map(cat=>(
-            <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"4px 12px", borderRadius:99, border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:11, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
-          ))}
-        </div>
-      )}
-
-      {!search && mode==="muscle" && (
-        <div style={{ display:"flex", gap:5, marginBottom:10, overflowX:"auto", paddingBottom:4 }}>
-          {Object.keys(MUSCLE_GROUPS).map(mg=>(
-            <button key={mg} onClick={()=>setSelMuscle(mg)} style={{ padding:"4px 12px", borderRadius:99, border:`1px solid ${selMuscle===mg?"#22c55e":"#0f2040"}`, background:selMuscle===mg?"#22c55e22":"transparent", color:selMuscle===mg?"#22c55e":"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{mg}</button>
-          ))}
-        </div>
-      )}
-
-      {/* Exercise list */}
-      <div style={{ maxHeight:240, overflowY:"auto", display:"flex", flexDirection:"column", gap:6, marginBottom:12 }}>
+      <div style={{ maxHeight:200, overflowY:"auto", display:"flex", flexDirection:"column", gap:5, marginBottom:10 }}>
         {filtered.map(ex=>{
           const isSel = selected.find(e=>e.id===ex.id);
           return (
             <div key={ex.id} onClick={()=>toggleEx(ex)}
-              style={{ display:"flex", alignItems:"center", gap:10, padding:"8px 10px", borderRadius:10, border:`1px solid ${isSel?"#1a6fff44":"#0f2040"}`, background:isSel?"#1a6fff0a":"transparent", cursor:"pointer", transition:"all .15s" }}>
-              <div style={{ width:36, height:18, borderRadius:6, overflow:"hidden", flexShrink:0 }}>
-                <AnatomySVG id={ex.id}/>
-              </div>
+              style={{ display:"flex", alignItems:"center", gap:8, padding:"7px 10px", borderRadius:8, border:`1px solid ${isSel?"#1a6fff44":"#0f2040"}`, background:isSel?"#1a6fff0a":"transparent", cursor:"pointer" }}>
+              <div style={{ width:32, height:16, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
               <div style={{ flex:1, minWidth:0 }}>
-                <div style={{ fontWeight:700, fontSize:13, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{ex.name}</div>
-                <div style={{ fontSize:10, color:"#3d5278" }}>{ex.muscles}</div>
+                <div style={{ fontWeight:700, fontSize:12, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{ex.name}</div>
+                <div style={{ fontSize:9, color:"#3d5278" }}>{ex.muscles}</div>
               </div>
-              <div style={{ width:20, height:20, borderRadius:6, border:`2px solid ${isSel?"#1a6fff":"#0f2040"}`, background:isSel?"#1a6fff":"transparent", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:11, color:"#fff", fontWeight:900 }}>{isSel?"✓":""}</div>
+              <div style={{ width:18, height:18, borderRadius:5, border:`2px solid ${isSel?"#1a6fff":"#0f2040"}`, background:isSel?"#1a6fff":"transparent", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:10, color:"#fff", fontWeight:900 }}>{isSel?"✓":""}</div>
             </div>
           );
         })}
-        {filtered.length===0 && <div style={{ textAlign:"center", color:"#3d5278", padding:20, fontSize:12 }}>Aucun exercice trouvé</div>}
+        {filtered.length===0&&<div style={{ textAlign:"center", color:"#3d5278", padding:16, fontSize:11 }}>Aucun exercice trouvé</div>}
       </div>
-
-      {selected.length > 0 && (
-        <div style={{ display:"flex", gap:8, alignItems:"center" }}>
-          <Btn onClick={confirm}>✅ Ajouter {selected.length} exercice{selected.length>1?"s":""}</Btn>
-          <span style={{ fontSize:11, color:"#3d5278" }}>{selected.map(e=>e.name).join(", ")}</span>
-        </div>
+      {selected.length>0&&(
+        <Btn small onClick={confirm}>✅ Ajouter {selected.length} exercice{selected.length>1?"s":""}</Btn>
       )}
     </div>
   );
 };
 
-// ── PPL GENERATOR ─────────────────────────────────────────────────────────────
 const PPLGenerator = ({ onAdd }) => {
   const [type, setType] = useState("Push");
   const [generated, setGenerated] = useState([]);
   const TYPES = {
-    Push: ["bench_press","overhead_press","incline_press","dips","lateral_raise","tricep_pushdown","cable_fly","pushup","bench_dumbbell"],
-    Pull: ["pullup","barbell_row","deadlift","lat_pulldown","face_pull","bicep_curl","hammer_curl","dumbbell_row"],
-    Legs: ["squat","rdl","lunge","bulgarian_split","leg_press","leg_curl","calf_raise","glute_bridge"],
-    Cardio: ["run","bike","burpee","jumpingjack","mountainclimber","jump_rope","box_jump","battle_rope","kettlebell_swing"],
-    Mobilité: ["hip90","pigeon","catcow","worldsgreatest","thoracic_rot","hip_flexor","ankle_mob","foam_roll"],
+    Push:["bench_press","overhead_press","incline_press","dips","lateral_raise","tricep_pushdown","cable_fly","pushup","bench_dumbbell"],
+    Pull:["pullup","barbell_row","deadlift","lat_pulldown","face_pull","bicep_curl","hammer_curl","dumbbell_row"],
+    Legs:["squat","rdl","lunge","bulgarian_split","leg_press","leg_curl","calf_raise","glute_bridge"],
+    Cardio:["run","bike","burpee","jumpingjack","mountainclimber","jump_rope","box_jump","battle_rope","kettlebell_swing"],
+    Mobilité:["hip90","pigeon","catcow","worldsgreatest","thoracic_rot","hip_flexor","ankle_mob","foam_roll"],
   };
   function generate() {
-    const pool = TYPES[type]||[];
-    const shuffled = [...pool].sort(()=>Math.random()-.5);
-    const count = type==="Cardio"||type==="Mobilité" ? 5 : 6;
-    setGenerated(shuffled.slice(0,count).map(id=>{
-      const ex = LIBRARY.find(l=>l.id===id);
-      return ex ? { ...ex, sets:type==="Cardio"?"4":type==="Mobilité"?"3":"4", reps:type==="Cardio"?"30s":type==="Mobilité"?"60s":"8-12", load:"" } : null;
-    }).filter(Boolean));
+    const pool=TYPES[type]||[];
+    const shuffled=[...pool].sort(()=>Math.random()-.5);
+    const count=type==="Cardio"||type==="Mobilité"?5:6;
+    setGenerated(shuffled.slice(0,count).map(id=>{ const ex=LIBRARY.find(l=>l.id===id); return ex?{...ex,sets:type==="Cardio"?"4":type==="Mobilité"?"3":"4",reps:type==="Cardio"?"30s":type==="Mobilité"?"60s":"8-12",load:""}:null; }).filter(Boolean));
   }
   return (
     <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
@@ -660,10 +387,7 @@ const PPLGenerator = ({ onAdd }) => {
           {generated.map((ex,i)=>(
             <div key={i} style={{ display:"flex", alignItems:"center", gap:10, padding:"8px 0", borderBottom:i<generated.length-1?"1px solid #0f2040":"none" }}>
               <div style={{ width:36, height:18, borderRadius:6, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
-              <div style={{ flex:1 }}>
-                <div style={{ fontWeight:700, fontSize:13 }}>{ex.name}</div>
-                <div style={{ fontSize:10, color:"#3d5278" }}>{ex.muscles}</div>
-              </div>
+              <div style={{ flex:1 }}><div style={{ fontWeight:700, fontSize:13 }}>{ex.name}</div><div style={{ fontSize:10, color:"#3d5278" }}>{ex.muscles}</div></div>
               <Badge label={`${ex.sets}×${ex.reps}`} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
             </div>
           ))}
@@ -676,7 +400,6 @@ const PPLGenerator = ({ onAdd }) => {
     </div>
   );
 };
-
 export default function App() {
   const [clients, setClients] = useState(SAMPLE_CLIENTS);
   const [fbStatus, setFbStatus] = useState("connecting");
@@ -687,10 +410,10 @@ export default function App() {
   const [libSel, setLibSel] = useState(null);
   const [libSearch, setLibSearch] = useState("");
   const [addOpen, setAddOpen] = useState(false);
+  const [showNewSession, setShowNewSession] = useState(false);
+  const [showExPicker, setShowExPicker] = useState(false);
   const [newC, setNewC] = useState({ name:"", age:"", sport:"", objective:"" });
   const [newS, setNewS] = useState({ date:"", present:true, duration:"", note:"" });
-  const [showExPicker, setShowExPicker] = useState(false);
-  const [editingSession, setEditingSession] = useState(null);
   const [newM, setNewM] = useState({ date:"", weight:"", chest:"", waist:"", hips:"", fatPct:"" });
   const [newG, setNewG] = useState({ label:"", deadline:"" });
   const [newP, setNewP] = useState({ name:"", weeks:"8", startDate:"" });
@@ -703,23 +426,32 @@ export default function App() {
 
   const cl = clients.find(c=>c.id===selId);
 
-  useEffect(() => {
-    const unsub = onSnapshot(doc(db,"coach","data"), snap => {
+  useEffect(()=>{
+    const unsub = onSnapshot(doc(db,"coach","data"), snap=>{
       if (snap.exists()) { setClients(snap.data().clients||[]); }
       else { saveToFirebase(SAMPLE_CLIENTS); }
       setFbStatus("live");
     }, ()=>setFbStatus("local"));
     return unsub;
-  }, []);
+  },[]);
 
-  const saveToFirebase = useCallback(async (data) => {
+  const saveToFirebase = useCallback(async(data)=>{
     try { await setDoc(doc(db,"coach","data"),{clients:data,updatedAt:Date.now()}); }
     catch(e) { console.error(e); }
   },[]);
 
-  const sync = useCallback((updated) => { setClients(updated); saveToFirebase(updated); },[saveToFirebase]);
+  const sync = useCallback((updated)=>{ setClients(updated); saveToFirebase(updated); },[saveToFirebase]);
   const up = (id,patch) => sync(clients.map(c=>c.id===id?{...c,...patch}:c));
-  const openClient = (id) => { setSelId(id); setView("client"); setTab("sessions"); };
+
+  const openClient = (id) => {
+    setSelId(id);
+    setView("client");
+    setTab("sessions");
+    setShowNewSession(false);
+    setNewS({date:"",present:true,duration:"",note:""});
+    setPendingSession({exercises:[]});
+    setShowExPicker(false);
+  };
 
   function doAddClient() {
     if (!newC.name.trim()) return;
@@ -731,15 +463,18 @@ export default function App() {
     if (!newS.date||!cl) return;
     const sess = { id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration, exercises:pendingSession.exercises||[] };
     up(selId,{sessions:[sess,...cl.sessions]});
-    setNewS({date:"",present:true,duration:"",note:""}); setPendingSession({exercises:[]}); setShowExPicker(false);
+    setNewS({date:"",present:true,duration:"",note:""});
+    setPendingSession({exercises:[]});
+    setShowExPicker(false);
+    setShowNewSession(false);
   }
 
   function addExercisesToSession(exs) {
-    setPendingSession(p=>({...p, exercises:[...p.exercises, ...exs.map(ex=>({id:"se"+Date.now()+Math.random(), libId:ex.id, name:ex.name, sets:"3", reps:"10", load:"", note:""}))]}));
+    setPendingSession(p=>({...p,exercises:[...p.exercises,...exs.map(ex=>({id:"se"+Date.now()+Math.random(),libId:ex.id,name:ex.name,sets:"3",reps:"10",load:"",note:""}))]}));
   }
 
   function removeSessionEx(idx) {
-    setPendingSession(p=>({...p, exercises:p.exercises.filter((_,i)=>i!==idx)}));
+    setPendingSession(p=>({...p,exercises:p.exercises.filter((_,i)=>i!==idx)}));
   }
 
   function doAddMetric() {
@@ -766,7 +501,7 @@ export default function App() {
     setNewEx({name:"",sets:"",reps:"",load:"",note:"",libId:""}); setAddingExTo(null); setPickingEx(false);
   }
 
-  function doAddGeneratedExercises(pid, exercises) {
+  function doAddGeneratedExercises(pid,exercises) {
     if (!cl) return;
     const newExs = exercises.map(ex=>({id:"e"+Date.now()+Math.random(),name:ex.name,sets:ex.sets,reps:ex.reps,load:"",note:"",libId:ex.id}));
     up(selId,{programs:cl.programs.map(p=>p.id===pid?{...p,exercises:[...p.exercises,...newExs]}:p)});
@@ -782,8 +517,8 @@ export default function App() {
   // ── LIBRARY ────────────────────────────────────────────────────────────────
   if (view==="library") {
     const filtered = LIBRARY.filter(e=>{
-      const matchCat = libCat==="Tous"||e.cat===libCat;
-      const matchSearch = libSearch===""||e.name.toLowerCase().includes(libSearch.toLowerCase())||e.muscles.toLowerCase().includes(libSearch.toLowerCase());
+      const matchCat=libCat==="Tous"||e.cat===libCat;
+      const matchSearch=libSearch===""||e.name.toLowerCase().includes(libSearch.toLowerCase())||e.muscles.toLowerCase().includes(libSearch.toLowerCase());
       return matchCat&&matchSearch;
     });
     return wrap(
@@ -912,6 +647,15 @@ export default function App() {
     const gPct=cl.goals.length?Math.round(done/cl.goals.length*100):0;
     const TABS=[{id:"sessions",label:"Séances"},{id:"metrics",label:"Métriques"},{id:"programs",label:"Programme"},{id:"goals",label:"Objectifs"}];
 
+    // Group sessions by month
+    const sessionsByMonth = cl.sessions.reduce((acc,s)=>{
+      const month = s.date?s.date.slice(0,7):"inconnu";
+      if (!acc[month]) acc[month]=[];
+      acc[month].push(s);
+      return acc;
+    },{});
+    const sortedMonths = Object.keys(sessionsByMonth).sort((a,b)=>b.localeCompare(a));
+
     return wrap(<>
       <div style={{ background:"linear-gradient(170deg,#112240 0%,#000 100%)",padding:"16px 16px 14px",borderBottom:"1px solid #0f2040" }}>
         <button onClick={()=>setView("dash")} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:12,marginBottom:12,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Tableau de bord</button>
@@ -951,75 +695,92 @@ export default function App() {
 
         {/* ── SESSIONS ── */}
         {tab==="sessions"&&<div className="fu">
-          <div style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:14 }}>
-            <SecTitle c="Nouvelle séance"/>
-            <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:10 }}>
-              <Field label="Date" type="date" value={newS.date} onChange={v=>setNewS(p=>({...p,date:v}))} half/>
-              <Field label="Durée min" type="number" value={newS.duration} onChange={v=>setNewS(p=>({...p,duration:v}))} placeholder="60" half/>
-              <div style={{ width:"100%",display:"flex",alignItems:"center",gap:8 }}>
-                <input type="checkbox" checked={newS.present} onChange={e=>setNewS(p=>({...p,present:e.target.checked}))} style={{ accentColor:"#22c55e",width:16,height:16 }}/>
-                <span style={{ fontSize:13,color:"#7a90b8",fontWeight:600 }}>Client présent(e)</span>
-              </div>
-              <Field label="Notes" value={newS.note} onChange={v=>setNewS(p=>({...p,note:v}))} placeholder="Observations..."/>
-            </div>
 
-            {/* Exercise picker button */}
-            <button onClick={()=>setShowExPicker(!showExPicker)} style={{ width:"100%",background:"#0a1628",border:"1px solid #1a6fff44",borderRadius:8,padding:"8px 14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:10,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
-              💪 {showExPicker?"Fermer":"Ajouter des exercices à cette séance"}
+          {/* Bouton + Nouvelle séance */}
+          {!showNewSession?(
+            <button onClick={()=>setShowNewSession(true)} style={{ width:"100%",background:"#070d1a",border:"2px dashed #1a6fff44",borderRadius:14,padding:"14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:14,letterSpacing:"0.06em",textTransform:"uppercase",cursor:"pointer",marginBottom:16,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
+              + Nouvelle séance
             </button>
+          ):(
+            <div style={{ background:"#070d1a",border:"1px solid #1a6fff44",borderRadius:14,padding:14,marginBottom:16 }}>
+              <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14 }}>
+                <SecTitle c="Nouvelle séance"/>
+                <button onClick={()=>{ setShowNewSession(false); setNewS({date:"",present:true,duration:"",note:""}); setPendingSession({exercises:[]}); setShowExPicker(false); }} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:18,padding:0 }}>✕</button>
+              </div>
+              <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:10 }}>
+                <Field label="Date" type="date" value={newS.date} onChange={v=>setNewS(p=>({...p,date:v}))} half/>
+                <Field label="Durée min" type="number" value={newS.duration} onChange={v=>setNewS(p=>({...p,duration:v}))} placeholder="60" half/>
+                <div style={{ width:"100%",display:"flex",alignItems:"center",gap:8 }}>
+                  <input type="checkbox" checked={newS.present} onChange={e=>setNewS(p=>({...p,present:e.target.checked}))} style={{ accentColor:"#22c55e",width:16,height:16 }}/>
+                  <span style={{ fontSize:13,color:"#7a90b8",fontWeight:600 }}>Client présent(e)</span>
+                </div>
+                <Field label="Notes" value={newS.note} onChange={v=>setNewS(p=>({...p,note:v}))} placeholder="Observations..."/>
+              </div>
+              <button onClick={()=>setShowExPicker(!showExPicker)} style={{ width:"100%",background:"#0a1628",border:"1px solid #1a6fff44",borderRadius:8,padding:"8px 14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:showExPicker?10:0,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
+                💪 {showExPicker?"Fermer":"Ajouter des exercices"}
+              </button>
+              {showExPicker&&<SessionExercisePicker onAdd={addExercisesToSession} onClose={()=>setShowExPicker(false)}/>}
+              {pendingSession.exercises.length>0&&(
+                <div style={{ marginTop:10,marginBottom:10 }}>
+                  <div style={{ fontSize:10,color:"#3d5278",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:6 }}>Exercices sélectionnés ({pendingSession.exercises.length})</div>
+                  {pendingSession.exercises.map((ex,i)=>(
+                    <div key={i} style={{ display:"flex",alignItems:"center",gap:8,padding:"6px 8px",background:"#0a1628",borderRadius:8,marginBottom:4 }}>
+                      <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                      <span style={{ flex:1,fontSize:12,fontWeight:600 }}>{ex.name}</span>
+                      <button onClick={()=>removeSessionEx(i)} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:14,padding:0 }}>✕</button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div style={{ marginTop:12 }}><Btn onClick={doAddSession}>Enregistrer la séance</Btn></div>
+            </div>
+          )}
 
-            {showExPicker&&(
-              <SessionExercisePicker
-                onAdd={addExercisesToSession}
-                onClose={()=>setShowExPicker(false)}
-              />
-            )}
-
-            {/* Selected exercises preview */}
-            {pendingSession.exercises.length>0&&(
-              <div style={{ marginBottom:10 }}>
-                <div style={{ fontSize:10,color:"#3d5278",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:6 }}>Exercices sélectionnés ({pendingSession.exercises.length})</div>
-                {pendingSession.exercises.map((ex,i)=>(
-                  <div key={i} style={{ display:"flex",alignItems:"center",gap:8,padding:"6px 8px",background:"#0a1628",borderRadius:8,marginBottom:4 }}>
-                    <div style={{ width:30,height:15,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-                    <span style={{ flex:1,fontSize:12,fontWeight:600 }}>{ex.name}</span>
-                    <button onClick={()=>removeSessionEx(i)} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:14,padding:0 }}>✕</button>
+          {/* Sessions groupées par mois */}
+          {sortedMonths.length===0?(
+            <div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucune séance enregistrée</div>
+          ):sortedMonths.map(month=>{
+            const [year,m] = month.split("-");
+            const label = `${MONTH_NAMES[m]||m} ${year}`;
+            const sessions = [...sessionsByMonth[month]].sort((a,b)=>b.date.localeCompare(a.date));
+            return (
+              <div key={month} style={{ marginBottom:20 }}>
+                {/* Month divider */}
+                <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:10 }}>
+                  <div style={{ flex:1,height:1,background:"#0f2040" }}/>
+                  <span style={{ fontSize:10,fontWeight:700,color:"#3d5278",letterSpacing:"0.1em",textTransform:"uppercase",flexShrink:0 }}>{label}</span>
+                  <div style={{ flex:1,height:1,background:"#0f2040" }}/>
+                </div>
+                {sessions.map((s,i)=>(
+                  <div key={s.id} className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:12,padding:"12px 14px",marginBottom:8 }}>
+                    <div style={{ display:"flex",gap:10,alignItems:"flex-start" }}>
+                      <div style={{ width:8,height:8,borderRadius:"50%",background:s.present?"#22c55e":"#e63946",marginTop:5,flexShrink:0 }}/>
+                      <div style={{ flex:1 }}>
+                        <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+                          <span style={{ fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",fontSize:15 }}>{s.date}</span>
+                          <div style={{ display:"flex",gap:6 }}>
+                            {s.duration>0&&<span style={{ fontSize:11,color:"#3d5278" }}>{s.duration}min</span>}
+                            <Badge label={s.present?"Présent":"Absent"} color={s.present?"#22c55e":"#e63946"}/>
+                          </div>
+                        </div>
+                        {s.note&&<div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{s.note}</div>}
+                        {s.exercises&&s.exercises.length>0&&(
+                          <div style={{ marginTop:8,display:"flex",flexWrap:"wrap",gap:4 }}>
+                            {s.exercises.map((ex,j)=>(
+                              <div key={j} style={{ display:"flex",alignItems:"center",gap:4,background:"#0a1628",borderRadius:6,padding:"3px 7px" }}>
+                                <div style={{ width:20,height:10,borderRadius:3,overflow:"hidden" }}><AnatomySVG id={ex.libId}/></div>
+                                <span style={{ fontSize:10,color:"#7a90b8" }}>{ex.name}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
-            )}
-
-            <Btn onClick={doAddSession}>Enregistrer la séance</Btn>
-          </div>
-
-          {cl.sessions.map((s,i)=>(
-            <div key={s.id} className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:12,padding:"12px 14px",marginBottom:8,animationDelay:`${i*.04}s` }}>
-              <div style={{ display:"flex",gap:10,alignItems:"flex-start" }}>
-                <div style={{ width:8,height:8,borderRadius:"50%",background:s.present?"#22c55e":"#e63946",marginTop:5,flexShrink:0 }}/>
-                <div style={{ flex:1 }}>
-                  <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center" }}>
-                    <span style={{ fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",fontSize:15 }}>{s.date}</span>
-                    <div style={{ display:"flex",gap:6 }}>
-                      {s.duration>0&&<span style={{ fontSize:11,color:"#3d5278" }}>{s.duration}min</span>}
-                      <Badge label={s.present?"Présent":"Absent"} color={s.present?"#22c55e":"#e63946"}/>
-                    </div>
-                  </div>
-                  {s.note&&<div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{s.note}</div>}
-                  {s.exercises&&s.exercises.length>0&&(
-                    <div style={{ marginTop:8,display:"flex",flexWrap:"wrap",gap:4 }}>
-                      {s.exercises.map((ex,j)=>(
-                        <div key={j} style={{ display:"flex",alignItems:"center",gap:4,background:"#0a1628",borderRadius:6,padding:"3px 7px" }}>
-                          <div style={{ width:20,height:10,borderRadius:3,overflow:"hidden" }}><AnatomySVG id={ex.libId}/></div>
-                          <span style={{ fontSize:10,color:"#7a90b8" }}>{ex.name}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-          {!cl.sessions.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucune séance enregistrée</div>}
+            );
+          })}
         </div>}
 
         {/* ── METRICS ── */}
@@ -1037,7 +798,7 @@ export default function App() {
             </div>
             <div style={{ marginTop:12 }}><Btn onClick={doAddMetric}>Enregistrer</Btn></div>
           </div>
-    {cl.metrics.map((m,i)=>{
+          {cl.metrics.map((m,i)=>{
             const prev=cl.metrics[i+1]; const d=prev?+(m.weight-prev.weight).toFixed(1):null;
             return <SwipeToDelete key={m.date+i} onDelete={()=>up(selId,{metrics:cl.metrics.filter((_,idx)=>idx!==i)})}>
               <div className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,animationDelay:`${i*.04}s` }}>
@@ -1056,8 +817,6 @@ export default function App() {
                 </div>
               </div>
             </SwipeToDelete>;
-          })}
-
           })}
           {!cl.metrics.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucune mesure enregistrée</div>}
         </div>}
@@ -1108,11 +867,7 @@ export default function App() {
                         ))}
                       </div>
                       <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:6,marginBottom:12,maxHeight:220,overflowY:"auto" }}>
-                        {LIBRARY.filter(e=>{
-                          const matchCat=libCat==="Tous"||e.cat===libCat;
-                          const matchSearch=libSearch===""||e.name.toLowerCase().includes(libSearch.toLowerCase());
-                          return matchCat&&matchSearch;
-                        }).map(ex=>(
+                        {LIBRARY.filter(e=>{ const mc=libCat==="Tous"||e.cat===libCat; const ms=libSearch===""||e.name.toLowerCase().includes(libSearch.toLowerCase()); return mc&&ms; }).map(ex=>(
                           <div key={ex.id} onClick={()=>{ setNewEx(p=>({...p,name:ex.name,libId:ex.id})); setPickingEx(false); setLibSearch(""); }}
                             style={{ background:"#070d1a",border:`1px solid ${newEx.libId===ex.id?"#1a6fff":"#0f2040"}`,borderRadius:10,overflow:"hidden",cursor:"pointer" }}>
                             <AnatomySVG id={ex.id}/>
