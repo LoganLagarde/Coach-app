@@ -504,13 +504,14 @@ const Badge = ({ label, color }) => <span style={{ padding:"2px 9px", borderRadi
 const Bar = ({ value, color, h=5 }) => <div style={{ background:"#0f2040", borderRadius:99, height:h, overflow:"hidden" }}><div style={{ height:"100%", borderRadius:99, background:color||"#1a6fff", width:`${Math.min(100,Math.max(0,value))}%`, transition:"width .7s", boxShadow:`0 0 8px ${color||"#1a6fff"}55` }}/></div>;
 
 const Field = ({ label, value, onChange, type="text", placeholder, half }) => (
-  <div style={{ display:"flex", flexDirection:"column", gap:4, flex:half?"0 0 calc(50% - 5px)":"1 1 100%", minWidth:0, overflow:"hidden" }}>
+  <div style={{ display:"flex", flexDirection:"column", gap:4, flex:half?"0 0 calc(50% - 4px)":"1 1 100%", minWidth:0, maxWidth:"100%", overflow:"hidden" }}>
     {label && <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", fontFamily:"'Barlow',sans-serif" }}>{label}</label>}
     <input type={type} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder}
-      style={{ background:"#000", border:"1.5px solid #0f2040", borderRadius:8, padding:"9px 12px", color:"#e8edf5", fontSize:14, fontFamily:"'Barlow',sans-serif", outline:"none", width:"100%", colorScheme:"dark" }}
+      style={{ background:"#000", border:"1.5px solid #0f2040", borderRadius:8, padding:"9px 10px", color:"#e8edf5", fontSize:13, fontFamily:"'Barlow',sans-serif", outline:"none", width:"100%", colorScheme:"dark", boxSizing:"border-box" }}
       onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
   </div>
 );
+
 
 
 const Btn = ({ children, onClick, ghost, small, danger }) => (
