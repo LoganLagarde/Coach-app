@@ -395,46 +395,7 @@ const SecTitle = ({ c }) => (
   </div>
 );
 
-const SwipeToDelete = ({ children, onDelete }) => {
-  const [startX, setStartX] = useState(null);
-  const [offsetX, setOffsetX] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-  const threshold = -80;
 
-  function onTouchStart(e) { setStartX(e.touches[0].clientX); }
-  function onTouchMove(e) {
-    if (startX === null) return;
-    const diff = e.touches[0].clientX - startX;
-    if (diff < 0) setOffsetX(Math.max(diff, -120));
-  }
-  function onTouchEnd() {
-    if (offsetX < threshold) {
-      setDeleting(true);
-      setTimeout(() => { onDelete(); setDeleting(false); setOffsetX(0); }, 300);
-    } else {
-      setOffsetX(0);
-    }
-    setStartX(null);
-  }
-
-  return (
-    <div style={{ position:"relative", overflow:"hidden", borderRadius:14, marginBottom:10 }}>
-      {/* Delete background */}
-      <div style={{ position:"absolute", right:0, top:0, bottom:0, width:80, background:"#e63946", display:"flex", alignItems:"center", justifyContent:"center", borderRadius:14 }}>
-        <span style={{ color:"#fff", fontSize:20 }}>🗑️</span>
-      </div>
-      {/* Content */}
-      <div
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-        style={{ transform:`translateX(${deleting?-120:offsetX}px)`, transition:startX?'none':'transform .3s ease', position:"relative", zIndex:1 }}
-      >
-        {children}
-      </div>
-    </div>
-  );
-};
 
 
 const StatusDot = ({ status }) => {
@@ -447,6 +408,62 @@ const StatusDot = ({ status }) => {
     </div>
   );
 };
+
+const SwipeToDelete = ({ children, onDelete }) => {
+  const [startX, setStartX] = useState(null);
+  const [offsetX, setOffsetX] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const [confirming, setConfirming] = useState(false);
+  const threshold = -75;
+
+  function onTouchStart(e) { setStartX(e.touches[0].clientX); }
+  function onTouchMove(e) {
+    if (startX === null || confirming) return;
+    const diff = e.touches[0].clientX - startX;
+    if (diff < 0) setOffsetX(Math.max(diff, -100));
+    else if (revealed) setOffsetX(Math.min(diff - 100, 0));
+  }
+  function onTouchEnd() {
+    setStartX(null);
+    if (offsetX < threshold) {
+      setOffsetX(-100); setRevealed(true);
+    } else {
+      setOffsetX(0); setRevealed(false);
+    }
+  }
+  function handleDelete() {
+    setConfirming(true);
+    setTimeout(() => { onDelete(); setConfirming(false); setOffsetX(0); setRevealed(false); }, 300);
+  }
+  function handleCancel() {
+    setOffsetX(0); setRevealed(false);
+  }
+
+  return (
+    <div style={{ position:"relative", overflow:"hidden", borderRadius:14, marginBottom:10 }}>
+      {/* Delete button revealed */}
+      <div style={{ position:"absolute", right:0, top:0, bottom:0, width:100, display:"flex", flexDirection:"column", borderRadius:"0 14px 14px 0", overflow:"hidden" }}>
+        <button onClick={handleDelete} style={{ flex:1, background:"#e63946", border:"none", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:2 }}>
+          <span style={{ fontSize:16 }}>🗑️</span>
+          <span style={{ color:"#fff", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase" }}>Supprimer</span>
+        </button>
+        <button onClick={handleCancel} style={{ flex:0.6, background:"#0f2040", border:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>
+          <span style={{ color:"#7a90b8", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase" }}>Annuler</span>
+        </button>
+      </div>
+      {/* Content */}
+      <div
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        style={{ transform:`translateX(${confirming?-120:offsetX}px)`, transition:startX?'none':'transform .3s ease', position:"relative", zIndex:1 }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
 
 // ── PROGRESSION CHARTS ────────────────────────────────────────────────────────
 const ProgressionCharts = ({ metrics }) => {
