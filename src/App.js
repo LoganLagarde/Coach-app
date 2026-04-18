@@ -10,24 +10,67 @@ const T = {
 };
 
 const LIBRARY = [
-  { id:"squat", name:"Squat", cat:"Musculation", muscles:"Quadriceps, Fessiers, Ischio-jambiers", tip:"Pieds largeur épaules, genoux dans l'axe des orteils.", img:"https://v2.exercisedb.io/image/XF4GUgcnijyEqT" },
-  { id:"deadlift", name:"Deadlift", cat:"Musculation", muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps.", img:"https://v2.exercisedb.io/image/P0I5Cr5AiTj5Jx" },
-  { id:"bench", name:"Développé couché", cat:"Musculation", muscles:"Pectoraux, Triceps, Épaules", tip:"Omoplates rétractées, coudes à 45°.", img:"https://v2.exercisedb.io/image/rFWIBhiXMU8DJd" },
-  { id:"pullup", name:"Traction", cat:"Musculation", muscles:"Grand dorsal, Biceps, Rhomboïdes", tip:"Dépression scapulaire avant de tirer.", img:"https://v2.exercisedb.io/image/P8sGBFybOHlvY6" },
-  { id:"lunge", name:"Fente avant", cat:"Musculation", muscles:"Quadriceps, Fessiers, Mollets", tip:"Genou avant à 90°.", img:"https://v2.exercisedb.io/image/A3ELhOLf3HQLQJ" },
-  { id:"row", name:"Rowing haltère", cat:"Musculation", muscles:"Grand dorsal, Rhomboïdes, Biceps", tip:"Coude près du corps.", img:"https://v2.exercisedb.io/image/mbGHoGiDtJJGMX" },
-  { id:"ohp", name:"Développé militaire", cat:"Musculation", muscles:"Épaules, Triceps, Trapèzes", tip:"Gainage abdominal, barre dans l'axe.", img:"https://v2.exercisedb.io/image/7d9FxBWlwXBXfr" },
-  { id:"hip90", name:"Hip 90/90", cat:"Mobilité", muscles:"Rotateurs hanche, Fessiers", tip:"Deux jambes à 90°, bascule lente.", img:"https://v2.exercisedb.io/image/Hc-sTPPjv3gDiV" },
-  { id:"pigeon", name:"Pigeon yoga", cat:"Mobilité", muscles:"Psoas, Rotateurs hanche", tip:"Hanches au sol, 60-90s par côté.", img:"https://v2.exercisedb.io/image/2JFxhCuOjz2qVc" },
-  { id:"catcow", name:"Chat / Vache", cat:"Mobilité", muscles:"Rachis, Multifides", tip:"Mouvement fluide avec la respiration.", img:"https://v2.exercisedb.io/image/bkqnpRFVGWRLAf" },
-  { id:"worldsgreatest", name:"World's Greatest", cat:"Mobilité", muscles:"Full body, Hanche, Thoracique", tip:"Rotation thoracique complète.", img:"https://v2.exercisedb.io/image/xnzGNaSSHmaCOp" },
-  { id:"run", name:"Course / Jogging", cat:"Cardio", muscles:"Full body, Cardio", tip:"Foulée médio-pied, 170-180 pas/min.", img:"https://v2.exercisedb.io/image/mGl3BLQfGjtHNO" },
-  { id:"burpee", name:"Burpee", cat:"Cardio", muscles:"Full body, Explosivité", tip:"Planche stricte en bas, saut explosif.", img:"https://v2.exercisedb.io/image/NN2zXpVCnEpVTK" },
-  { id:"jumpingjack", name:"Jumping Jack", cat:"Cardio", muscles:"Cardio, Coordination", tip:"Rythme constant, atterrissage amorti.", img:"https://v2.exercisedb.io/image/3V3FD3B0qgBXb5" },
-  { id:"mountainclimber", name:"Mountain Climber", cat:"Cardio", muscles:"Abdominaux, Cardio, Épaules", tip:"Hanches basses, genoux qui remontent vite.", img:"https://v2.exercisedb.io/image/MEKnG4mJSDBY7q" },
+  // PUSH
+  { id:"bench_press", name:"Développé couché", cat:"Push", muscles:"Pectoraux, Triceps, Épaules", tip:"Omoplates rétractées, coudes à 45°.", img:"https://exercisedb.p.rapidapi.com/image/bench-press" },
+  { id:"overhead_press", name:"Développé militaire", cat:"Push", muscles:"Épaules, Triceps, Trapèzes", tip:"Gainage abdominal, barre dans l'axe.", img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" },
+  { id:"incline_press", name:"Développé incliné", cat:"Push", muscles:"Pectoraux supérieurs, Épaules", tip:"Inclinaison 30-45°, contrôle en descente.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
+  { id:"dips", name:"Dips", cat:"Push", muscles:"Triceps, Pectoraux inférieurs", tip:"Légère inclinaison avant pour les pectoraux.", img:"https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80" },
+  { id:"lateral_raise", name:"Élévations latérales", cat:"Push", muscles:"Deltoïdes latéraux", tip:"Coudes légèrement fléchis, montée jusqu'à l'horizontal.", img:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" },
+  { id:"tricep_pushdown", name:"Pushdown triceps", cat:"Push", muscles:"Triceps", tip:"Coudes fixes contre le corps, extension complète.", img:"https://images.unsplash.com/photo-1581009137042-c552e485697a?w=400&q=80" },
+  { id:"pushup", name:"Pompes", cat:"Push", muscles:"Pectoraux, Triceps, Épaules", tip:"Corps gainé, coudes à 45° du corps.", img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" },
+  // PULL
+  { id:"pullup", name:"Traction", cat:"Pull", muscles:"Grand dorsal, Biceps, Rhomboïdes", tip:"Dépression scapulaire avant de tirer.", img:"https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400&q=80" },
+  { id:"barbell_row", name:"Rowing barre", cat:"Pull", muscles:"Grand dorsal, Rhomboïdes, Biceps", tip:"Dos plat, tirage vers le nombril.", img:"https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=400&q=80" },
+  { id:"dumbbell_row", name:"Rowing haltère", cat:"Pull", muscles:"Grand dorsal, Rhomboïdes", tip:"Coude près du corps, tirage jusqu'à la hanche.", img:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" },
+  { id:"face_pull", name:"Face pull", cat:"Pull", muscles:"Deltoïdes postérieurs, Rhomboïdes", tip:"Tirer vers le visage, coudes hauts.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
+  { id:"bicep_curl", name:"Curl biceps", cat:"Pull", muscles:"Biceps, Brachial", tip:"Coudes fixes, supination en haut.", img:"https://images.unsplash.com/photo-1581009137042-c552e485697a?w=400&q=80" },
+  { id:"lat_pulldown", name:"Tirage poulie haute", cat:"Pull", muscles:"Grand dorsal, Biceps", tip:"Tirage vers le sternum, déprimer les omoplates.", img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" },
+  { id:"deadlift", name:"Deadlift", cat:"Pull", muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps.", img:"https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80" },
+  // LEGS
+  { id:"squat", name:"Squat", cat:"Legs", muscles:"Quadriceps, Fessiers, Ischio-jambiers", tip:"Pieds largeur épaules, genoux dans l'axe.", img:"https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=400&q=80" },
+  { id:"rdl", name:"Romanian Deadlift", cat:"Legs", muscles:"Ischio-jambiers, Fessiers, Lombaires", tip:"Charnière hanche, dos plat tout au long.", img:"https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=400&q=80" },
+  { id:"lunge", name:"Fente avant", cat:"Legs", muscles:"Quadriceps, Fessiers, Mollets", tip:"Genou avant à 90°, genou arrière près du sol.", img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" },
+  { id:"leg_press", name:"Presse à cuisses", cat:"Legs", muscles:"Quadriceps, Fessiers", tip:"Pieds à largeur d'épaules, genoux dans l'axe.", img:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" },
+  { id:"leg_curl", name:"Leg curl", cat:"Legs", muscles:"Ischio-jambiers", tip:"Contraction complète, descente contrôlée.", img:"https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400&q=80" },
+  { id:"calf_raise", name:"Mollets debout", cat:"Legs", muscles:"Mollets, Soléaire", tip:"Amplitude complète, pause en haut.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
+  { id:"glute_bridge", name:"Pont fessier", cat:"Legs", muscles:"Fessiers, Ischio-jambiers", tip:"Poussée sur les talons, contraction en haut.", img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" },
+  { id:"bulgarian_split", name:"Fente bulgare", cat:"Legs", muscles:"Quadriceps, Fessiers", tip:"Pied arrière surélevé, genou avant à 90°.", img:"https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=400&q=80" },
+  // MUSCULATION
+  { id:"bench_dumbbell", name:"Développé haltères", cat:"Musculation", muscles:"Pectoraux, Triceps", tip:"Grande amplitude, coudes à 45°.", img:"https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=400&q=80" },
+  { id:"cable_fly", name:"Écarté poulie", cat:"Musculation", muscles:"Pectoraux, Deltoïdes ant.", tip:"Légère flexion des coudes, arc de cercle.", img:"https://images.unsplash.com/photo-1581009137042-c552e485697a?w=400&q=80" },
+  { id:"hammer_curl", name:"Curl marteau", cat:"Musculation", muscles:"Biceps, Brachioradial", tip:"Prise neutre, coudes fixes.", img:"https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400&q=80" },
+  { id:"skull_crusher", name:"Skull crusher", cat:"Musculation", muscles:"Triceps long", tip:"Coudes fixes, descente vers le front.", img:"https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80" },
+  { id:"shrug", name:"Haussement d'épaules", cat:"Musculation", muscles:"Trapèzes supérieurs", tip:"Mouvement vertical pur, pas de rotation.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
+  { id:"plank", name:"Gainage planche", cat:"Musculation", muscles:"Abdominaux, Lombaires, Épaules", tip:"Corps aligné, ne pas laisser les hanches tomber.", img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" },
+  { id:"ab_crunch", name:"Crunch abdominaux", cat:"Musculation", muscles:"Grand droit", tip:"Expiration en montant, ne pas tirer la nuque.", img:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" },
+  // MOBILITÉ
+  { id:"hip90", name:"Hip 90/90", cat:"Mobilité", muscles:"Rotateurs hanche, Fessiers", tip:"Deux jambes à 90°, bascule lente.", img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80" },
+  { id:"pigeon", name:"Pigeon yoga", cat:"Mobilité", muscles:"Psoas, Rotateurs hanche", tip:"Hanches au sol, 60-90s par côté.", img:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" },
+  { id:"catcow", name:"Chat / Vache", cat:"Mobilité", muscles:"Rachis, Multifides", tip:"Mouvement fluide avec la respiration.", img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80" },
+  { id:"worldsgreatest", name:"World's Greatest", cat:"Mobilité", muscles:"Full body, Hanche, Thoracique", tip:"Rotation thoracique complète.", img:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" },
+  { id:"thoracic_rotation", name:"Rotation thoracique", cat:"Mobilité", muscles:"Rachis thoracique, Obliques", tip:"Regard suit la main, amplitude maximale.", img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80" },
+  { id:"hip_flexor", name:"Étirement psoas", cat:"Mobilité", muscles:"Psoas, Quadriceps", tip:"Bassin en rétroversion, avancer doucement.", img:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" },
+  { id:"ankle_mob", name:"Mobilité cheville", cat:"Mobilité", muscles:"Tibial antérieur, Mollets", tip:"Genou dans l'axe du pied, talon au sol.", img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80" },
+  { id:"shoulder_mob", name:"Mobilité épaule", cat:"Mobilité", muscles:"Coiffe des rotateurs, Capsule", tip:"Mouvements lents et contrôlés.", img:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" },
+  { id:"foam_roll_back", name:"Foam roll dos", cat:"Mobilité", muscles:"Érecteurs, Thoracique", tip:"Pause 20-30s sur les zones tendues.", img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80" },
+  // CARDIO
+  { id:"run", name:"Course / Jogging", cat:"Cardio", muscles:"Full body, Cardio", tip:"Foulée médio-pied, 170-180 pas/min.", img:"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=400&q=80" },
+  { id:"bike", name:"Vélo / Cycling", cat:"Cardio", muscles:"Quadriceps, Fessiers, Cardio", tip:"Selle à hauteur de hanche, cadence 80-90 rpm.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
+  { id:"rowing_machine", name:"Rameur", cat:"Cardio", muscles:"Full body, Dos, Cardio", tip:"Jambes d'abord, puis dos, puis bras.", img:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" },
+  { id:"burpee", name:"Burpee", cat:"Cardio", muscles:"Full body, Explosivité", tip:"Planche stricte en bas, saut explosif.", img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" },
+  { id:"jumpingjack", name:"Jumping Jack", cat:"Cardio", muscles:"Cardio, Coordination", tip:"Rythme constant, atterrissage amorti.", img:"https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=400&q=80" },
+  { id:"mountainclimber", name:"Mountain Climber", cat:"Cardio", muscles:"Abdominaux, Cardio, Épaules", tip:"Hanches basses, genoux qui remontent vite.", img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" },
+  { id:"jump_rope", name:"Corde à sauter", cat:"Cardio", muscles:"Mollets, Cardio, Coordination", tip:"Sauts légers, poignets qui tournent.", img:"https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80" },
+  { id:"hiit_sprint", name:"Sprint HIIT", cat:"Cardio", muscles:"Full body, Explosivité, Cardio", tip:"Effort maximal 20s, récup 40s.", img:"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=400&q=80" },
+  { id:"assault_bike", name:"Assault bike", cat:"Cardio", muscles:"Full body, Bras, Cardio", tip:"Push/pull simultané bras et jambes.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
+  { id:"box_jump", name:"Box Jump", cat:"Cardio", muscles:"Quadriceps, Fessiers, Explosivité", tip:"Atterrissage amorti, hanches en arrière.", img:"https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=400&q=80" },
+  { id:"battle_rope", name:"Battle Rope", cat:"Cardio", muscles:"Épaules, Bras, Cardio", tip:"Genoux fléchis, ondulations continues.", img:"https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400&q=80" },
+  { id:"sled_push", name:"Poussée de traîneau", cat:"Cardio", muscles:"Quadriceps, Fessiers, Épaules", tip:"Inclination du corps vers l'avant, pas explosifs.", img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" },
+  { id:"kettlebell_swing", name:"Kettlebell Swing", cat:"Cardio", muscles:"Fessiers, Ischio, Épaules", tip:"Charnière hanche, pas de squat, projection des hanches.", img:"https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80" },
 ];
 
-const CAT_COLOR = { Musculation: "#1a6fff", Mobilité: "#22c55e", Cardio: "#f59e0b" };
+const CATS = ["Tous", "Push", "Pull", "Legs", "Musculation", "Mobilité", "Cardio"];
+const CAT_COLOR = { Push:"#1a6fff", Pull:"#8b5cf6", Legs:"#22c55e", Musculation:"#1a6fff", Mobilité:"#22c55e", Cardio:"#f59e0b" };
 
 const SAMPLE_CLIENTS = [{
   id:"tony", name:"Tony Parker", age:41, sport:"Basketball", since:"2024-01", status:"actif",
@@ -95,9 +138,15 @@ const ExImg = ({ libId, size=140 }) => {
   const ex = LIBRARY.find(l=>l.id===libId);
   const [err, setErr] = useState(false);
   if (!ex) return null;
-  if (err) return <div style={{ width:"100%", height:size*.6, background:"#0a1628", borderRadius:10, display:"flex", alignItems:"center", justifyContent:"center", color:"#3d5278", fontSize:12 }}>{ex.name}</div>;
-  return <img src={ex.img} alt={ex.name} style={{ width:"100%", height:size*.65, objectFit:"cover", borderRadius:10, background:"#0a1628" }} onError={()=>setErr(true)}/>;
+  if (err) return (
+    <div style={{ width:"100%", height:size*.6, background:"#0a1628", borderRadius:10, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6 }}>
+      <div style={{ fontSize:28 }}>💪</div>
+      <div style={{ color:"#3d5278", fontSize:11, fontFamily:"'Barlow',sans-serif" }}>{ex.name}</div>
+    </div>
+  );
+  return <img src={ex.img} alt={ex.name} style={{ width:"100%", height:size*.6, objectFit:"cover", borderRadius:10, background:"#0a1628", display:"block" }} onError={()=>setErr(true)}/>;
 };
+
 export default function App() {
   const [clients, setClients] = useState(SAMPLE_CLIENTS);
   const [fbStatus, setFbStatus] = useState("connecting");
@@ -106,6 +155,7 @@ export default function App() {
   const [tab, setTab] = useState("sessions");
   const [libCat, setLibCat] = useState("Tous");
   const [libSel, setLibSel] = useState(null);
+  const [libSearch, setLibSearch] = useState("");
   const [addOpen, setAddOpen] = useState(false);
   const [newC, setNewC] = useState({ name:"", age:"", sport:"", objective:"" });
   const [newS, setNewS] = useState({ date:"", present:true, duration:"", note:"" });
@@ -115,7 +165,9 @@ export default function App() {
   const [newEx, setNewEx] = useState({ name:"", sets:"", reps:"", load:"", note:"", libId:"" });
   const [addingExTo, setAddingExTo] = useState(null);
   const [pickingEx, setPickingEx] = useState(false);
+
   const cl = clients.find(c=>c.id===selId);
+
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "coach", "data"), snap => {
       if (snap.exists()) { setClients(snap.data().clients || []); }
@@ -124,6 +176,7 @@ export default function App() {
     }, () => setFbStatus("local"));
     return unsub;
   }, []);
+
   const saveToFirebase = useCallback(async (data) => {
     try { await setDoc(doc(db, "coach", "data"), { clients: data, updatedAt: Date.now() }); }
     catch(e) { console.error(e); }
@@ -131,6 +184,7 @@ export default function App() {
   const sync = useCallback((updated) => { setClients(updated); saveToFirebase(updated); }, [saveToFirebase]);
   const up = (id, patch) => sync(clients.map(c=>c.id===id?{...c,...patch}:c));
   const openClient = (id) => { setSelId(id); setView("client"); setTab("sessions"); };
+
   function doAddClient() {
     if (!newC.name.trim()) return;
     sync([...clients, { id:"c"+Date.now(), ...newC, age:+newC.age, since:new Date().toISOString().slice(0,7), status:"actif", progress:0, sessions:[], metrics:[], programs:[], goals:[] }]);
@@ -161,42 +215,62 @@ export default function App() {
     up(selId, { programs:cl.programs.map(p=>p.id===pid?{...p,exercises:[...p.exercises,{id:"e"+Date.now(),...newEx}]}:p) });
     setNewEx({ name:"", sets:"", reps:"", load:"", note:"", libId:"" }); setAddingExTo(null); setPickingEx(false);
   }
+
   const wrap = (children) => (
     <div style={{ minHeight:"100vh", background:"#000", color:"#e8edf5", fontFamily:"'Barlow',sans-serif", paddingBottom:48 }}>
       <style>{GLOBAL_CSS}</style><StatusDot status={fbStatus}/>{children}
     </div>
   );
+
+  // ── LIBRARY ────────────────────────────────────────────────────────────────
   if (view==="library") {
-    const cats = ["Tous","Musculation","Mobilité","Cardio"];
-    const filtered = libCat==="Tous" ? LIBRARY : LIBRARY.filter(e=>e.cat===libCat);
+    const filtered = LIBRARY.filter(e => {
+      const matchCat = libCat==="Tous" || e.cat===libCat;
+      const matchSearch = libSearch==="" || e.name.toLowerCase().includes(libSearch.toLowerCase()) || e.muscles.toLowerCase().includes(libSearch.toLowerCase());
+      return matchCat && matchSearch;
+    });
     return wrap(
       <div style={{ padding:"16px" }}>
         <button onClick={()=>setView("dash")} style={{ background:"none", border:"none", color:"#7a90b8", cursor:"pointer", fontSize:12, marginBottom:14, fontFamily:"'Barlow',sans-serif", padding:0 }}>← Retour</button>
-        <div style={{ fontSize:32, fontWeight:900, fontFamily:"'Barlow Condensed',sans-serif", marginBottom:16 }}>BIBLIOTHÈQUE</div>
+        <div style={{ fontSize:32, fontWeight:900, fontFamily:"'Barlow Condensed',sans-serif", marginBottom:14 }}>BIBLIOTHÈQUE</div>
+        {/* Search */}
+        <input value={libSearch} onChange={e=>setLibSearch(e.target.value)} placeholder="🔍 Rechercher un exercice ou muscle..."
+          style={{ width:"100%", background:"#070d1a", border:"1.5px solid #0f2040", borderRadius:10, padding:"10px 14px", color:"#e8edf5", fontSize:14, fontFamily:"'Barlow',sans-serif", outline:"none", marginBottom:12 }}
+          onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
+        {/* Category filters */}
         <div style={{ display:"flex", gap:6, marginBottom:16, overflowX:"auto", paddingBottom:4 }}>
-          {cats.map(cat=>(
-            <button key={cat} onClick={()=>setLibCat(cat)} style={{ padding:"6px 15px", borderRadius:99, border:`1px solid ${libCat===cat?"#1a6fff":"#0f2040"}`, background:libCat===cat?"#1a6fff":"transparent", color:libCat===cat?"#fff":"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:13, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
+          {CATS.map(cat=>(
+            <button key={cat} onClick={()=>setLibCat(cat)} style={{ padding:"6px 14px", borderRadius:99, border:`1px solid ${libCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:libCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:libCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:12, textTransform:"uppercase", cursor:"pointer", flexShrink:0, transition:"all .2s" }}>{cat}</button>
           ))}
         </div>
+        <div style={{ fontSize:11, color:"#3d5278", marginBottom:12 }}>{filtered.length} exercice{filtered.length>1?"s":""}</div>
+        {/* Grid */}
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
           {filtered.map(ex=>(
             <div key={ex.id} className="ch fu" onClick={()=>setLibSel(libSel===ex.id?null:ex.id)}
               style={{ background:"#070d1a", border:`1px solid ${libSel===ex.id?(CAT_COLOR[ex.cat]||"#1a6fff")+"66":"#0f2040"}`, borderRadius:16, overflow:"hidden", cursor:"pointer" }}>
               <ExImg libId={ex.id} size={160}/>
               <div style={{ padding:"10px 12px" }}>
-                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:5 }}>
-                  <div style={{ fontWeight:800, fontSize:13, fontFamily:"'Barlow Condensed',sans-serif" }}>{ex.name}</div>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:4, gap:4 }}>
+                  <div style={{ fontWeight:800, fontSize:13, fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1.2 }}>{ex.name}</div>
                   <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
                 </div>
-                <div style={{ fontSize:11, color:"#7a90b8" }}>💪 {ex.muscles}</div>
-                {libSel===ex.id && <div style={{ marginTop:8, padding:"8px 10px", background:"#000", borderRadius:8, border:"1px solid #0f2040" }}><div style={{ fontSize:11, color:"#e8edf5" }}>💡 {ex.tip}</div></div>}
+                <div style={{ fontSize:10, color:"#7a90b8" }}>💪 {ex.muscles}</div>
+                {libSel===ex.id && (
+                  <div style={{ marginTop:8, padding:"8px 10px", background:"#000", borderRadius:8, border:"1px solid #0f2040" }}>
+                    <div style={{ fontSize:11, color:"#e8edf5" }}>💡 {ex.tip}</div>
+                  </div>
+                )}
               </div>
             </div>
           ))}
         </div>
+        {filtered.length===0 && <div style={{ textAlign:"center", color:"#3d5278", padding:40 }}>Aucun exercice trouvé</div>}
       </div>
     );
   }
+
+  // ── DASHBOARD ──────────────────────────────────────────────────────────────
   if (view==="dash") {
     const total=clients.reduce((a,c)=>a+c.sessions.filter(s=>s.present).length,0);
     const actif=clients.filter(c=>c.status==="actif").length;
@@ -275,6 +349,8 @@ export default function App() {
       )}
     </>);
   }
+
+  // ── CLIENT DETAIL ──────────────────────────────────────────────────────────
   if (view==="client"&&cl) {
     const att=cl.sessions.length?Math.round(cl.sessions.filter(s=>s.present).length/cl.sessions.length*100):0;
     const lw=cl.metrics[0],pw=cl.metrics[1];
@@ -384,7 +460,7 @@ export default function App() {
           <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
             <SecTitle c="Nouveau programme"/>
             <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
-              <Field label="Nom" value={newP.name} onChange={v=>setNewP(p=>({...p,name:v}))} placeholder="ex. Force & Mobilité"/>
+              <Field label="Nom" value={newP.name} onChange={v=>setNewP(p=>({...p,name:v}))} placeholder="ex. Push Day A"/>
               <div style={{ display:"flex", gap:10 }}>
                 <Field label="Semaines" type="number" value={newP.weeks} onChange={v=>setNewP(p=>({...p,weeks:v}))} placeholder="8" half/>
                 <Field label="Date début" type="date" value={newP.startDate} onChange={v=>setNewP(p=>({...p,startDate:v}))} half/>
@@ -403,18 +479,32 @@ export default function App() {
               </div>
               {addingExTo===prog.id&&(
                 <div style={{ padding:14, background:"#000", borderBottom:"1px solid #0f2040" }}>
-                  <button onClick={()=>setPickingEx(!pickingEx)} style={{ background:"#112240", border:"1px solid #1a6fff44", borderRadius:8, padding:"7px 14px", color:"#1a6fff", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:12, textTransform:"uppercase", cursor:"pointer", marginBottom:12 }}>
+                  <button onClick={()=>setPickingEx(!pickingEx)} style={{ background:"#112240", border:"1px solid #1a6fff44", borderRadius:8, padding:"7px 14px", color:"#1a6fff", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:12, textTransform:"uppercase", cursor:"pointer", marginBottom:12, width:"100%" }}>
                     📚 {pickingEx?"Fermer":"Choisir dans la bibliothèque"}
                   </button>
                   {pickingEx&&(
-                    <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:6, marginBottom:12 }}>
-                      {LIBRARY.map(ex=>(
-                        <div key={ex.id} onClick={()=>{ setNewEx(p=>({...p,name:ex.name,libId:ex.id})); setPickingEx(false); }}
-                          style={{ background:"#070d1a", border:`1px solid ${newEx.libId===ex.id?"#1a6fff":"#0f2040"}`, borderRadius:10, overflow:"hidden", cursor:"pointer" }}>
-                          <ExImg libId={ex.id} size={80}/>
-                          <div style={{ padding:"4px 6px", fontSize:9, fontWeight:700, fontFamily:"'Barlow Condensed',sans-serif", color:"#7a90b8" }}>{ex.name}</div>
-                        </div>
-                      ))}
+                    <div>
+                      <input value={libSearch} onChange={e=>setLibSearch(e.target.value)} placeholder="🔍 Rechercher..."
+                        style={{ width:"100%", background:"#070d1a", border:"1.5px solid #0f2040", borderRadius:8, padding:"8px 12px", color:"#e8edf5", fontSize:13, fontFamily:"'Barlow',sans-serif", outline:"none", marginBottom:10 }}
+                        onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
+                      <div style={{ display:"flex", gap:5, marginBottom:10, overflowX:"auto", paddingBottom:4 }}>
+                        {CATS.map(cat=>(
+                          <button key={cat} onClick={()=>setLibCat(cat)} style={{ padding:"4px 10px", borderRadius:99, border:`1px solid ${libCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:libCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:libCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
+                        ))}
+                      </div>
+                      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:6, marginBottom:12, maxHeight:200, overflowY:"auto" }}>
+                        {LIBRARY.filter(e=>{
+                          const matchCat = libCat==="Tous" || e.cat===libCat;
+                          const matchSearch = libSearch==="" || e.name.toLowerCase().includes(libSearch.toLowerCase());
+                          return matchCat && matchSearch;
+                        }).map(ex=>(
+                          <div key={ex.id} onClick={()=>{ setNewEx(p=>({...p,name:ex.name,libId:ex.id})); setPickingEx(false); setLibSearch(""); }}
+                            style={{ background:"#070d1a", border:`1px solid ${newEx.libId===ex.id?"#1a6fff":"#0f2040"}`, borderRadius:10, overflow:"hidden", cursor:"pointer" }}>
+                            <ExImg libId={ex.id} size={80}/>
+                            <div style={{ padding:"4px 6px", fontSize:9, fontWeight:700, fontFamily:"'Barlow Condensed',sans-serif", color:"#7a90b8", lineHeight:1.2 }}>{ex.name}</div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
                   <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
@@ -426,14 +516,14 @@ export default function App() {
                   </div>
                   <div style={{ display:"flex", gap:8, marginTop:10 }}>
                     <Btn small onClick={()=>doAddExercise(prog.id)}>Ajouter</Btn>
-                    <Btn small ghost onClick={()=>{ setAddingExTo(null); setPickingEx(false); }}>Annuler</Btn>
+                    <Btn small ghost onClick={()=>{ setAddingExTo(null); setPickingEx(false); setLibSearch(""); }}>Annuler</Btn>
                   </div>
                 </div>
               )}
               {prog.exercises.map((ex,j)=>{
                 const lib=LIBRARY.find(l=>l.id===ex.libId);
                 return <div key={j} style={{ display:"flex", alignItems:"center", padding:"11px 14px", gap:10, borderBottom:j<prog.exercises.length-1?"1px solid #0f2040":"none" }}>
-                  {lib?<div style={{ width:44, height:32, borderRadius:6, overflow:"hidden", flexShrink:0 }}><ExImg libId={lib.id} size={60}/></div>
+                  {lib?<div style={{ width:44, height:30, borderRadius:6, overflow:"hidden", flexShrink:0 }}><ExImg libId={lib.id} size={60}/></div>
                   :<div style={{ width:24, height:24, borderRadius:6, background:"#1a6fff1a", border:"1px solid #1a6fff44", display:"flex", alignItems:"center", justifyContent:"center", fontSize:11, fontWeight:800, color:"#1a6fff", flexShrink:0 }}>{j+1}</div>}
                   <div style={{ flex:1 }}>
                     <div style={{ fontWeight:700, fontSize:14 }}>{ex.name}</div>
