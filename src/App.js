@@ -2,13 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { db } from "./firebase";
 import { doc, setDoc, onSnapshot } from "firebase/firestore";
 
-const T = {
-  bg:"#000000", surface:"#04080f", card:"#070d1a", cardAlt:"#0a1628",
-  border:"#0f2040", borderHover:"#1a3a6e", accent:"#1a6fff", navy:"#0a1628",
-  navyLight:"#112240", red:"#e63946", green:"#22c55e", gold:"#f59e0b",
-  text:"#e8edf5", muted:"#3d5278", mutedLight:"#7a90b8",
-};
-
 const MuscleRed = "#e63946";
 const MuscleOrange = "#f59e0b";
 const BodyColor = "#2a3a5a";
@@ -105,16 +98,46 @@ const LIBRARY = [
 const CATS = ["Tous","Push","Pull","Legs","Musculation","Mobilité","Cardio"];
 const CAT_COLOR = { Push:"#1a6fff", Pull:"#8b5cf6", Legs:"#22c55e", Musculation:"#1a6fff", Mobilité:"#22c55e", Cardio:"#f59e0b" };
 const MONTH_NAMES = { "01":"Janvier","02":"Février","03":"Mars","04":"Avril","05":"Mai","06":"Juin","07":"Juillet","08":"Août","09":"Septembre","10":"Octobre","11":"Novembre","12":"Décembre" };
+const STATUS_OPTIONS = ["actif","pause","inactif"];
+const STATUS_COLOR = { actif:"#22c55e", pause:"#f59e0b", inactif:"#3d5278" };
+
+// 1RM formula (Epley)
+const calc1RM = (load, reps) => {
+  if (!load||!reps||+reps===0) return null;
+  return Math.round(+load * (1 + +reps/30));
+};
+
+// RPE color
+const rpeColor = (rpe) => {
+  if (!rpe) return "#3d5278";
+  const r = +rpe;
+  if (r<=4) return "#22c55e";
+  if (r<=6) return "#f59e0b";
+  if (r<=8) return "#f97316";
+  return "#e63946";
+};
+
+const rpeLabel = (rpe) => {
+  if (!rpe) return "";
+  const r = +rpe;
+  if (r<=3) return "Facile";
+  if (r<=5) return "Modéré";
+  if (r<=7) return "Difficile";
+  if (r<=9) return "Très dur";
+  return "Maximal";
+};
 
 const SAMPLE_CLIENTS = [{
   id:"tony", name:"Tony Parker", age:41, sport:"Basketball", since:"2024-01", status:"actif",
-  objective:"Maintien forme & mobilité", progress:78,
+  objective:"Maintien forme & mobilité", progress:78, notes:"Attention genou droit. Préfère les séances du matin.",
   sessions:[
     { id:"s1", date:"2026-04-15", present:true, duration:90, note:"Mobilité hanches", exercises:[
-      { id:"se1", libId:"deadlift", name:"Deadlift", sets:"4", reps:"8", load:"80", rest:"120" },
-      { id:"se2", libId:"squat", name:"Squat", sets:"4", reps:"10", load:"60", rest:"90" },
+      { id:"se1", libId:"deadlift", name:"Deadlift", sets:"4", reps:"8", load:"80", rest:"120", rpe:"7" },
+      { id:"se2", libId:"squat", name:"Squat", sets:"4", reps:"10", load:"60", rest:"90", rpe:"6" },
     ]},
-    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Cardio HIIT", exercises:[] },
+    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Cardio HIIT", exercises:[
+      { id:"se3", libId:"bench_press", name:"Développé couché", sets:"4", reps:"6", load:"90", rest:"150", rpe:"8" },
+    ]},
     { id:"s3", date:"2026-03-03", present:false, duration:0, note:"Absent — voyage", exercises:[] },
   ],
   metrics:[
@@ -140,8 +163,8 @@ const GLOBAL_CSS = `
   html, body { background: #000; color: #e8edf5; font-family: 'Barlow', sans-serif; }
   ::-webkit-scrollbar { width: 4px; background: #000; }
   ::-webkit-scrollbar-thumb { background: #0f2040; border-radius: 4px; }
-  input { color-scheme: dark; }
-  input::placeholder { color: #3d5278; }
+  input, textarea, select { color-scheme: dark; }
+  input::placeholder, textarea::placeholder { color: #3d5278; }
   @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
   .fu { animation: fadeUp .28s ease both; }
   .ch { transition: border-color .2s, transform .18s, box-shadow .2s; }
@@ -177,8 +200,8 @@ const Field = ({ label, value, onChange, type="text", placeholder, half, third }
   );
 };
 
-const Btn = ({ children, onClick, ghost, small, danger }) => (
-  <button onClick={onClick} style={{ padding:small?"6px 14px":"10px 22px", borderRadius:8, cursor:"pointer", border:ghost?"1.5px solid #0f2040":danger?"1.5px solid #e6394644":"none", background:ghost?"transparent":danger?"#e6394618":"#1a6fff", color:ghost?"#7a90b8":danger?"#e63946":"#fff", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:small?11:14, letterSpacing:"0.06em", textTransform:"uppercase", transition:"all .15s" }}>{children}</button>
+const Btn = ({ children, onClick, ghost, small, danger, color }) => (
+  <button onClick={onClick} style={{ padding:small?"6px 14px":"10px 22px", borderRadius:8, cursor:"pointer", border:ghost?"1.5px solid #0f2040":danger?"1.5px solid #e6394644":"none", background:ghost?"transparent":danger?"#e6394618":color||"#1a6fff", color:ghost?"#7a90b8":danger?"#e63946":"#fff", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:small?11:14, letterSpacing:"0.06em", textTransform:"uppercase", transition:"all .15s" }}>{children}</button>
 );
 
 const SecTitle = ({ c }) => (
@@ -241,6 +264,24 @@ const StatusDot = ({ status }) => {
   );
 };
 
+// ── RPE SELECTOR ──────────────────────────────────────────────────────────────
+const RPESelector = ({ value, onChange }) => (
+  <div style={{ width:"100%" }}>
+    <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", fontFamily:"'Barlow',sans-serif", display:"block", marginBottom:4 }}>
+      RPE {value ? `${value}/10 — ${rpeLabel(value)}` : ""}
+    </label>
+    <div style={{ display:"flex", gap:3 }}>
+      {[1,2,3,4,5,6,7,8,9,10].map(n=>(
+        <button key={n} onClick={()=>onChange(value===String(n)?"":String(n))}
+          style={{ flex:1, padding:"7px 0", borderRadius:6, border:`1px solid ${+value===n?rpeColor(n)+"88":"#0f2040"}`, background:+value===n?rpeColor(n)+"22":"transparent", color:+value===n?rpeColor(n):"#3d5278", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:11, cursor:"pointer", transition:"all .15s" }}>
+          {n}
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
+// ── PROGRESSION CHARTS ────────────────────────────────────────────────────────
 const ProgressionCharts = ({ metrics }) => {
   if (!metrics||metrics.length<2) return (
     <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:16, marginBottom:14, textAlign:"center", color:"#3d5278", fontSize:12 }}>
@@ -295,25 +336,33 @@ const ProgressionCharts = ({ metrics }) => {
   );
 };
 
-// ── CHARGES TRACKER ───────────────────────────────────────────────────────────
+// ── CHARGES TAB ───────────────────────────────────────────────────────────────
 const ChargesTab = ({ sessions }) => {
-  // Extract best performance per exercise from all sessions
   const bestPerEx = {};
-  sessions.forEach(s => {
-    (s.exercises||[]).forEach(ex => {
-      if (!ex.libId || !ex.load || +ex.load <= 0) return;
-      const key = ex.libId;
-      const load = +ex.load;
-      const reps = +ex.reps || 0;
-      if (!bestPerEx[key] || load > bestPerEx[key].load || (load === bestPerEx[key].load && reps > bestPerEx[key].reps)) {
-        bestPerEx[key] = { libId:ex.libId, name:ex.name, load, reps, date:s.date };
+  sessions.forEach(s=>{
+    (s.exercises||[]).forEach(ex=>{
+      if (!ex.libId||!ex.load||+ex.load<=0) return;
+      const load=+ex.load, reps=+ex.reps||0;
+      if (!bestPerEx[ex.libId]||load>bestPerEx[ex.libId].load||(load===bestPerEx[ex.libId].load&&reps>bestPerEx[ex.libId].reps)) {
+        bestPerEx[ex.libId]={ libId:ex.libId, name:ex.name, load, reps, date:s.date, rpe:ex.rpe };
       }
     });
   });
 
-  const entries = Object.values(bestPerEx).sort((a,b) => b.load - a.load);
+  // Load history per exercise for mini chart
+  const loadHistory = {};
+  sessions.forEach(s=>{
+    (s.exercises||[]).forEach(ex=>{
+      if (!ex.libId||!ex.load||+ex.load<=0) return;
+      if (!loadHistory[ex.libId]) loadHistory[ex.libId]=[];
+      loadHistory[ex.libId].push({ date:s.date, load:+ex.load, reps:+ex.reps||0 });
+    });
+  });
 
-  if (entries.length === 0) return (
+  const entries = Object.values(bestPerEx).sort((a,b)=>b.load-a.load);
+  const maxLoad = entries.length ? Math.max(...entries.map(e=>e.load)) : 1;
+
+  if (!entries.length) return (
     <div style={{ textAlign:"center", color:"#3d5278", padding:60 }}>
       <div style={{ fontSize:32, marginBottom:12 }}>🏋️</div>
       <div style={{ fontSize:14, fontWeight:700, marginBottom:6 }}>Aucune charge enregistrée</div>
@@ -324,48 +373,118 @@ const ChargesTab = ({ sessions }) => {
   return (
     <div className="fu">
       <div style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:14, display:"flex", alignItems:"center", gap:8 }}>
-        <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>
-        RECORDS DE CHARGES
+        <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>RECORDS & 1RM ESTIMÉS
       </div>
-      {entries.map((ex, i) => {
-        const libEx = LIBRARY.find(l=>l.id===ex.libId);
-        // Find progression - compare to previous best
-        const prevSessions = sessions.filter(s=>s.date < ex.date);
-        let prevBest = 0;
-        prevSessions.forEach(s=>{
-          (s.exercises||[]).forEach(e=>{
-            if (e.libId===ex.libId && +e.load > prevBest) prevBest = +e.load;
-          });
-        });
-        const delta = prevBest > 0 ? ex.load - prevBest : null;
+      {entries.map((ex,i)=>{
+        const libEx=LIBRARY.find(l=>l.id===ex.libId);
+        const orm=calc1RM(ex.load,ex.reps);
+        const history=(loadHistory[ex.libId]||[]).sort((a,b)=>a.date.localeCompare(b.date));
+        const prevBest=history.length>1?history.slice(0,-1).reduce((max,h)=>h.load>max?h.load:max,0):0;
+        const delta=prevBest>0?ex.load-prevBest:null;
+
+        // Mini sparkline for load history
+        const sparkLoads=history.map(h=>h.load);
+        const sparkMin=sparkLoads.length>1?Math.min(...sparkLoads)-2:0;
+        const sparkMax=sparkLoads.length>1?Math.max(...sparkLoads)+2:ex.load+10;
+        const SW=200, SH=30;
+        const sparkPts=sparkLoads.map((l,idx)=>({
+          x:sparkLoads.length>1?(idx/(sparkLoads.length-1))*(SW-10)+5:SW/2,
+          y:SH-((l-sparkMin)/(sparkMax-sparkMin||1))*(SH-6)-3
+        }));
+        const sparkPath=sparkPts.map((p,idx)=>`${idx===0?"M":"L"} ${p.x} ${p.y}`).join(" ");
+
         return (
           <div key={ex.libId} className="ch fu" style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:10, animationDelay:`${i*.04}s` }}>
-            <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+            <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:10 }}>
               <div style={{ width:48, height:24, borderRadius:8, overflow:"hidden", flexShrink:0 }}>
                 <AnatomySVG id={ex.libId}/>
               </div>
               <div style={{ flex:1, minWidth:0 }}>
                 <div style={{ fontWeight:800, fontSize:15, fontFamily:"'Barlow Condensed',sans-serif", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{ex.name}</div>
-                {libEx && <div style={{ fontSize:10, color:"#3d5278", marginTop:2 }}>{libEx.muscles}</div>}
-                <div style={{ fontSize:10, color:"#3d5278", marginTop:2 }}>📅 {ex.date}</div>
+                {libEx&&<div style={{ fontSize:10, color:"#3d5278" }}>{libEx.muscles}</div>}
+                <div style={{ fontSize:10, color:"#3d5278" }}>📅 {ex.date}</div>
               </div>
               <div style={{ textAlign:"right", flexShrink:0 }}>
-                <div style={{ fontSize:26, fontWeight:900, color:"#f59e0b", fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1 }}>{ex.load}<span style={{ fontSize:13 }}>kg</span></div>
-                <div style={{ fontSize:11, color:"#7a90b8", marginTop:2 }}>× {ex.reps} reps</div>
-                {delta !== null && (
-                  <div style={{ fontSize:11, color:delta>=0?"#22c55e":"#e63946", fontWeight:700, marginTop:2 }}>
+                <div style={{ fontSize:26, fontWeight:900, color:"#f59e0b", fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1 }}>
+                  {ex.load}<span style={{ fontSize:12 }}>kg</span>
+                </div>
+                <div style={{ fontSize:11, color:"#7a90b8" }}>× {ex.reps} reps</div>
+                {ex.rpe&&<div style={{ fontSize:10, color:rpeColor(ex.rpe), fontWeight:700 }}>RPE {ex.rpe}</div>}
+                {delta!==null&&(
+                  <div style={{ fontSize:11, color:delta>=0?"#22c55e":"#e63946", fontWeight:700 }}>
                     {delta>=0?"▲":"▼"} {Math.abs(delta)}kg
                   </div>
                 )}
               </div>
             </div>
-            {/* Mini progress bar based on load */}
-            <div style={{ marginTop:10 }}>
-              <Bar value={Math.min(100, (ex.load / Math.max(...entries.map(e=>e.load))) * 100)} color="#f59e0b" h={4}/>
-            </div>
+
+            {/* 1RM */}
+            {orm&&(
+              <div style={{ background:"#0a1628", borderRadius:10, padding:"8px 12px", marginBottom:10, display:"flex", justifyContent:"space-between", alignItems:"center", border:"1px solid #1a6fff22" }}>
+                <span style={{ fontSize:11, color:"#7a90b8", fontWeight:600 }}>1RM estimé (Epley)</span>
+                <span style={{ fontSize:18, fontWeight:900, color:"#1a6fff", fontFamily:"'Barlow Condensed',sans-serif" }}>{orm} kg</span>
+              </div>
+            )}
+
+            {/* Mini sparkline */}
+            {sparkLoads.length>1&&(
+              <div style={{ marginBottom:8 }}>
+                <svg width="100%" viewBox={`0 0 ${SW} ${SH}`} style={{ overflow:"visible" }}>
+                  <path d={sparkPath} fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
+                  {sparkPts.map((p,idx)=>(<circle key={idx} cx={p.x} cy={p.y} r="2.5" fill="#f59e0b" opacity="0.8"/>))}
+                </svg>
+              </div>
+            )}
+
+            <Bar value={(ex.load/maxLoad)*100} color="#f59e0b" h={3}/>
           </div>
         );
       })}
+    </div>
+  );
+};
+
+// ── MONTHLY REPORT ────────────────────────────────────────────────────────────
+const MonthlyReport = ({ sessions, metrics }) => {
+  const now = new Date();
+  const currentMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
+  const prevMonth = now.getMonth()===0
+    ? `${now.getFullYear()-1}-12`
+    : `${now.getFullYear()}-${String(now.getMonth()).padStart(2,"0")}`;
+
+  const thisSessions = sessions.filter(s=>s.date?.startsWith(currentMonth));
+  const prevSessions = sessions.filter(s=>s.date?.startsWith(prevMonth));
+  const thisPresent = thisSessions.filter(s=>s.present).length;
+  const prevPresent = prevSessions.filter(s=>s.present).length;
+
+  const thisMetrics = metrics.filter(m=>m.date?.startsWith(currentMonth));
+  const prevMetrics = metrics.filter(m=>m.date?.startsWith(prevMonth));
+  const lastWeight = thisMetrics[0]?.weight || prevMetrics[0]?.weight;
+  const firstWeight = thisMetrics[thisMetrics.length-1]?.weight || prevMetrics[prevMetrics.length-1]?.weight;
+  const weightDelta = lastWeight&&firstWeight ? +(lastWeight-firstWeight).toFixed(1) : null;
+
+  const monthLabel = MONTH_NAMES[String(now.getMonth()+1).padStart(2,"0")];
+
+  return (
+    <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
+      <div style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:12, display:"flex", alignItems:"center", gap:8 }}>
+        <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>BILAN {monthLabel}
+      </div>
+      <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+        {[
+          { l:"Séances", v:thisPresent, prev:prevPresent, c:"#1a6fff", suf:"" },
+          { l:"Absences", v:thisSessions.filter(s=>!s.present).length, prev:prevSessions.filter(s=>!s.present).length, c:"#e63946", suf:"" },
+          { l:"Δ Poids", v:weightDelta!==null?`${weightDelta>0?"+":""}${weightDelta}kg`:"—", c:weightDelta!==null?(weightDelta<=0?"#22c55e":"#e63946"):"#3d5278", noDelta:true },
+        ].map(s=>(
+          <div key={s.l} style={{ flex:1, background:"#04080f", borderRadius:10, padding:"10px 12px", border:"1px solid #0f2040", minWidth:80 }}>
+            <div style={{ fontSize:9, color:"#3d5278", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:4 }}>{s.l}</div>
+            <div style={{ fontSize:20, fontWeight:900, color:s.c, fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1 }}>{s.v}</div>
+            {!s.noDelta&&s.prev!==undefined&&(
+              <div style={{ fontSize:9, color:"#3d5278", marginTop:2 }}>vs {s.prev} mois préc.</div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -397,8 +516,9 @@ const SessionExercisePicker = ({ onAdd, onClose }) => {
       {!search&&(
         <>
           <div style={{ display:"flex", gap:5, marginBottom:8 }}>
-            <button onClick={()=>setMode("cat")} style={{ padding:"4px 12px", borderRadius:99, border:`1px solid ${mode==="cat"?"#1a6fff":"#0f2040"}`, background:mode==="cat"?"#1a6fff22":"transparent", color:mode==="cat"?"#1a6fff":"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer" }}>Type</button>
-            <button onClick={()=>setMode("muscle")} style={{ padding:"4px 12px", borderRadius:99, border:`1px solid ${mode==="muscle"?"#22c55e":"#0f2040"}`, background:mode==="muscle"?"#22c55e22":"transparent", color:mode==="muscle"?"#22c55e":"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer" }}>Muscle</button>
+            {["cat","muscle"].map(m=>(
+              <button key={m} onClick={()=>setMode(m)} style={{ padding:"4px 12px", borderRadius:99, border:`1px solid ${mode===m?(m==="cat"?"#1a6fff":"#22c55e"):"#0f2040"}`, background:mode===m?(m==="cat"?"#1a6fff22":"#22c55e22"):"transparent", color:mode===m?(m==="cat"?"#1a6fff":"#22c55e"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer" }}>{m==="cat"?"Type":"Muscle"}</button>
+            ))}
           </div>
           {mode==="cat"&&(
             <div style={{ display:"flex", gap:4, marginBottom:8, overflowX:"auto", paddingBottom:4 }}>
@@ -418,7 +538,7 @@ const SessionExercisePicker = ({ onAdd, onClose }) => {
       )}
       <div style={{ maxHeight:200, overflowY:"auto", display:"flex", flexDirection:"column", gap:5, marginBottom:10 }}>
         {filtered.map(ex=>{
-          const isSel = selected.find(e=>e.id===ex.id);
+          const isSel=selected.find(e=>e.id===ex.id);
           return (
             <div key={ex.id} onClick={()=>toggleEx(ex)}
               style={{ display:"flex", alignItems:"center", gap:8, padding:"7px 10px", borderRadius:8, border:`1px solid ${isSel?"#1a6fff44":"#0f2040"}`, background:isSel?"#1a6fff0a":"transparent", cursor:"pointer" }}>
@@ -452,7 +572,7 @@ const PPLGenerator = ({ onAdd }) => {
     const pool=TYPES[type]||[];
     const shuffled=[...pool].sort(()=>Math.random()-.5);
     const count=type==="Cardio"||type==="Mobilité"?5:6;
-    setGenerated(shuffled.slice(0,count).map(id=>{ const ex=LIBRARY.find(l=>l.id===id); return ex?{...ex,sets:type==="Cardio"?"4":type==="Mobilité"?"3":"4",reps:type==="Cardio"?"30s":type==="Mobilité"?"60s":"8-12",load:"",rest:"60"}:null; }).filter(Boolean));
+    setGenerated(shuffled.slice(0,count).map(id=>{ const ex=LIBRARY.find(l=>l.id===id); return ex?{...ex,sets:"4",reps:type==="Cardio"?"30s":type==="Mobilité"?"60s":"8-12",load:"",rest:"60",rpe:""}:null; }).filter(Boolean));
   }
   return (
     <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
@@ -462,7 +582,7 @@ const PPLGenerator = ({ onAdd }) => {
           <button key={t} onClick={()=>{setType(t);setGenerated([]);}} style={{ padding:"5px 12px", borderRadius:99, border:`1px solid ${type===t?(CAT_COLOR[t]||"#1a6fff"):"#0f2040"}`, background:type===t?(CAT_COLOR[t]||"#1a6fff")+"22":"transparent", color:type===t?(CAT_COLOR[t]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:11, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{t}</button>
         ))}
       </div>
-      <Btn small onClick={generate}>🎲 Générer une séance {type}</Btn>
+      <Btn small onClick={generate}>🎲 Générer {type}</Btn>
       {generated.length>0&&(
         <div style={{ marginTop:12 }}>
           {generated.map((ex,i)=>(
@@ -493,7 +613,11 @@ export default function App() {
   const [addOpen, setAddOpen] = useState(false);
   const [showNewSession, setShowNewSession] = useState(false);
   const [showExPicker, setShowExPicker] = useState(false);
-  const [newC, setNewC] = useState({ name:"", age:"", sport:"", objective:"" });
+  const [editingClient, setEditingClient] = useState(false);
+  const [editingSession, setEditingSession] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  const [newC, setNewC] = useState({ name:"", age:"", sport:"", objective:"", notes:"" });
+  const [editC, setEditC] = useState(null);
   const [newS, setNewS] = useState({ date:"", present:true, duration:"", note:"" });
   const [newM, setNewM] = useState({ date:"", weight:"", chest:"", waist:"", hips:"", fatPct:"" });
   const [newG, setNewG] = useState({ label:"", deadline:"" });
@@ -526,14 +650,31 @@ export default function App() {
 
   const openClient = (id) => {
     setSelId(id); setView("client"); setTab("sessions");
-    setShowNewSession(false); setNewS({date:"",present:true,duration:"",note:""});
+    setShowNewSession(false); setEditingClient(false); setEditingSession(null);
+    setNewS({date:"",present:true,duration:"",note:""});
     setPendingSession({exercises:[]}); setShowExPicker(false);
   };
 
   function doAddClient() {
     if (!newC.name.trim()) return;
     sync([...clients,{id:"c"+Date.now(),...newC,age:+newC.age,since:new Date().toISOString().slice(0,7),status:"actif",progress:0,sessions:[],metrics:[],programs:[],goals:[]}]);
-    setNewC({name:"",age:"",sport:"",objective:""}); setAddOpen(false);
+    setNewC({name:"",age:"",sport:"",objective:"",notes:""}); setAddOpen(false);
+  }
+
+  function doSaveEditClient() {
+    if (!editC||!cl) return;
+    up(selId,{...editC,age:+editC.age});
+    setEditingClient(false); setEditC(null);
+  }
+
+  function doDeleteClient(id) {
+    sync(clients.filter(c=>c.id!==id));
+    setView("dash"); setConfirmDelete(null);
+  }
+
+  function doArchiveClient(id) {
+    up(id,{status:"inactif"});
+    setView("dash");
   }
 
   function doAddSession() {
@@ -544,19 +685,33 @@ export default function App() {
     setPendingSession({exercises:[]}); setShowExPicker(false); setShowNewSession(false);
   }
 
+  function doSaveEditSession() {
+    if (!editingSession||!cl) return;
+    up(selId,{sessions:cl.sessions.map(s=>s.id===editingSession.id?editingSession:s)});
+    setEditingSession(null);
+  }
+
   function addExercisesToSession(exs) {
     setPendingSession(p=>({...p, exercises:[...p.exercises, ...exs.map(ex=>({
       id:"se"+Date.now()+Math.random(), libId:ex.id, name:ex.name,
-      sets:"3", reps:"10", load:"", rest:"60"
+      sets:"3", reps:"10", load:"", rest:"60", rpe:""
     }))]}));
   }
 
-  function updatePendingEx(idx, field, val) {
-    setPendingSession(p=>({...p, exercises:p.exercises.map((ex,i)=>i===idx?{...ex,[field]:val}:ex)}));
+  function updatePendingEx(idx,field,val) {
+    setPendingSession(p=>({...p,exercises:p.exercises.map((ex,i)=>i===idx?{...ex,[field]:val}:ex)}));
+  }
+
+  function updateEditSessionEx(idx,field,val) {
+    setEditingSession(p=>({...p,exercises:p.exercises.map((ex,i)=>i===idx?{...ex,[field]:val}:ex)}));
   }
 
   function removeSessionEx(idx) {
     setPendingSession(p=>({...p,exercises:p.exercises.filter((_,i)=>i!==idx)}));
+  }
+
+  function removeEditSessionEx(idx) {
+    setEditingSession(p=>({...p,exercises:p.exercises.filter((_,i)=>i!==idx)}));
   }
 
   function doAddMetric() {
@@ -585,7 +740,7 @@ export default function App() {
 
   function doAddGeneratedExercises(pid,exercises) {
     if (!cl) return;
-    const newExs = exercises.map(ex=>({id:"e"+Date.now()+Math.random(),name:ex.name,sets:ex.sets,reps:ex.reps,load:"",rest:"60",note:"",libId:ex.id}));
+    const newExs=exercises.map(ex=>({id:"e"+Date.now()+Math.random(),name:ex.name,sets:ex.sets,reps:ex.reps,load:"",rest:"60",rpe:"",note:"",libId:ex.id}));
     up(selId,{programs:cl.programs.map(p=>p.id===pid?{...p,exercises:[...p.exercises,...newExs]}:p)});
     setShowGenerator(false); setGeneratorPid(null);
   }
@@ -598,7 +753,7 @@ export default function App() {
 
   // ── LIBRARY ────────────────────────────────────────────────────────────────
   if (view==="library") {
-    const filtered = LIBRARY.filter(e=>{
+    const filtered=LIBRARY.filter(e=>{
       const matchCat=libCat==="Tous"||e.cat===libCat;
       const matchSearch=libSearch===""||e.name.toLowerCase().includes(libSearch.toLowerCase())||e.muscles.toLowerCase().includes(libSearch.toLowerCase());
       return matchCat&&matchSearch;
@@ -642,9 +797,10 @@ export default function App() {
 
   // ── DASHBOARD ──────────────────────────────────────────────────────────────
   if (view==="dash") {
+    const activeClients=clients.filter(c=>c.status!=="inactif");
     const total=clients.reduce((a,c)=>a+c.sessions.filter(s=>s.present).length,0);
     const actif=clients.filter(c=>c.status==="actif").length;
-    const att=clients.length?Math.round(clients.reduce((a,c)=>{ if(!c.sessions.length)return a; return a+c.sessions.filter(s=>s.present).length/c.sessions.length; },0)/clients.length*100):0;
+    const att=activeClients.length?Math.round(activeClients.reduce((a,c)=>{ if(!c.sessions.length)return a; return a+c.sessions.filter(s=>s.present).length/c.sessions.length; },0)/activeClients.length*100):0;
     return wrap(<>
       <div style={{ padding:"20px 16px 0" }}>
         <div style={{ display:"flex",alignItems:"center",gap:7,marginBottom:4 }}>
@@ -674,7 +830,7 @@ export default function App() {
           const lw=c.metrics[0];
           return (
             <div key={c.id} className="ch fu" onClick={()=>openClient(c.id)}
-              style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:15,marginBottom:10,cursor:"pointer",animationDelay:`${i*.05}s` }}>
+              style={{ background:"#070d1a",border:`1px solid ${c.status==="inactif"?"#0f2040":c.status==="pause"?"#f59e0b22":"#0f2040"}`,borderRadius:14,padding:15,marginBottom:10,cursor:"pointer",animationDelay:`${i*.05}s`,opacity:c.status==="inactif"?0.5:1 }}>
               <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:10 }}>
                 <Avatar name={c.name}/>
                 <div style={{ flex:1,minWidth:0 }}>
@@ -682,7 +838,7 @@ export default function App() {
                   <div style={{ color:"#7a90b8",fontSize:12,marginTop:1 }}>{c.sport} · {c.objective}</div>
                 </div>
                 <div style={{ display:"flex",flexDirection:"column",alignItems:"flex-end",gap:4,flexShrink:0 }}>
-                  <Badge label={c.status} color={c.status==="actif"?"#22c55e":"#3d5278"}/>
+                  <Badge label={c.status} color={STATUS_COLOR[c.status]||"#3d5278"}/>
                   {lw&&<span style={{ fontSize:13,fontWeight:800,color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif" }}>{lw.weight}kg</span>}
                 </div>
               </div>
@@ -697,9 +853,11 @@ export default function App() {
         })}
         {!clients.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:60 }}>Aucun client — ajoutes-en un !</div>}
       </div>
+
+      {/* Add client modal */}
       {addOpen&&(
         <div style={{ position:"fixed",inset:0,background:"#000c",display:"flex",alignItems:"flex-end",zIndex:99 }} onClick={()=>setAddOpen(false)}>
-          <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:"20px 20px 0 0",padding:"24px 18px 40px",width:"100%",maxHeight:"88vh",overflowY:"auto" }}>
+          <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:"20px 20px 0 0",padding:"24px 18px 40px",width:"100%",maxHeight:"90vh",overflowY:"auto" }}>
             <div style={{ width:36,height:4,borderRadius:99,background:"#0f2040",margin:"0 auto 18px" }}/>
             <div style={{ fontSize:22,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:16 }}>NOUVEAU CLIENT</div>
             <div style={{ display:"flex",flexDirection:"column",gap:11 }}>
@@ -709,10 +867,30 @@ export default function App() {
                 <Field label="Sport" value={newC.sport} onChange={v=>setNewC(p=>({...p,sport:v}))} placeholder="Basketball..." half/>
               </div>
               <Field label="Objectif" value={newC.objective} onChange={v=>setNewC(p=>({...p,objective:v}))} placeholder="Perte de poids, Performance..."/>
+              <div style={{ display:"flex",flexDirection:"column",gap:4 }}>
+                <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase" }}>Notes</label>
+                <textarea value={newC.notes||""} onChange={e=>setNewC(p=>({...p,notes:e.target.value}))} placeholder="Blessures, préférences, infos importantes..."
+                  style={{ background:"#000",border:"1.5px solid #0f2040",borderRadius:8,padding:"9px 10px",color:"#e8edf5",fontSize:13,fontFamily:"'Barlow',sans-serif",outline:"none",width:"100%",colorScheme:"dark",boxSizing:"border-box",resize:"none",minHeight:70 }}
+                  onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
+              </div>
             </div>
             <div style={{ display:"flex",gap:10,marginTop:16 }}>
               <Btn onClick={doAddClient}>Ajouter</Btn>
               <Btn ghost onClick={()=>setAddOpen(false)}>Annuler</Btn>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Confirm delete modal */}
+      {confirmDelete&&(
+        <div style={{ position:"fixed",inset:0,background:"#000c",display:"flex",alignItems:"center",justifyContent:"center",zIndex:99,padding:24 }} onClick={()=>setConfirmDelete(null)}>
+          <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #e6394644",borderRadius:20,padding:24,width:"100%",maxWidth:360 }}>
+            <div style={{ fontSize:20,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:8,color:"#e63946" }}>⚠️ Supprimer ce client ?</div>
+            <div style={{ fontSize:13,color:"#7a90b8",marginBottom:20 }}>Toutes les données de <b style={{ color:"#e8edf5" }}>{confirmDelete.name}</b> seront définitivement supprimées.</div>
+            <div style={{ display:"flex",gap:10 }}>
+              <Btn danger onClick={()=>doDeleteClient(confirmDelete.id)}>Supprimer</Btn>
+              <Btn ghost onClick={()=>setConfirmDelete(null)}>Annuler</Btn>
             </div>
           </div>
         </div>
@@ -734,22 +912,81 @@ export default function App() {
       {id:"goals",label:"Objectifs"},
       {id:"charges",label:"Charges"},
     ];
-    const sessionsByMonth = cl.sessions.reduce((acc,s)=>{
+    const sessionsByMonth=cl.sessions.reduce((acc,s)=>{
       const month=s.date?s.date.slice(0,7):"inconnu";
       if (!acc[month]) acc[month]=[];
       acc[month].push(s); return acc;
     },{});
-    const sortedMonths = Object.keys(sessionsByMonth).sort((a,b)=>b.localeCompare(a));
+    const sortedMonths=Object.keys(sessionsByMonth).sort((a,b)=>b.localeCompare(a));
+
+    // Edit client form
+    if (editingClient&&editC) return wrap(<>
+      <div style={{ padding:"16px" }}>
+        <button onClick={()=>{ setEditingClient(false); setEditC(null); }} style={{ background:"none",border:"none",color:"#7a90b8",cursor:"pointer",fontSize:12,marginBottom:14,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Retour</button>
+        <div style={{ fontSize:28,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:20 }}>MODIFIER LE PROFIL</div>
+        <div style={{ display:"flex",flexDirection:"column",gap:12 }}>
+          <Field label="Nom complet" value={editC.name} onChange={v=>setEditC(p=>({...p,name:v}))} placeholder="ex. Tony Parker"/>
+          <div style={{ display:"flex",gap:8 }}>
+            <Field label="Âge" type="number" value={String(editC.age)} onChange={v=>setEditC(p=>({...p,age:v}))} placeholder="30" half/>
+            <Field label="Sport" value={editC.sport} onChange={v=>setEditC(p=>({...p,sport:v}))} placeholder="Basketball..." half/>
+          </div>
+          <Field label="Objectif" value={editC.objective} onChange={v=>setEditC(p=>({...p,objective:v}))} placeholder="Objectif principal..."/>
+          <div style={{ display:"flex",flexDirection:"column",gap:4 }}>
+            <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase" }}>Statut</label>
+            <div style={{ display:"flex",gap:6 }}>
+              {STATUS_OPTIONS.map(s=>(
+                <button key={s} onClick={()=>setEditC(p=>({...p,status:s}))} style={{ flex:1,padding:"8px",borderRadius:8,border:`1px solid ${editC.status===s?(STATUS_COLOR[s]||"#1a6fff"):"#0f2040"}`,background:editC.status===s?(STATUS_COLOR[s]||"#1a6fff")+"22":"transparent",color:editC.status===s?(STATUS_COLOR[s]||"#1a6fff"):"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",cursor:"pointer" }}>{s}</button>
+              ))}
+            </div>
+          </div>
+          <div style={{ display:"flex",flexDirection:"column",gap:4 }}>
+            <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase" }}>Notes</label>
+            <textarea value={editC.notes||""} onChange={e=>setEditC(p=>({...p,notes:e.target.value}))} placeholder="Blessures, préférences, infos importantes..."
+              style={{ background:"#000",border:"1.5px solid #0f2040",borderRadius:8,padding:"9px 10px",color:"#e8edf5",fontSize:13,fontFamily:"'Barlow',sans-serif",outline:"none",width:"100%",colorScheme:"dark",boxSizing:"border-box",resize:"none",minHeight:90 }}
+              onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
+          </div>
+        </div>
+        <div style={{ display:"flex",gap:10,marginTop:20 }}>
+          <Btn onClick={doSaveEditClient}>💾 Enregistrer</Btn>
+          <Btn ghost onClick={()=>{ setEditingClient(false); setEditC(null); }}>Annuler</Btn>
+        </div>
+        <div style={{ marginTop:24,paddingTop:20,borderTop:"1px solid #0f2040" }}>
+          <div style={{ fontSize:12,color:"#3d5278",marginBottom:12 }}>Zone dangereuse</div>
+          <div style={{ display:"flex",gap:8 }}>
+            <Btn small ghost onClick={()=>doArchiveClient(selId)}>📦 Archiver</Btn>
+            <Btn small danger onClick={()=>setConfirmDelete(cl)}>🗑️ Supprimer</Btn>
+          </div>
+        </div>
+      </div>
+      {confirmDelete&&(
+        <div style={{ position:"fixed",inset:0,background:"#000c",display:"flex",alignItems:"center",justifyContent:"center",zIndex:99,padding:24 }} onClick={()=>setConfirmDelete(null)}>
+          <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #e6394644",borderRadius:20,padding:24,width:"100%",maxWidth:360 }}>
+            <div style={{ fontSize:20,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:8,color:"#e63946" }}>⚠️ Supprimer ce client ?</div>
+            <div style={{ fontSize:13,color:"#7a90b8",marginBottom:20 }}>Toutes les données de <b style={{ color:"#e8edf5" }}>{cl.name}</b> seront définitivement supprimées.</div>
+            <div style={{ display:"flex",gap:10 }}>
+              <Btn danger onClick={()=>doDeleteClient(cl.id)}>Supprimer</Btn>
+              <Btn ghost onClick={()=>setConfirmDelete(null)}>Annuler</Btn>
+            </div>
+          </div>
+        </div>
+      )}
+    </>);
 
     return wrap(<>
       <div style={{ background:"linear-gradient(170deg,#112240 0%,#000 100%)",padding:"16px 16px 14px",borderBottom:"1px solid #0f2040" }}>
-        <button onClick={()=>setView("dash")} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:12,marginBottom:12,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Tableau de bord</button>
+        <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12 }}>
+          <button onClick={()=>setView("dash")} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:12,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Tableau de bord</button>
+          <button onClick={()=>{ setEditingClient(true); setEditC({...cl}); }} style={{ background:"#112240",border:"1px solid #0f2040",borderRadius:8,padding:"5px 12px",color:"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",cursor:"pointer" }}>✏️ Modifier</button>
+        </div>
         <div style={{ display:"flex",alignItems:"center",gap:14,marginBottom:14 }}>
           <Avatar name={cl.name} size={54}/>
           <div>
             <div style={{ fontSize:24,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",lineHeight:1 }}>{cl.name.toUpperCase()}</div>
             <div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{cl.sport} · {cl.age} ans · depuis {cl.since}</div>
-            <div style={{ marginTop:5 }}><Badge label={cl.status} color="#22c55e"/></div>
+            <div style={{ display:"flex",gap:6,marginTop:5,flexWrap:"wrap" }}>
+              <Badge label={cl.status} color={STATUS_COLOR[cl.status]||"#3d5278"}/>
+              {cl.notes&&<span style={{ fontSize:10,color:"#3d5278",fontStyle:"italic" }}>{cl.notes.slice(0,40)}{cl.notes.length>40?"...":""}</span>}
+            </div>
           </div>
         </div>
         <div style={{ display:"flex",gap:6,overflowX:"auto",paddingBottom:2 }}>
@@ -780,6 +1017,8 @@ export default function App() {
 
         {/* ── SESSIONS ── */}
         {tab==="sessions"&&<div className="fu">
+          <MonthlyReport sessions={cl.sessions} metrics={cl.metrics}/>
+
           {!showNewSession?(
             <button onClick={()=>setShowNewSession(true)} style={{ width:"100%",background:"#070d1a",border:"2px dashed #1a6fff44",borderRadius:14,padding:"14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:14,letterSpacing:"0.06em",textTransform:"uppercase",cursor:"pointer",marginBottom:16,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
               + Nouvelle séance
@@ -803,8 +1042,6 @@ export default function App() {
                 💪 {showExPicker?"Fermer":"Ajouter des exercices"}
               </button>
               {showExPicker&&<SessionExercisePicker onAdd={addExercisesToSession} onClose={()=>setShowExPicker(false)}/>}
-
-              {/* Exercises with sets/reps/load/rest fields */}
               {pendingSession.exercises.length>0&&(
                 <div style={{ marginTop:10,marginBottom:10 }}>
                   <div style={{ fontSize:10,color:"#3d5278",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:8 }}>Exercices ({pendingSession.exercises.length})</div>
@@ -815,18 +1052,59 @@ export default function App() {
                         <span style={{ flex:1,fontSize:13,fontWeight:700 }}>{ex.name}</span>
                         <button onClick={()=>removeSessionEx(i)} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:16,padding:0,flexShrink:0 }}>✕</button>
                       </div>
-                      <div style={{ display:"flex",gap:6,flexWrap:"wrap" }}>
+                      <div style={{ display:"flex",gap:6,flexWrap:"wrap",marginBottom:8 }}>
                         <Field label="Séries" type="number" value={ex.sets} onChange={v=>updatePendingEx(i,"sets",v)} placeholder="3" third/>
                         <Field label="Reps" type="number" value={ex.reps} onChange={v=>updatePendingEx(i,"reps",v)} placeholder="10" third/>
                         <Field label="Charge kg" type="number" value={ex.load} onChange={v=>updatePendingEx(i,"load",v)} placeholder="0" third/>
                         <Field label="Repos sec" type="number" value={ex.rest} onChange={v=>updatePendingEx(i,"rest",v)} placeholder="60" half/>
                         <Field label="Note" value={ex.note||""} onChange={v=>updatePendingEx(i,"note",v)} placeholder="Remarque..." half/>
                       </div>
+                      <RPESelector value={ex.rpe||""} onChange={v=>updatePendingEx(i,"rpe",v)}/>
                     </div>
                   ))}
                 </div>
               )}
               <div style={{ marginTop:12 }}><Btn onClick={doAddSession}>Enregistrer la séance</Btn></div>
+            </div>
+          )}
+
+          {/* Edit session modal */}
+          {editingSession&&(
+            <div style={{ position:"fixed",inset:0,background:"#000e",display:"flex",alignItems:"flex-end",zIndex:99 }} onClick={()=>setEditingSession(null)}>
+              <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:"20px 20px 0 0",padding:"24px 18px 40px",width:"100%",maxHeight:"90vh",overflowY:"auto" }}>
+                <div style={{ width:36,height:4,borderRadius:99,background:"#0f2040",margin:"0 auto 18px" }}/>
+                <SecTitle c="Modifier la séance"/>
+                <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:12 }}>
+                  <Field label="Date" type="date" value={editingSession.date} onChange={v=>setEditingSession(p=>({...p,date:v}))} half/>
+                  <Field label="Durée min" type="number" value={String(editingSession.duration||"")} onChange={v=>setEditingSession(p=>({...p,duration:+v}))} placeholder="60" half/>
+                  <div style={{ width:"100%",display:"flex",alignItems:"center",gap:8 }}>
+                    <input type="checkbox" checked={editingSession.present} onChange={e=>setEditingSession(p=>({...p,present:e.target.checked}))} style={{ accentColor:"#22c55e",width:16,height:16 }}/>
+                    <span style={{ fontSize:13,color:"#7a90b8",fontWeight:600 }}>Client présent(e)</span>
+                  </div>
+                  <Field label="Notes" value={editingSession.note||""} onChange={v=>setEditingSession(p=>({...p,note:v}))} placeholder="Observations..."/>
+                </div>
+                {(editingSession.exercises||[]).map((ex,i)=>(
+                  <div key={i} style={{ background:"#000",borderRadius:10,padding:10,marginBottom:8,border:"1px solid #0f2040" }}>
+                    <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:8 }}>
+                      <div style={{ width:32,height:16,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                      <span style={{ flex:1,fontSize:13,fontWeight:700 }}>{ex.name}</span>
+                      <button onClick={()=>removeEditSessionEx(i)} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:16,padding:0 }}>✕</button>
+                    </div>
+                    <div style={{ display:"flex",gap:6,flexWrap:"wrap",marginBottom:8 }}>
+                      <Field label="Séries" type="number" value={String(ex.sets||"")} onChange={v=>updateEditSessionEx(i,"sets",v)} placeholder="3" third/>
+                      <Field label="Reps" type="number" value={String(ex.reps||"")} onChange={v=>updateEditSessionEx(i,"reps",v)} placeholder="10" third/>
+                      <Field label="Charge kg" type="number" value={String(ex.load||"")} onChange={v=>updateEditSessionEx(i,"load",v)} placeholder="0" third/>
+                      <Field label="Repos sec" type="number" value={String(ex.rest||"")} onChange={v=>updateEditSessionEx(i,"rest",v)} placeholder="60" half/>
+                      <Field label="Note" value={ex.note||""} onChange={v=>updateEditSessionEx(i,"note",v)} placeholder="Remarque..." half/>
+                    </div>
+                    <RPESelector value={String(ex.rpe||"")} onChange={v=>updateEditSessionEx(i,"rpe",v)}/>
+                  </div>
+                ))}
+                <div style={{ display:"flex",gap:10,marginTop:14 }}>
+                  <Btn onClick={doSaveEditSession}>💾 Enregistrer</Btn>
+                  <Btn ghost onClick={()=>setEditingSession(null)}>Annuler</Btn>
+                </div>
+              </div>
             </div>
           )}
 
@@ -844,36 +1122,40 @@ export default function App() {
                   <div style={{ flex:1,height:1,background:"#0f2040" }}/>
                 </div>
                 {sessions.map((s,i)=>(
-                  <div key={s.id} className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:12,padding:"12px 14px",marginBottom:8 }}>
-                    <div style={{ display:"flex",gap:10,alignItems:"flex-start" }}>
-                      <div style={{ width:8,height:8,borderRadius:"50%",background:s.present?"#22c55e":"#e63946",marginTop:5,flexShrink:0 }}/>
-                      <div style={{ flex:1 }}>
-                        <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center" }}>
-                          <span style={{ fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",fontSize:15 }}>{s.date}</span>
-                          <div style={{ display:"flex",gap:6 }}>
-                            {s.duration>0&&<span style={{ fontSize:11,color:"#3d5278" }}>{s.duration}min</span>}
-                            <Badge label={s.present?"Présent":"Absent"} color={s.present?"#22c55e":"#e63946"}/>
+                  <SwipeToDelete key={s.id} onDelete={()=>up(selId,{sessions:cl.sessions.filter(ss=>ss.id!==s.id)})}>
+                    <div className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:12,padding:"12px 14px" }}>
+                      <div style={{ display:"flex",gap:10,alignItems:"flex-start" }}>
+                        <div style={{ width:8,height:8,borderRadius:"50%",background:s.present?"#22c55e":"#e63946",marginTop:5,flexShrink:0 }}/>
+                        <div style={{ flex:1 }}>
+                          <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+                            <span style={{ fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",fontSize:15 }}>{s.date}</span>
+                            <div style={{ display:"flex",gap:6,alignItems:"center" }}>
+                              {s.duration>0&&<span style={{ fontSize:11,color:"#3d5278" }}>{s.duration}min</span>}
+                              <Badge label={s.present?"Présent":"Absent"} color={s.present?"#22c55e":"#e63946"}/>
+                              <button onClick={e=>{ e.stopPropagation(); setEditingSession({...s,exercises:[...(s.exercises||[])]}); }} style={{ background:"#112240",border:"1px solid #0f2040",borderRadius:6,padding:"3px 8px",color:"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,cursor:"pointer" }}>✏️</button>
+                            </div>
                           </div>
-                        </div>
-                        {s.note&&<div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{s.note}</div>}
-                        {s.exercises&&s.exercises.length>0&&(
-                          <div style={{ marginTop:8 }}>
-                            {s.exercises.map((ex,j)=>(
-                              <div key={j} style={{ display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:j<s.exercises.length-1?"1px solid #0f204044":"none" }}>
-                                <div style={{ width:24,height:12,borderRadius:3,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-                                <span style={{ fontSize:11,color:"#e8edf5",fontWeight:600,flex:1 }}>{ex.name}</span>
-                                <div style={{ display:"flex",gap:4,flexShrink:0 }}>
-                                  {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
-                                  {ex.load&&+ex.load>0&&<Badge label={`${ex.load}kg`} color="#f59e0b"/>}
-                                  {ex.rest&&+ex.rest>0&&<Badge label={`${ex.rest}s`} color="#3d5278"/>}
+                          {s.note&&<div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{s.note}</div>}
+                          {s.exercises&&s.exercises.length>0&&(
+                            <div style={{ marginTop:8 }}>
+                              {s.exercises.map((ex,j)=>(
+                                <div key={j} style={{ display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:j<s.exercises.length-1?"1px solid #0f204044":"none" }}>
+                                  <div style={{ width:24,height:12,borderRadius:3,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                                  <span style={{ fontSize:11,color:"#e8edf5",fontWeight:600,flex:1 }}>{ex.name}</span>
+                                  <div style={{ display:"flex",gap:4,flexShrink:0,flexWrap:"wrap",justifyContent:"flex-end" }}>
+                                    {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
+                                    {ex.load&&+ex.load>0&&<Badge label={`${ex.load}kg`} color="#f59e0b"/>}
+                                    {ex.rest&&+ex.rest>0&&<Badge label={`${ex.rest}s`} color="#3d5278"/>}
+                                    {ex.rpe&&<Badge label={`RPE${ex.rpe}`} color={rpeColor(ex.rpe)}/>}
+                                  </div>
                                 </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </SwipeToDelete>
                 ))}
               </div>
             );
@@ -989,11 +1271,13 @@ export default function App() {
               )}
               {prog.exercises.map((ex,j)=>{
                 const lib=LIBRARY.find(l=>l.id===ex.libId);
+                const orm=calc1RM(ex.load,ex.reps);
                 return <div key={j} style={{ display:"flex",alignItems:"center",padding:"11px 14px",gap:10,borderBottom:j<prog.exercises.length-1?"1px solid #0f2040":"none" }}>
                   {lib?<div style={{ width:44,height:22,borderRadius:6,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={lib.id}/></div>
                   :<div style={{ width:24,height:24,borderRadius:6,background:"#1a6fff1a",border:"1px solid #1a6fff44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:800,color:"#1a6fff",flexShrink:0 }}>{j+1}</div>}
                   <div style={{ flex:1 }}>
                     <div style={{ fontWeight:700,fontSize:14 }}>{ex.name}</div>
+                    {orm&&<div style={{ fontSize:10,color:"#3d5278" }}>1RM estimé : <b style={{ color:"#1a6fff" }}>{orm}kg</b></div>}
                     {ex.note&&<div style={{ fontSize:11,color:"#3d5278" }}>{ex.note}</div>}
                   </div>
                   <div style={{ display:"flex",gap:5,flexWrap:"wrap",justifyContent:"flex-end" }}>
@@ -1027,15 +1311,17 @@ export default function App() {
             <div style={{ marginTop:12 }}><Btn onClick={doAddGoal}>Ajouter</Btn></div>
           </div>
           {cl.goals.map((g,i)=>(
-            <div key={g.id} className="ch fu" onClick={()=>up(selId,{goals:cl.goals.map(x=>x.id===g.id?{...x,done:!x.done}:x)})}
-              style={{ background:g.done?"#22c55e0e":"#070d1a",border:`1px solid ${g.done?"#22c55e44":"#0f2040"}`,borderRadius:12,padding:"13px 14px",marginBottom:8,cursor:"pointer",display:"flex",alignItems:"center",gap:12 }}>
-              <div style={{ width:22,height:22,borderRadius:6,flexShrink:0,background:g.done?"#22c55e":"transparent",border:`2px solid ${g.done?"#22c55e":"#0f2040"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,color:"#000",fontWeight:900 }}>{g.done?"✓":""}</div>
-              <div style={{ flex:1 }}>
-                <div style={{ fontWeight:700,fontSize:14,textDecoration:g.done?"line-through":"none",color:g.done?"#7a90b8":"#e8edf5" }}>{g.label}</div>
-                {g.deadline&&<div style={{ fontSize:11,color:"#3d5278",marginTop:2 }}>Échéance : {g.deadline}</div>}
+            <SwipeToDelete key={g.id} onDelete={()=>up(selId,{goals:cl.goals.filter(x=>x.id!==g.id)})}>
+              <div className="ch fu" onClick={()=>up(selId,{goals:cl.goals.map(x=>x.id===g.id?{...x,done:!x.done}:x)})}
+                style={{ background:g.done?"#22c55e0e":"#070d1a",border:`1px solid ${g.done?"#22c55e44":"#0f2040"}`,borderRadius:12,padding:"13px 14px",cursor:"pointer",display:"flex",alignItems:"center",gap:12 }}>
+                <div style={{ width:22,height:22,borderRadius:6,flexShrink:0,background:g.done?"#22c55e":"transparent",border:`2px solid ${g.done?"#22c55e":"#0f2040"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,color:"#000",fontWeight:900 }}>{g.done?"✓":""}</div>
+                <div style={{ flex:1 }}>
+                  <div style={{ fontWeight:700,fontSize:14,textDecoration:g.done?"line-through":"none",color:g.done?"#7a90b8":"#e8edf5" }}>{g.label}</div>
+                  {g.deadline&&<div style={{ fontSize:11,color:"#3d5278",marginTop:2 }}>Échéance : {g.deadline}</div>}
+                </div>
+                <Badge label={g.done?"Atteint ✓":"En cours"} color={g.done?"#22c55e":"#f59e0b"}/>
               </div>
-              <Badge label={g.done?"Atteint ✓":"En cours"} color={g.done?"#22c55e":"#f59e0b"}/>
-            </div>
+            </SwipeToDelete>
           ))}
           {!cl.goals.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucun objectif défini</div>}
         </div>}
