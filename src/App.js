@@ -395,6 +395,48 @@ const SecTitle = ({ c }) => (
   </div>
 );
 
+const SwipeToDelete = ({ children, onDelete }) => {
+  const [startX, setStartX] = useState(null);
+  const [offsetX, setOffsetX] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  const threshold = -80;
+
+  function onTouchStart(e) { setStartX(e.touches[0].clientX); }
+  function onTouchMove(e) {
+    if (startX === null) return;
+    const diff = e.touches[0].clientX - startX;
+    if (diff < 0) setOffsetX(Math.max(diff, -120));
+  }
+  function onTouchEnd() {
+    if (offsetX < threshold) {
+      setDeleting(true);
+      setTimeout(() => { onDelete(); setDeleting(false); setOffsetX(0); }, 300);
+    } else {
+      setOffsetX(0);
+    }
+    setStartX(null);
+  }
+
+  return (
+    <div style={{ position:"relative", overflow:"hidden", borderRadius:14, marginBottom:10 }}>
+      {/* Delete background */}
+      <div style={{ position:"absolute", right:0, top:0, bottom:0, width:80, background:"#e63946", display:"flex", alignItems:"center", justifyContent:"center", borderRadius:14 }}>
+        <span style={{ color:"#fff", fontSize:20 }}>🗑️</span>
+      </div>
+      {/* Content */}
+      <div
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        style={{ transform:`translateX(${deleting?-120:offsetX}px)`, transition:startX?'none':'transform .3s ease', position:"relative", zIndex:1 }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
+
 const StatusDot = ({ status }) => {
   const color = status==="live"?"#22c55e":status==="connecting"?"#f59e0b":"#3d5278";
   const label = status==="live"?"Sync temps réel active":status==="connecting"?"Connexion Firebase...":"Mode local";
@@ -978,23 +1020,27 @@ export default function App() {
             </div>
             <div style={{ marginTop:12 }}><Btn onClick={doAddMetric}>Enregistrer</Btn></div>
           </div>
-          {cl.metrics.map((m,i)=>{
+    {cl.metrics.map((m,i)=>{
             const prev=cl.metrics[i+1]; const d=prev?+(m.weight-prev.weight).toFixed(1):null;
-            return <div key={m.date+i} className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:10,animationDelay:`${i*.04}s` }}>
-              <div style={{ display:"flex",justifyContent:"space-between",marginBottom:10 }}>
-                <span style={{ fontWeight:700,fontFamily:"'Barlow Condensed',sans-serif",fontSize:14,color:"#7a90b8" }}>{m.date}</span>
-                <div style={{ textAlign:"right" }}>
-                  <div style={{ fontSize:24,fontWeight:900,color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",lineHeight:1 }}>{m.weight} kg</div>
-                  {d!==null&&<div style={{ fontSize:11,color:d<=0?"#22c55e":"#e63946" }}>{d>0?"+":""}{d} kg</div>}
+            return <SwipeToDelete key={m.date+i} onDelete={()=>up(selId,{metrics:cl.metrics.filter((_,idx)=>idx!==i)})}>
+              <div className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,animationDelay:`${i*.04}s` }}>
+                <div style={{ display:"flex",justifyContent:"space-between",marginBottom:10 }}>
+                  <span style={{ fontWeight:700,fontFamily:"'Barlow Condensed',sans-serif",fontSize:14,color:"#7a90b8" }}>{m.date}</span>
+                  <div style={{ textAlign:"right" }}>
+                    <div style={{ fontSize:24,fontWeight:900,color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",lineHeight:1 }}>{m.weight} kg</div>
+                    {d!==null&&<div style={{ fontSize:11,color:d<=0?"#22c55e":"#e63946" }}>{d>0?"+":""}{d} kg</div>}
+                  </div>
+                </div>
+                <div style={{ display:"flex",gap:12,flexWrap:"wrap" }}>
+                  {m.chest>0&&<span style={{ fontSize:12,color:"#3d5278" }}>Poitrine <b style={{ color:"#e8edf5" }}>{m.chest}cm</b></span>}
+                  {m.waist>0&&<span style={{ fontSize:12,color:"#3d5278" }}>Taille <b style={{ color:"#e8edf5" }}>{m.waist}cm</b></span>}
+                  {m.hips>0&&<span style={{ fontSize:12,color:"#3d5278" }}>Hanches <b style={{ color:"#e8edf5" }}>{m.hips}cm</b></span>}
+                  {m.fatPct>0&&<span style={{ fontSize:12,color:"#3d5278" }}>MG <b style={{ color:"#e8edf5" }}>{m.fatPct}%</b></span>}
                 </div>
               </div>
-              <div style={{ display:"flex",gap:12,flexWrap:"wrap" }}>
-                {m.chest>0&&<span style={{ fontSize:12,color:"#3d5278" }}>Poitrine <b style={{ color:"#e8edf5" }}>{m.chest}cm</b></span>}
-                {m.waist>0&&<span style={{ fontSize:12,color:"#3d5278" }}>Taille <b style={{ color:"#e8edf5" }}>{m.waist}cm</b></span>}
-                {m.hips>0&&<span style={{ fontSize:12,color:"#3d5278" }}>Hanches <b style={{ color:"#e8edf5" }}>{m.hips}cm</b></span>}
-                {m.fatPct>0&&<span style={{ fontSize:12,color:"#3d5278" }}>MG <b style={{ color:"#e8edf5" }}>{m.fatPct}%</b></span>}
-              </div>
-            </div>;
+            </SwipeToDelete>;
+          })}
+
           })}
           {!cl.metrics.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucune mesure enregistrée</div>}
         </div>}
