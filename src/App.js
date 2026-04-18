@@ -9,67 +9,448 @@ const T = {
   text:"#e8edf5", muted:"#3d5278", mutedLight:"#7a90b8",
 };
 
+// ── ANATOMICAL SVG ILLUSTRATIONS ──────────────────────────────────────────────
+// Style: dark background, highlighted muscles in red/orange, start + end position
+const MuscleRed = "#e63946";
+const MuscleOrange = "#f59e0b";
+const BodyColor = "#2a3a5a";
+const BodyStroke = "#3d5278";
+const JointColor = "#7a90b8";
+
+const AnatomySVG = ({ id }) => {
+  const s = { width:"100%", height:"100%" };
+  const body = { fill:BodyColor, stroke:BodyStroke, strokeWidth:1.5 };
+  const muscle = { fill:MuscleRed, stroke:"#ff6b7a", strokeWidth:1 };
+  const muscleOrange = { fill:MuscleOrange, stroke:"#fbbf24", strokeWidth:1 };
+  const joint = { fill:JointColor, r:3 };
+
+  const illustrations = {
+    squat: (
+      <svg style={s} viewBox="0 0 200 120" fill="none">
+        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
+        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
+        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+        {/* START - standing */}
+        <circle cx="50" cy="16" r="7" {...body}/>
+        <rect x="46" y="23" width="8" height="18" rx="3" {...body}/>
+        <rect x="43" y="28" width="6" height="14" rx="2" {...body}/>
+        <rect x="51" y="28" width="6" height="14" rx="2" {...body}/>
+        <rect x="45" y="41" width="5" height="20" rx="2" {...body}/>
+        <rect x="50" y="41" width="5" height="20" rx="2" {...body}/>
+        <rect x="44" y="61" width="5" height="14" rx="2" {...body}/>
+        <rect x="51" y="61" width="5" height="14" rx="2" {...body}/>
+        {/* END - squat down, quads highlighted */}
+        <circle cx="150" cy="22" r="7" {...body}/>
+        <rect x="146" y="29" width="8" height="14" rx="3" {...body}/>
+        <rect x="140" y="33" width="7" height="12" rx="2" {...body}/>
+        <rect x="153" y="33" width="7" height="12" rx="2" {...body}/>
+        {/* Quads in red */}
+        <rect x="141" y="45" width="7" height="22" rx="3" {...muscle}/>
+        <rect x="152" y="45" width="7" height="22" rx="3" {...muscle}/>
+        {/* Glutes in orange */}
+        <rect x="144" y="42" width="12" height="8" rx="3" {...muscleOrange}/>
+        <rect x="141" y="67" width="6" height="16" rx="2" {...body}/>
+        <rect x="153" y="67" width="6" height="16" rx="2" {...body}/>
+        <circle cx="141" cy="45" r="3" fill={JointColor}/>
+        <circle cx="159" cy="45" r="3" fill={JointColor}/>
+        <circle cx="141" cy="67" r="3" fill={JointColor}/>
+        <circle cx="159" cy="67" r="3" fill={JointColor}/>
+        {/* Labels */}
+        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Quadriceps • Fessiers</text>
+      </svg>
+    ),
+    deadlift: (
+      <svg style={s} viewBox="0 0 200 120" fill="none">
+        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
+        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
+        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+        {/* START - hinged */}
+        <circle cx="55" cy="28" r="7" {...body}/>
+        <rect x="51" y="35" width="8" height="14" rx="3" style={{fill:MuscleRed, stroke:"#ff6b7a", strokeWidth:1}}/>
+        <rect x="44" y="38" width="6" height="12" rx="2" {...body}/>
+        <rect x="61" y="38" width="6" height="12" rx="2" {...body}/>
+        <rect x="46" y="49" width="6" height="18" rx="2" {...body}/>
+        <rect x="53" y="49" width="6" height="18" rx="2" {...body}/>
+        <rect x="45" y="67" width="5" height="14" rx="2" {...body}/>
+        <rect x="52" y="67" width="5" height="14" rx="2" {...body}/>
+        {/* Bar */}
+        <rect x="16" y="79" width="60" height="4" rx="2" fill="#1a6fff" opacity="0.7"/>
+        <rect x="12" y="77" width="8" height="8" rx="2" fill="#1a6fff"/>
+        <rect x="68" y="77" width="8" height="8" rx="2" fill="#1a6fff"/>
+        {/* END - standing */}
+        <circle cx="150" cy="14" r="7" {...body}/>
+        <rect x="146" y="21" width="8" height="18" rx="3" {...body}/>
+        {/* Hamstrings in red */}
+        <rect x="140" y="39" width="6" height="22" rx="3" {...muscle}/>
+        <rect x="154" y="39" width="6" height="22" rx="3" {...muscle}/>
+        {/* Lower back orange */}
+        <rect x="144" y="28" width="12" height="10" rx="3" {...muscleOrange}/>
+        <rect x="139" y="61" width="6" height="14" rx="2" {...body}/>
+        <rect x="155" y="61" width="6" height="14" rx="2" {...body}/>
+        {/* Bar at hip */}
+        <rect x="120" y="36" width="60" height="4" rx="2" fill="#22c55e" opacity="0.7"/>
+        <rect x="116" y="34" width="8" height="8" rx="2" fill="#22c55e" opacity="0.8"/>
+        <rect x="176" y="34" width="8" height="8" rx="2" fill="#22c55e" opacity="0.8"/>
+        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Ischio-jambiers • Lombaires</text>
+      </svg>
+    ),
+    bench_press: (
+      <svg style={s} viewBox="0 0 200 120" fill="none">
+        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
+        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
+        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+        {/* Bench */}
+        <rect x="10" y="72" width="80" height="7" rx="3" fill="#112240"/>
+        <line x1="18" y1="79" x2="16" y2="95" stroke="#112240" strokeWidth="4" strokeLinecap="round"/>
+        <line x1="82" y1="79" x2="84" y2="95" stroke="#112240" strokeWidth="4" strokeLinecap="round"/>
+        {/* START - bar up, pecs highlighted */}
+        <circle cx="50" cy="46" r="7" {...body}/>
+        <rect x="46" y="53" width="8" height="19" rx="3" {...body}/>
+        {/* Pecs highlighted */}
+        <rect x="36" y="54" width="10" height="12" rx="3" {...muscle}/>
+        <rect x="54" y="54" width="10" height="12" rx="3" {...muscle}/>
+        <line x1="26" y1="32" x2="36" y2="56" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <line x1="74" y1="32" x2="64" y2="56" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <rect x="18" y="20" width="64" height="5" rx="2" fill="#1a6fff" opacity="0.8"/>
+        <rect x="12" y="17" width="10" height="11" rx="2" fill="#1a6fff"/>
+        <rect x="78" y="17" width="10" height="11" rx="2" fill="#1a6fff"/>
+        {/* END - bar at chest */}
+        <rect x="110" y="72" width="80" height="7" rx="3" fill="#112240"/>
+        <line x1="118" y1="79" x2="116" y2="95" stroke="#112240" strokeWidth="4" strokeLinecap="round"/>
+        <line x1="182" y1="79" x2="184" y2="95" stroke="#112240" strokeWidth="4" strokeLinecap="round"/>
+        <circle cx="150" cy="46" r="7" {...body}/>
+        <rect x="146" y="53" width="8" height="19" rx="3" {...body}/>
+        <rect x="136" y="54" width="10" height="12" rx="3" {...muscle}/>
+        <rect x="154" y="54" width="10" height="12" rx="3" {...muscle}/>
+        <line x1="128" y1="58" x2="138" y2="58" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <line x1="162" y1="58" x2="172" y2="58" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <rect x="120" y="56" width="60" height="5" rx="2" fill="#22c55e" opacity="0.8"/>
+        <rect x="114" y="53" width="10" height="11" rx="2" fill="#22c55e"/>
+        <rect x="176" y="53" width="10" height="11" rx="2" fill="#22c55e"/>
+        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Pectoraux • Triceps</text>
+      </svg>
+    ),
+    pullup: (
+      <svg style={s} viewBox="0 0 200 120" fill="none">
+        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
+        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
+        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+        {/* Bar */}
+        <rect x="10" y="14" width="80" height="5" rx="2" fill="#1a6fff" opacity="0.6"/>
+        <rect x="110" y="14" width="80" height="5" rx="2" fill="#1a6fff" opacity="0.6"/>
+        {/* START - hanging */}
+        <circle cx="50" cy="36" r="7" {...body}/>
+        <line x1="36" y1="19" x2="44" y2="32" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <line x1="64" y1="19" x2="56" y2="32" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <rect x="46" y="43" width="8" height="20" rx="3" {...body}/>
+        <rect x="44" y="63" width="5" height="22" rx="2" {...body}/>
+        <rect x="51" y="63" width="5" height="22" rx="2" {...body}/>
+        {/* END - chin up, lats highlighted */}
+        <circle cx="150" cy="24" r="7" {...body}/>
+        <line x1="136" y1="19" x2="142" y2="24" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <line x1="164" y1="19" x2="158" y2="24" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        {/* Lats in red */}
+        <rect x="138" y="31" width="9" height="18" rx="3" {...muscle}/>
+        <rect x="153" y="31" width="9" height="18" rx="3" {...muscle}/>
+        {/* Biceps orange */}
+        <rect x="136" y="22" width="5" height="10" rx="2" {...muscleOrange}/>
+        <rect x="159" y="22" width="5" height="10" rx="2" {...muscleOrange}/>
+        <rect x="146" y="49" width="8" height="18" rx="3" {...body}/>
+        <rect x="144" y="67" width="5" height="20" rx="2" {...body}/>
+        <rect x="151" y="67" width="5" height="20" rx="2" {...body}/>
+        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Grand dorsal • Biceps</text>
+      </svg>
+    ),
+    lunge: (
+      <svg style={s} viewBox="0 0 200 120" fill="none">
+        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
+        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
+        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+        {/* START */}
+        <circle cx="50" cy="16" r="7" {...body}/>
+        <rect x="46" y="23" width="8" height="18" rx="3" {...body}/>
+        <rect x="43" y="28" width="6" height="14" rx="2" {...body}/>
+        <rect x="51" y="28" width="6" height="14" rx="2" {...body}/>
+        <rect x="45" y="41" width="5" height="20" rx="2" {...body}/>
+        <rect x="50" y="41" width="5" height="20" rx="2" {...body}/>
+        <rect x="44" y="61" width="5" height="14" rx="2" {...body}/>
+        <rect x="51" y="61" width="5" height="14" rx="2" {...body}/>
+        {/* END - lunge */}
+        <circle cx="148" cy="20" r="7" {...body}/>
+        <rect x="144" y="27" width="8" height="14" rx="3" {...body}/>
+        <rect x="138" y="30" width="6" height="12" rx="2" {...body}/>
+        <rect x="154" y="30" width="6" height="12" rx="2" {...body}/>
+        {/* Front quad red */}
+        <rect x="138" y="41" width="7" height="24" rx="3" {...muscle}/>
+        {/* Back quad orange */}
+        <rect x="155" y="38" width="7" height="20" rx="3" {...muscleOrange}/>
+        {/* Front shin */}
+        <rect x="137" y="65" width="6" height="16" rx="2" {...body}/>
+        {/* Back lower leg */}
+        <rect x="154" y="58" width="6" height="16" rx="2" {...body}/>
+        <line x1="135" y1="108" x2="180" y2="108" stroke="#0f2040" strokeWidth="1" strokeDasharray="3,2"/>
+        <text x="150" y="117" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Quadriceps • Fessiers</text>
+      </svg>
+    ),
+    overhead_press: (
+      <svg style={s} viewBox="0 0 200 120" fill="none">
+        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
+        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
+        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+        {/* START - bar at shoulder */}
+        <circle cx="50" cy="32" r="7" {...body}/>
+        <rect x="46" y="39" width="8" height="18" rx="3" {...body}/>
+        {/* Shoulders highlighted */}
+        <rect x="34" y="38" width="10" height="10" rx="4" {...muscle}/>
+        <rect x="56" y="38" width="10" height="10" rx="4" {...muscle}/>
+        <line x1="34" y1="42" x2="22" y2="48" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <line x1="66" y1="42" x2="78" y2="48" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <rect x="18" y="40" width="64" height="4" rx="2" fill="#1a6fff" opacity="0.8"/>
+        <rect x="12" y="38" width="8" height="8" rx="2" fill="#1a6fff"/>
+        <rect x="80" y="38" width="8" height="8" rx="2" fill="#1a6fff"/>
+        <rect x="45" y="57" width="10" height="24" rx="3" {...body}/>
+        <rect x="43" y="81" width="6" height="18" rx="2" {...body}/>
+        <rect x="51" y="81" width="6" height="18" rx="2" {...body}/>
+        {/* END - bar overhead */}
+        <circle cx="150" cy="42" r="7" {...body}/>
+        <rect x="146" y="49" width="8" height="18" rx="3" {...body}/>
+        <rect x="134" y="48" width="10" height="10" rx="4" {...muscle}/>
+        <rect x="156" y="48" width="10" height="10" rx="4" {...muscle}/>
+        {/* Triceps orange */}
+        <rect x="131" y="36" width="6" height="14" rx="2" {...muscleOrange}/>
+        <rect x="163" y="36" width="6" height="14" rx="2" {...muscleOrange}/>
+        <line x1="134" y1="48" x2="128" y2="22" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <line x1="166" y1="48" x2="172" y2="22" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <rect x="120" y="14" width="60" height="4" rx="2" fill="#22c55e" opacity="0.8"/>
+        <rect x="114" y="12" width="8" height="8" rx="2" fill="#22c55e"/>
+        <rect x="178" y="12" width="8" height="8" rx="2" fill="#22c55e"/>
+        <rect x="145" y="67" width="10" height="24" rx="3" {...body}/>
+        <rect x="143" y="91" width="6" height="18" rx="2" {...body}/>
+        <rect x="151" y="91" width="6" height="18" rx="2" {...body}/>
+        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Épaules • Triceps</text>
+      </svg>
+    ),
+    barbell_row: (
+      <svg style={s} viewBox="0 0 200 120" fill="none">
+        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
+        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
+        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+        {/* START - bar hanging */}
+        <circle cx="50" cy="30" r="7" {...body}/>
+        <rect x="46" y="37" width="8" height="14" rx="3" {...body}/>
+        <rect x="38" y="40" width="7" height="12" rx="2" {...body}/>
+        <rect x="55" y="40" width="7" height="12" rx="2" {...body}/>
+        <rect x="44" y="51" width="6" height="20" rx="2" {...body}/>
+        <rect x="50" y="51" width="6" height="20" rx="2" {...body}/>
+        <rect x="43" y="71" width="5" height="14" rx="2" {...body}/>
+        <rect x="50" y="71" width="5" height="14" rx="2" {...body}/>
+        <line x1="38" y1="46" x2="22" y2="80" stroke={BodyColor} strokeWidth="3" strokeLinecap="round"/>
+        <rect x="10" y="80" width="56" height="4" rx="2" fill="#1a6fff" opacity="0.7"/>
+        <rect x="6" y="78" width="7" height="8" rx="2" fill="#1a6fff"/>
+        <rect x="60" y="78" width="7" height="8" rx="2" fill="#1a6fff"/>
+        {/* END - bar at stomach, lats highlighted */}
+        <circle cx="150" cy="30" r="7" {...body}/>
+        <rect x="146" y="37" width="8" height="14" rx="3" {...body}/>
+        {/* Lats red */}
+        <rect x="137" y="38" width="8" height="16" rx="3" {...muscle}/>
+        <rect x="155" y="38" width="8" height="16" rx="3" {...muscle}/>
+        {/* Rhomboids orange */}
+        <rect x="143" y="36" width="14" height="8" rx="3" {...muscleOrange}/>
+        <rect x="144" y="51" width="6" height="20" rx="2" {...body}/>
+        <rect x="150" y="51" width="6" height="20" rx="2" {...body}/>
+        <rect x="143" y="71" width="5" height="14" rx="2" {...body}/>
+        <rect x="150" y="71" width="5" height="14" rx="2" {...body}/>
+        <line x1="137" y1="46" x2="122" y2="54" stroke={BodyColor} strokeWidth="3" strokeLinecap="round"/>
+        <rect x="110" y="52" width="56" height="4" rx="2" fill="#22c55e" opacity="0.7"/>
+        <rect x="106" y="50" width="7" height="8" rx="2" fill="#22c55e"/>
+        <rect x="160" y="50" width="7" height="8" rx="2" fill="#22c55e"/>
+        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Grand dorsal • Rhomboïdes</text>
+      </svg>
+    ),
+    hip90: (
+      <svg style={s} viewBox="0 0 200 120" fill="none">
+        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">DÉPART</text>
+        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FIN</text>
+        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+        <line x1="10" y1="110" x2="90" y2="110" stroke="#0f2040" strokeWidth="1" strokeDasharray="3,2"/>
+        <line x1="110" y1="110" x2="190" y2="110" stroke="#0f2040" strokeWidth="1" strokeDasharray="3,2"/>
+        {/* START - seated upright */}
+        <circle cx="50" cy="42" r="7" {...body}/>
+        <rect x="46" y="49" width="8" height="18" rx="3" {...body}/>
+        <rect x="38" y="56" width="8" height="12" rx="2" {...body}/>
+        <rect x="54" y="56" width="8" height="12" rx="2" {...body}/>
+        <rect x="30" y="67" width="20" height="6" rx="3" {...body}/>
+        <rect x="50" y="67" width="20" height="6" rx="3" {...body}/>
+        <rect x="30" y="73" width="6" height="16" rx="2" {...body}/>
+        <rect x="44" y="73" width="6" height="16" rx="2" {...body}/>
+        {/* END - leaning in, hip rotators highlighted */}
+        <circle cx="150" cy="38" r="7" {...body}/>
+        <rect x="146" y="45" width="8" height="18" rx="3" {...body}/>
+        <rect x="135" y="52" width="8" height="12" rx="2" {...body}/>
+        <rect x="157" y="52" width="8" height="12" rx="2" {...body}/>
+        {/* Hip rotators red */}
+        <rect x="130" y="63" width="20" height="8" rx="4" {...muscle}/>
+        <rect x="150" y="63" width="20" height="8" rx="4" {...muscle}/>
+        <rect x="130" y="71" width="6" height="16" rx="2" {...body}/>
+        <rect x="144" y="71" width="6" height="16" rx="2" {...body}/>
+        {/* Arms reaching */}
+        <line x1="138" y1="56" x2="118" y2="68" stroke={BodyColor} strokeWidth="3" strokeLinecap="round"/>
+        <text x="150" y="117" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Rotateurs hanche • Fessiers</text>
+      </svg>
+    ),
+    burpee: (
+      <svg style={s} viewBox="0 0 200 120" fill="none">
+        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">PLANCHE</text>
+        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">SAUT</text>
+        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+        <line x1="10" y1="100" x2="90" y2="100" stroke="#0f2040" strokeWidth="1" strokeDasharray="3,2"/>
+        {/* Plank position */}
+        <circle cx="68" cy="42" r="6" {...body}/>
+        <rect x="38" y="58" width="42" height="7" rx="3" {...body}/>
+        <rect x="64" y="48" width="6" height="12" rx="2" {...body}/>
+        <rect x="38" y="58" width="6" height="14" rx="2" {...body}/>
+        <rect x="28" y="60" width="6" height="12" rx="2" {...body}/>
+        <rect x="70" y="58" width="6" height="14" rx="2" {...body}/>
+        <rect x="76" y="60" width="6" height="12" rx="2" {...body}/>
+        {/* Core highlighted */}
+        <rect x="44" y="56" width="26" height="7" rx="3" {...muscle}/>
+        {/* Jump */}
+        <circle cx="150" cy="16" r="7" {...body}/>
+        <rect x="146" y="23" width="8" height="18" rx="3" {...body}/>
+        {/* Arms up */}
+        <line x1="128" y1="14" x2="146" y2="28" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <line x1="172" y1="14" x2="154" y2="28" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/>
+        <rect x="140" y="41" width="6" height="20" rx="2" {...muscle}/>
+        <rect x="154" y="41" width="6" height="20" rx="2" {...muscle}/>
+        <rect x="138" y="61" width="6" height="18" rx="2" {...body}/>
+        <rect x="156" y="61" width="6" height="18" rx="2" {...body}/>
+        <text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Full body • Cardio</text>
+      </svg>
+    ),
+    run: (
+      <svg style={s} viewBox="0 0 200 120" fill="none">
+        <text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">APPUI</text>
+        <text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FOULÉE</text>
+        <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+        <line x1="10" y1="108" x2="90" y2="108" stroke="#0f2040" strokeWidth="1" strokeDasharray="3,2"/>
+        <line x1="110" y1="108" x2="190" y2="108" stroke="#0f2040" strokeWidth="1" strokeDasharray="3,2"/>
+        {/* Stance */}
+        <circle cx="50" cy="20" r="7" {...body}/>
+        <rect x="46" y="27" width="8" height="16" rx="3" {...body}/>
+        <rect x="36" y="33" width="8" height="12" rx="2" {...body}/>
+        <rect x="56" y="33" width="8" height="12" rx="2" {...body}/>
+        <rect x="43" y="43" width="6" height="20" rx="2" {...body}/>
+        <rect x="51" y="43" width="6" height="20" rx="2" {...body}/>
+        <rect x="41" y="63" width="6" height="16" rx="2" {...body}/>
+        <rect x="51" y="63" width="6" height="16" rx="2" {...body}/>
+        {/* Flight - calves and quads highlighted */}
+        <circle cx="150" cy="18" r="7" {...body}/>
+        <rect x="146" y="25" width="8" height="16" rx="3" {...body}/>
+        <rect x="133" y="30" width="8" height="12" rx="2" {...body}/>
+        <rect x="159" y="30" width="8" height="12" rx="2" {...body}/>
+        {/* Quad front leg */}
+        <rect x="138" y="41" width="7" height="20" rx="3" {...muscle}/>
+        {/* Hamstring back leg */}
+        <rect x="156" y="38" width="7" height="18" rx="3" {...muscleOrange}/>
+        <rect x="137" y="61" width="6" height="16" rx="2" {...body}/>
+        <rect x="155" y="56" width="6" height="14" rx="2" {...body}/>
+        {/* Motion lines */}
+        <line x1="118" y1="22" x2="108" y2="22" stroke="#22c55e" strokeWidth="1.5" strokeDasharray="2,2" opacity="0.6"/>
+        <line x1="118" y1="28" x2="106" y2="28" stroke="#22c55e" strokeWidth="1.5" strokeDasharray="2,2" opacity="0.4"/>
+        <text x="150" y="117" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Quadriceps • Ischio • Mollets</text>
+      </svg>
+    ),
+  };
+
+  // Default illustration for exercises without specific SVG
+  const defaultIllustration = (name, muscles) => (
+    <svg style={s} viewBox="0 0 200 120" fill="none">
+      <rect x="10" y="10" width="80" height="100" rx="8" fill="#070d1a" stroke="#0f2040" strokeWidth="1"/>
+      <rect x="110" y="10" width="80" height="100" rx="8" fill="#070d1a" stroke="#0f2040" strokeWidth="1"/>
+      <line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/>
+      {/* Generic body START */}
+      <circle cx="50" cy="28" r="8" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="44" y="36" width="12" height="20" rx="4" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="36" y="40" width="8" height="16" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="56" y="40" width="8" height="16" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="42" y="56" width="7" height="22" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="51" y="56" width="7" height="22" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="41" y="78" width="6" height="18" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="50" y="78" width="6" height="18" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      {/* Generic body END with red highlight */}
+      <circle cx="150" cy="28" r="8" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="144" y="36" width="12" height="20" rx="4" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/>
+      <rect x="136" y="40" width="8" height="16" rx="3" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/>
+      <rect x="156" y="40" width="8" height="16" rx="3" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/>
+      <rect x="142" y="56" width="7" height="22" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="151" y="56" width="7" height="22" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="141" y="78" width="6" height="18" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <rect x="150" y="78" width="6" height="18" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/>
+      <text x="100" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">{muscles}</text>
+    </svg>
+  );
+
+  return (
+    <div style={{ width:"100%", aspectRatio:"2/1", background:"#04080f", borderRadius:10, overflow:"hidden", display:"flex", alignItems:"center", justifyContent:"center", padding:8 }}>
+      {illustrations[id] || defaultIllustration("", "")}
+    </div>
+  );
+};
+
 const LIBRARY = [
-  // PUSH
-  { id:"bench_press", name:"Développé couché", cat:"Push", muscles:"Pectoraux, Triceps, Épaules", tip:"Omoplates rétractées, coudes à 45°.", img:"https://exercisedb.p.rapidapi.com/image/bench-press" },
-  { id:"overhead_press", name:"Développé militaire", cat:"Push", muscles:"Épaules, Triceps, Trapèzes", tip:"Gainage abdominal, barre dans l'axe.", img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" },
-  { id:"incline_press", name:"Développé incliné", cat:"Push", muscles:"Pectoraux supérieurs, Épaules", tip:"Inclinaison 30-45°, contrôle en descente.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
-  { id:"dips", name:"Dips", cat:"Push", muscles:"Triceps, Pectoraux inférieurs", tip:"Légère inclinaison avant pour les pectoraux.", img:"https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80" },
-  { id:"lateral_raise", name:"Élévations latérales", cat:"Push", muscles:"Deltoïdes latéraux", tip:"Coudes légèrement fléchis, montée jusqu'à l'horizontal.", img:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" },
-  { id:"tricep_pushdown", name:"Pushdown triceps", cat:"Push", muscles:"Triceps", tip:"Coudes fixes contre le corps, extension complète.", img:"https://images.unsplash.com/photo-1581009137042-c552e485697a?w=400&q=80" },
-  { id:"pushup", name:"Pompes", cat:"Push", muscles:"Pectoraux, Triceps, Épaules", tip:"Corps gainé, coudes à 45° du corps.", img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" },
-  // PULL
-  { id:"pullup", name:"Traction", cat:"Pull", muscles:"Grand dorsal, Biceps, Rhomboïdes", tip:"Dépression scapulaire avant de tirer.", img:"https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400&q=80" },
-  { id:"barbell_row", name:"Rowing barre", cat:"Pull", muscles:"Grand dorsal, Rhomboïdes, Biceps", tip:"Dos plat, tirage vers le nombril.", img:"https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=400&q=80" },
-  { id:"dumbbell_row", name:"Rowing haltère", cat:"Pull", muscles:"Grand dorsal, Rhomboïdes", tip:"Coude près du corps, tirage jusqu'à la hanche.", img:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" },
-  { id:"face_pull", name:"Face pull", cat:"Pull", muscles:"Deltoïdes postérieurs, Rhomboïdes", tip:"Tirer vers le visage, coudes hauts.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
-  { id:"bicep_curl", name:"Curl biceps", cat:"Pull", muscles:"Biceps, Brachial", tip:"Coudes fixes, supination en haut.", img:"https://images.unsplash.com/photo-1581009137042-c552e485697a?w=400&q=80" },
-  { id:"lat_pulldown", name:"Tirage poulie haute", cat:"Pull", muscles:"Grand dorsal, Biceps", tip:"Tirage vers le sternum, déprimer les omoplates.", img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" },
-  { id:"deadlift", name:"Deadlift", cat:"Pull", muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps.", img:"https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80" },
-  // LEGS
-  { id:"squat", name:"Squat", cat:"Legs", muscles:"Quadriceps, Fessiers, Ischio-jambiers", tip:"Pieds largeur épaules, genoux dans l'axe.", img:"https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=400&q=80" },
-  { id:"rdl", name:"Romanian Deadlift", cat:"Legs", muscles:"Ischio-jambiers, Fessiers, Lombaires", tip:"Charnière hanche, dos plat tout au long.", img:"https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=400&q=80" },
-  { id:"lunge", name:"Fente avant", cat:"Legs", muscles:"Quadriceps, Fessiers, Mollets", tip:"Genou avant à 90°, genou arrière près du sol.", img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" },
-  { id:"leg_press", name:"Presse à cuisses", cat:"Legs", muscles:"Quadriceps, Fessiers", tip:"Pieds à largeur d'épaules, genoux dans l'axe.", img:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" },
-  { id:"leg_curl", name:"Leg curl", cat:"Legs", muscles:"Ischio-jambiers", tip:"Contraction complète, descente contrôlée.", img:"https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400&q=80" },
-  { id:"calf_raise", name:"Mollets debout", cat:"Legs", muscles:"Mollets, Soléaire", tip:"Amplitude complète, pause en haut.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
-  { id:"glute_bridge", name:"Pont fessier", cat:"Legs", muscles:"Fessiers, Ischio-jambiers", tip:"Poussée sur les talons, contraction en haut.", img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" },
-  { id:"bulgarian_split", name:"Fente bulgare", cat:"Legs", muscles:"Quadriceps, Fessiers", tip:"Pied arrière surélevé, genou avant à 90°.", img:"https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=400&q=80" },
-  // MUSCULATION
-  { id:"bench_dumbbell", name:"Développé haltères", cat:"Musculation", muscles:"Pectoraux, Triceps", tip:"Grande amplitude, coudes à 45°.", img:"https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?w=400&q=80" },
-  { id:"cable_fly", name:"Écarté poulie", cat:"Musculation", muscles:"Pectoraux, Deltoïdes ant.", tip:"Légère flexion des coudes, arc de cercle.", img:"https://images.unsplash.com/photo-1581009137042-c552e485697a?w=400&q=80" },
-  { id:"hammer_curl", name:"Curl marteau", cat:"Musculation", muscles:"Biceps, Brachioradial", tip:"Prise neutre, coudes fixes.", img:"https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400&q=80" },
-  { id:"skull_crusher", name:"Skull crusher", cat:"Musculation", muscles:"Triceps long", tip:"Coudes fixes, descente vers le front.", img:"https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80" },
-  { id:"shrug", name:"Haussement d'épaules", cat:"Musculation", muscles:"Trapèzes supérieurs", tip:"Mouvement vertical pur, pas de rotation.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
-  { id:"plank", name:"Gainage planche", cat:"Musculation", muscles:"Abdominaux, Lombaires, Épaules", tip:"Corps aligné, ne pas laisser les hanches tomber.", img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" },
-  { id:"ab_crunch", name:"Crunch abdominaux", cat:"Musculation", muscles:"Grand droit", tip:"Expiration en montant, ne pas tirer la nuque.", img:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" },
-  // MOBILITÉ
-  { id:"hip90", name:"Hip 90/90", cat:"Mobilité", muscles:"Rotateurs hanche, Fessiers", tip:"Deux jambes à 90°, bascule lente.", img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80" },
-  { id:"pigeon", name:"Pigeon yoga", cat:"Mobilité", muscles:"Psoas, Rotateurs hanche", tip:"Hanches au sol, 60-90s par côté.", img:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" },
-  { id:"catcow", name:"Chat / Vache", cat:"Mobilité", muscles:"Rachis, Multifides", tip:"Mouvement fluide avec la respiration.", img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80" },
-  { id:"worldsgreatest", name:"World's Greatest", cat:"Mobilité", muscles:"Full body, Hanche, Thoracique", tip:"Rotation thoracique complète.", img:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" },
-  { id:"thoracic_rotation", name:"Rotation thoracique", cat:"Mobilité", muscles:"Rachis thoracique, Obliques", tip:"Regard suit la main, amplitude maximale.", img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80" },
-  { id:"hip_flexor", name:"Étirement psoas", cat:"Mobilité", muscles:"Psoas, Quadriceps", tip:"Bassin en rétroversion, avancer doucement.", img:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" },
-  { id:"ankle_mob", name:"Mobilité cheville", cat:"Mobilité", muscles:"Tibial antérieur, Mollets", tip:"Genou dans l'axe du pied, talon au sol.", img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80" },
-  { id:"shoulder_mob", name:"Mobilité épaule", cat:"Mobilité", muscles:"Coiffe des rotateurs, Capsule", tip:"Mouvements lents et contrôlés.", img:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" },
-  { id:"foam_roll_back", name:"Foam roll dos", cat:"Mobilité", muscles:"Érecteurs, Thoracique", tip:"Pause 20-30s sur les zones tendues.", img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80" },
-  // CARDIO
-  { id:"run", name:"Course / Jogging", cat:"Cardio", muscles:"Full body, Cardio", tip:"Foulée médio-pied, 170-180 pas/min.", img:"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=400&q=80" },
-  { id:"bike", name:"Vélo / Cycling", cat:"Cardio", muscles:"Quadriceps, Fessiers, Cardio", tip:"Selle à hauteur de hanche, cadence 80-90 rpm.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
-  { id:"rowing_machine", name:"Rameur", cat:"Cardio", muscles:"Full body, Dos, Cardio", tip:"Jambes d'abord, puis dos, puis bras.", img:"https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" },
-  { id:"burpee", name:"Burpee", cat:"Cardio", muscles:"Full body, Explosivité", tip:"Planche stricte en bas, saut explosif.", img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" },
-  { id:"jumpingjack", name:"Jumping Jack", cat:"Cardio", muscles:"Cardio, Coordination", tip:"Rythme constant, atterrissage amorti.", img:"https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=400&q=80" },
-  { id:"mountainclimber", name:"Mountain Climber", cat:"Cardio", muscles:"Abdominaux, Cardio, Épaules", tip:"Hanches basses, genoux qui remontent vite.", img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" },
-  { id:"jump_rope", name:"Corde à sauter", cat:"Cardio", muscles:"Mollets, Cardio, Coordination", tip:"Sauts légers, poignets qui tournent.", img:"https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80" },
-  { id:"hiit_sprint", name:"Sprint HIIT", cat:"Cardio", muscles:"Full body, Explosivité, Cardio", tip:"Effort maximal 20s, récup 40s.", img:"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=400&q=80" },
-  { id:"assault_bike", name:"Assault bike", cat:"Cardio", muscles:"Full body, Bras, Cardio", tip:"Push/pull simultané bras et jambes.", img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" },
-  { id:"box_jump", name:"Box Jump", cat:"Cardio", muscles:"Quadriceps, Fessiers, Explosivité", tip:"Atterrissage amorti, hanches en arrière.", img:"https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=400&q=80" },
-  { id:"battle_rope", name:"Battle Rope", cat:"Cardio", muscles:"Épaules, Bras, Cardio", tip:"Genoux fléchis, ondulations continues.", img:"https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400&q=80" },
-  { id:"sled_push", name:"Poussée de traîneau", cat:"Cardio", muscles:"Quadriceps, Fessiers, Épaules", tip:"Inclination du corps vers l'avant, pas explosifs.", img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" },
-  { id:"kettlebell_swing", name:"Kettlebell Swing", cat:"Cardio", muscles:"Fessiers, Ischio, Épaules", tip:"Charnière hanche, pas de squat, projection des hanches.", img:"https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?w=400&q=80" },
+  { id:"squat",          name:"Squat",                cat:"Legs",        muscles:"Quadriceps, Fessiers, Ischio",      tip:"Pieds largeur épaules, genoux dans l'axe des orteils." },
+  { id:"deadlift",       name:"Deadlift",             cat:"Pull",        muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps." },
+  { id:"bench_press",    name:"Développé couché",     cat:"Push",        muscles:"Pectoraux, Triceps, Épaules ant.",  tip:"Omoplates rétractées, coudes à 45°." },
+  { id:"pullup",         name:"Traction",             cat:"Pull",        muscles:"Grand dorsal, Biceps, Rhomboïdes",  tip:"Dépression scapulaire avant de tirer." },
+  { id:"lunge",          name:"Fente avant",          cat:"Legs",        muscles:"Quadriceps, Fessiers, Mollets",     tip:"Genou avant à 90°, genou arrière près du sol." },
+  { id:"overhead_press", name:"Développé militaire",  cat:"Push",        muscles:"Épaules, Triceps, Trapèzes",        tip:"Gainage abdominal, barre dans l'axe." },
+  { id:"barbell_row",    name:"Rowing barre",         cat:"Pull",        muscles:"Grand dorsal, Rhomboïdes, Biceps",  tip:"Dos plat, tirage vers le nombril." },
+  { id:"hip90",          name:"Hip 90/90",            cat:"Mobilité",    muscles:"Rotateurs hanche, Fessiers",        tip:"Deux jambes à 90°, bascule lente." },
+  { id:"burpee",         name:"Burpee",               cat:"Cardio",      muscles:"Full body, Explosivité",            tip:"Planche stricte en bas, saut explosif." },
+  { id:"run",            name:"Course / Jogging",     cat:"Cardio",      muscles:"Quadriceps, Ischio, Mollets",       tip:"Foulée médio-pied, 170-180 pas/min." },
+  { id:"dips",           name:"Dips",                 cat:"Push",        muscles:"Triceps, Pectoraux inférieurs",     tip:"Légère inclinaison avant pour les pectoraux." },
+  { id:"lateral_raise",  name:"Élévations latérales", cat:"Push",        muscles:"Deltoïdes latéraux",                tip:"Coudes légèrement fléchis, jusqu'à l'horizontal." },
+  { id:"bicep_curl",     name:"Curl biceps",          cat:"Pull",        muscles:"Biceps, Brachial",                  tip:"Coudes fixes, supination en haut." },
+  { id:"lat_pulldown",   name:"Tirage poulie haute",  cat:"Pull",        muscles:"Grand dorsal, Biceps",              tip:"Tirage vers le sternum, déprimer les omoplates." },
+  { id:"rdl",            name:"Romanian Deadlift",    cat:"Legs",        muscles:"Ischio-jambiers, Fessiers",         tip:"Charnière hanche, dos plat." },
+  { id:"leg_press",      name:"Presse à cuisses",     cat:"Legs",        muscles:"Quadriceps, Fessiers",              tip:"Pieds à largeur d'épaules, genoux dans l'axe." },
+  { id:"leg_curl",       name:"Leg curl",             cat:"Legs",        muscles:"Ischio-jambiers",                   tip:"Contraction complète, descente contrôlée." },
+  { id:"calf_raise",     name:"Mollets debout",       cat:"Legs",        muscles:"Mollets, Soléaire",                 tip:"Amplitude complète, pause en haut." },
+  { id:"glute_bridge",   name:"Pont fessier",         cat:"Legs",        muscles:"Fessiers, Ischio-jambiers",         tip:"Poussée sur les talons, contraction en haut." },
+  { id:"bulgarian_split",name:"Fente bulgare",        cat:"Legs",        muscles:"Quadriceps, Fessiers",              tip:"Pied arrière surélevé, genou avant à 90°." },
+  { id:"pushup",         name:"Pompes",               cat:"Push",        muscles:"Pectoraux, Triceps, Épaules",       tip:"Corps gainé, coudes à 45° du corps." },
+  { id:"plank",          name:"Gainage planche",      cat:"Musculation", muscles:"Abdominaux, Lombaires, Épaules",    tip:"Corps aligné, ne pas laisser les hanches tomber." },
+  { id:"ab_crunch",      name:"Crunch abdominaux",    cat:"Musculation", muscles:"Grand droit abdominal",             tip:"Expiration en montant, ne pas tirer la nuque." },
+  { id:"hammer_curl",    name:"Curl marteau",         cat:"Pull",        muscles:"Biceps, Brachioradial",             tip:"Prise neutre, coudes fixes." },
+  { id:"face_pull",      name:"Face pull",            cat:"Pull",        muscles:"Deltoïdes post., Rhomboïdes",       tip:"Tirer vers le visage, coudes hauts." },
+  { id:"cable_fly",      name:"Écarté poulie",        cat:"Push",        muscles:"Pectoraux, Deltoïdes ant.",         tip:"Légère flexion des coudes, arc de cercle." },
+  { id:"skull_crusher",  name:"Skull crusher",        cat:"Push",        muscles:"Triceps long",                      tip:"Coudes fixes, descente vers le front." },
+  { id:"shrug",          name:"Haussements épaules",  cat:"Pull",        muscles:"Trapèzes supérieurs",               tip:"Mouvement vertical pur, pas de rotation." },
+  { id:"pigeon",         name:"Pigeon yoga",          cat:"Mobilité",    muscles:"Psoas, Rotateurs hanche",           tip:"Hanches au sol, 60-90s par côté." },
+  { id:"catcow",         name:"Chat / Vache",         cat:"Mobilité",    muscles:"Rachis, Multifides",                tip:"Mouvement fluide avec la respiration." },
+  { id:"worldsgreatest", name:"World's Greatest",     cat:"Mobilité",    muscles:"Full body, Hanche, Thoracique",     tip:"Rotation thoracique complète." },
+  { id:"thoracic_rot",   name:"Rotation thoracique",  cat:"Mobilité",    muscles:"Rachis thoracique, Obliques",       tip:"Regard suit la main, amplitude max." },
+  { id:"hip_flexor",     name:"Étirement psoas",      cat:"Mobilité",    muscles:"Psoas, Quadriceps",                 tip:"Bassin en rétroversion, avancer doucement." },
+  { id:"ankle_mob",      name:"Mobilité cheville",    cat:"Mobilité",    muscles:"Tibial antérieur, Mollets",         tip:"Genou dans l'axe du pied, talon au sol." },
+  { id:"foam_roll",      name:"Foam roll dos",        cat:"Mobilité",    muscles:"Érecteurs, Thoracique",             tip:"Pause 20-30s sur les zones tendues." },
+  { id:"bike",           name:"Vélo / Cycling",       cat:"Cardio",      muscles:"Quadriceps, Fessiers, Cardio",      tip:"Selle à hauteur de hanche, 80-90 rpm." },
+  { id:"rowing_machine", name:"Rameur",               cat:"Cardio",      muscles:"Full body, Dos, Cardio",            tip:"Jambes d'abord, puis dos, puis bras." },
+  { id:"jumpingjack",    name:"Jumping Jack",         cat:"Cardio",      muscles:"Cardio, Coordination",              tip:"Rythme constant, atterrissage amorti." },
+  { id:"mountainclimber",name:"Mountain Climber",     cat:"Cardio",      muscles:"Abdominaux, Cardio, Épaules",       tip:"Hanches basses, genoux qui remontent vite." },
+  { id:"jump_rope",      name:"Corde à sauter",       cat:"Cardio",      muscles:"Mollets, Cardio, Coordination",     tip:"Sauts légers, poignets qui tournent." },
+  { id:"box_jump",       name:"Box Jump",             cat:"Cardio",      muscles:"Quadriceps, Fessiers, Explosivité", tip:"Atterrissage amorti, hanches en arrière." },
+  { id:"battle_rope",    name:"Battle Rope",          cat:"Cardio",      muscles:"Épaules, Bras, Cardio",             tip:"Genoux fléchis, ondulations continues." },
+  { id:"kettlebell_swing",name:"Kettlebell Swing",    cat:"Cardio",      muscles:"Fessiers, Ischio, Épaules",         tip:"Charnière hanche, projection des hanches." },
+  { id:"hiit_sprint",    name:"Sprint HIIT",          cat:"Cardio",      muscles:"Full body, Explosivité",            tip:"Effort max 20s, récup 40s." },
+  { id:"incline_press",  name:"Développé incliné",    cat:"Push",        muscles:"Pectoraux sup., Épaules",           tip:"Inclinaison 30-45°, contrôle en descente." },
+  { id:"tricep_pushdown",name:"Pushdown triceps",     cat:"Push",        muscles:"Triceps",                           tip:"Coudes fixes contre le corps, extension complète." },
+  { id:"dumbbell_row",   name:"Rowing haltère",       cat:"Pull",        muscles:"Grand dorsal, Rhomboïdes",          tip:"Coude près du corps, tirage jusqu'à la hanche." },
+  { id:"bench_dumbbell", name:"Développé haltères",   cat:"Push",        muscles:"Pectoraux, Triceps",                tip:"Grande amplitude, coudes à 45°." },
+  { id:"sled_push",      name:"Poussée de traîneau",  cat:"Cardio",      muscles:"Quadriceps, Fessiers, Épaules",     tip:"Inclinaison vers l'avant, pas explosifs." },
+  { id:"assault_bike",   name:"Assault bike",         cat:"Cardio",      muscles:"Full body, Bras, Cardio",           tip:"Push/pull simultané bras et jambes." },
 ];
 
-const CATS = ["Tous", "Push", "Pull", "Legs", "Musculation", "Mobilité", "Cardio"];
+const CATS = ["Tous","Push","Pull","Legs","Musculation","Mobilité","Cardio"];
 const CAT_COLOR = { Push:"#1a6fff", Pull:"#8b5cf6", Legs:"#22c55e", Musculation:"#1a6fff", Mobilité:"#22c55e", Cardio:"#f59e0b" };
 
 const SAMPLE_CLIENTS = [{
@@ -77,12 +458,13 @@ const SAMPLE_CLIENTS = [{
   objective:"Maintien forme & mobilité", progress:78,
   sessions:[
     { id:"s1", date:"2026-04-15", present:true, duration:90, note:"Mobilité hanches + renforcement excentrique" },
-    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Cardio HIIT — excellente séance" },
+    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Cardio HIIT" },
     { id:"s3", date:"2026-04-03", present:false, duration:0, note:"Absent — voyage" },
   ],
   metrics:[
     { date:"2026-04-01", weight:92.0, chest:104, waist:86, hips:98, fatPct:14.2 },
     { date:"2026-03-01", weight:93.5, chest:105, waist:87, hips:99, fatPct:14.8 },
+    { date:"2026-02-01", weight:95.0, chest:106, waist:89, hips:100, fatPct:15.5 },
   ],
   programs:[{ id:"p1", name:"Mobilité & Renforcement", weeks:8, startDate:"2026-03-01",
     exercises:[
@@ -110,13 +492,17 @@ const GLOBAL_CSS = `
   .ch:hover { border-color: #1a3a6e !important; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.5); }
   button:active { transform: scale(.97); }
 `;
+
 const Avatar = ({ name, size=44 }) => {
   const initials = name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
   const hue = name.split("").reduce((a,c)=>a+c.charCodeAt(0),0) % 60 + 200;
   return <div style={{ width:size, height:size, borderRadius:"50%", background:`linear-gradient(135deg,hsl(${hue},70%,14%),hsl(${hue},70%,26%))`, border:`2px solid hsl(${hue},65%,34%)`, display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:size*.36, color:`hsl(${hue},80%,72%)`, flexShrink:0 }}>{initials}</div>;
 };
+
 const Badge = ({ label, color }) => <span style={{ padding:"2px 9px", borderRadius:20, background:color+"18", color, border:`1px solid ${color}35`, fontSize:10, fontWeight:700, fontFamily:"'Barlow Condensed',sans-serif", letterSpacing:"0.08em", textTransform:"uppercase", flexShrink:0 }}>{label}</span>;
+
 const Bar = ({ value, color, h=5 }) => <div style={{ background:"#0f2040", borderRadius:99, height:h, overflow:"hidden" }}><div style={{ height:"100%", borderRadius:99, background:color||"#1a6fff", width:`${Math.min(100,Math.max(0,value))}%`, transition:"width .7s", boxShadow:`0 0 8px ${color||"#1a6fff"}55` }}/></div>;
+
 const Field = ({ label, value, onChange, type="text", placeholder, half }) => (
   <div style={{ display:"flex", flexDirection:"column", gap:4, flex:half?"0 0 calc(50% - 5px)":"1 1 100%" }}>
     {label && <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", fontFamily:"'Barlow',sans-serif" }}>{label}</label>}
@@ -125,26 +511,124 @@ const Field = ({ label, value, onChange, type="text", placeholder, half }) => (
       onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
   </div>
 );
+
 const Btn = ({ children, onClick, ghost, small, danger }) => (
   <button onClick={onClick} style={{ padding:small?"6px 14px":"10px 22px", borderRadius:8, cursor:"pointer", border:ghost?"1.5px solid #0f2040":danger?"1.5px solid #e6394644":"none", background:ghost?"transparent":danger?"#e6394618":"#1a6fff", color:ghost?"#7a90b8":danger?"#e63946":"#fff", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:small?11:14, letterSpacing:"0.06em", textTransform:"uppercase", transition:"all .15s" }}>{children}</button>
 );
+
 const SecTitle = ({ c }) => <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:14 }}><div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/><span style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", fontFamily:"'Barlow Condensed',sans-serif" }}>{c}</span></div>;
+
 const StatusDot = ({ status }) => {
   const color = status==="live"?"#22c55e":status==="connecting"?"#f59e0b":"#3d5278";
   const label = status==="live"?"Sync temps réel active":status==="connecting"?"Connexion Firebase...":"Mode local";
   return <div style={{ display:"flex", alignItems:"center", gap:6, padding:"5px 14px", background:"#04080f", borderBottom:"1px solid #0f2040" }}><div style={{ width:6, height:6, borderRadius:"50%", background:color, boxShadow:status==="live"?`0 0 6px ${color}`:"none" }}/><span style={{ fontSize:10, color:"#3d5278", fontFamily:"'Barlow',sans-serif" }}>{label}</span></div>;
 };
-const ExImg = ({ libId, size=140 }) => {
-  const ex = LIBRARY.find(l=>l.id===libId);
-  const [err, setErr] = useState(false);
-  if (!ex) return null;
-  if (err) return (
-    <div style={{ width:"100%", height:size*.6, background:"#0a1628", borderRadius:10, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6 }}>
-      <div style={{ fontSize:28 }}>💪</div>
-      <div style={{ color:"#3d5278", fontSize:11, fontFamily:"'Barlow',sans-serif" }}>{ex.name}</div>
+
+// Simple sparkline chart for weight progression
+const WeightChart = ({ metrics }) => {
+  if (!metrics || metrics.length < 2) return null;
+  const sorted = [...metrics].reverse();
+  const weights = sorted.map(m => m.weight);
+  const min = Math.min(...weights) - 1;
+  const max = Math.max(...weights) + 1;
+  const W = 280, H = 80;
+  const points = sorted.map((m, i) => {
+    const x = (i / (sorted.length - 1)) * (W - 20) + 10;
+    const y = H - ((m.weight - min) / (max - min)) * (H - 20) - 5;
+    return { x, y, m };
+  });
+  const path = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
+  const area = `${path} L ${points[points.length-1].x} ${H} L ${points[0].x} ${H} Z`;
+  return (
+    <div style={{ background:"#04080f", borderRadius:12, padding:"14px 16px", border:"1px solid #0f2040", marginBottom:14 }}>
+      <div style={{ fontSize:11, fontWeight:700, color:"#7a90b8", marginBottom:10, textTransform:"uppercase", letterSpacing:"0.08em" }}>📈 Évolution du poids</div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ overflow:"visible" }}>
+        {/* Grid lines */}
+        {[0,1,2,3].map(i => (
+          <line key={i} x1="10" y1={H - i*(H-20)/3 - 5} x2={W-10} y2={H - i*(H-20)/3 - 5} stroke="#0f2040" strokeWidth="1" strokeDasharray="4,4"/>
+        ))}
+        {/* Area */}
+        <path d={area} fill="#1a6fff" opacity="0.08"/>
+        {/* Line */}
+        <path d={path} fill="none" stroke="#1a6fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+        {/* Points */}
+        {points.map((p, i) => (
+          <g key={i}>
+            <circle cx={p.x} cy={p.y} r="4" fill="#1a6fff" stroke="#000" strokeWidth="1.5"/>
+          </g>
+        ))}
+        {/* Labels */}
+        {points.map((p, i) => (
+          <text key={i} x={p.x} y={p.y - 8} textAnchor="middle" fill="#7a90b8" fontSize="7" fontFamily="Barlow">{p.m.weight}kg</text>
+        ))}
+        {/* Date labels */}
+        {points.filter((_, i) => i === 0 || i === points.length - 1).map((p, i) => (
+          <text key={i} x={p.x} y={H + 12} textAnchor="middle" fill="#3d5278" fontSize="7" fontFamily="Barlow">{p.m.date.slice(5)}</text>
+        ))}
+      </svg>
+      <div style={{ display:"flex", justifyContent:"space-between", marginTop:8 }}>
+        <span style={{ fontSize:10, color:"#3d5278" }}>Départ: <b style={{ color:"#e8edf5" }}>{weights[0]}kg</b></span>
+        <span style={{ fontSize:10, color: weights[weights.length-1] < weights[0] ? "#22c55e" : "#e63946" }}>
+          {weights[weights.length-1] < weights[0] ? "▼" : "▲"} {Math.abs(weights[weights.length-1] - weights[0]).toFixed(1)}kg
+        </span>
+        <span style={{ fontSize:10, color:"#3d5278" }}>Actuel: <b style={{ color:"#1a6fff" }}>{weights[weights.length-1]}kg</b></span>
+      </div>
     </div>
   );
-  return <img src={ex.img} alt={ex.name} style={{ width:"100%", height:size*.6, objectFit:"cover", borderRadius:10, background:"#0a1628", display:"block" }} onError={()=>setErr(true)}/>;
+};
+
+// Push/Pull/Legs generator
+const PPLGenerator = ({ onAdd }) => {
+  const [type, setType] = useState("Push");
+  const [generated, setGenerated] = useState([]);
+  const TYPES = {
+    Push: ["bench_press","overhead_press","incline_press","dips","lateral_raise","tricep_pushdown","cable_fly","pushup"],
+    Pull: ["pullup","barbell_row","deadlift","lat_pulldown","face_pull","bicep_curl","hammer_curl","dumbbell_row"],
+    Legs: ["squat","rdl","lunge","bulgarian_split","leg_press","leg_curl","calf_raise","glute_bridge"],
+    Cardio: ["run","bike","burpee","jumpingjack","mountainclimber","jump_rope","box_jump","battle_rope"],
+    Mobilité: ["hip90","pigeon","catcow","worldsgreatest","thoracic_rot","hip_flexor","ankle_mob","foam_roll"],
+  };
+  function generate() {
+    const pool = TYPES[type] || [];
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    const count = type === "Cardio" || type === "Mobilité" ? 5 : 6;
+    const selected = shuffled.slice(0, count).map(id => {
+      const ex = LIBRARY.find(l => l.id === id);
+      return ex ? { ...ex, sets: type === "Cardio" ? "4" : "4", reps: type === "Cardio" ? "30s" : type === "Mobilité" ? "60s" : "8-12", load: "" } : null;
+    }).filter(Boolean);
+    setGenerated(selected);
+  }
+  return (
+    <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
+      <SecTitle c="🏋️ Générateur de séance"/>
+      <div style={{ display:"flex", gap:6, marginBottom:12, overflowX:"auto", paddingBottom:4 }}>
+        {Object.keys(TYPES).map(t => (
+          <button key={t} onClick={()=>{ setType(t); setGenerated([]); }} style={{ padding:"6px 14px", borderRadius:99, border:`1px solid ${type===t?(CAT_COLOR[t]||"#1a6fff"):"#0f2040"}`, background:type===t?(CAT_COLOR[t]||"#1a6fff")+"22":"transparent", color:type===t?(CAT_COLOR[t]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:12, textTransform:"uppercase", cursor:"pointer", flexShrink:0, transition:"all .2s" }}>{t}</button>
+        ))}
+      </div>
+      <Btn onClick={generate}>🎲 Générer une séance {type}</Btn>
+      {generated.length > 0 && (
+        <div style={{ marginTop:12 }}>
+          {generated.map((ex, i) => (
+            <div key={i} style={{ display:"flex", alignItems:"center", gap:10, padding:"8px 0", borderBottom:i<generated.length-1?"1px solid #0f2040":"none" }}>
+              <div style={{ width:32, height:32, background:"#04080f", borderRadius:8, overflow:"hidden", flexShrink:0 }}>
+                <AnatomySVG id={ex.id}/>
+              </div>
+              <div style={{ flex:1 }}>
+                <div style={{ fontWeight:700, fontSize:13 }}>{ex.name}</div>
+                <div style={{ fontSize:10, color:"#3d5278" }}>{ex.muscles}</div>
+              </div>
+              <Badge label={`${ex.sets}×${ex.reps}`} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
+            </div>
+          ))}
+          <div style={{ marginTop:12, display:"flex", gap:8 }}>
+            <Btn small onClick={()=>onAdd(generated)}>✅ Ajouter au programme</Btn>
+            <Btn small ghost onClick={generate}>🔄 Regénérer</Btn>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default function App() {
@@ -165,12 +649,14 @@ export default function App() {
   const [newEx, setNewEx] = useState({ name:"", sets:"", reps:"", load:"", note:"", libId:"" });
   const [addingExTo, setAddingExTo] = useState(null);
   const [pickingEx, setPickingEx] = useState(false);
+  const [showGenerator, setShowGenerator] = useState(false);
+  const [generatorPid, setGeneratorPid] = useState(null);
 
   const cl = clients.find(c=>c.id===selId);
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "coach", "data"), snap => {
-      if (snap.exists()) { setClients(snap.data().clients || []); }
+    const unsub = onSnapshot(doc(db,"coach","data"), snap => {
+      if (snap.exists()) { setClients(snap.data().clients||[]); }
       else { saveToFirebase(SAMPLE_CLIENTS); }
       setFbStatus("live");
     }, () => setFbStatus("local"));
@@ -178,9 +664,10 @@ export default function App() {
   }, []);
 
   const saveToFirebase = useCallback(async (data) => {
-    try { await setDoc(doc(db, "coach", "data"), { clients: data, updatedAt: Date.now() }); }
+    try { await setDoc(doc(db,"coach","data"), { clients:data, updatedAt:Date.now() }); }
     catch(e) { console.error(e); }
   }, []);
+
   const sync = useCallback((updated) => { setClients(updated); saveToFirebase(updated); }, [saveToFirebase]);
   const up = (id, patch) => sync(clients.map(c=>c.id===id?{...c,...patch}:c));
   const openClient = (id) => { setSelId(id); setView("client"); setTab("sessions"); };
@@ -215,6 +702,12 @@ export default function App() {
     up(selId, { programs:cl.programs.map(p=>p.id===pid?{...p,exercises:[...p.exercises,{id:"e"+Date.now(),...newEx}]}:p) });
     setNewEx({ name:"", sets:"", reps:"", load:"", note:"", libId:"" }); setAddingExTo(null); setPickingEx(false);
   }
+  function doAddGeneratedExercises(pid, exercises) {
+    if (!cl) return;
+    const newExercises = exercises.map(ex => ({ id:"e"+Date.now()+Math.random(), name:ex.name, sets:ex.sets, reps:ex.reps, load:"", note:"", libId:ex.id }));
+    up(selId, { programs:cl.programs.map(p=>p.id===pid?{...p,exercises:[...p.exercises,...newExercises]}:p) });
+    setShowGenerator(false); setGeneratorPid(null);
+  }
 
   const wrap = (children) => (
     <div style={{ minHeight:"100vh", background:"#000", color:"#e8edf5", fontFamily:"'Barlow',sans-serif", paddingBottom:48 }}>
@@ -233,29 +726,25 @@ export default function App() {
       <div style={{ padding:"16px" }}>
         <button onClick={()=>setView("dash")} style={{ background:"none", border:"none", color:"#7a90b8", cursor:"pointer", fontSize:12, marginBottom:14, fontFamily:"'Barlow',sans-serif", padding:0 }}>← Retour</button>
         <div style={{ fontSize:32, fontWeight:900, fontFamily:"'Barlow Condensed',sans-serif", marginBottom:14 }}>BIBLIOTHÈQUE</div>
-        {/* Search */}
         <input value={libSearch} onChange={e=>setLibSearch(e.target.value)} placeholder="🔍 Rechercher un exercice ou muscle..."
           style={{ width:"100%", background:"#070d1a", border:"1.5px solid #0f2040", borderRadius:10, padding:"10px 14px", color:"#e8edf5", fontSize:14, fontFamily:"'Barlow',sans-serif", outline:"none", marginBottom:12 }}
           onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
-        {/* Category filters */}
-        <div style={{ display:"flex", gap:6, marginBottom:16, overflowX:"auto", paddingBottom:4 }}>
+        <div style={{ display:"flex", gap:6, marginBottom:14, overflowX:"auto", paddingBottom:4 }}>
           {CATS.map(cat=>(
-            <button key={cat} onClick={()=>setLibCat(cat)} style={{ padding:"6px 14px", borderRadius:99, border:`1px solid ${libCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:libCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:libCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:12, textTransform:"uppercase", cursor:"pointer", flexShrink:0, transition:"all .2s" }}>{cat}</button>
+            <button key={cat} onClick={()=>setLibCat(cat)} style={{ padding:"6px 14px", borderRadius:99, border:`1px solid ${libCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:libCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:libCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:12, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
           ))}
         </div>
         <div style={{ fontSize:11, color:"#3d5278", marginBottom:12 }}>{filtered.length} exercice{filtered.length>1?"s":""}</div>
-        {/* Grid */}
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
           {filtered.map(ex=>(
             <div key={ex.id} className="ch fu" onClick={()=>setLibSel(libSel===ex.id?null:ex.id)}
               style={{ background:"#070d1a", border:`1px solid ${libSel===ex.id?(CAT_COLOR[ex.cat]||"#1a6fff")+"66":"#0f2040"}`, borderRadius:16, overflow:"hidden", cursor:"pointer" }}>
-              <ExImg libId={ex.id} size={160}/>
+              <AnatomySVG id={ex.id}/>
               <div style={{ padding:"10px 12px" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:4, gap:4 }}>
                   <div style={{ fontWeight:800, fontSize:13, fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1.2 }}>{ex.name}</div>
                   <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
                 </div>
-                <div style={{ fontSize:10, color:"#7a90b8" }}>💪 {ex.muscles}</div>
                 {libSel===ex.id && (
                   <div style={{ marginTop:8, padding:"8px 10px", background:"#000", borderRadius:8, border:"1px solid #0f2040" }}>
                     <div style={{ fontSize:11, color:"#e8edf5" }}>💡 {ex.tip}</div>
@@ -392,6 +881,7 @@ export default function App() {
         </div>
       </div>
       <div style={{ padding:"14px" }}>
+
         {tab==="sessions"&&<div className="fu">
           <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
             <SecTitle c="Nouvelle séance"/>
@@ -423,7 +913,9 @@ export default function App() {
           ))}
           {!cl.sessions.length&&<div style={{ textAlign:"center", color:"#3d5278", padding:40 }}>Aucune séance enregistrée</div>}
         </div>}
+
         {tab==="metrics"&&<div className="fu">
+          <WeightChart metrics={cl.metrics}/>
           <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
             <SecTitle c="Nouvelle mesure"/>
             <div style={{ display:"flex", flexWrap:"wrap", gap:10 }}>
@@ -456,6 +948,7 @@ export default function App() {
           })}
           {!cl.metrics.length&&<div style={{ textAlign:"center", color:"#3d5278", padding:40 }}>Aucune mesure enregistrée</div>}
         </div>}
+
         {tab==="programs"&&<div className="fu">
           <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
             <SecTitle c="Nouveau programme"/>
@@ -475,8 +968,16 @@ export default function App() {
                   <div style={{ fontWeight:900, fontFamily:"'Barlow Condensed',sans-serif", fontSize:15 }}>{prog.name.toUpperCase()}</div>
                   <div style={{ fontSize:10, color:"#3d5278" }}>{prog.weeks} sem · {prog.startDate}</div>
                 </div>
-                <Btn small onClick={()=>{ setAddingExTo(addingExTo===prog.id?null:prog.id); setPickingEx(false); }}>+ Exercice</Btn>
+                <div style={{ display:"flex", gap:6 }}>
+                  <Btn small ghost onClick={()=>{ setShowGenerator(!showGenerator); setGeneratorPid(prog.id); }}>🎲 Auto</Btn>
+                  <Btn small onClick={()=>{ setAddingExTo(addingExTo===prog.id?null:prog.id); setPickingEx(false); }}>+ Ex.</Btn>
+                </div>
               </div>
+              {showGenerator && generatorPid===prog.id && (
+                <div style={{ padding:14, background:"#000", borderBottom:"1px solid #0f2040" }}>
+                  <PPLGenerator onAdd={(exs)=>doAddGeneratedExercises(prog.id, exs)}/>
+                </div>
+              )}
               {addingExTo===prog.id&&(
                 <div style={{ padding:14, background:"#000", borderBottom:"1px solid #0f2040" }}>
                   <button onClick={()=>setPickingEx(!pickingEx)} style={{ background:"#112240", border:"1px solid #1a6fff44", borderRadius:8, padding:"7px 14px", color:"#1a6fff", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:12, textTransform:"uppercase", cursor:"pointer", marginBottom:12, width:"100%" }}>
@@ -492,7 +993,7 @@ export default function App() {
                           <button key={cat} onClick={()=>setLibCat(cat)} style={{ padding:"4px 10px", borderRadius:99, border:`1px solid ${libCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:libCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:libCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
                         ))}
                       </div>
-                      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:6, marginBottom:12, maxHeight:200, overflowY:"auto" }}>
+                      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:6, marginBottom:12, maxHeight:220, overflowY:"auto" }}>
                         {LIBRARY.filter(e=>{
                           const matchCat = libCat==="Tous" || e.cat===libCat;
                           const matchSearch = libSearch==="" || e.name.toLowerCase().includes(libSearch.toLowerCase());
@@ -500,7 +1001,7 @@ export default function App() {
                         }).map(ex=>(
                           <div key={ex.id} onClick={()=>{ setNewEx(p=>({...p,name:ex.name,libId:ex.id})); setPickingEx(false); setLibSearch(""); }}
                             style={{ background:"#070d1a", border:`1px solid ${newEx.libId===ex.id?"#1a6fff":"#0f2040"}`, borderRadius:10, overflow:"hidden", cursor:"pointer" }}>
-                            <ExImg libId={ex.id} size={80}/>
+                            <AnatomySVG id={ex.id}/>
                             <div style={{ padding:"4px 6px", fontSize:9, fontWeight:700, fontFamily:"'Barlow Condensed',sans-serif", color:"#7a90b8", lineHeight:1.2 }}>{ex.name}</div>
                           </div>
                         ))}
@@ -523,7 +1024,7 @@ export default function App() {
               {prog.exercises.map((ex,j)=>{
                 const lib=LIBRARY.find(l=>l.id===ex.libId);
                 return <div key={j} style={{ display:"flex", alignItems:"center", padding:"11px 14px", gap:10, borderBottom:j<prog.exercises.length-1?"1px solid #0f2040":"none" }}>
-                  {lib?<div style={{ width:44, height:30, borderRadius:6, overflow:"hidden", flexShrink:0 }}><ExImg libId={lib.id} size={60}/></div>
+                  {lib?<div style={{ width:48, height:24, borderRadius:6, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={lib.id}/></div>
                   :<div style={{ width:24, height:24, borderRadius:6, background:"#1a6fff1a", border:"1px solid #1a6fff44", display:"flex", alignItems:"center", justifyContent:"center", fontSize:11, fontWeight:800, color:"#1a6fff", flexShrink:0 }}>{j+1}</div>}
                   <div style={{ flex:1 }}>
                     <div style={{ fontWeight:700, fontSize:14 }}>{ex.name}</div>
@@ -535,11 +1036,12 @@ export default function App() {
                   </div>
                 </div>;
               })}
-              {!prog.exercises.length&&<div style={{ padding:"14px", color:"#3d5278", fontSize:12 }}>Aucun exercice — ajoutes-en un !</div>}
+              {!prog.exercises.length&&<div style={{ padding:"14px", color:"#3d5278", fontSize:12 }}>Aucun exercice — utilise le générateur ou ajoutes-en un manuellement !</div>}
             </div>
           ))}
           {!cl.programs.length&&<div style={{ textAlign:"center", color:"#3d5278", padding:40 }}>Aucun programme créé</div>}
         </div>}
+
         {tab==="goals"&&<div className="fu">
           <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
@@ -570,6 +1072,7 @@ export default function App() {
           ))}
           {!cl.goals.length&&<div style={{ textAlign:"center", color:"#3d5278", padding:40 }}>Aucun objectif défini</div>}
         </div>}
+
       </div>
     </>);
   }
