@@ -125,9 +125,7 @@ const LIBRARY = [
   { id:"ring_dip",         name:"Ring Dip",              cat:"Functional", muscles:"Triceps, Pectoraux, Épaules",        tip:"Anneaux stables, descente contrôlée, extension complète." },
   { id:"rope_climb",       name:"Corde lisse",           cat:"Functional", muscles:"Grand dorsal, Biceps, Core",         tip:"Technique L-sit ou jambes croisées pour économiser l'énergie." },
   { id:"ghd_situp",        name:"GHD Sit-up",            cat:"Functional", muscles:"Abdominaux, Fléchisseurs hanche",    tip:"Extension complète en arrière, remontée explosive." },
-  { id:"box_step",         name:"Step Up Box",           cat:"Functional", muscles:"Quadriceps, Fessiers, Équilibre",    tip:"Pied entier sur la box, extension complète de la jambe." },
   { id:"devil_press",      name:"Devil Press",           cat:"Functional", muscles:"Full body, Épaules, Cardio",         tip:"Burpee avec haltères + snatch au-dessus de la tête." },
-  { id:"sandbag_carry",    name:"Sandbag Carry",         cat:"Functional", muscles:"Core, Épaules, Jambes",              tip:"Sac serré contre la poitrine, dos droit." },
 ];
 
 const CATS = ["Tous","Push","Pull","Legs","Musculation","Abdos","Mobilité","Cardio","Functional"];
@@ -136,153 +134,59 @@ const CAT_COLOR = {
   Abdos:"#e63946", Mobilité:"#22c55e", Cardio:"#f59e0b", Functional:"#f97316"
 };
 const MONTH_NAMES = {"01":"Janvier","02":"Février","03":"Mars","04":"Avril","05":"Mai","06":"Juin","07":"Juillet","08":"Août","09":"Septembre","10":"Octobre","11":"Novembre","12":"Décembre"};
+const DAY_NAMES = ["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"];
 const STATUS_OPTIONS = ["actif","pause","inactif"];
 const STATUS_COLOR = { actif:"#22c55e", pause:"#f59e0b", inactif:"#3d5278" };
 
-// ── WOD FORMATS ───────────────────────────────────────────────────────────────
 const WOD_FORMATS = [
-  { id:"amrap",    name:"AMRAP",    desc:"As Many Rounds As Possible",    color:"#e63946", icon:"🔄", fields:["duration"] },
-  { id:"emom",     name:"EMOM",     desc:"Every Minute On the Minute",    color:"#f97316", icon:"⏰", fields:["minutes","workPerMinute"] },
-  { id:"fortime",  name:"For Time", desc:"Finir le plus vite possible",   color:"#1a6fff", icon:"🏁", fields:["rounds","timecap"] },
-  { id:"timecap",  name:"Timecap",  desc:"Maximum dans le temps imparti", color:"#8b5cf6", icon:"⏱️", fields:["duration"] },
-  { id:"metcon",   name:"MetCon",   desc:"Metabolic Conditioning",        color:"#f59e0b", icon:"💪", fields:["rounds"] },
-  { id:"tabata",   name:"Tabata",   desc:"20s effort / 10s repos × 8",    color:"#22c55e", icon:"⚡", fields:["rounds"] },
+  { id:"amrap",   name:"AMRAP",    desc:"As Many Rounds As Possible", color:"#e63946", icon:"🔄", fields:["duration"] },
+  { id:"emom",    name:"EMOM",     desc:"Every Minute On the Minute", color:"#f97316", icon:"⏰", fields:["minutes","workPerMinute"] },
+  { id:"fortime", name:"For Time", desc:"Finir le plus vite possible",color:"#1a6fff", icon:"🏁", fields:["rounds","timecap"] },
+  { id:"timecap", name:"Timecap",  desc:"Maximum dans le temps imparti",color:"#8b5cf6",icon:"⏱️", fields:["duration"] },
+  { id:"metcon",  name:"MetCon",   desc:"Metabolic Conditioning",     color:"#f59e0b", icon:"💪", fields:["rounds"] },
+  { id:"tabata",  name:"Tabata",   desc:"20s effort / 10s repos × 8", color:"#22c55e", icon:"⚡", fields:["rounds"] },
 ];
 
-// ── WOD BENCHMARKS ────────────────────────────────────────────────────────────
 const WOD_BENCHMARKS = [
-  // The Girls
-  {
-    id:"wod_cindy", name:"CINDY", type:"wod", format:"amrap", duration:20, color:"#e63946",
-    description:"AMRAP 20 min", category:"The Girls",
-    movements:[
-      { name:"Pull-ups",        reps:"5",  libId:"pullup" },
-      { name:"Push-ups",        reps:"10", libId:"pushup" },
-      { name:"Air Squats",      reps:"15", libId:"squat"  },
-    ],
-    scoreType:"rounds", tip:"Pace-toi dès le départ, reste constant sur les rounds."
-  },
-  {
-    id:"wod_annie", name:"ANNIE", type:"wod", format:"fortime", timecap:15, color:"#f97316",
-    description:"For Time", category:"The Girls",
-    movements:[
-      { name:"Double Unders", reps:"50-40-30-20-10", libId:"double_under" },
-      { name:"Sit-ups",       reps:"50-40-30-20-10", libId:"sit_up" },
-    ],
-    scoreType:"time", tip:"Enchaîne les double-unders sans t'arrêter, transitions rapides."
-  },
-  {
-    id:"wod_angie", name:"ANGIE", type:"wod", format:"fortime", timecap:30, color:"#8b5cf6",
-    description:"For Time", category:"The Girls",
-    movements:[
-      { name:"Pull-ups",   reps:"100", libId:"pullup" },
-      { name:"Push-ups",   reps:"100", libId:"pushup" },
-      { name:"Sit-ups",    reps:"100", libId:"sit_up"  },
-      { name:"Air Squats", reps:"100", libId:"squat"   },
-    ],
-    scoreType:"time", tip:"Complète chaque mouvement en entier avant de passer au suivant."
-  },
-  {
-    id:"wod_barbara", name:"BARBARA", type:"wod", format:"fortime", timecap:40, color:"#1a6fff",
-    description:"5 rounds For Time (3 min repos entre rounds)", category:"The Girls",
-    movements:[
-      { name:"Pull-ups",   reps:"20", libId:"pullup" },
-      { name:"Push-ups",   reps:"30", libId:"pushup" },
-      { name:"Sit-ups",    reps:"40", libId:"sit_up"  },
-      { name:"Air Squats", reps:"50", libId:"squat"   },
-    ],
-    scoreType:"time", tip:"3 min de repos entre chaque round. Reste strict sur la technique."
-  },
-  {
-    id:"wod_fran", name:"FRAN", type:"wod", format:"fortime", timecap:10, color:"#e63946",
-    description:"21-15-9 For Time", category:"The Girls",
-    movements:[
-      { name:"Thrusters (43kg)", reps:"21-15-9", libId:"thruster" },
-      { name:"Pull-ups",         reps:"21-15-9", libId:"pullup"   },
-    ],
-    scoreType:"time", tip:"WOD iconique. Objectif sub-5min pour les élites. Pace les thrusters."
-  },
-  {
-    id:"wod_grace", name:"GRACE", type:"wod", format:"fortime", timecap:10, color:"#f59e0b",
-    description:"30 reps For Time", category:"The Girls",
-    movements:[
-      { name:"Clean & Jerk (60kg)", reps:"30", libId:"clean_jerk" },
-    ],
-    scoreType:"time", tip:"Mouvement complet à chaque répétition. Rythme constant."
-  },
-  {
-    id:"wod_chelsea", name:"CHELSEA", type:"wod", format:"emom", minutes:30, color:"#22c55e",
-    description:"EMOM 30 min", category:"The Girls",
-    movements:[
-      { name:"Pull-ups",   reps:"5",  libId:"pullup" },
-      { name:"Push-ups",   reps:"10", libId:"pushup" },
-      { name:"Air Squats", reps:"15", libId:"squat"  },
-    ],
-    scoreType:"rounds", tip:"Même mouvements que Cindy mais en EMOM. Si tu rates une minute, continue."
-  },
-  // The Heroes
-  {
-    id:"wod_murph", name:"MURPH", type:"wod", format:"fortime", timecap:60, color:"#e63946",
-    description:"For Time (avec gilet 20lbs)", category:"The Heroes",
-    movements:[
-      { name:"Run",        reps:"1 mile",  libId:"run"    },
-      { name:"Pull-ups",   reps:"100",     libId:"pullup" },
-      { name:"Push-ups",   reps:"200",     libId:"pushup" },
-      { name:"Air Squats", reps:"300",     libId:"squat"  },
-      { name:"Run",        reps:"1 mile",  libId:"run"    },
-    ],
-    scoreType:"time", tip:"Partition suggérée : 20 rounds de 5 pull-ups / 10 push-ups / 15 squats."
-  },
-  {
-    id:"wod_dt", name:"DT", type:"wod", format:"fortime", timecap:20, color:"#8b5cf6",
-    description:"5 rounds For Time (70kg)", category:"The Heroes",
-    movements:[
-      { name:"Deadlift",          reps:"12", libId:"deadlift"   },
-      { name:"Hang Power Clean",  reps:"9",  libId:"clean_jerk" },
-      { name:"Push Jerk",         reps:"6",  libId:"clean_jerk" },
-    ],
-    scoreType:"time", tip:"Ne lâche pas la barre. Enchaîne les mouvements sans reposer la barre si possible."
-  },
-  {
-    id:"wod_jt", name:"JT", type:"wod", format:"fortime", timecap:20, color:"#f97316",
-    description:"21-15-9 For Time", category:"The Heroes",
-    movements:[
-      { name:"Handstand Push-ups", reps:"21-15-9", libId:"handstand_pushup" },
-      { name:"Ring Dips",          reps:"21-15-9", libId:"ring_dip"         },
-      { name:"Push-ups",           reps:"21-15-9", libId:"pushup"           },
-    ],
-    scoreType:"time", tip:"WOD très exigeant pour les épaules et triceps. Gère bien l'effort."
-  },
-  {
-    id:"wod_loredo", name:"LOREDO", type:"wod", format:"fortime", timecap:30, color:"#1a6fff",
-    description:"6 rounds For Time", category:"The Heroes",
-    movements:[
-      { name:"Run 400m",      reps:"400m", libId:"run"      },
-      { name:"Air Squats",    reps:"24",   libId:"squat"    },
-      { name:"Push-ups",      reps:"24",   libId:"pushup"   },
-      { name:"Walking Lunges",reps:"24",   libId:"lunge"    },
-    ],
-    scoreType:"time", tip:"Pace ton run dès le départ. Les lunges en fin sont très dures."
-  },
-  // Custom WODs populaires
-  {
-    id:"wod_karen", name:"KAREN", type:"wod", format:"fortime", timecap:15, color:"#f59e0b",
-    description:"For Time", category:"The Girls",
-    movements:[
-      { name:"Wall Ball Shot (9kg)", reps:"150", libId:"wall_ball" },
-    ],
-    scoreType:"time", tip:"Pace-toi ! 150 wall balls en continu est brutal. Sets de 10-15 avec courte pause."
-  },
-  {
-    id:"wod_helen", name:"HELEN", type:"wod", format:"fortime", timecap:15, color:"#22c55e",
-    description:"3 rounds For Time", category:"The Girls",
-    movements:[
-      { name:"Run 400m",       reps:"400m", libId:"run"             },
-      { name:"KB Swing (24kg)",reps:"21",   libId:"kb_russian_swing"},
-      { name:"Pull-ups",       reps:"12",   libId:"pullup"          },
-    ],
-    scoreType:"time", tip:"Enchaîne les 3 mouvements le plus vite possible. Sub-9min est bon."
-  },
+  { id:"wod_cindy",   name:"CINDY",   type:"wod", format:"amrap",   duration:20, color:"#e63946", description:"AMRAP 20 min",             category:"The Girls",
+    movements:[{name:"Pull-ups",reps:"5",libId:"pullup"},{name:"Push-ups",reps:"10",libId:"pushup"},{name:"Air Squats",reps:"15",libId:"squat"}],
+    scoreType:"rounds", tip:"Pace-toi dès le départ, reste constant sur les rounds." },
+  { id:"wod_annie",   name:"ANNIE",   type:"wod", format:"fortime", timecap:15,  color:"#f97316", description:"For Time",                  category:"The Girls",
+    movements:[{name:"Double Unders",reps:"50-40-30-20-10",libId:"double_under"},{name:"Sit-ups",reps:"50-40-30-20-10",libId:"sit_up"}],
+    scoreType:"time", tip:"Enchaîne les double-unders sans t'arrêter." },
+  { id:"wod_angie",   name:"ANGIE",   type:"wod", format:"fortime", timecap:30,  color:"#8b5cf6", description:"For Time",                  category:"The Girls",
+    movements:[{name:"Pull-ups",reps:"100",libId:"pullup"},{name:"Push-ups",reps:"100",libId:"pushup"},{name:"Sit-ups",reps:"100",libId:"sit_up"},{name:"Air Squats",reps:"100",libId:"squat"}],
+    scoreType:"time", tip:"Complète chaque mouvement en entier avant de passer au suivant." },
+  { id:"wod_barbara", name:"BARBARA", type:"wod", format:"fortime", timecap:40,  color:"#1a6fff", description:"5 rounds For Time",         category:"The Girls",
+    movements:[{name:"Pull-ups",reps:"20",libId:"pullup"},{name:"Push-ups",reps:"30",libId:"pushup"},{name:"Sit-ups",reps:"40",libId:"sit_up"},{name:"Air Squats",reps:"50",libId:"squat"}],
+    scoreType:"time", tip:"3 min de repos entre chaque round." },
+  { id:"wod_fran",    name:"FRAN",    type:"wod", format:"fortime", timecap:10,  color:"#e63946", description:"21-15-9 For Time",          category:"The Girls",
+    movements:[{name:"Thrusters (43kg)",reps:"21-15-9",libId:"thruster"},{name:"Pull-ups",reps:"21-15-9",libId:"pullup"}],
+    scoreType:"time", tip:"WOD iconique. Objectif sub-5min pour les élites." },
+  { id:"wod_grace",   name:"GRACE",   type:"wod", format:"fortime", timecap:10,  color:"#f59e0b", description:"30 reps For Time",          category:"The Girls",
+    movements:[{name:"Clean & Jerk (60kg)",reps:"30",libId:"clean_jerk"}],
+    scoreType:"time", tip:"Mouvement complet à chaque répétition." },
+  { id:"wod_chelsea", name:"CHELSEA", type:"wod", format:"emom",    minutes:30,  color:"#22c55e", description:"EMOM 30 min",               category:"The Girls",
+    movements:[{name:"Pull-ups",reps:"5",libId:"pullup"},{name:"Push-ups",reps:"10",libId:"pushup"},{name:"Air Squats",reps:"15",libId:"squat"}],
+    scoreType:"rounds", tip:"Si tu rates une minute, continue." },
+  { id:"wod_karen",   name:"KAREN",   type:"wod", format:"fortime", timecap:15,  color:"#f59e0b", description:"For Time",                  category:"The Girls",
+    movements:[{name:"Wall Ball Shot (9kg)",reps:"150",libId:"wall_ball"}],
+    scoreType:"time", tip:"Sets de 10-15 avec courte pause." },
+  { id:"wod_helen",   name:"HELEN",   type:"wod", format:"fortime", timecap:15,  color:"#22c55e", description:"3 rounds For Time",         category:"The Girls",
+    movements:[{name:"Run 400m",reps:"400m",libId:"run"},{name:"KB Swing (24kg)",reps:"21",libId:"kb_russian_swing"},{name:"Pull-ups",reps:"12",libId:"pullup"}],
+    scoreType:"time", tip:"Sub-9min est bon." },
+  { id:"wod_murph",   name:"MURPH",   type:"wod", format:"fortime", timecap:60,  color:"#e63946", description:"For Time (avec gilet 20lbs)",category:"The Heroes",
+    movements:[{name:"Run",reps:"1 mile",libId:"run"},{name:"Pull-ups",reps:"100",libId:"pullup"},{name:"Push-ups",reps:"200",libId:"pushup"},{name:"Air Squats",reps:"300",libId:"squat"},{name:"Run",reps:"1 mile",libId:"run"}],
+    scoreType:"time", tip:"Partition : 20 rounds de 5/10/15." },
+  { id:"wod_dt",      name:"DT",      type:"wod", format:"fortime", timecap:20,  color:"#8b5cf6", description:"5 rounds For Time (70kg)",  category:"The Heroes",
+    movements:[{name:"Deadlift",reps:"12",libId:"deadlift"},{name:"Hang Power Clean",reps:"9",libId:"clean_jerk"},{name:"Push Jerk",reps:"6",libId:"clean_jerk"}],
+    scoreType:"time", tip:"Ne lâche pas la barre." },
+  { id:"wod_jt",      name:"JT",      type:"wod", format:"fortime", timecap:20,  color:"#f97316", description:"21-15-9 For Time",          category:"The Heroes",
+    movements:[{name:"Handstand Push-ups",reps:"21-15-9",libId:"handstand_pushup"},{name:"Ring Dips",reps:"21-15-9",libId:"ring_dip"},{name:"Push-ups",reps:"21-15-9",libId:"pushup"}],
+    scoreType:"time", tip:"Très exigeant pour les épaules et triceps." },
+  { id:"wod_loredo",  name:"LOREDO",  type:"wod", format:"fortime", timecap:30,  color:"#1a6fff", description:"6 rounds For Time",         category:"The Heroes",
+    movements:[{name:"Run 400m",reps:"400m",libId:"run"},{name:"Air Squats",reps:"24",libId:"squat"},{name:"Push-ups",reps:"24",libId:"pushup"},{name:"Walking Lunges",reps:"24",libId:"lunge"}],
+    scoreType:"time", tip:"Pace ton run dès le départ." },
 ];
 
 const calc1RM = (load, reps) => {
@@ -309,10 +213,9 @@ const rpeLabel = (rpe) => {
   return "Maximal";
 };
 
-const zoneColor = (z) => ({ "1":"#3b82f6","2":"#22c55e","3":"#f59e0b","4":"#f97316","5":"#e63946" }[z]||"#3d5278");
-const zoneLabel = (z) => ({ "1":"Récup","2":"Aérobie","3":"Tempo","4":"Seuil","5":"VO2max" }[z]||"");
+const zoneColor = (z) => ({"1":"#3b82f6","2":"#22c55e","3":"#f59e0b","4":"#f97316","5":"#e63946"}[z]||"#3d5278");
+const zoneLabel = (z) => ({"1":"Récup","2":"Aérobie","3":"Tempo","4":"Seuil","5":"VO2max"}[z]||"");
 
-// ── DEFAULT TEMPLATES ─────────────────────────────────────────────────────────
 const DEFAULT_TEMPLATES = [
   { id:"tpl_push_a", name:"Push Day A", cat:"Push", color:"#1a6fff", exercises:[
     { libId:"bench_press",   name:"Développé couché",   sets:"4", reps:"6",  rest:"150" },
@@ -336,12 +239,11 @@ const DEFAULT_TEMPLATES = [
     { libId:"face_pull",    name:"Face pull",            sets:"3", reps:"15", rest:"60"  },
   ]},
   { id:"tpl_back_b", name:"Back Day B", cat:"Pull", color:"#8b5cf6", exercises:[
-    { libId:"lat_pulldown", name:"Tirage poulie haute", sets:"4", reps:"10", rest:"90"  },
-    { libId:"gorilla_row",  name:"Gorilla Row",         sets:"3", reps:"10", rest:"90"  },
-    { libId:"face_pull",    name:"Face pull",           sets:"3", reps:"15", rest:"60"  },
-    { libId:"shrug",        name:"Haussements épaules", sets:"3", reps:"12", rest:"60"  },
-    { libId:"bicep_curl",   name:"Curl biceps",         sets:"3", reps:"12", rest:"60"  },
-    { libId:"hammer_curl",  name:"Curl marteau",        sets:"3", reps:"12", rest:"60"  },
+    { libId:"lat_pulldown", name:"Tirage poulie haute", sets:"4", reps:"10", rest:"90" },
+    { libId:"gorilla_row",  name:"Gorilla Row",         sets:"3", reps:"10", rest:"90" },
+    { libId:"face_pull",    name:"Face pull",           sets:"3", reps:"15", rest:"60" },
+    { libId:"bicep_curl",   name:"Curl biceps",         sets:"3", reps:"12", rest:"60" },
+    { libId:"hammer_curl",  name:"Curl marteau",        sets:"3", reps:"12", rest:"60" },
   ]},
   { id:"tpl_leg_a", name:"Leg Day A", cat:"Legs", color:"#22c55e", exercises:[
     { libId:"back_squat",     name:"Back Squat",             sets:"4", reps:"6",  rest:"180" },
@@ -377,10 +279,8 @@ const DEFAULT_TEMPLATES = [
 const applyTemplate = (template, clientSessions) => {
   if (template.type==="wod") {
     return template.movements.map(mv=>({
-      id:"se"+Date.now()+Math.random(),
-      libId:mv.libId||"", name:mv.name, reps:mv.reps,
-      sets:"1", load:"", rest:"", rpe:"", note:"", cardioType:"",
-      isWodMovement:true,
+      id:"se"+Date.now()+Math.random(), libId:mv.libId||"", name:mv.name,
+      reps:mv.reps, sets:"1", load:"", rest:"", rpe:"", note:"", isWodMovement:true,
     }));
   }
   return template.exercises.map(tplEx=>{
@@ -402,7 +302,7 @@ const applyTemplate = (template, clientSessions) => {
 
 const SAMPLE_CLIENTS = [{
   id:"tony", name:"Tony Parker", age:41, sport:"Basketball", since:"2024-01", status:"actif",
-  objective:"Maintien forme & mobilité", progress:78, notes:"Attention genou droit. Préfère les séances du matin.",
+  objective:"Maintien forme & mobilité", progress:78, notes:"Attention genou droit.",
   sessions:[
     { id:"s1", date:"2026-04-15", present:true, duration:90, note:"Push Day", templateId:"tpl_push_a", exercises:[
       { id:"se1", libId:"bench_press",  name:"Développé couché", sets:"4", reps:"6",  load:"90", rest:"150", rpe:"7" },
@@ -416,21 +316,26 @@ const SAMPLE_CLIENTS = [{
         { id:"se5", libId:"squat",  name:"Air Squats", reps:"15", isWodMovement:true },
       ]
     },
-    { id:"s3", date:"2026-03-03", present:false, duration:0, note:"Absent — voyage", exercises:[] },
+    { id:"s3", date:"2026-03-28", present:true, duration:75, note:"Back Day", templateId:"tpl_back_a", exercises:[
+      { id:"se6", libId:"barbell_row", name:"Rowing barre", sets:"4", reps:"8", load:"80", rest:"120", rpe:"7" },
+    ]},
+  ],
+  planned:[
+    { id:"pl1", date:"2026-04-22", templateId:"tpl_leg_a", note:"Apporter sa ceinture", isWod:false },
+    { id:"pl2", date:"2026-04-24", templateId:"wod_murph", note:"Gilet 10kg", isWod:true },
   ],
   metrics:[
     { date:"2026-04-01", weight:92.0, chest:104, waist:86, hips:98, fatPct:14.2 },
     { date:"2026-03-01", weight:93.5, chest:105, waist:87, hips:99, fatPct:14.8 },
-    { date:"2026-02-01", weight:95.0, chest:106, waist:89, hips:100, fatPct:15.5 },
   ],
   programs:[{ id:"p1", name:"Mobilité & Renforcement", weeks:8, startDate:"2026-03-01", exercises:[
     { id:"e1", name:"Hip 90/90",  sets:"3", reps:"45s", load:"",    note:"Chaque côté", libId:"hip90" },
     { id:"e2", name:"Back Squat", sets:"4", reps:"6",   load:"100", note:"",            libId:"back_squat" },
   ]}],
   goals:[
-    { id:"g1", label:"Descendre à 90 kg",               done:false, deadline:"2026-06-01" },
-    { id:"g2", label:"Masse grasse < 13%",               done:false, deadline:"2026-07-01" },
-    { id:"g3", label:"30 min course sans douleur genou", done:true,  deadline:"2026-03-01" },
+    { id:"g1", label:"Descendre à 90 kg",    done:false, deadline:"2026-06-01" },
+    { id:"g2", label:"Masse grasse < 13%",   done:false, deadline:"2026-07-01" },
+    { id:"g3", label:"30 min course genou ✓",done:true,  deadline:"2026-03-01" },
   ]
 }];
 const GLOBAL_CSS = `
@@ -468,7 +373,7 @@ const Field = ({ label, value, onChange, type="text", placeholder, half, third }
   if (third) width="calc(33% - 4px)";
   return (
     <div style={{ display:"flex",flexDirection:"column",gap:4,width,flexShrink:0 }}>
-      {label&&<label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase",fontFamily:"'Barlow',sans-serif" }}>{label}</label>}
+      {label&&<label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase" }}>{label}</label>}
       <input type={type} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder}
         style={{ background:"#000",border:"1.5px solid #0f2040",borderRadius:8,padding:"9px 10px",color:"#e8edf5",fontSize:13,fontFamily:"'Barlow',sans-serif",outline:"none",width:"100%",colorScheme:"dark",boxSizing:"border-box" }}
         onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
@@ -492,7 +397,6 @@ const SwipeToDelete = ({ children, onDelete }) => {
   const [offsetX,setOffsetX]=useState(0);
   const [revealed,setRevealed]=useState(false);
   const [confirming,setConfirming]=useState(false);
-  const threshold=-75;
   function onTouchStart(e){setStartX(e.touches[0].clientX);}
   function onTouchMove(e){
     if(startX===null||confirming)return;
@@ -502,7 +406,7 @@ const SwipeToDelete = ({ children, onDelete }) => {
   }
   function onTouchEnd(){
     setStartX(null);
-    if(offsetX<threshold){setOffsetX(-100);setRevealed(true);}
+    if(offsetX<-75){setOffsetX(-100);setRevealed(true);}
     else{setOffsetX(0);setRevealed(false);}
   }
   function handleDelete(){setConfirming(true);setTimeout(()=>{onDelete();setConfirming(false);setOffsetX(0);setRevealed(false);},300);}
@@ -528,11 +432,10 @@ const SwipeToDelete = ({ children, onDelete }) => {
 
 const StatusDot = ({ status }) => {
   const color=status==="live"?"#22c55e":status==="connecting"?"#f59e0b":"#3d5278";
-  const label=status==="live"?"Sync temps réel active":status==="connecting"?"Connexion Firebase...":"Mode local";
   return (
     <div style={{ display:"flex",alignItems:"center",gap:6,padding:"5px 14px",background:"#04080f",borderBottom:"1px solid #0f2040" }}>
       <div style={{ width:6,height:6,borderRadius:"50%",background:color,boxShadow:status==="live"?`0 0 6px ${color}`:"none" }}/>
-      <span style={{ fontSize:10,color:"#3d5278" }}>{label}</span>
+      <span style={{ fontSize:10,color:"#3d5278" }}>{status==="live"?"Sync temps réel active":status==="connecting"?"Connexion Firebase...":"Mode local"}</span>
     </div>
   );
 };
@@ -615,105 +518,63 @@ const ExerciseFields = ({ ex, onChange, onRemove, idx }) => {
 };
 
 // ── WOD CREATOR ───────────────────────────────────────────────────────────────
-const WodCreator = ({ onSave, onClose, initialWod }) => {
-  const [format, setFormat] = useState(initialWod?.format||"amrap");
-  const [name, setName] = useState(initialWod?.name||"");
-  const [duration, setDuration] = useState(initialWod?.duration||"20");
-  const [rounds, setRounds] = useState(initialWod?.rounds||"3");
-  const [timecap, setTimecap] = useState(initialWod?.timecap||"20");
-  const [minutes, setMinutes] = useState(initialWod?.minutes||"20");
-  const [workPerMin, setWorkPerMin] = useState(initialWod?.workPerMinute||"");
-  const [score, setScore] = useState(initialWod?.score||"");
-  const [movements, setMovements] = useState(initialWod?.movements||[]);
-  const [search, setSearch] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
-  const [selCat, setSelCat] = useState("Functional");
-
-  const fmt = WOD_FORMATS.find(f=>f.id===format);
-
-  function addMovement(ex) {
-    setMovements(p=>[...p,{ name:ex.name, reps:"", libId:ex.id }]);
-    setSearch(""); setShowSearch(false);
-  }
-
-  function saveWod() {
+const WodCreator = ({ onSave, onClose }) => {
+  const [format,setFormat]=useState("amrap");
+  const [name,setName]=useState("");
+  const [duration,setDuration]=useState("20");
+  const [rounds,setRounds]=useState("3");
+  const [timecap,setTimecap]=useState("20");
+  const [minutes,setMinutes]=useState("20");
+  const [score,setScore]=useState("");
+  const [movements,setMovements]=useState([]);
+  const [search,setSearch]=useState("");
+  const [showSearch,setShowSearch]=useState(false);
+  const [selCat,setSelCat]=useState("Functional");
+  const fmt=WOD_FORMATS.find(f=>f.id===format);
+  function addMovement(ex){ setMovements(p=>[...p,{name:ex.name,reps:"",libId:ex.id}]); setSearch(""); setShowSearch(false); }
+  function saveWod(){
     if (!movements.length) return;
-    const wod = {
-      id:"wod_custom_"+Date.now(), name:name||fmt?.name||"WOD Custom",
-      type:"wod", format, color:fmt?.color||"#e63946",
-      description:fmt?.desc||"", category:"Mes WODs",
-      movements, scoreType:["amrap","emom","timecap"].includes(format)?"rounds":"time",
-      duration:+duration, rounds:+rounds, timecap:+timecap,
-      minutes:+minutes, workPerMinute:workPerMin, score,
-    };
-    onSave(wod);
+    onSave({ id:"wod_custom_"+Date.now(), name:name||fmt?.name||"WOD Custom", type:"wod", format, color:fmt?.color||"#e63946",
+      description:fmt?.desc||"", category:"Mes WODs", movements, scoreType:["amrap","emom","timecap"].includes(format)?"rounds":"time",
+      duration:+duration, rounds:+rounds, timecap:+timecap, minutes:+minutes, score });
   }
-
-  const filtered = LIBRARY.filter(ex=>{
-    if (search) return ex.name.toLowerCase().includes(search.toLowerCase());
-    return ex.cat===selCat;
-  });
-
+  const filtered=LIBRARY.filter(ex=>search?ex.name.toLowerCase().includes(search.toLowerCase()):ex.cat===selCat);
   return (
     <div style={{ background:"#070d1a",border:"1px solid #f9741644",borderRadius:14,padding:14,marginBottom:14 }}>
       <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14 }}>
         <div style={{ fontSize:16,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",color:"#f97316" }}>🏋️ CRÉER UN WOD</div>
         <Btn small ghost onClick={onClose}>✕</Btn>
       </div>
-
-      {/* Nom */}
-      <Field label="Nom du WOD (optionnel)" value={name} onChange={setName} placeholder="ex. Mon WOD du vendredi..."/>
+      <Field label="Nom du WOD" value={name} onChange={setName} placeholder="ex. Mon WOD du vendredi..."/>
       <div style={{ height:10 }}/>
-
-      {/* Format selector */}
       <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase",display:"block",marginBottom:8 }}>Format</label>
       <div style={{ display:"flex",gap:6,marginBottom:14,overflowX:"auto",paddingBottom:4 }}>
         {WOD_FORMATS.map(f=>(
           <button key={f.id} onClick={()=>setFormat(f.id)}
             style={{ padding:"8px 12px",borderRadius:10,border:`1px solid ${format===f.id?f.color:"#0f2040"}`,background:format===f.id?f.color+"22":"transparent",color:format===f.id?f.color:"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",cursor:"pointer",flexShrink:0,display:"flex",flexDirection:"column",alignItems:"center",gap:2 }}>
-            <span style={{ fontSize:16 }}>{f.icon}</span>
-            <span>{f.name}</span>
-            <span style={{ fontSize:8,color:format===f.id?f.color+"aa":"#3d5278",fontWeight:400,textTransform:"none" }}>{f.desc}</span>
+            <span style={{ fontSize:16 }}>{f.icon}</span><span>{f.name}</span>
           </button>
         ))}
       </div>
-
-      {/* Format-specific fields */}
       <div style={{ display:"flex",gap:8,flexWrap:"wrap",marginBottom:14 }}>
-        {(format==="amrap"||format==="timecap")&&(
-          <Field label="Durée (min)" type="number" value={duration} onChange={setDuration} placeholder="20" half/>
-        )}
-        {format==="emom"&&(<>
-          <Field label="Durée totale (min)" type="number" value={minutes} onChange={setMinutes} placeholder="20" half/>
-          <Field label="Travail / minute (sec)" type="number" value={workPerMin} onChange={setWorkPerMin} placeholder="40" half/>
-        </>)}
-        {(format==="fortime"||format==="metcon")&&(<>
-          <Field label="Rounds" type="number" value={rounds} onChange={setRounds} placeholder="3" half/>
-          <Field label="Timecap (min)" type="number" value={timecap} onChange={setTimecap} placeholder="20" half/>
-        </>)}
-        {format==="tabata"&&(
-          <Field label="Rounds (× 8 = total)" type="number" value={rounds} onChange={setRounds} placeholder="1" half/>
-        )}
-        <Field label="Score / résultat" value={score} onChange={setScore} placeholder={["amrap","emom","timecap"].includes(format)?"ex. 18 rounds + 5 reps":"ex. 12:34"} half/>
+        {(format==="amrap"||format==="timecap")&&<Field label="Durée (min)" type="number" value={duration} onChange={setDuration} placeholder="20" half/>}
+        {format==="emom"&&<Field label="Durée totale (min)" type="number" value={minutes} onChange={setMinutes} placeholder="20" half/>}
+        {(format==="fortime"||format==="metcon")&&<><Field label="Rounds" type="number" value={rounds} onChange={setRounds} placeholder="3" half/><Field label="Timecap (min)" type="number" value={timecap} onChange={setTimecap} placeholder="20" half/></>}
+        <Field label="Score" value={score} onChange={setScore} placeholder={["amrap","emom","timecap"].includes(format)?"ex. 18 rounds":"ex. 12:34"} half/>
       </div>
-
-      {/* Movements */}
       <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase",display:"block",marginBottom:8 }}>Mouvements</label>
-
       {movements.map((mv,i)=>(
         <div key={i} style={{ display:"flex",alignItems:"center",gap:8,padding:"8px 10px",background:"#0a1628",borderRadius:8,marginBottom:6,border:"1px solid #0f2040" }}>
           <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={mv.libId}/></div>
           <span style={{ flex:1,fontSize:12,fontWeight:700 }}>{mv.name}</span>
           <input type="text" value={mv.reps} onChange={e=>setMovements(p=>p.map((x,j)=>j===i?{...x,reps:e.target.value}:x))}
-            placeholder="Reps / dist." style={{ width:80,background:"#000",border:"1px solid #0f2040",borderRadius:6,padding:"4px 8px",color:"#e8edf5",fontSize:12,colorScheme:"dark",textAlign:"center" }}/>
+            placeholder="Reps" style={{ width:70,background:"#000",border:"1px solid #0f2040",borderRadius:6,padding:"4px 8px",color:"#e8edf5",fontSize:12,colorScheme:"dark",textAlign:"center" }}/>
           <button onClick={()=>setMovements(p=>p.filter((_,j)=>j!==i))} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:14,padding:0 }}>✕</button>
         </div>
       ))}
-
       <button onClick={()=>setShowSearch(!showSearch)} style={{ width:"100%",background:"#0a1628",border:"1px solid #f9741644",borderRadius:8,padding:"8px 14px",color:"#f97316",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:showSearch?10:14 }}>
         + Ajouter un mouvement
       </button>
-
       {showSearch&&(
         <div style={{ background:"#000",borderRadius:10,padding:10,marginBottom:14,border:"1px solid #0f2040" }}>
           <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 Rechercher..."
@@ -738,48 +599,24 @@ const WodCreator = ({ onSave, onClose, initialWod }) => {
           </div>
         </div>
       )}
-
-      {movements.length>0&&(
-        <div style={{ background:`${fmt?.color||"#f97316"}11`,borderRadius:10,padding:12,marginBottom:14,border:`1px solid ${fmt?.color||"#f97316"}33` }}>
-          <div style={{ fontSize:11,fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",color:fmt?.color||"#f97316",marginBottom:6 }}>
-            {fmt?.icon} {format.toUpperCase()} {format==="amrap"||format==="timecap"?`— ${duration} min`:format==="emom"?`— ${minutes} min`:format==="tabata"?"— 20s/10s × 8":format==="fortime"||format==="metcon"?`— ${rounds} rounds (Timecap: ${timecap} min)`:""}
-          </div>
-          {movements.map((mv,i)=>(
-            <div key={i} style={{ fontSize:12,color:"#e8edf5",padding:"3px 0",display:"flex",gap:8 }}>
-              <span style={{ color:fmt?.color||"#f97316",fontWeight:700,minWidth:20 }}>•</span>
-              <span>{mv.name}</span>
-              {mv.reps&&<span style={{ color:"#7a90b8" }}>× {mv.reps}</span>}
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div style={{ display:"flex",gap:8 }}>
-        <Btn onClick={saveWod} color={fmt?.color||"#f97316"}>💾 Sauvegarder ce WOD</Btn>
-        <Btn ghost small onClick={onClose}>Annuler</Btn>
-      </div>
+      {movements.length>0&&<div style={{ display:"flex",gap:8 }}><Btn onClick={saveWod} color={fmt?.color||"#f97316"}>💾 Sauvegarder</Btn><Btn ghost small onClick={onClose}>Annuler</Btn></div>}
     </div>
   );
 };
 
-// ── WOD CARD DISPLAY ──────────────────────────────────────────────────────────
 const WodCard = ({ wod, onSelect, compact }) => {
   const fmt=WOD_FORMATS.find(f=>f.id===wod.format);
-  const fmtInfo = wod.format==="amrap"||wod.format==="timecap" ? `${wod.duration} min`
-    : wod.format==="emom" ? `${wod.minutes} min`
-    : wod.format==="tabata" ? "20s/10s × 8"
-    : `${wod.rounds} rounds`;
+  const fmtInfo=wod.format==="amrap"||wod.format==="timecap"?`${wod.duration} min`:wod.format==="emom"?`${wod.minutes} min`:wod.format==="tabata"?"20s/10s×8":`${wod.rounds} rounds`;
   return (
     <div onClick={()=>onSelect&&onSelect(wod)} className="ch fu"
       style={{ background:"#070d1a",border:`1px solid ${wod.color||"#e63946"}33`,borderRadius:14,padding:14,marginBottom:10,cursor:onSelect?"pointer":"default" }}>
-      <div style={{ display:"flex",alignItems:"flex-start",gap:12,marginBottom:10 }}>
-        <div style={{ width:4,minHeight:44,borderRadius:99,background:wod.color||"#e63946",flexShrink:0 }}/>
+      <div style={{ display:"flex",alignItems:"flex-start",gap:12,marginBottom:8 }}>
+        <div style={{ width:4,minHeight:40,borderRadius:99,background:wod.color||"#e63946",flexShrink:0 }}/>
         <div style={{ flex:1 }}>
           <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:4,flexWrap:"wrap" }}>
             <div style={{ fontSize:18,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",color:wod.color||"#e63946" }}>{wod.name}</div>
             <Badge label={`${fmt?.icon||""} ${wod.format?.toUpperCase()||""}`} color={wod.color||"#e63946"}/>
             <Badge label={fmtInfo} color="#3d5278"/>
-            {wod.category&&<Badge label={wod.category} color="#0f2040"/>}
           </div>
           {wod.tip&&!compact&&<div style={{ fontSize:11,color:"#3d5278",marginBottom:8,fontStyle:"italic" }}>💡 {wod.tip}</div>}
           <div style={{ display:"flex",flexDirection:"column",gap:4 }}>
@@ -793,69 +630,394 @@ const WodCard = ({ wod, onSelect, compact }) => {
           </div>
         </div>
       </div>
-      {onSelect&&<div style={{ display:"flex",justifyContent:"flex-end" }}><Btn small color={wod.color||"#e63946"} onClick={()=>onSelect(wod)}>Utiliser ce WOD →</Btn></div>}
+      {onSelect&&<div style={{ display:"flex",justifyContent:"flex-end" }}><Btn small color={wod.color||"#e63946"} onClick={()=>onSelect(wod)}>Utiliser →</Btn></div>}
     </div>
   );
 };
 
-// ── TEMPLATES + WOD VIEW ──────────────────────────────────────────────────────
-const TemplatesView = ({ templates, customWods, onBack, onSave, onSaveWod }) => {
+// ── CALENDAR TAB ──────────────────────────────────────────────────────────────
+const CalendarTab = ({ client, allTemplates, allWods, onUpdate }) => {
+  const today = new Date();
+  const [calYear, setCalYear] = useState(today.getFullYear());
+  const [calMonth, setCalMonth] = useState(today.getMonth());
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [dayModal, setDayModal] = useState(null);
+  const [planMode, setPlanMode] = useState("choose"); // choose | template | wod | custom
+  const [selTemplate, setSelTemplate] = useState(null);
+  const [selWod, setSelWod] = useState(null);
+  const [planNote, setPlanNote] = useState("");
   const [tplTab, setTplTab] = useState("templates");
-  const [editingTpl, setEditingTpl] = useState(null);
-  const [newTpl, setNewTpl] = useState({ name:"", cat:"Push", color:"#1a6fff", exercises:[] });
-  const [showNew, setShowNew] = useState(false);
   const [showWodCreator, setShowWodCreator] = useState(false);
-  const [pickingEx, setPickingEx] = useState(false);
-  const [search, setSearch] = useState("");
-  const [selCat, setSelCat] = useState("Push");
-  const [wodFilter, setWodFilter] = useState("Tous");
 
-  function addExToNewTpl(ex) {
+  const planned = client.planned || [];
+  const sessions = client.sessions || [];
+
+  // Build calendar days
+  const firstDay = new Date(calYear, calMonth, 1);
+  const lastDay = new Date(calYear, calMonth + 1, 0);
+  const startDow = (firstDay.getDay() + 6) % 7; // Mon=0
+  const daysInMonth = lastDay.getDate();
+
+  const formatDate = (y, m, d) => `${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+
+  const getDayInfo = (dateStr) => {
+    const sess = sessions.find(s => s.date === dateStr);
+    const plan = planned.find(p => p.date === dateStr);
+    return { sess, plan };
+  };
+
+  const getDayColor = (dateStr) => {
+    const { sess, plan } = getDayInfo(dateStr);
+    if (sess) {
+      if (!sess.present) return "#e63946";
+      if (sess.isWod) return "#f97316";
+      return "#22c55e";
+    }
+    if (plan) return plan.isWod ? "#f9741666" : "#1a6fff66";
+    return null;
+  };
+
+  const isToday = (dateStr) => {
+    const t = today;
+    return dateStr === formatDate(t.getFullYear(), t.getMonth(), t.getDate());
+  };
+
+  const isFuture = (dateStr) => dateStr > formatDate(today.getFullYear(), today.getMonth(), today.getDate());
+
+  function openDay(dateStr) {
+    setSelectedDay(dateStr);
+    const { sess, plan } = getDayInfo(dateStr);
+    setDayModal({ dateStr, sess, plan });
+    setPlanMode("choose");
+    setSelTemplate(null); setSelWod(null); setPlanNote(""); setTplTab("templates");
+  }
+
+  function addPlanned() {
+    if (!selTemplate && !selWod) return;
+    const newPlan = {
+      id: "pl"+Date.now(),
+      date: dayModal.dateStr,
+      templateId: selTemplate?.id || selWod?.id || null,
+      isWod: !!selWod,
+      note: planNote,
+    };
+    onUpdate({ planned: [...planned, newPlan] });
+    setDayModal(null);
+  }
+
+  function removePlanned(id) {
+    onUpdate({ planned: planned.filter(p => p.id !== id) });
+    setDayModal(null);
+  }
+
+  function convertToSession(plan) {
+    // Navigate to sessions tab via callback — just remove plan
+    removePlanned(plan.id);
+  }
+
+  const prevMonth = () => { if (calMonth===0){setCalMonth(11);setCalYear(y=>y-1);}else setCalMonth(m=>m-1); };
+  const nextMonth = () => { if (calMonth===11){setCalMonth(0);setCalYear(y=>y+1);}else setCalMonth(m=>m+1); };
+
+  const cells = [];
+  for (let i=0; i<startDow; i++) cells.push(null);
+  for (let d=1; d<=daysInMonth; d++) cells.push(d);
+
+  return (
+    <div className="fu">
+      {/* Legend */}
+      <div style={{ display:"flex",gap:10,flexWrap:"wrap",marginBottom:14,padding:"10px 12px",background:"#070d1a",borderRadius:12,border:"1px solid #0f2040" }}>
+        {[
+          { color:"#22c55e", label:"Séance effectuée" },
+          { color:"#f97316", label:"WOD effectué" },
+          { color:"#e63946", label:"Absence" },
+          { color:"#1a6fff66", label:"Séance planifiée" },
+          { color:"#f9741666", label:"WOD planifié" },
+        ].map(l=>(
+          <div key={l.label} style={{ display:"flex",alignItems:"center",gap:5 }}>
+            <div style={{ width:10,height:10,borderRadius:"50%",background:l.color,flexShrink:0 }}/>
+            <span style={{ fontSize:10,color:"#7a90b8" }}>{l.label}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Month navigation */}
+      <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14 }}>
+        <button onClick={prevMonth} style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:8,padding:"8px 14px",color:"#7a90b8",cursor:"pointer",fontSize:16 }}>‹</button>
+        <div style={{ fontWeight:900,fontSize:18,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:"0.04em" }}>
+          {MONTH_NAMES[String(calMonth+1).padStart(2,"0")]} {calYear}
+        </div>
+        <button onClick={nextMonth} style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:8,padding:"8px 14px",color:"#7a90b8",cursor:"pointer",fontSize:16 }}>›</button>
+      </div>
+
+      {/* Day names */}
+      <div style={{ display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3,marginBottom:4 }}>
+        {DAY_NAMES.map(d=>(
+          <div key={d} style={{ textAlign:"center",fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.08em",textTransform:"uppercase",padding:"4px 0" }}>{d}</div>
+        ))}
+      </div>
+
+      {/* Calendar grid */}
+      <div style={{ display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3,marginBottom:20 }}>
+        {cells.map((d,i)=>{
+          if (!d) return <div key={i}/>;
+          const dateStr=formatDate(calYear,calMonth,d);
+          const { sess, plan } = getDayInfo(dateStr);
+          const dotColor=getDayColor(dateStr);
+          const tod=isToday(dateStr);
+          const fut=isFuture(dateStr);
+          const tpl=plan?.templateId?[...allTemplates,...allWods].find(t=>t.id===plan.templateId):null;
+          const sTpl=sess?.templateId?[...allTemplates,...allWods].find(t=>t.id===sess.templateId):null;
+          return (
+            <div key={i} onClick={()=>openDay(dateStr)}
+              style={{ background:tod?"#112240":dotColor?"#070d1a":"#04080f",border:`1px solid ${tod?"#1a6fff":dotColor?dotColor+"88":"#0f2040"}`,borderRadius:10,padding:"6px 4px",cursor:"pointer",minHeight:52,display:"flex",flexDirection:"column",alignItems:"center",gap:2,transition:"all .15s" }}>
+              <div style={{ fontSize:12,fontWeight:tod?900:600,color:tod?"#1a6fff":fut?"#7a90b8":"#e8edf5",fontFamily:"'Barlow Condensed',sans-serif" }}>{d}</div>
+              {dotColor&&<div style={{ width:8,height:8,borderRadius:"50%",background:dotColor,boxShadow:`0 0 6px ${dotColor}` }}/>}
+              {(sess||plan)&&(
+                <div style={{ fontSize:8,color:dotColor||"#3d5278",fontWeight:700,textAlign:"center",lineHeight:1.2,maxWidth:"100%",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",padding:"0 2px" }}>
+                  {sess?(sess.isWod?"🏋️":sTpl?.name?.split(" ").slice(0,2).join(" ")||"💪"):(plan.isWod?"🏋️":tpl?.name?.split(" ").slice(0,2).join(" ")||"📋")}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Upcoming planned sessions */}
+      {planned.filter(p=>p.date>=formatDate(today.getFullYear(),today.getMonth(),today.getDate())).sort((a,b)=>a.date.localeCompare(b.date)).length>0&&(
+        <div>
+          <SecTitle c="📅 Prochaines séances planifiées"/>
+          {planned.filter(p=>p.date>=formatDate(today.getFullYear(),today.getMonth(),today.getDate())).sort((a,b)=>a.date.localeCompare(b.date)).map((plan,i)=>{
+            const tpl=[...allTemplates,...allWods].find(t=>t.id===plan.templateId);
+            return (
+              <SwipeToDelete key={plan.id} onDelete={()=>removePlanned(plan.id)}>
+                <div style={{ background:"#070d1a",border:`1px solid ${plan.isWod?"#f9741644":"#1a6fff44"}`,borderRadius:12,padding:"12px 14px" }}>
+                  <div style={{ display:"flex",alignItems:"center",gap:10 }}>
+                    <div style={{ width:4,height:36,borderRadius:99,background:plan.isWod?"#f97316":"#1a6fff",flexShrink:0 }}/>
+                    <div style={{ flex:1 }}>
+                      <div style={{ fontWeight:800,fontSize:14,fontFamily:"'Barlow Condensed',sans-serif" }}>{plan.date}</div>
+                      {tpl&&<div style={{ fontSize:11,color:tpl.color||"#7a90b8",fontWeight:700 }}>{plan.isWod?"🏋️":""} {tpl.name}</div>}
+                      {plan.note&&<div style={{ fontSize:11,color:"#3d5278",marginTop:2 }}>📝 {plan.note}</div>}
+                    </div>
+                    <Badge label={plan.isWod?"WOD":"Séance"} color={plan.isWod?"#f97316":"#1a6fff"}/>
+                  </div>
+                </div>
+              </SwipeToDelete>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Day modal */}
+      {dayModal&&(
+        <div style={{ position:"fixed",inset:0,background:"#000d",display:"flex",alignItems:"flex-end",zIndex:99 }} onClick={()=>setDayModal(null)}>
+          <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:"20px 20px 0 0",padding:"20px 18px 40px",width:"100%",maxHeight:"88vh",overflowY:"auto" }}>
+            <div style={{ width:36,height:4,borderRadius:99,background:"#0f2040",margin:"0 auto 16px" }}/>
+
+            {/* Date header */}
+            <div style={{ fontSize:22,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:4 }}>
+              {(() => {
+                const [y,m,d]=dayModal.dateStr.split("-");
+                const date=new Date(+y,+m-1,+d);
+                const dayName=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"][date.getDay()];
+                return `${dayName} ${+d} ${MONTH_NAMES[m]} ${y}`;
+              })()}
+            </div>
+
+            {/* Existing session */}
+            {dayModal.sess&&(
+              <div style={{ background:dayModal.sess.isWod?"#f9741611":"#22c55e11",border:`1px solid ${dayModal.sess.isWod?"#f9741644":"#22c55e44"}`,borderRadius:12,padding:12,marginBottom:12 }}>
+                <div style={{ fontSize:12,fontWeight:700,color:dayModal.sess.isWod?"#f97316":"#22c55e",marginBottom:6 }}>
+                  {dayModal.sess.isWod?"🏋️ WOD effectué":"✅ Séance effectuée"}
+                </div>
+                {dayModal.sess.templateId&&(
+                  <div style={{ fontSize:13,fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif" }}>
+                    {[...allTemplates,...allWods].find(t=>t.id===dayModal.sess.templateId)?.name||"Séance libre"}
+                  </div>
+                )}
+                {dayModal.sess.isWod&&dayModal.sess.wodScore&&(
+                  <div style={{ fontSize:11,color:"#f97316",marginTop:4 }}>🏆 Score : {dayModal.sess.wodScore}</div>
+                )}
+                {dayModal.sess.note&&<div style={{ fontSize:11,color:"#7a90b8",marginTop:4 }}>{dayModal.sess.note}</div>}
+                <div style={{ marginTop:8 }}>
+                  <Badge label={dayModal.sess.present?"Présent":"Absent"} color={dayModal.sess.present?"#22c55e":"#e63946"}/>
+                </div>
+              </div>
+            )}
+
+            {/* Existing plan */}
+            {dayModal.plan&&!dayModal.sess&&(
+              <div style={{ background:"#1a6fff11",border:"1px solid #1a6fff44",borderRadius:12,padding:12,marginBottom:12 }}>
+                <div style={{ fontSize:12,fontWeight:700,color:"#1a6fff",marginBottom:6 }}>📋 Séance planifiée</div>
+                {dayModal.plan.templateId&&(
+                  <div style={{ fontSize:13,fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif" }}>
+                    {[...allTemplates,...allWods].find(t=>t.id===dayModal.plan.templateId)?.name||""}
+                  </div>
+                )}
+                {dayModal.plan.note&&<div style={{ fontSize:11,color:"#7a90b8",marginTop:4 }}>📝 {dayModal.plan.note}</div>}
+                <div style={{ display:"flex",gap:8,marginTop:10 }}>
+                  <Btn small danger onClick={()=>removePlanned(dayModal.plan.id)}>🗑️ Annuler</Btn>
+                </div>
+              </div>
+            )}
+
+            {/* Add options for empty/future days */}
+            {!dayModal.sess&&(
+              <>
+                {planMode==="choose"&&(
+                  <div>
+                    <div style={{ fontSize:12,color:"#7a90b8",marginBottom:12 }}>Que veux-tu faire pour ce jour ?</div>
+                    <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
+                      <button onClick={()=>setPlanMode("template")} style={{ background:"#1a6fff11",border:"1px solid #1a6fff44",borderRadius:12,padding:"14px 16px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:14,textTransform:"uppercase",cursor:"pointer",textAlign:"left",display:"flex",alignItems:"center",gap:12 }}>
+                        <span style={{ fontSize:24 }}>📋</span>
+                        <div>
+                          <div>Planifier une séance</div>
+                          <div style={{ fontSize:10,fontWeight:400,color:"#1a6fff88",textTransform:"none",marginTop:2 }}>Choisir un template existant</div>
+                        </div>
+                      </button>
+                      <button onClick={()=>setPlanMode("wod")} style={{ background:"#f9741611",border:"1px solid #f9741644",borderRadius:12,padding:"14px 16px",color:"#f97316",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:14,textTransform:"uppercase",cursor:"pointer",textAlign:"left",display:"flex",alignItems:"center",gap:12 }}>
+                        <span style={{ fontSize:24 }}>🏋️</span>
+                        <div>
+                          <div>Planifier un WOD</div>
+                          <div style={{ fontSize:10,fontWeight:400,color:"#f9731688",textTransform:"none",marginTop:2 }}>Choisir un WOD benchmark ou custom</div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {planMode==="template"&&(
+                  <div>
+                    <button onClick={()=>setPlanMode("choose")} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:11,fontFamily:"'Barlow',sans-serif",padding:0,marginBottom:12 }}>← Retour</button>
+                    <div style={{ fontSize:12,fontWeight:700,color:"#7a90b8",marginBottom:10 }}>Choisir un template :</div>
+                    <div style={{ display:"flex",flexDirection:"column",gap:6,maxHeight:220,overflowY:"auto",marginBottom:12 }}>
+                      {allTemplates.map(tpl=>(
+                        <div key={tpl.id} onClick={()=>setSelTemplate(selTemplate?.id===tpl.id?null:tpl)}
+                          style={{ background:selTemplate?.id===tpl.id?tpl.color+"22":"#070d1a",border:`1px solid ${selTemplate?.id===tpl.id?tpl.color:"#0f2040"}`,borderRadius:10,padding:"10px 12px",cursor:"pointer",display:"flex",alignItems:"center",gap:10 }}>
+                          <div style={{ width:4,height:32,borderRadius:99,background:tpl.color,flexShrink:0 }}/>
+                          <div style={{ flex:1 }}>
+                            <div style={{ fontWeight:800,fontSize:13,fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
+                            <div style={{ fontSize:10,color:"#3d5278" }}>{tpl.exercises?.length} exercices</div>
+                          </div>
+                          {selTemplate?.id===tpl.id&&<span style={{ color:tpl.color,fontSize:16 }}>✓</span>}
+                        </div>
+                      ))}
+                    </div>
+                    <Field label="Note (optionnel)" value={planNote} onChange={setPlanNote} placeholder="ex. Apporter sa ceinture..."/>
+                    <div style={{ marginTop:12,display:"flex",gap:8 }}>
+                      <Btn onClick={addPlanned} color="#1a6fff">📋 Planifier</Btn>
+                      <Btn ghost small onClick={()=>setDayModal(null)}>Annuler</Btn>
+                    </div>
+                  </div>
+                )}
+
+                {planMode==="wod"&&(
+                  <div>
+                    <button onClick={()=>setPlanMode("choose")} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:11,fontFamily:"'Barlow',sans-serif",padding:0,marginBottom:12 }}>← Retour</button>
+                    <div style={{ display:"flex",gap:2,background:"#070d1a",borderRadius:8,padding:3,marginBottom:12 }}>
+                      {[{id:"benchmarks",label:"Benchmarks"},{id:"custom",label:"Mes WODs"},{id:"create",label:"+ Créer"}].map(t=>(
+                        <button key={t.id} onClick={()=>setTplTab(t.id)} style={{ flex:1,padding:"6px 4px",borderRadius:6,border:"none",cursor:"pointer",background:tplTab===t.id?"#112240":"transparent",color:tplTab===t.id?"#f97316":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase",borderBottom:tplTab===t.id?"2px solid #f97316":"2px solid transparent" }}>{t.label}</button>
+                      ))}
+                    </div>
+                    {tplTab==="benchmarks"&&(
+                      <div style={{ display:"flex",flexDirection:"column",gap:6,maxHeight:240,overflowY:"auto",marginBottom:12 }}>
+                        {WOD_BENCHMARKS.map(wod=>(
+                          <div key={wod.id} onClick={()=>setSelWod(selWod?.id===wod.id?null:wod)}
+                            style={{ background:selWod?.id===wod.id?wod.color+"22":"#070d1a",border:`1px solid ${selWod?.id===wod.id?wod.color:"#0f2040"}`,borderRadius:10,padding:"10px 12px",cursor:"pointer",display:"flex",alignItems:"center",gap:10 }}>
+                            <div style={{ width:4,height:32,borderRadius:99,background:wod.color,flexShrink:0 }}/>
+                            <div style={{ flex:1 }}>
+                              <div style={{ fontWeight:800,fontSize:13,fontFamily:"'Barlow Condensed',sans-serif",color:wod.color }}>{wod.name}</div>
+                              <div style={{ fontSize:10,color:"#3d5278" }}>{wod.description} · {wod.category}</div>
+                            </div>
+                            {selWod?.id===wod.id&&<span style={{ color:wod.color,fontSize:16 }}>✓</span>}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {tplTab==="custom"&&(
+                      <div style={{ display:"flex",flexDirection:"column",gap:6,maxHeight:240,overflowY:"auto",marginBottom:12 }}>
+                        {allWods.filter(w=>w.category==="Mes WODs").length===0&&(
+                          <div style={{ textAlign:"center",color:"#3d5278",padding:20,fontSize:12 }}>Aucun WOD custom — crées-en un !</div>
+                        )}
+                        {allWods.filter(w=>w.category==="Mes WODs").map(wod=>(
+                          <div key={wod.id} onClick={()=>setSelWod(selWod?.id===wod.id?null:wod)}
+                            style={{ background:selWod?.id===wod.id?wod.color+"22":"#070d1a",border:`1px solid ${selWod?.id===wod.id?wod.color:"#0f2040"}`,borderRadius:10,padding:"10px 12px",cursor:"pointer" }}>
+                            <div style={{ fontWeight:800,fontSize:13,fontFamily:"'Barlow Condensed',sans-serif",color:wod.color }}>{wod.name}</div>
+                            <div style={{ fontSize:10,color:"#3d5278" }}>{wod.description}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {tplTab==="create"&&(
+                      <WodCreator onSave={(wod)=>{ setSelWod(wod); setTplTab("custom"); }} onClose={()=>setTplTab("benchmarks")}/>
+                    )}
+                    {(tplTab==="benchmarks"||tplTab==="custom")&&(
+                      <>
+                        <Field label="Note (optionnel)" value={planNote} onChange={setPlanNote} placeholder="ex. Gilet 10kg..."/>
+                        <div style={{ marginTop:12,display:"flex",gap:8 }}>
+                          <Btn onClick={()=>{ if(selWod){addPlanned();} }} color="#f97316">🏋️ Planifier le WOD</Btn>
+                          <Btn ghost small onClick={()=>setDayModal(null)}>Annuler</Btn>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ── TEMPLATES + WODs VIEW ─────────────────────────────────────────────────────
+const TemplatesView = ({ templates, customWods, onBack, onSave, onSaveWod }) => {
+  const [tplTab,setTplTab]=useState("templates");
+  const [showNew,setShowNew]=useState(false);
+  const [newTpl,setNewTpl]=useState({name:"",cat:"Push",color:"#1a6fff",exercises:[]});
+  const [pickingEx,setPickingEx]=useState(false);
+  const [search,setSearch]=useState("");
+  const [selCat,setSelCat]=useState("Push");
+  const [showWodCreator,setShowWodCreator]=useState(false);
+  const [wodFilter,setWodFilter]=useState("Tous");
+
+  function addExToNewTpl(ex){
     const libEx=LIBRARY.find(l=>l.id===ex.id);
-    const isCardio=libEx?.cat==="Cardio";
-    setNewTpl(p=>({...p,exercises:[...p.exercises,{ libId:ex.id,name:ex.name,sets:isCardio?"":3,reps:isCardio?"":10,rest:60,cardioType:libEx?.cardioType||"" }]}));
+    setNewTpl(p=>({...p,exercises:[...p.exercises,{libId:ex.id,name:ex.name,sets:3,reps:10,rest:60}]}));
     setPickingEx(false); setSearch("");
   }
-
-  function saveNewTpl() {
+  function saveNewTpl(){
     if (!newTpl.name.trim()||!newTpl.exercises.length) return;
-    onSave([...templates,{ ...newTpl,id:"tpl_"+Date.now() }]);
-    setNewTpl({ name:"",cat:"Push",color:"#1a6fff",exercises:[] }); setShowNew(false);
+    onSave([...templates,{...newTpl,id:"tpl_"+Date.now()}]);
+    setNewTpl({name:"",cat:"Push",color:"#1a6fff",exercises:[]}); setShowNew(false);
   }
 
-  const allWods=[...WOD_BENCHMARKS,...customWods];
-  const wodCategories=["Tous",...new Set(allWods.map(w=>w.category))];
-  const filteredWods=wodFilter==="Tous"?allWods:allWods.filter(w=>w.category===wodFilter);
+  const allWodsList=[...WOD_BENCHMARKS,...customWods];
+  const wodCats=["Tous",...new Set(allWodsList.map(w=>w.category))];
+  const filteredWods=wodFilter==="Tous"?allWodsList:allWodsList.filter(w=>w.category===wodFilter);
 
   return (
     <div style={{ minHeight:"100vh",background:"#000",color:"#e8edf5",fontFamily:"'Barlow',sans-serif",paddingBottom:48 }}>
       <div style={{ padding:"16px" }}>
         <button onClick={onBack} style={{ background:"none",border:"none",color:"#7a90b8",cursor:"pointer",fontSize:12,marginBottom:14,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Retour</button>
         <div style={{ fontSize:32,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:16 }}>TEMPLATES & WODs</div>
-
-        {/* Main tab */}
         <div style={{ display:"flex",gap:2,background:"#070d1a",borderRadius:10,padding:3,border:"1px solid #0f2040",marginBottom:20 }}>
           {[{id:"templates",label:"📋 Templates"},{id:"wods",label:"🏋️ WODs"}].map(t=>(
             <button key={t.id} onClick={()=>setTplTab(t.id)} style={{ flex:1,padding:"10px 4px",borderRadius:8,border:"none",cursor:"pointer",background:tplTab===t.id?"#112240":"transparent",color:tplTab===t.id?"#e8edf5":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:13,textTransform:"uppercase",transition:"all .2s",borderBottom:tplTab===t.id?"2px solid #1a6fff":"2px solid transparent" }}>{t.label}</button>
           ))}
         </div>
 
-        {/* TEMPLATES TAB */}
         {tplTab==="templates"&&(<>
-          <div style={{ display:"flex",justifyContent:"flex-end",marginBottom:14 }}>
-            <Btn small onClick={()=>setShowNew(!showNew)}>+ Nouveau template</Btn>
-          </div>
-
+          <div style={{ display:"flex",justifyContent:"flex-end",marginBottom:14 }}><Btn small onClick={()=>setShowNew(!showNew)}>+ Nouveau</Btn></div>
           {showNew&&(
             <div style={{ background:"#070d1a",border:"1px solid #1a6fff44",borderRadius:14,padding:14,marginBottom:20 }}>
               <SecTitle c="Nouveau template"/>
-              <div style={{ display:"flex",flexDirection:"column",gap:10,marginBottom:12 }}>
-                <Field label="Nom" value={newTpl.name} onChange={v=>setNewTpl(p=>({...p,name:v}))} placeholder="ex. Push Day C"/>
-                <div style={{ display:"flex",gap:5,flexWrap:"wrap" }}>
-                  {["Push","Pull","Legs","Functional","Abdos","Mobilité","Cardio"].map(cat=>(
-                    <button key={cat} onClick={()=>setNewTpl(p=>({...p,cat,color:CAT_COLOR[cat]||"#1a6fff"}))} style={{ flex:1,minWidth:60,padding:"6px 4px",borderRadius:8,border:`1px solid ${newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`,background:newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent",color:newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:9,textTransform:"uppercase",cursor:"pointer" }}>{cat}</button>
-                  ))}
-                </div>
+              <Field label="Nom" value={newTpl.name} onChange={v=>setNewTpl(p=>({...p,name:v}))} placeholder="ex. Push Day C"/>
+              <div style={{ height:8 }}/>
+              <div style={{ display:"flex",gap:5,flexWrap:"wrap",marginBottom:10 }}>
+                {["Push","Pull","Legs","Functional","Abdos","Mobilité"].map(cat=>(
+                  <button key={cat} onClick={()=>setNewTpl(p=>({...p,cat,color:CAT_COLOR[cat]||"#1a6fff"}))} style={{ padding:"5px 10px",borderRadius:8,border:`1px solid ${newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`,background:newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent",color:newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase",cursor:"pointer" }}>{cat}</button>
+                ))}
               </div>
               <button onClick={()=>setPickingEx(!pickingEx)} style={{ width:"100%",background:"#0a1628",border:"1px solid #1a6fff44",borderRadius:8,padding:"8px 14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:10 }}>
                 💪 {pickingEx?"Fermer":"Ajouter des exercices"}
@@ -871,7 +1033,7 @@ const TemplatesView = ({ templates, customWods, onBack, onSave, onSaveWod }) => 
                     ))}
                   </div>
                   <div style={{ maxHeight:180,overflowY:"auto",display:"flex",flexDirection:"column",gap:4 }}>
-                    {LIBRARY.filter(ex=>{ const mc=!search&&selCat?ex.cat===selCat:true; const ms=search?ex.name.toLowerCase().includes(search.toLowerCase()):true; return mc&&ms; }).map(ex=>(
+                    {LIBRARY.filter(ex=>{ const mc=!search?ex.cat===selCat:true; const ms=search?ex.name.toLowerCase().includes(search.toLowerCase()):true; return mc&&ms; }).map(ex=>(
                       <div key={ex.id} onClick={()=>addExToNewTpl(ex)}
                         style={{ display:"flex",alignItems:"center",gap:8,padding:"6px 8px",borderRadius:8,border:"1px solid #0f2040",cursor:"pointer" }}>
                         <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
@@ -886,8 +1048,8 @@ const TemplatesView = ({ templates, customWods, onBack, onSave, onSaveWod }) => 
                 <div key={i} style={{ display:"flex",alignItems:"center",gap:8,padding:"8px 10px",background:"#0a1628",borderRadius:8,marginBottom:6,border:"1px solid #0f2040" }}>
                   <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
                   <span style={{ flex:1,fontSize:12,fontWeight:600 }}>{ex.name}</span>
-                  <input type="number" value={ex.sets||""} onChange={e=>setNewTpl(p=>({...p,exercises:p.exercises.map((x,j)=>j===i?{...x,sets:e.target.value}:x)}))} placeholder="S" style={{ width:36,background:"#000",border:"1px solid #0f2040",borderRadius:6,padding:"4px 4px",color:"#e8edf5",fontSize:11,colorScheme:"dark",textAlign:"center" }}/>
-                  <input type="text" value={ex.reps||""} onChange={e=>setNewTpl(p=>({...p,exercises:p.exercises.map((x,j)=>j===i?{...x,reps:e.target.value}:x)}))} placeholder="R" style={{ width:44,background:"#000",border:"1px solid #0f2040",borderRadius:6,padding:"4px 4px",color:"#e8edf5",fontSize:11,colorScheme:"dark",textAlign:"center" }}/>
+                  <input type="number" value={ex.sets||""} onChange={e=>setNewTpl(p=>({...p,exercises:p.exercises.map((x,j)=>j===i?{...x,sets:e.target.value}:x)}))} placeholder="S" style={{ width:36,background:"#000",border:"1px solid #0f2040",borderRadius:6,padding:"4px",color:"#e8edf5",fontSize:11,colorScheme:"dark",textAlign:"center" }}/>
+                  <input type="text" value={ex.reps||""} onChange={e=>setNewTpl(p=>({...p,exercises:p.exercises.map((x,j)=>j===i?{...x,reps:e.target.value}:x)}))} placeholder="R" style={{ width:36,background:"#000",border:"1px solid #0f2040",borderRadius:6,padding:"4px",color:"#e8edf5",fontSize:11,colorScheme:"dark",textAlign:"center" }}/>
                   <button onClick={()=>setNewTpl(p=>({...p,exercises:p.exercises.filter((_,j)=>j!==i)}))} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:14,padding:0 }}>✕</button>
                 </div>
               ))}
@@ -926,15 +1088,12 @@ const TemplatesView = ({ templates, customWods, onBack, onSave, onSaveWod }) => 
             <div style={{ fontSize:11,fontWeight:700,color:"#3d5278",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10,marginTop:20,display:"flex",alignItems:"center",gap:8 }}>
               <div style={{ flex:1,height:1,background:"#0f2040" }}/> Mes templates <div style={{ flex:1,height:1,background:"#0f2040" }}/>
             </div>
-            {templates.map((tpl,i)=>(
+            {templates.map(tpl=>(
               <SwipeToDelete key={tpl.id} onDelete={()=>onSave(templates.filter(t=>t.id!==tpl.id))}>
                 <div className="ch fu" style={{ background:"#070d1a",border:`1px solid ${tpl.color||"#1a6fff"}33`,borderRadius:14,padding:14 }}>
                   <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:8 }}>
                     <div style={{ width:4,height:44,borderRadius:99,background:tpl.color||"#1a6fff",flexShrink:0 }}/>
-                    <div style={{ flex:1 }}>
-                      <div style={{ fontWeight:900,fontSize:16,fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
-                      <div style={{ fontSize:11,color:"#3d5278" }}>{tpl.exercises.length} exercices</div>
-                    </div>
+                    <div style={{ flex:1 }}><div style={{ fontWeight:900,fontSize:16,fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div></div>
                   </div>
                   {tpl.exercises.map((ex,j)=>(
                     <div key={j} style={{ display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:j<tpl.exercises.length-1?"1px solid #0f204044":"none" }}>
@@ -949,35 +1108,22 @@ const TemplatesView = ({ templates, customWods, onBack, onSave, onSaveWod }) => 
           </>)}
         </>)}
 
-        {/* WODs TAB */}
         {tplTab==="wods"&&(<>
           <div style={{ display:"flex",justifyContent:"flex-end",marginBottom:14 }}>
             <Btn small color="#f97316" onClick={()=>setShowWodCreator(!showWodCreator)}>🏋️ Créer un WOD</Btn>
           </div>
-
-          {showWodCreator&&(
-            <WodCreator
-              onSave={(wod)=>{ onSaveWod([...customWods,wod]); setShowWodCreator(false); }}
-              onClose={()=>setShowWodCreator(false)}
-            />
-          )}
-
-          {/* Category filter */}
+          {showWodCreator&&<WodCreator onSave={(wod)=>{ onSaveWod([...customWods,wod]); setShowWodCreator(false); }} onClose={()=>setShowWodCreator(false)}/>}
           <div style={{ display:"flex",gap:5,marginBottom:14,overflowX:"auto",paddingBottom:4 }}>
-            {wodCategories.map(cat=>(
+            {wodCats.map(cat=>(
               <button key={cat} onClick={()=>setWodFilter(cat)} style={{ padding:"5px 12px",borderRadius:99,border:`1px solid ${wodFilter===cat?"#e63946":"#0f2040"}`,background:wodFilter===cat?"#e6394622":"transparent",color:wodFilter===cat?"#e63946":"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",cursor:"pointer",flexShrink:0 }}>{cat}</button>
             ))}
           </div>
-
-          {filteredWods.map((wod,i)=>(
-            <WodCard key={wod.id} wod={wod} compact={false}/>
-          ))}
-
+          {filteredWods.map(wod=><WodCard key={wod.id} wod={wod} compact={false}/>)}
           {customWods.length>0&&(<>
             <div style={{ fontSize:11,fontWeight:700,color:"#3d5278",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10,marginTop:10,display:"flex",alignItems:"center",gap:8 }}>
               <div style={{ flex:1,height:1,background:"#0f2040" }}/> Mes WODs <div style={{ flex:1,height:1,background:"#0f2040" }}/>
             </div>
-            {customWods.map((wod,i)=>(
+            {customWods.map(wod=>(
               <SwipeToDelete key={wod.id} onDelete={()=>onSaveWod(customWods.filter(w=>w.id!==wod.id))}>
                 <WodCard wod={wod} compact={false}/>
               </SwipeToDelete>
@@ -1001,7 +1147,7 @@ const ProgressionCharts = ({ metrics }) => {
     if (vals.length<2) return null;
     const min=Math.min(...vals)-1, max=Math.max(...vals)+1;
     const W=260, H=60;
-    const pts=data.map((v,i)=>({ x:(i/(data.length-1))*(W-20)+10, y:v>0?H-((v-min)/(max-min))*(H-16)-4:null, v })).filter(p=>p.y!==null);
+    const pts=data.map((v,i)=>({ x:(i/(data.length-1))*(W-20)+10, y:v>0?H-((v-min)/(max-min))*(H-16)-4:null })).filter(p=>p.y!==null);
     const path=pts.map((p,i)=>`${i===0?"M":"L"} ${p.x} ${p.y}`).join(" ");
     const area=`${path} L ${pts[pts.length-1].x} ${H} L ${pts[0].x} ${H} Z`;
     const delta=vals[vals.length-1]-vals[0];
@@ -1022,10 +1168,6 @@ const ProgressionCharts = ({ metrics }) => {
           <path d={path} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           {pts.map((p,i)=>(<circle key={i} cx={p.x} cy={p.y} r="3.5" fill={color} stroke="#000" strokeWidth="1.5"/>))}
         </svg>
-        <div style={{ display:"flex",justifyContent:"space-between",marginTop:4 }}>
-          <span style={{ fontSize:9,color:"#3d5278" }}>{sorted[0]?.date?.slice(5)}</span>
-          <span style={{ fontSize:9,color:"#3d5278" }}>{sorted[sorted.length-1]?.date?.slice(5)}</span>
-        </div>
       </div>
     );
   };
@@ -1051,7 +1193,7 @@ const ChargesTab = ({ sessions }) => {
       if (!ex.libId||libEx?.cat==="Cardio"||ex.isWodMovement) return;
       if (!ex.load||+ex.load<=0) return;
       const load=+ex.load, reps=+ex.reps||0;
-      if (!bestPerEx[ex.libId]||load>bestPerEx[ex.libId].load||(load===bestPerEx[ex.libId].load&&reps>bestPerEx[ex.libId].reps)) {
+      if (!bestPerEx[ex.libId]||load>bestPerEx[ex.libId].load) {
         bestPerEx[ex.libId]={ libId:ex.libId,name:ex.name,load,reps,date:s.date,rpe:ex.rpe };
       }
     });
@@ -1070,7 +1212,6 @@ const ChargesTab = ({ sessions }) => {
     <div style={{ textAlign:"center",color:"#3d5278",padding:60 }}>
       <div style={{ fontSize:32,marginBottom:12 }}>🏋️</div>
       <div style={{ fontSize:14,fontWeight:700,marginBottom:6 }}>Aucune charge enregistrée</div>
-      <div style={{ fontSize:12 }}>Ajoute des exercices avec charges dans tes séances</div>
     </div>
   );
   return (
@@ -1082,8 +1223,6 @@ const ChargesTab = ({ sessions }) => {
         const libEx=LIBRARY.find(l=>l.id===ex.libId);
         const orm=calc1RM(ex.load,ex.reps);
         const history=(loadHistory[ex.libId]||[]).sort((a,b)=>a.date.localeCompare(b.date));
-        const prevBest=history.length>1?history.slice(0,-1).reduce((max,h)=>h.load>max?h.load:max,0):0;
-        const delta=prevBest>0?ex.load-prevBest:null;
         const sparkLoads=history.map(h=>h.load);
         const sparkMin=sparkLoads.length>1?Math.min(...sparkLoads)-2:0;
         const sparkMax=sparkLoads.length>1?Math.max(...sparkLoads)+2:ex.load+10;
@@ -1097,13 +1236,10 @@ const ChargesTab = ({ sessions }) => {
               <div style={{ flex:1,minWidth:0 }}>
                 <div style={{ fontWeight:800,fontSize:15,fontFamily:"'Barlow Condensed',sans-serif",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{ex.name}</div>
                 {libEx&&<div style={{ fontSize:10,color:"#3d5278" }}>{libEx.muscles}</div>}
-                <div style={{ fontSize:10,color:"#3d5278" }}>📅 {ex.date}</div>
               </div>
               <div style={{ textAlign:"right",flexShrink:0 }}>
                 <div style={{ fontSize:26,fontWeight:900,color:"#f59e0b",fontFamily:"'Barlow Condensed',sans-serif",lineHeight:1 }}>{ex.load}<span style={{ fontSize:12 }}>kg</span></div>
                 <div style={{ fontSize:11,color:"#7a90b8" }}>× {ex.reps} reps</div>
-                {ex.rpe&&<div style={{ fontSize:10,color:rpeColor(ex.rpe),fontWeight:700 }}>RPE {ex.rpe}</div>}
-                {delta!==null&&<div style={{ fontSize:11,color:delta>=0?"#22c55e":"#e63946",fontWeight:700 }}>{delta>=0?"▲":"▼"} {Math.abs(delta)}kg</div>}
               </div>
             </div>
             {orm&&(
@@ -1113,12 +1249,10 @@ const ChargesTab = ({ sessions }) => {
               </div>
             )}
             {sparkLoads.length>1&&(
-              <div style={{ marginBottom:8 }}>
-                <svg width="100%" viewBox={`0 0 ${SW} ${SH}`}>
-                  <path d={sparkPath} fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
-                  {sparkPts.map((p,idx)=>(<circle key={idx} cx={p.x} cy={p.y} r="2.5" fill="#f59e0b" opacity="0.8"/>))}
-                </svg>
-              </div>
+              <svg width="100%" viewBox={`0 0 ${SW} ${SH}`} style={{ marginBottom:8 }}>
+                <path d={sparkPath} fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
+                {sparkPts.map((p,idx)=>(<circle key={idx} cx={p.x} cy={p.y} r="2.5" fill="#f59e0b" opacity="0.8"/>))}
+              </svg>
             )}
             <Bar value={(ex.load/maxLoad)*100} color="#f59e0b" h={3}/>
           </div>
@@ -1233,22 +1367,22 @@ const SessionExercisePicker = ({ onAdd, onClose }) => {
 };
 
 const TemplatePicker = ({ onSelect, onClose, allTemplates, allWods }) => {
-  const [pickerTab, setPickerTab] = useState("templates");
-  const [selCat, setSelCat] = useState("Tous");
+  const [pickerTab,setPickerTab]=useState("templates");
+  const [selCat,setSelCat]=useState("Tous");
   const cats=[...new Set(allTemplates.map(t=>t.cat))];
   const filtered=selCat==="Tous"?allTemplates:allTemplates.filter(t=>t.cat===selCat);
   const wodCategories=["Tous",...new Set(allWods.map(w=>w.category))];
-  const [wodCat, setWodCat] = useState("Tous");
+  const [wodCat,setWodCat]=useState("Tous");
   const filteredWods=wodCat==="Tous"?allWods:allWods.filter(w=>w.category===wodCat);
   return (
     <div style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:12 }}>
       <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12 }}>
-        <span style={{ fontSize:13,fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",color:"#e8edf5",textTransform:"uppercase",letterSpacing:"0.06em" }}>Choisir un template</span>
+        <span style={{ fontSize:13,fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",color:"#e8edf5",textTransform:"uppercase" }}>Choisir un template</span>
         <Btn small ghost onClick={onClose}>✕</Btn>
       </div>
       <div style={{ display:"flex",gap:2,background:"#070d1a",borderRadius:8,padding:3,marginBottom:12 }}>
         {[{id:"templates",label:"📋 Templates"},{id:"wods",label:"🏋️ WODs"}].map(t=>(
-          <button key={t.id} onClick={()=>setPickerTab(t.id)} style={{ flex:1,padding:"7px 4px",borderRadius:6,border:"none",cursor:"pointer",background:pickerTab===t.id?"#112240":"transparent",color:pickerTab===t.id?"#e8edf5":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",transition:"all .2s",borderBottom:pickerTab===t.id?"2px solid #1a6fff":"2px solid transparent" }}>{t.label}</button>
+          <button key={t.id} onClick={()=>setPickerTab(t.id)} style={{ flex:1,padding:"7px 4px",borderRadius:6,border:"none",cursor:"pointer",background:pickerTab===t.id?"#112240":"transparent",color:pickerTab===t.id?"#e8edf5":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",borderBottom:pickerTab===t.id?"2px solid #1a6fff":"2px solid transparent" }}>{t.label}</button>
         ))}
       </div>
       {pickerTab==="templates"&&(<>
@@ -1260,12 +1394,11 @@ const TemplatePicker = ({ onSelect, onClose, allTemplates, allWods }) => {
         <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
           {filtered.map(tpl=>(
             <div key={tpl.id} onClick={()=>onSelect(tpl)}
-              style={{ background:"#070d1a",border:`1px solid ${tpl.color||"#0f2040"}33`,borderRadius:12,padding:"12px 14px",cursor:"pointer",display:"flex",alignItems:"center",gap:12,transition:"all .15s" }}>
+              style={{ background:"#070d1a",border:`1px solid ${tpl.color||"#0f2040"}33`,borderRadius:12,padding:"12px 14px",cursor:"pointer",display:"flex",alignItems:"center",gap:12 }}>
               <div style={{ width:4,height:40,borderRadius:99,background:tpl.color||"#1a6fff",flexShrink:0 }}/>
               <div style={{ flex:1 }}>
                 <div style={{ fontWeight:800,fontSize:14,fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
-                <div style={{ fontSize:11,color:"#3d5278",marginTop:2 }}>{tpl.exercises.length} exercices · {tpl.cat}</div>
-                <div style={{ fontSize:10,color:"#3d5278",marginTop:2 }}>{tpl.exercises.map(e=>e.name).slice(0,3).join(" · ")}...</div>
+                <div style={{ fontSize:11,color:"#3d5278",marginTop:2 }}>{tpl.exercises?.length} exercices</div>
               </div>
               <span style={{ fontSize:18,color:tpl.color||"#1a6fff" }}>→</span>
             </div>
@@ -1279,9 +1412,7 @@ const TemplatePicker = ({ onSelect, onClose, allTemplates, allWods }) => {
           ))}
         </div>
         <div style={{ maxHeight:300,overflowY:"auto" }}>
-          {filteredWods.map(wod=>(
-            <WodCard key={wod.id} wod={wod} onSelect={onSelect} compact={true}/>
-          ))}
+          {filteredWods.map(wod=><WodCard key={wod.id} wod={wod} onSelect={onSelect} compact={true}/>)}
         </div>
       </>)}
     </div>
@@ -1292,12 +1423,12 @@ const PPLGenerator = ({ onAdd }) => {
   const [type,setType]=useState("Push");
   const [generated,setGenerated]=useState([]);
   const TYPES={
-    Push:["bench_press","overhead_press","incline_press","dips","lateral_raise","tricep_pushdown","cable_fly","pushup","bench_dumbbell"],
-    Pull:["pullup","barbell_row","deadlift","lat_pulldown","face_pull","bicep_curl","hammer_curl","dumbbell_row","gorilla_row"],
-    Legs:["squat","back_squat","front_squat","rdl","lunge","bulgarian_split","leg_press","leg_curl","calf_raise","glute_bridge","goblet_squat","hip_thrust","crab_walk","kickback"],
+    Push:["bench_press","overhead_press","incline_press","dips","lateral_raise","tricep_pushdown","pushup"],
+    Pull:["pullup","barbell_row","deadlift","lat_pulldown","face_pull","bicep_curl","hammer_curl"],
+    Legs:["squat","back_squat","front_squat","rdl","lunge","bulgarian_split","leg_press","hip_thrust","crab_walk","kickback"],
     Abdos:["ab_crunch","ab_wheel","leg_raise","russian_twist","hollow_body","sit_up","pallof_press"],
     Cardio:["run","bike","rowing_machine","assault_bike","skierg","jump_rope"],
-    Functional:["kb_russian_swing","kb_american_swing","kb_snatch","gorilla_row","farmer_walk","wall_ball","thruster","box_jump","devil_press","toes_to_bar"],
+    Functional:["kb_russian_swing","kb_american_swing","kb_snatch","gorilla_row","farmer_walk","wall_ball","thruster","box_jump"],
     Mobilité:["hip90","pigeon","catcow","worldsgreatest","thoracic_rot","hip_flexor","ankle_mob","foam_roll"],
   };
   function generate(){
@@ -1415,7 +1546,7 @@ export default function App() {
 
   function doAddClient() {
     if (!newC.name.trim()) return;
-    sync([...clients,{id:"c"+Date.now(),...newC,age:+newC.age,since:new Date().toISOString().slice(0,7),status:"actif",progress:0,sessions:[],metrics:[],programs:[],goals:[]}],null,null);
+    sync([...clients,{id:"c"+Date.now(),...newC,age:+newC.age,since:new Date().toISOString().slice(0,7),status:"actif",progress:0,sessions:[],metrics:[],programs:[],goals:[],planned:[]}],null,null);
     setNewC({name:"",age:"",sport:"",objective:"",notes:""}); setAddOpen(false);
   }
 
@@ -1436,27 +1567,22 @@ export default function App() {
     if (!newS.date||!cl) return;
     let sess;
     if (sessionMode==="wod"&&pendingWod) {
-      sess = {
-        id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration,
-        isWod:true, templateId:pendingWod.id,
-        wodFormat:pendingWod.format, wodDuration:pendingWod.duration,
-        wodRounds:pendingWod.rounds, wodMinutes:pendingWod.minutes,
-        wodTimecap:pendingWod.timecap, wodScore:pendingWod.score||"",
-        wodName:pendingWod.name, wodColor:pendingWod.color,
-        exercises:(pendingWod.movements||[]).map(mv=>({
-          id:"se"+Date.now()+Math.random(), libId:mv.libId||"",
-          name:mv.name, reps:mv.reps, sets:"1", load:"", rest:"", rpe:"", isWodMovement:true,
-        })),
+      sess = { id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration,
+        isWod:true, templateId:pendingWod.id, wodFormat:pendingWod.format, wodDuration:pendingWod.duration,
+        wodRounds:pendingWod.rounds, wodMinutes:pendingWod.minutes, wodTimecap:pendingWod.timecap,
+        wodScore:pendingWod.score||"", wodName:pendingWod.name, wodColor:pendingWod.color,
+        exercises:(pendingWod.movements||[]).map(mv=>({ id:"se"+Date.now()+Math.random(), libId:mv.libId||"", name:mv.name, reps:mv.reps, sets:"1", load:"", rest:"", rpe:"", isWodMovement:true })),
       };
     } else {
       sess = { id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration, exercises:pendingSession.exercises||[], templateId:pendingSession.templateId||null };
     }
-    up(selId,{sessions:[sess,...cl.sessions]});
+    // Remove from planned if it matches this date
+    const updatedPlanned=(cl.planned||[]).filter(p=>p.date!==newS.date);
+    up(selId,{sessions:[sess,...cl.sessions], planned:updatedPlanned});
     setNewS({date:"",present:true,duration:"",note:""});
     setPendingSession({exercises:[]}); setPendingWod(null);
     setShowExPicker(false); setShowNewSession(false);
-    setShowTemplatePicker(false); setShowWodCreator(false);
-    setSessionMode("normal");
+    setShowTemplatePicker(false); setShowWodCreator(false); setSessionMode("normal");
   }
 
   function doSaveEditSession() {
@@ -1467,14 +1593,12 @@ export default function App() {
 
   function applyTemplateToSession(tpl) {
     if (tpl.type==="wod") {
-      setPendingWod({...tpl, score:""});
-      setSessionMode("wod");
-      setShowTemplatePicker(false);
+      setPendingWod({...tpl,score:""});
+      setSessionMode("wod"); setShowTemplatePicker(false);
     } else {
       const exercises=applyTemplate(tpl,cl.sessions);
       setPendingSession({exercises,templateId:tpl.id});
-      setSessionMode("normal");
-      setShowTemplatePicker(false);
+      setSessionMode("normal"); setShowTemplatePicker(false);
     }
   }
 
@@ -1523,19 +1647,28 @@ export default function App() {
     setShowGenerator(false); setGeneratorPid(null);
   }
 
+  // Open new session from calendar with pre-filled date and optional template
+  function openSessionFromCalendar(dateStr, plan) {
+    setTab("sessions");
+    setShowNewSession(true);
+    setNewS({date:dateStr, present:true, duration:"", note:plan?.note||""});
+    if (plan?.templateId) {
+      const tpl=[...allTemplates,...allWods].find(t=>t.id===plan.templateId);
+      if (tpl) applyTemplateToSession(tpl);
+    }
+  }
+
   const wrap = (children) => (
     <div style={{ minHeight:"100vh",background:"#000",color:"#e8edf5",fontFamily:"'Barlow',sans-serif",paddingBottom:48 }}>
       <style>{GLOBAL_CSS}</style><StatusDot status={fbStatus}/>{children}
     </div>
   );
 
-  // ── TEMPLATES VIEW ────────────────────────────────────────────────────────
   if (view==="templates") return wrap(
     <TemplatesView templates={customTemplates} customWods={customWods}
       onBack={()=>setView("dash")} onSave={saveTemplates} onSaveWod={saveWods}/>
   );
 
-  // ── LIBRARY ───────────────────────────────────────────────────────────────
   if (view==="library") {
     const filtered=LIBRARY.filter(e=>{
       const matchCat=libCat==="Tous"||e.cat===libCat;
@@ -1575,12 +1708,10 @@ export default function App() {
             </div>
           ))}
         </div>
-        {filtered.length===0&&<div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucun exercice trouvé</div>}
       </div>
     );
   }
 
-  // ── DASHBOARD ─────────────────────────────────────────────────────────────
   if (view==="dash") {
     const total=clients.reduce((a,c)=>a+c.sessions.filter(s=>s.present).length,0);
     const actif=clients.filter(c=>c.status==="actif").length;
@@ -1615,7 +1746,11 @@ export default function App() {
           const a2=c.sessions.length?Math.round(c.sessions.filter(s=>s.present).length/c.sessions.length*100):0;
           const lw=c.metrics[0];
           const lastSession=c.sessions[0];
-          const lastTpl=lastSession?.templateId?allTemplates.find(t=>t.id===lastSession.templateId)||allWods.find(w=>w.id===lastSession.templateId):null;
+          const lastTpl=lastSession?.templateId?[...allTemplates,...allWods].find(t=>t.id===lastSession.templateId):null;
+          const today=new Date();
+          const todayStr=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+          const nextPlanned=(c.planned||[]).filter(p=>p.date>=todayStr).sort((a,b)=>a.date.localeCompare(b.date))[0];
+          const nextTpl=nextPlanned?[...allTemplates,...allWods].find(t=>t.id===nextPlanned.templateId):null;
           return (
             <div key={c.id} className="ch fu" onClick={()=>openClient(c.id)}
               style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:15,marginBottom:10,cursor:"pointer",animationDelay:`${i*.05}s`,opacity:c.status==="inactif"?0.5:1 }}>
@@ -1624,9 +1759,11 @@ export default function App() {
                 <div style={{ flex:1,minWidth:0 }}>
                   <div style={{ fontWeight:900,fontSize:16,fontFamily:"'Barlow Condensed',sans-serif",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{c.name.toUpperCase()}</div>
                   <div style={{ color:"#7a90b8",fontSize:12,marginTop:1 }}>{c.sport} · {c.objective}</div>
-                  {lastTpl&&<div style={{ fontSize:10,color:"#3d5278",marginTop:2 }}>
-                    {lastSession?.isWod?"🏋️":"📋"} <b style={{ color:lastTpl.color||"#1a6fff" }}>{lastTpl.name}</b>
-                  </div>}
+                  {nextPlanned&&nextTpl&&(
+                    <div style={{ fontSize:10,color:"#1a6fff",marginTop:2 }}>
+                      📅 <b>{nextPlanned.date}</b> — {nextPlanned.isWod?"🏋️":""} {nextTpl.name}
+                    </div>
+                  )}
                 </div>
                 <div style={{ display:"flex",flexDirection:"column",alignItems:"flex-end",gap:4,flexShrink:0 }}>
                   <Badge label={c.status} color={STATUS_COLOR[c.status]||"#3d5278"}/>
@@ -1637,6 +1774,7 @@ export default function App() {
                 <span>📅 <b style={{ color:"#7a90b8" }}>{c.sessions.length}</b></span>
                 <span>✅ <b style={{ color:a2>=80?"#22c55e":"#f59e0b" }}>{a2}%</b></span>
                 <span>🎯 <b style={{ color:"#7a90b8" }}>{c.goals.filter(g=>g.done).length}/{c.goals.length}</b></span>
+                <span>📆 <b style={{ color:"#7a90b8" }}>{(c.planned||[]).length}</b></span>
               </div>
               <Bar value={c.progress} color="#1a6fff"/>
             </div>
@@ -1659,7 +1797,7 @@ export default function App() {
               <Field label="Objectif" value={newC.objective} onChange={v=>setNewC(p=>({...p,objective:v}))} placeholder="Perte de poids, Performance..."/>
               <div style={{ display:"flex",flexDirection:"column",gap:4 }}>
                 <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase" }}>Notes</label>
-                <textarea value={newC.notes||""} onChange={e=>setNewC(p=>({...p,notes:e.target.value}))} placeholder="Blessures, préférences, infos importantes..."
+                <textarea value={newC.notes||""} onChange={e=>setNewC(p=>({...p,notes:e.target.value}))} placeholder="Blessures, préférences..."
                   style={{ background:"#000",border:"1.5px solid #0f2040",borderRadius:8,padding:"9px 10px",color:"#e8edf5",fontSize:13,fontFamily:"'Barlow',sans-serif",outline:"none",width:"100%",colorScheme:"dark",boxSizing:"border-box",resize:"none",minHeight:70 }}
                   onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
               </div>
@@ -1675,7 +1813,7 @@ export default function App() {
         <div style={{ position:"fixed",inset:0,background:"#000c",display:"flex",alignItems:"center",justifyContent:"center",zIndex:99,padding:24 }} onClick={()=>setConfirmDelete(null)}>
           <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #e6394644",borderRadius:20,padding:24,width:"100%",maxWidth:360 }}>
             <div style={{ fontSize:20,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:8,color:"#e63946" }}>⚠️ Supprimer ce client ?</div>
-            <div style={{ fontSize:13,color:"#7a90b8",marginBottom:20 }}>Toutes les données de <b style={{ color:"#e8edf5" }}>{confirmDelete.name}</b> seront définitivement supprimées.</div>
+            <div style={{ fontSize:13,color:"#7a90b8",marginBottom:20 }}>Toutes les données de <b style={{ color:"#e8edf5" }}>{confirmDelete.name}</b> seront supprimées.</div>
             <div style={{ display:"flex",gap:10 }}>
               <Btn danger onClick={()=>doDeleteClient(confirmDelete.id)}>Supprimer</Btn>
               <Btn ghost onClick={()=>setConfirmDelete(null)}>Annuler</Btn>
@@ -1686,27 +1824,23 @@ export default function App() {
     </>);
   }
 
-  // ── CLIENT DETAIL ─────────────────────────────────────────────────────────
   if (view==="client"&&cl) {
     const att=cl.sessions.length?Math.round(cl.sessions.filter(s=>s.present).length/cl.sessions.length*100):0;
     const lw=cl.metrics[0],pw=cl.metrics[1];
     const wd=lw&&pw?+(lw.weight-pw.weight).toFixed(1):null;
     const done=cl.goals.filter(g=>g.done).length;
     const gPct=cl.goals.length?Math.round(done/cl.goals.length*100):0;
-    const TABS=[{id:"sessions",label:"Séances"},{id:"metrics",label:"Métriques"},{id:"programs",label:"Programme"},{id:"goals",label:"Objectifs"},{id:"charges",label:"Charges"}];
+    const TABS=[{id:"sessions",label:"Séances"},{id:"calendar",label:"📅 Planning"},{id:"metrics",label:"Métriques"},{id:"programs",label:"Programme"},{id:"goals",label:"Objectifs"},{id:"charges",label:"Charges"}];
     const sessionsByMonth=cl.sessions.reduce((acc,s)=>{
       const month=s.date?s.date.slice(0,7):"inconnu";
       if (!acc[month]) acc[month]=[];
       acc[month].push(s); return acc;
     },{});
     const sortedMonths=Object.keys(sessionsByMonth).sort((a,b)=>b.localeCompare(a));
-
     const lastTplId=cl.sessions.find(s=>s.templateId)?.templateId;
     const lastTpl=lastTplId?[...allTemplates,...allWods].find(t=>t.id===lastTplId):null;
     const suggestedTpl=lastTpl
-      ? (lastTpl.type==="wod"
-          ? allWods.find(w=>w.category===lastTpl.category&&w.id!==lastTpl.id)||allWods[0]
-          : allTemplates.find(t=>t.cat===lastTpl.cat&&t.id!==lastTpl.id)||allTemplates[0])
+      ? (lastTpl.type==="wod"?allWods.find(w=>w.category===lastTpl.category&&w.id!==lastTpl.id)||allWods[0]:allTemplates.find(t=>t.cat===lastTpl.cat&&t.id!==lastTpl.id)||allTemplates[0])
       : allTemplates[0];
 
     if (editingClient&&editC) return wrap(<>
@@ -1730,7 +1864,7 @@ export default function App() {
           </div>
           <div style={{ display:"flex",flexDirection:"column",gap:4 }}>
             <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase" }}>Notes</label>
-            <textarea value={editC.notes||""} onChange={e=>setEditC(p=>({...p,notes:e.target.value}))} placeholder="Blessures, préférences, infos importantes..."
+            <textarea value={editC.notes||""} onChange={e=>setEditC(p=>({...p,notes:e.target.value}))} placeholder="Blessures, préférences..."
               style={{ background:"#000",border:"1.5px solid #0f2040",borderRadius:8,padding:"9px 10px",color:"#e8edf5",fontSize:13,fontFamily:"'Barlow',sans-serif",outline:"none",width:"100%",colorScheme:"dark",boxSizing:"border-box",resize:"none",minHeight:90 }}
               onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
           </div>
@@ -1750,8 +1884,7 @@ export default function App() {
       {confirmDelete&&(
         <div style={{ position:"fixed",inset:0,background:"#000c",display:"flex",alignItems:"center",justifyContent:"center",zIndex:99,padding:24 }} onClick={()=>setConfirmDelete(null)}>
           <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #e6394644",borderRadius:20,padding:24,width:"100%",maxWidth:360 }}>
-            <div style={{ fontSize:20,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:8,color:"#e63946" }}>⚠️ Supprimer ce client ?</div>
-            <div style={{ fontSize:13,color:"#7a90b8",marginBottom:20 }}>Toutes les données de <b style={{ color:"#e8edf5" }}>{cl.name}</b> seront définitivement supprimées.</div>
+            <div style={{ fontSize:20,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:8,color:"#e63946" }}>⚠️ Supprimer ?</div>
             <div style={{ display:"flex",gap:10 }}>
               <Btn danger onClick={()=>doDeleteClient(cl.id)}>Supprimer</Btn>
               <Btn ghost onClick={()=>setConfirmDelete(null)}>Annuler</Btn>
@@ -1783,6 +1916,7 @@ export default function App() {
             {l:"Présences",v:cl.sessions.filter(s=>s.present).length,c:"#e8edf5"},
             {l:"Assiduité",v:`${att}%`,c:att>=80?"#22c55e":"#f59e0b"},
             {l:"WODs",v:cl.sessions.filter(s=>s.isWod).length,c:"#f97316"},
+            {l:"Planifiées",v:(cl.planned||[]).length,c:"#1a6fff"},
             {l:"Poids",v:lw?`${lw.weight}kg`:"—",c:"#1a6fff"},
             {l:"Δ",v:wd!==null?`${wd>0?"+":""}${wd}kg`:"—",c:wd!==null?(wd<=0?"#22c55e":"#e63946"):"#3d5278"},
           ].map(s=>(
@@ -1804,6 +1938,17 @@ export default function App() {
 
       <div style={{ padding:"14px" }}>
 
+        {/* ── CALENDAR TAB ── */}
+        {tab==="calendar"&&(
+          <CalendarTab
+            client={cl}
+            allTemplates={allTemplates}
+            allWods={allWods}
+            onUpdate={(patch)=>up(selId,patch)}
+          />
+        )}
+
+        {/* ── SESSIONS TAB ── */}
         {tab==="sessions"&&<div className="fu">
           <MonthlyReport sessions={cl.sessions} metrics={cl.metrics}/>
 
@@ -1811,15 +1956,13 @@ export default function App() {
             <div style={{ marginBottom:16 }}>
               {suggestedTpl&&(
                 <div style={{ background:`${suggestedTpl.color||"#1a6fff"}11`,border:`1px solid ${suggestedTpl.color||"#1a6fff"}44`,borderRadius:14,padding:12,marginBottom:10 }}>
-                  <div style={{ fontSize:10,color:"#7a90b8",marginBottom:6 }}>
-                    {suggestedTpl.type==="wod"?"🏋️ WOD suggéré":"💡 Suggestion basée sur l'historique"}
-                  </div>
+                  <div style={{ fontSize:10,color:"#7a90b8",marginBottom:6 }}>{suggestedTpl.type==="wod"?"🏋️ WOD suggéré":"💡 Suggestion basée sur l'historique"}</div>
                   <div style={{ display:"flex",alignItems:"center",gap:10 }}>
                     <div style={{ flex:1 }}>
                       <div style={{ fontWeight:800,fontSize:14,fontFamily:"'Barlow Condensed',sans-serif",color:suggestedTpl.color||"#1a6fff" }}>{suggestedTpl.name}</div>
                       {suggestedTpl.type==="wod"
-                        ? <div style={{ fontSize:11,color:"#3d5278" }}>{suggestedTpl.description} · {suggestedTpl.movements?.length} mouvements</div>
-                        : <div style={{ fontSize:11,color:"#3d5278" }}>{suggestedTpl.exercises?.length} exercices · {suggestedTpl.exercises?.map(e=>e.name).slice(0,2).join(", ")}...</div>
+                        ?<div style={{ fontSize:11,color:"#3d5278" }}>{suggestedTpl.description} · {suggestedTpl.movements?.length} mouvements</div>
+                        :<div style={{ fontSize:11,color:"#3d5278" }}>{suggestedTpl.exercises?.length} exercices</div>
                       }
                     </div>
                     <Btn small onClick={()=>{ setShowNewSession(true); applyTemplateToSession(suggestedTpl); }} color={suggestedTpl.color||"#1a6fff"}>Utiliser →</Btn>
@@ -1841,32 +1984,24 @@ export default function App() {
                 <SecTitle c={sessionMode==="wod"?"🏋️ Nouveau WOD":"💪 Nouvelle séance"}/>
                 <div style={{ display:"flex",gap:6,alignItems:"center" }}>
                   <div style={{ display:"flex",gap:2,background:"#0a1628",borderRadius:8,padding:2 }}>
-                    <button onClick={()=>{ setSessionMode("normal"); setPendingWod(null); }} style={{ padding:"4px 10px",borderRadius:6,border:"none",cursor:"pointer",background:sessionMode==="normal"?"#1a6fff":"transparent",color:sessionMode==="normal"?"#fff":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase" }}>💪 Séance</button>
-                    <button onClick={()=>{ setSessionMode("wod"); setPendingSession({exercises:[]}); }} style={{ padding:"4px 10px",borderRadius:6,border:"none",cursor:"pointer",background:sessionMode==="wod"?"#f97316":"transparent",color:sessionMode==="wod"?"#fff":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase" }}>🏋️ WOD</button>
+                    <button onClick={()=>{ setSessionMode("normal"); setPendingWod(null); }} style={{ padding:"4px 10px",borderRadius:6,border:"none",cursor:"pointer",background:sessionMode==="normal"?"#1a6fff":"transparent",color:sessionMode==="normal"?"#fff":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase" }}>💪</button>
+                    <button onClick={()=>{ setSessionMode("wod"); setPendingSession({exercises:[]}); }} style={{ padding:"4px 10px",borderRadius:6,border:"none",cursor:"pointer",background:sessionMode==="wod"?"#f97316":"transparent",color:sessionMode==="wod"?"#fff":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase" }}>🏋️</button>
                   </div>
                   <button onClick={()=>{ setShowNewSession(false); setNewS({date:"",present:true,duration:"",note:""}); setPendingSession({exercises:[]}); setPendingWod(null); setShowExPicker(false); setShowTemplatePicker(false); setShowWodCreator(false); setSessionMode("normal"); }} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:18,padding:0 }}>✕</button>
                 </div>
               </div>
 
-              {/* Template / WOD picker button */}
               <button onClick={()=>setShowTemplatePicker(!showTemplatePicker)} style={{ width:"100%",background:"#0a1628",border:`1px solid ${sessionMode==="wod"?"#f9741644":"#1a6fff44"}`,borderRadius:8,padding:"8px 14px",color:sessionMode==="wod"?"#f97316":"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:10,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
                 {sessionMode==="wod"?"🏋️":"📋"} {showTemplatePicker?"Fermer":sessionMode==="wod"?"Choisir un WOD":"Choisir un template"}
               </button>
+              {showTemplatePicker&&<TemplatePicker allTemplates={allTemplates} allWods={allWods} onSelect={applyTemplateToSession} onClose={()=>setShowTemplatePicker(false)}/>}
 
-              {showTemplatePicker&&(
-                <TemplatePicker allTemplates={allTemplates} allWods={allWods} onSelect={applyTemplateToSession} onClose={()=>setShowTemplatePicker(false)}/>
-              )}
-
-              {/* WOD MODE */}
               {sessionMode==="wod"&&(<>
                 {pendingWod?(
                   <div style={{ marginBottom:10 }}>
                     <WodCard wod={pendingWod} compact={true}/>
-                    <Field label="Score / Résultat" value={pendingWod.score||""} onChange={v=>setPendingWod(p=>({...p,score:v}))}
-                      placeholder={["amrap","emom","timecap"].includes(pendingWod.format)?"ex. 18 rounds + 5 reps":"ex. 12:34"}/>
-                    <div style={{ marginTop:8 }}>
-                      <button onClick={()=>setPendingWod(null)} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:11,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Changer de WOD</button>
-                    </div>
+                    <Field label="Score / Résultat" value={pendingWod.score||""} onChange={v=>setPendingWod(p=>({...p,score:v}))} placeholder={["amrap","emom","timecap"].includes(pendingWod.format)?"ex. 18 rounds":"ex. 12:34"}/>
+                    <div style={{ marginTop:8 }}><button onClick={()=>setPendingWod(null)} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:11,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Changer de WOD</button></div>
                   </div>
                 ):(
                   !showTemplatePicker&&(
@@ -1874,18 +2009,12 @@ export default function App() {
                       <button onClick={()=>setShowWodCreator(!showWodCreator)} style={{ width:"100%",background:"#0a1628",border:"1px solid #f9741644",borderRadius:8,padding:"8px 14px",color:"#f97316",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:10 }}>
                         ✏️ {showWodCreator?"Fermer":"Créer un WOD personnalisé"}
                       </button>
-                      {showWodCreator&&(
-                        <WodCreator
-                          onSave={(wod)=>{ setPendingWod({...wod,score:""}); setShowWodCreator(false); saveWods([...customWods,wod]); }}
-                          onClose={()=>setShowWodCreator(false)}
-                        />
-                      )}
+                      {showWodCreator&&<WodCreator onSave={(wod)=>{ setPendingWod({...wod,score:""}); setShowWodCreator(false); saveWods([...customWods,wod]); }} onClose={()=>setShowWodCreator(false)}/>}
                     </div>
                   )
                 )}
               </>)}
 
-              {/* Template badge */}
               {sessionMode==="normal"&&pendingSession.templateId&&(
                 <div style={{ background:"#f9741611",border:"1px solid #f9741633",borderRadius:8,padding:"6px 12px",marginBottom:10,display:"flex",alignItems:"center",gap:8 }}>
                   <span style={{ fontSize:11,color:"#f97316" }}>📋 Template : <b>{allTemplates.find(t=>t.id===pendingSession.templateId)?.name||"Custom"}</b></span>
@@ -1917,14 +2046,14 @@ export default function App() {
                   </div>
                 )}
               </>)}
-
-              <div style={{ marginTop:12 }}><Btn onClick={doAddSession} color={sessionMode==="wod"?"#f97316":undefined}>
-                {sessionMode==="wod"?"🏋️ Enregistrer le WOD":"💪 Enregistrer la séance"}
-              </Btn></div>
+              <div style={{ marginTop:12 }}>
+                <Btn onClick={doAddSession} color={sessionMode==="wod"?"#f97316":undefined}>
+                  {sessionMode==="wod"?"🏋️ Enregistrer le WOD":"💪 Enregistrer la séance"}
+                </Btn>
+              </div>
             </div>
           )}
 
-          {/* Edit session modal */}
           {editingSession&&(
             <div style={{ position:"fixed",inset:0,background:"#000e",display:"flex",alignItems:"flex-end",zIndex:99 }} onClick={()=>setEditingSession(null)}>
               <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:"20px 20px 0 0",padding:"24px 18px 40px",width:"100%",maxHeight:"90vh",overflowY:"auto" }}>
@@ -1938,9 +2067,7 @@ export default function App() {
                     <span style={{ fontSize:13,color:"#7a90b8",fontWeight:600 }}>Client présent(e)</span>
                   </div>
                   <Field label="Notes" value={editingSession.note||""} onChange={v=>setEditingSession(p=>({...p,note:v}))} placeholder="Observations..."/>
-                  {editingSession.isWod&&(
-                    <Field label="Score WOD" value={editingSession.wodScore||""} onChange={v=>setEditingSession(p=>({...p,wodScore:v}))} placeholder="ex. 18 rounds + 5 reps"/>
-                  )}
+                  {editingSession.isWod&&<Field label="Score WOD" value={editingSession.wodScore||""} onChange={v=>setEditingSession(p=>({...p,wodScore:v}))} placeholder="ex. 18 rounds"/>}
                 </div>
                 {!editingSession.isWod&&(editingSession.exercises||[]).map((ex,i)=>(
                   <ExerciseFields key={i} ex={ex} idx={i} onChange={updateEditSessionEx} onRemove={()=>removeEditSessionEx(i)}/>
@@ -1988,8 +2115,6 @@ export default function App() {
                               </div>
                             </div>
                             {s.note&&<div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{s.note}</div>}
-
-                            {/* WOD display */}
                             {s.isWod&&(
                               <div style={{ marginTop:8,background:"#f9741611",borderRadius:8,padding:"8px 10px",border:"1px solid #f9741633" }}>
                                 {fmt&&<div style={{ fontSize:11,fontWeight:800,color:"#f97316",marginBottom:4 }}>{fmt.icon} {s.wodFormat?.toUpperCase()} {s.wodDuration?`— ${s.wodDuration} min`:s.wodRounds?`— ${s.wodRounds} rounds`:""}</div>}
@@ -2003,8 +2128,6 @@ export default function App() {
                                 {s.wodScore&&<div style={{ marginTop:6,padding:"4px 8px",background:"#f9741622",borderRadius:6,fontSize:11,color:"#f97316",fontWeight:700 }}>🏆 Score : {s.wodScore}</div>}
                               </div>
                             )}
-
-                            {/* Normal session exercises */}
                             {!s.isWod&&s.exercises&&s.exercises.length>0&&(
                               <div style={{ marginTop:8 }}>
                                 {s.exercises.map((ex,j)=>{
@@ -2060,7 +2183,7 @@ export default function App() {
           {cl.metrics.map((m,i)=>{
             const prev=cl.metrics[i+1]; const d=prev?+(m.weight-prev.weight).toFixed(1):null;
             return <SwipeToDelete key={m.date+i} onDelete={()=>up(selId,{metrics:cl.metrics.filter((_,idx)=>idx!==i)})}>
-              <div className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,animationDelay:`${i*.04}s` }}>
+              <div className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14 }}>
                 <div style={{ display:"flex",justifyContent:"space-between",marginBottom:10 }}>
                   <span style={{ fontWeight:700,fontFamily:"'Barlow Condensed',sans-serif",fontSize:14,color:"#7a90b8" }}>{m.date}</span>
                   <div style={{ textAlign:"right" }}>
@@ -2158,17 +2281,15 @@ export default function App() {
                     <div style={{ flex:1 }}>
                       <div style={{ fontWeight:700,fontSize:14 }}>{ex.name}</div>
                       {orm&&<div style={{ fontSize:10,color:"#3d5278" }}>1RM estimé : <b style={{ color:"#1a6fff" }}>{orm}kg</b></div>}
-                      {ex.note&&<div style={{ fontSize:11,color:"#3d5278" }}>{ex.note}</div>}
                     </div>
                     <div style={{ display:"flex",gap:5,flexWrap:"wrap",justifyContent:"flex-end" }}>
                       {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
                       {ex.load&&<Badge label={ex.load} color="#f59e0b"/>}
-                      {lib&&<Badge label={lib.cat} color={CAT_COLOR[lib.cat]||"#1a6fff"}/>}
                     </div>
                   </div>
                 );
               })}
-              {!prog.exercises.length&&<div style={{ padding:"14px",color:"#3d5278",fontSize:12 }}>Aucun exercice — utilise le générateur ou ajoutes-en un !</div>}
+              {!prog.exercises.length&&<div style={{ padding:"14px",color:"#3d5278",fontSize:12 }}>Aucun exercice — utilise le générateur !</div>}
             </div>
           ))}
           {!cl.programs.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucun programme créé</div>}
@@ -2181,7 +2302,6 @@ export default function App() {
               <span style={{ fontSize:22,fontWeight:900,color:gPct===100?"#22c55e":"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif" }}>{gPct}%</span>
             </div>
             <Bar value={gPct} color={gPct===100?"#22c55e":"#1a6fff"} h={8}/>
-            <div style={{ marginTop:8,fontSize:11,color:"#3d5278" }}>{done}/{cl.goals.length} objectif{done>1?"s":""} atteint{done>1?"s":""}</div>
           </div>
           <div style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:14 }}>
             <SecTitle c="Nouvel objectif"/>
