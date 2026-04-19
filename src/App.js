@@ -527,7 +527,7 @@ const SessionLiveMode = ({ plan, allTemplates, allWods, onSave, onClose }) => {
           {plan.type==="wod"?"🏋️ ":""}{plan.name}
         </div>
         <div style={{ fontSize:12,color:"#7a90b8" }}>
-          {plan.date} · {plan.type==="wod"?(fmt?`${fmt.icon} ${fmt.name}${plan.duration?` — ${plan.duration} min`:""}`:""): `${exercises.length} exercices`}
+         {plan.date} · {plan.type==="wod"?(fmt?`${fmt.icon} ${fmt.name}${plan.duration?` — ${plan.duration} min`:""}`:""):`${exercises.length} exercices`}
         </div>
         {plan.note&&<div style={{ fontSize:11,color:"#3d5278",marginTop:4,fontStyle:"italic" }}>📝 {plan.note}</div>}
       </div>
