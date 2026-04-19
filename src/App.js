@@ -143,7 +143,7 @@ const STATUS_COLOR = { actif:"#22c55e", pause:"#f59e0b", inactif:"#3d5278" };
 
 const calc1RM = (load, reps) => {
   if (!load||!reps||+reps===0||+reps>30) return null;
-  return Math.round(+load*(1++reps/30));
+  return Math.round(+load*(1 + +reps/30));
 };
 
 const rpeColor = (rpe) => {
