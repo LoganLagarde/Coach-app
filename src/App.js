@@ -24,7 +24,7 @@ const AnatomySVG = ({ id }) => {
     burpee:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">PLANCHE</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">SAUT</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="68" cy="42" r="6" {...body}/><rect x="38" y="58" width="42" height="7" rx="3" {...body}/><rect x="64" y="48" width="6" height="12" rx="2" {...body}/><rect x="28" y="60" width="6" height="12" rx="2" {...body}/><rect x="76" y="60" width="6" height="12" rx="2" {...body}/><rect x="44" y="56" width="26" height="7" rx="3" {...muscle}/><circle cx="150" cy="16" r="7" {...body}/><rect x="146" y="23" width="8" height="18" rx="3" {...body}/><line x1="128" y1="14" x2="146" y2="28" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><line x1="172" y1="14" x2="154" y2="28" stroke={BodyColor} strokeWidth="4" strokeLinecap="round"/><rect x="140" y="41" width="6" height="20" rx="2" {...muscle}/><rect x="154" y="41" width="6" height="20" rx="2" {...muscle}/><rect x="138" y="61" width="6" height="18" rx="2" {...body}/><rect x="156" y="61" width="6" height="18" rx="2" {...body}/><text x="150" y="115" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Full body • Cardio</text></svg>),
     run:(<svg style={s} viewBox="0 0 200 120" fill="none"><text x="50" y="9" textAnchor="middle" fill="#1a6fff" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">APPUI</text><text x="150" y="9" textAnchor="middle" fill="#22c55e" fontSize="7" fontFamily="Barlow Condensed" fontWeight="700">FOULÉE</text><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="50" cy="20" r="7" {...body}/><rect x="46" y="27" width="8" height="16" rx="3" {...body}/><rect x="36" y="33" width="8" height="12" rx="2" {...body}/><rect x="56" y="33" width="8" height="12" rx="2" {...body}/><rect x="43" y="43" width="6" height="20" rx="2" {...body}/><rect x="51" y="43" width="6" height="20" rx="2" {...body}/><rect x="41" y="63" width="6" height="16" rx="2" {...body}/><rect x="51" y="63" width="6" height="16" rx="2" {...body}/><circle cx="150" cy="18" r="7" {...body}/><rect x="146" y="25" width="8" height="16" rx="3" {...body}/><rect x="133" y="30" width="8" height="12" rx="2" {...body}/><rect x="159" y="30" width="8" height="12" rx="2" {...body}/><rect x="138" y="41" width="7" height="20" rx="3" {...muscle}/><rect x="156" y="38" width="7" height="18" rx="3" {...muscleO}/><rect x="137" y="61" width="6" height="16" rx="2" {...body}/><rect x="155" y="56" width="6" height="14" rx="2" {...body}/><text x="150" y="117" textAnchor="middle" fill={MuscleRed} fontSize="6" fontFamily="Barlow">Quadriceps • Ischio • Mollets</text></svg>),
   };
-  const defaultSVG = (<svg style={s} viewBox="0 0 200 120" fill="none"><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="50" cy="24" r="8" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="44" y="32" width="12" height="22" rx="4" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="36" y="36" width="8" height="18" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="56" y="36" width="8" height="18" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="42" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="51" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="41" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="50" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><circle cx="150" cy="24" r="8" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="144" y="32" width="12" height="22" rx="4" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/><rect x="136" y="36" width="8" height="18" rx="3" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/><rect x="156" y="36" width="8" height="18" rx="3" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/><rect x="142" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="151" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="141" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="150" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/></svg>);
+  const defaultSVG=(<svg style={s} viewBox="0 0 200 120" fill="none"><line x1="100" y1="4" x2="100" y2="116" stroke="#0f2040" strokeWidth="1"/><circle cx="50" cy="24" r="8" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="44" y="32" width="12" height="22" rx="4" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="36" y="36" width="8" height="18" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="56" y="36" width="8" height="18" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="42" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="51" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="41" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="50" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><circle cx="150" cy="24" r="8" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="144" y="32" width="12" height="22" rx="4" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/><rect x="136" y="36" width="8" height="18" rx="3" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/><rect x="156" y="36" width="8" height="18" rx="3" fill={MuscleRed} stroke="#ff6b7a" strokeWidth="1"/><rect x="142" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="151" y="54" width="7" height="24" rx="3" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="141" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/><rect x="150" y="78" width="6" height="20" rx="2" fill={BodyColor} stroke={BodyStroke} strokeWidth="1.5"/></svg>);
   return (<div style={{ width:"100%", aspectRatio:"2/1", background:"#04080f", borderRadius:10, overflow:"hidden", display:"flex", alignItems:"center", justifyContent:"center", padding:6 }}>{illustrations[id]||defaultSVG}</div>);
 };
 
@@ -36,100 +36,96 @@ const MUSCLE_GROUPS = {
   "Biceps":["pullup","bicep_curl","hammer_curl","barbell_row"],
   "Quadriceps":["squat","back_squat","front_squat","zercher_squat","goblet_squat","lunge","leg_press","bulgarian_split"],
   "Ischio-jamb.":["deadlift","rdl","leg_curl","glute_bridge","lunge"],
-  "Fessiers":["squat","back_squat","rdl","glute_bridge","bulgarian_split","lunge","hip90"],
+  "Fessiers":["squat","back_squat","rdl","glute_bridge","bulgarian_split","lunge","hip90","hip_thrust","crab_walk","kickback"],
   "Abdominaux":["plank","ab_crunch","ab_wheel","leg_raise","russian_twist","hollow_body","dragon_flag","pallof_press","sit_up","cable_crunch"],
   "Cardio":["run","bike","rowing_machine","assault_bike","skierg","jumpingjack","jump_rope","hiit_sprint"],
   "Functional":["kb_russian_swing","kb_american_swing","kb_snatch","kb_tgu","kb_clean_press","gorilla_row","farmer_walk","wall_ball","box_jump","thruster","clean_jerk","barbell_snatch","battle_rope"],
 };
 
-// Cardio type detection for specific fields
-const CARDIO_TYPE = {
-  run: "run",
-  bike: "watts", rowing_machine: "watts", assault_bike: "watts", skierg: "watts",
-  jumpingjack: "duration", jump_rope: "duration", hiit_sprint: "duration",
-  box_jump: "functional", battle_rope: "duration",
-};
-
 const LIBRARY = [
   // PUSH
-  { id:"bench_press",     name:"Développé couché",     cat:"Push",       muscles:"Pectoraux, Triceps, Épaules",       tip:"Omoplates rétractées, coudes à 45°." },
-  { id:"overhead_press",  name:"Développé militaire",  cat:"Push",       muscles:"Épaules, Triceps, Trapèzes",        tip:"Gainage abdominal, barre dans l'axe." },
-  { id:"incline_press",   name:"Développé incliné",    cat:"Push",       muscles:"Pectoraux sup., Épaules",           tip:"Inclinaison 30-45°, contrôle en descente." },
-  { id:"dips",            name:"Dips",                 cat:"Push",       muscles:"Triceps, Pectoraux inférieurs",     tip:"Légère inclinaison avant pour les pectoraux." },
-  { id:"lateral_raise",   name:"Élévations latérales", cat:"Push",       muscles:"Deltoïdes latéraux",                tip:"Coudes légèrement fléchis, jusqu'à l'horizontal." },
-  { id:"tricep_pushdown", name:"Pushdown triceps",     cat:"Push",       muscles:"Triceps",                           tip:"Coudes fixes contre le corps." },
-  { id:"cable_fly",       name:"Écarté poulie",        cat:"Push",       muscles:"Pectoraux, Deltoïdes ant.",         tip:"Légère flexion des coudes, arc de cercle." },
-  { id:"skull_crusher",   name:"Skull crusher",        cat:"Push",       muscles:"Triceps long",                      tip:"Coudes fixes, descente vers le front." },
-  { id:"pushup",          name:"Pompes",               cat:"Push",       muscles:"Pectoraux, Triceps, Épaules",       tip:"Corps gainé, coudes à 45°." },
-  { id:"bench_dumbbell",  name:"Développé haltères",   cat:"Push",       muscles:"Pectoraux, Triceps",                tip:"Grande amplitude, coudes à 45°." },
+  { id:"bench_press",      name:"Développé couché",      cat:"Push",       muscles:"Pectoraux, Triceps, Épaules",        tip:"Omoplates rétractées, coudes à 45°." },
+  { id:"overhead_press",   name:"Développé militaire",   cat:"Push",       muscles:"Épaules, Triceps, Trapèzes",         tip:"Gainage abdominal, barre dans l'axe." },
+  { id:"incline_press",    name:"Développé incliné",     cat:"Push",       muscles:"Pectoraux sup., Épaules",            tip:"Inclinaison 30-45°, contrôle en descente." },
+  { id:"incline_fly",      name:"Écarté incliné",        cat:"Push",       muscles:"Pectoraux sup., Deltoïdes ant.",      tip:"Arc de cercle, légère flexion des coudes." },
+  { id:"dips",             name:"Dips",                  cat:"Push",       muscles:"Triceps, Pectoraux inférieurs",      tip:"Légère inclinaison avant pour les pectoraux." },
+  { id:"lateral_raise",    name:"Élévations latérales",  cat:"Push",       muscles:"Deltoïdes latéraux",                 tip:"Coudes légèrement fléchis, jusqu'à l'horizontal." },
+  { id:"tricep_pushdown",  name:"Pushdown triceps",      cat:"Push",       muscles:"Triceps",                            tip:"Coudes fixes contre le corps." },
+  { id:"cable_fly",        name:"Écarté poulie",         cat:"Push",       muscles:"Pectoraux, Deltoïdes ant.",          tip:"Légère flexion des coudes, arc de cercle." },
+  { id:"skull_crusher",    name:"Skull crusher",         cat:"Push",       muscles:"Triceps long",                       tip:"Coudes fixes, descente vers le front." },
+  { id:"pushup",           name:"Pompes",                cat:"Push",       muscles:"Pectoraux, Triceps, Épaules",        tip:"Corps gainé, coudes à 45°." },
+  { id:"bench_dumbbell",   name:"Développé haltères",    cat:"Push",       muscles:"Pectoraux, Triceps",                 tip:"Grande amplitude, coudes à 45°." },
   // PULL
-  { id:"pullup",          name:"Traction",             cat:"Pull",       muscles:"Grand dorsal, Biceps, Rhomboïdes",  tip:"Dépression scapulaire avant de tirer." },
-  { id:"barbell_row",     name:"Rowing barre",         cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes, Biceps",  tip:"Dos plat, tirage vers le nombril." },
-  { id:"dumbbell_row",    name:"Rowing haltère",       cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes",          tip:"Coude près du corps, tirage jusqu'à la hanche." },
-  { id:"lat_pulldown",    name:"Tirage poulie haute",  cat:"Pull",       muscles:"Grand dorsal, Biceps",              tip:"Tirage vers le sternum." },
-  { id:"face_pull",       name:"Face pull",            cat:"Pull",       muscles:"Deltoïdes post., Rhomboïdes",       tip:"Tirer vers le visage, coudes hauts." },
-  { id:"bicep_curl",      name:"Curl biceps",          cat:"Pull",       muscles:"Biceps, Brachial",                  tip:"Coudes fixes, supination en haut." },
-  { id:"hammer_curl",     name:"Curl marteau",         cat:"Pull",       muscles:"Biceps, Brachioradial",             tip:"Prise neutre, coudes fixes." },
-  { id:"shrug",           name:"Haussements épaules",  cat:"Pull",       muscles:"Trapèzes supérieurs",               tip:"Mouvement vertical pur, pas de rotation." },
-  { id:"deadlift",        name:"Deadlift",             cat:"Pull",       muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps." },
+  { id:"pullup",           name:"Traction",              cat:"Pull",       muscles:"Grand dorsal, Biceps, Rhomboïdes",   tip:"Dépression scapulaire avant de tirer." },
+  { id:"barbell_row",      name:"Rowing barre",          cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes, Biceps",   tip:"Dos plat, tirage vers le nombril." },
+  { id:"dumbbell_row",     name:"Rowing haltère",        cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes",           tip:"Coude près du corps, tirage jusqu'à la hanche." },
+  { id:"lat_pulldown",     name:"Tirage poulie haute",   cat:"Pull",       muscles:"Grand dorsal, Biceps",               tip:"Tirage vers le sternum." },
+  { id:"face_pull",        name:"Face pull",             cat:"Pull",       muscles:"Deltoïdes post., Rhomboïdes",        tip:"Tirer vers le visage, coudes hauts." },
+  { id:"bicep_curl",       name:"Curl biceps",           cat:"Pull",       muscles:"Biceps, Brachial",                   tip:"Coudes fixes, supination en haut." },
+  { id:"hammer_curl",      name:"Curl marteau",          cat:"Pull",       muscles:"Biceps, Brachioradial",              tip:"Prise neutre, coudes fixes." },
+  { id:"shrug",            name:"Haussements épaules",   cat:"Pull",       muscles:"Trapèzes supérieurs",                tip:"Mouvement vertical pur, pas de rotation." },
+  { id:"deadlift",         name:"Deadlift",              cat:"Pull",       muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps." },
+  { id:"gorilla_row",      name:"Gorilla Row",           cat:"Pull",       muscles:"Grand dorsal, Biceps, Core",         tip:"2 KB au sol, row alterné en gardant les hanches stables." },
   // LEGS
-  { id:"squat",           name:"Squat",                cat:"Legs",       muscles:"Quadriceps, Fessiers, Ischio",      tip:"Pieds largeur épaules, genoux dans l'axe." },
-  { id:"back_squat",      name:"Back Squat",           cat:"Legs",       muscles:"Quadriceps, Fessiers, Ischio",      tip:"Barre haute sur les trapèzes, dos droit." },
-  { id:"front_squat",     name:"Front Squat",          cat:"Legs",       muscles:"Quadriceps, Core, Épaules",         tip:"Coudes hauts, barre sur les deltoïdes." },
-  { id:"zercher_squat",   name:"Zercher Squat",        cat:"Legs",       muscles:"Quadriceps, Core, Biceps",          tip:"Barre dans le creux des coudes, dos droit." },
-  { id:"goblet_squat",    name:"Goblet Squat",         cat:"Legs",       muscles:"Quadriceps, Fessiers, Core",        tip:"KB ou haltère contre la poitrine, talons au sol." },
-  { id:"lunge",           name:"Fente avant",          cat:"Legs",       muscles:"Quadriceps, Fessiers, Mollets",     tip:"Genou avant à 90°, genou arrière près du sol." },
-  { id:"rdl",             name:"Romanian Deadlift",    cat:"Legs",       muscles:"Ischio-jambiers, Fessiers",         tip:"Charnière hanche, dos plat." },
-  { id:"leg_press",       name:"Presse à cuisses",     cat:"Legs",       muscles:"Quadriceps, Fessiers",              tip:"Pieds à largeur d'épaules, genoux dans l'axe." },
-  { id:"leg_curl",        name:"Leg curl",             cat:"Legs",       muscles:"Ischio-jambiers",                   tip:"Contraction complète, descente contrôlée." },
-  { id:"calf_raise",      name:"Mollets debout",       cat:"Legs",       muscles:"Mollets, Soléaire",                 tip:"Amplitude complète, pause en haut." },
-  { id:"glute_bridge",    name:"Pont fessier",         cat:"Legs",       muscles:"Fessiers, Ischio-jambiers",         tip:"Poussée sur les talons, contraction en haut." },
-  { id:"bulgarian_split", name:"Fente bulgare",        cat:"Legs",       muscles:"Quadriceps, Fessiers",              tip:"Pied arrière surélevé, genou avant à 90°." },
+  { id:"squat",            name:"Squat",                 cat:"Legs",       muscles:"Quadriceps, Fessiers, Ischio",       tip:"Pieds largeur épaules, genoux dans l'axe." },
+  { id:"back_squat",       name:"Back Squat",            cat:"Legs",       muscles:"Quadriceps, Fessiers, Ischio",       tip:"Barre haute sur les trapèzes, dos droit." },
+  { id:"front_squat",      name:"Front Squat",           cat:"Legs",       muscles:"Quadriceps, Core, Épaules",          tip:"Coudes hauts, barre sur les deltoïdes." },
+  { id:"zercher_squat",    name:"Zercher Squat",         cat:"Legs",       muscles:"Quadriceps, Core, Biceps",           tip:"Barre dans le creux des coudes, dos droit." },
+  { id:"goblet_squat",     name:"Goblet Squat",          cat:"Legs",       muscles:"Quadriceps, Fessiers, Core",         tip:"KB ou haltère contre la poitrine, talons au sol." },
+  { id:"hip_thrust",       name:"Hip Thrust",            cat:"Legs",       muscles:"Fessiers, Ischio-jambiers",          tip:"Épaules sur le banc, poussée explosive des hanches." },
+  { id:"lunge",            name:"Fente avant",           cat:"Legs",       muscles:"Quadriceps, Fessiers, Mollets",      tip:"Genou avant à 90°, genou arrière près du sol." },
+  { id:"rdl",              name:"Romanian Deadlift",     cat:"Legs",       muscles:"Ischio-jambiers, Fessiers",          tip:"Charnière hanche, dos plat." },
+  { id:"leg_press",        name:"Presse à cuisses",      cat:"Legs",       muscles:"Quadriceps, Fessiers",               tip:"Pieds à largeur d'épaules, genoux dans l'axe." },
+  { id:"leg_curl",         name:"Leg curl",              cat:"Legs",       muscles:"Ischio-jambiers",                    tip:"Contraction complète, descente contrôlée." },
+  { id:"calf_raise",       name:"Mollets debout",        cat:"Legs",       muscles:"Mollets, Soléaire",                  tip:"Amplitude complète, pause en haut." },
+  { id:"glute_bridge",     name:"Pont fessier",          cat:"Legs",       muscles:"Fessiers, Ischio-jambiers",          tip:"Poussée sur les talons, contraction en haut." },
+  { id:"bulgarian_split",  name:"Fente bulgare",         cat:"Legs",       muscles:"Quadriceps, Fessiers",               tip:"Pied arrière surélevé, genou avant à 90°." },
+  { id:"crab_walk",        name:"Marche crabe élastique",cat:"Legs",       muscles:"Fessiers, Abducteurs, Genoux",       tip:"Élastique au-dessus des genoux, dos droit, pas latéraux." },
+  { id:"kickback",         name:"Kickback fessier",      cat:"Legs",       muscles:"Fessiers, Ischio-jambiers",          tip:"Contraction maximale en haut, contrôle en descente." },
   // MUSCULATION
-  { id:"plank",           name:"Gainage planche",      cat:"Musculation",muscles:"Abdominaux, Lombaires, Épaules",    tip:"Corps aligné, hanches ne tombent pas." },
-  { id:"hip90",           name:"Hip 90/90",            cat:"Musculation",muscles:"Rotateurs hanche, Fessiers",        tip:"Deux jambes à 90°, bascule lente." },
+  { id:"plank",            name:"Gainage planche",       cat:"Musculation",muscles:"Abdominaux, Lombaires, Épaules",     tip:"Corps aligné, hanches ne tombent pas." },
+  { id:"hip90",            name:"Hip 90/90",             cat:"Musculation",muscles:"Rotateurs hanche, Fessiers",         tip:"Deux jambes à 90°, bascule lente." },
   // ABDOS
-  { id:"ab_crunch",       name:"Crunch",               cat:"Abdos",      muscles:"Grand droit abdominal",             tip:"Expiration en montant, ne pas tirer la nuque." },
-  { id:"ab_wheel",        name:"Ab Wheel (roulette)",  cat:"Abdos",      muscles:"Grand droit, Core profond",         tip:"Dos plat, bras tendus, ne pas creuser les reins." },
-  { id:"leg_raise",       name:"Relevé de jambes",     cat:"Abdos",      muscles:"Abdominaux bas, Fléchisseurs hanche", tip:"Lombaires au sol, jambes quasi tendues." },
-  { id:"russian_twist",   name:"Russian Twist KB",     cat:"Abdos",      muscles:"Obliques, Grand droit",             tip:"Pieds levés, rotation complète de chaque côté." },
-  { id:"hollow_body",     name:"Hollow Body",          cat:"Abdos",      muscles:"Core profond, Grand droit",         tip:"Bas du dos au sol, membres en extension." },
-  { id:"dragon_flag",     name:"Dragon Flag",          cat:"Abdos",      muscles:"Grand droit, Core complet",         tip:"Corps rigide, descente lente et contrôlée." },
-  { id:"pallof_press",    name:"Pallof Press",         cat:"Abdos",      muscles:"Obliques, Core anti-rotation",      tip:"Résister à la rotation, bras tendus devant." },
-  { id:"sit_up",          name:"Sit-up",               cat:"Abdos",      muscles:"Grand droit, Fléchisseurs hanche",  tip:"Mouvement complet, expiration en montant." },
-  { id:"cable_crunch",    name:"Crunch poulie haute",  cat:"Abdos",      muscles:"Grand droit abdominal",             tip:"Flexion du tronc, ne pas tirer avec les bras." },
+  { id:"ab_crunch",        name:"Crunch",                cat:"Abdos",      muscles:"Grand droit abdominal",              tip:"Expiration en montant, ne pas tirer la nuque." },
+  { id:"ab_wheel",         name:"Ab Wheel (roulette)",   cat:"Abdos",      muscles:"Grand droit, Core profond",          tip:"Dos plat, bras tendus, ne pas creuser les reins." },
+  { id:"leg_raise",        name:"Relevé de jambes",      cat:"Abdos",      muscles:"Abdominaux bas, Fléchisseurs hanche",tip:"Lombaires au sol, jambes quasi tendues." },
+  { id:"russian_twist",    name:"Russian Twist KB",      cat:"Abdos",      muscles:"Obliques, Grand droit",              tip:"Pieds levés, rotation complète de chaque côté." },
+  { id:"hollow_body",      name:"Hollow Body",           cat:"Abdos",      muscles:"Core profond, Grand droit",          tip:"Bas du dos au sol, membres en extension." },
+  { id:"dragon_flag",      name:"Dragon Flag",           cat:"Abdos",      muscles:"Grand droit, Core complet",          tip:"Corps rigide, descente lente et contrôlée." },
+  { id:"pallof_press",     name:"Pallof Press",          cat:"Abdos",      muscles:"Obliques, Core anti-rotation",       tip:"Résister à la rotation, bras tendus devant." },
+  { id:"sit_up",           name:"Sit-up",                cat:"Abdos",      muscles:"Grand droit, Fléchisseurs hanche",   tip:"Mouvement complet, expiration en montant." },
+  { id:"cable_crunch",     name:"Crunch poulie haute",   cat:"Abdos",      muscles:"Grand droit abdominal",              tip:"Flexion du tronc, ne pas tirer avec les bras." },
   // MOBILITÉ
-  { id:"pigeon",          name:"Pigeon yoga",          cat:"Mobilité",   muscles:"Psoas, Rotateurs hanche",           tip:"Hanches au sol, 60-90s par côté." },
-  { id:"catcow",          name:"Chat / Vache",         cat:"Mobilité",   muscles:"Rachis, Multifides",                tip:"Mouvement fluide avec la respiration." },
-  { id:"worldsgreatest",  name:"World's Greatest",     cat:"Mobilité",   muscles:"Full body, Hanche, Thoracique",     tip:"Rotation thoracique complète." },
-  { id:"thoracic_rot",    name:"Rotation thoracique",  cat:"Mobilité",   muscles:"Rachis thoracique, Obliques",       tip:"Regard suit la main, amplitude max." },
-  { id:"hip_flexor",      name:"Étirement psoas",      cat:"Mobilité",   muscles:"Psoas, Quadriceps",                 tip:"Bassin en rétroversion, avancer doucement." },
-  { id:"ankle_mob",       name:"Mobilité cheville",    cat:"Mobilité",   muscles:"Tibial antérieur, Mollets",         tip:"Genou dans l'axe du pied, talon au sol." },
-  { id:"foam_roll",       name:"Foam roll dos",        cat:"Mobilité",   muscles:"Érecteurs, Thoracique",             tip:"Pause 20-30s sur les zones tendues." },
-  { id:"shoulder_mob",    name:"Mobilité épaule",      cat:"Mobilité",   muscles:"Coiffe des rotateurs",              tip:"Mouvements lents et contrôlés." },
+  { id:"pigeon",           name:"Pigeon yoga",           cat:"Mobilité",   muscles:"Psoas, Rotateurs hanche",            tip:"Hanches au sol, 60-90s par côté." },
+  { id:"catcow",           name:"Chat / Vache",          cat:"Mobilité",   muscles:"Rachis, Multifides",                 tip:"Mouvement fluide avec la respiration." },
+  { id:"worldsgreatest",   name:"World's Greatest",      cat:"Mobilité",   muscles:"Full body, Hanche, Thoracique",      tip:"Rotation thoracique complète." },
+  { id:"thoracic_rot",     name:"Rotation thoracique",   cat:"Mobilité",   muscles:"Rachis thoracique, Obliques",        tip:"Regard suit la main, amplitude max." },
+  { id:"hip_flexor",       name:"Étirement psoas",       cat:"Mobilité",   muscles:"Psoas, Quadriceps",                  tip:"Bassin en rétroversion, avancer doucement." },
+  { id:"ankle_mob",        name:"Mobilité cheville",     cat:"Mobilité",   muscles:"Tibial antérieur, Mollets",          tip:"Genou dans l'axe du pied, talon au sol." },
+  { id:"foam_roll",        name:"Foam roll dos",         cat:"Mobilité",   muscles:"Érecteurs, Thoracique",              tip:"Pause 20-30s sur les zones tendues." },
+  { id:"shoulder_mob",     name:"Mobilité épaule",       cat:"Mobilité",   muscles:"Coiffe des rotateurs",               tip:"Mouvements lents et contrôlés." },
   // CARDIO
-  { id:"run",             name:"Course / Jogging",     cat:"Cardio",     muscles:"Quadriceps, Ischio, Mollets",       tip:"Foulée médio-pied, 170-180 pas/min.",        cardioType:"run" },
-  { id:"bike",            name:"Vélo / Cycling",       cat:"Cardio",     muscles:"Quadriceps, Fessiers, Cardio",      tip:"Selle à hauteur de hanche, 80-90 rpm.",      cardioType:"watts" },
-  { id:"rowing_machine",  name:"Rameur",               cat:"Cardio",     muscles:"Full body, Dos, Cardio",            tip:"Jambes d'abord, puis dos, puis bras.",        cardioType:"watts" },
-  { id:"assault_bike",    name:"Assault Bike",         cat:"Cardio",     muscles:"Full body, Bras, Cardio",           tip:"Push/pull simultané bras et jambes.",         cardioType:"watts" },
-  { id:"skierg",          name:"SkiErg",               cat:"Cardio",     muscles:"Dorsaux, Épaules, Cardio",          tip:"Traction double bras, genoux légèrement fléchis.", cardioType:"watts" },
-  { id:"jumpingjack",     name:"Jumping Jack",         cat:"Cardio",     muscles:"Cardio, Coordination",              tip:"Rythme constant, atterrissage amorti.",       cardioType:"duration" },
-  { id:"jump_rope",       name:"Corde à sauter",       cat:"Cardio",     muscles:"Mollets, Cardio, Coordination",     tip:"Sauts légers, poignets qui tournent.",        cardioType:"duration" },
-  { id:"hiit_sprint",     name:"Sprint HIIT",          cat:"Cardio",     muscles:"Full body, Explosivité",            tip:"Effort max 20s, récup 40s.",                  cardioType:"run" },
+  { id:"run",              name:"Course / Jogging",      cat:"Cardio",     muscles:"Quadriceps, Ischio, Mollets",        tip:"Foulée médio-pied, 170-180 pas/min.",        cardioType:"run" },
+  { id:"bike",             name:"Vélo / Cycling",        cat:"Cardio",     muscles:"Quadriceps, Fessiers, Cardio",       tip:"Selle à hauteur de hanche, 80-90 rpm.",      cardioType:"watts" },
+  { id:"rowing_machine",   name:"Rameur",                cat:"Cardio",     muscles:"Full body, Dos, Cardio",             tip:"Jambes d'abord, puis dos, puis bras.",        cardioType:"watts" },
+  { id:"assault_bike",     name:"Assault Bike",          cat:"Cardio",     muscles:"Full body, Bras, Cardio",            tip:"Push/pull simultané bras et jambes.",         cardioType:"watts" },
+  { id:"skierg",           name:"SkiErg",                cat:"Cardio",     muscles:"Dorsaux, Épaules, Cardio",           tip:"Traction double bras, genoux légèrement fléchis.", cardioType:"watts" },
+  { id:"jumpingjack",      name:"Jumping Jack",          cat:"Cardio",     muscles:"Cardio, Coordination",               tip:"Rythme constant, atterrissage amorti.",       cardioType:"duration" },
+  { id:"jump_rope",        name:"Corde à sauter",        cat:"Cardio",     muscles:"Mollets, Cardio, Coordination",      tip:"Sauts légers, poignets qui tournent.",        cardioType:"duration" },
+  { id:"hiit_sprint",      name:"Sprint HIIT",           cat:"Cardio",     muscles:"Full body, Explosivité",             tip:"Effort max 20s, récup 40s.",                  cardioType:"run" },
+  { id:"battle_rope",      name:"Battle Rope",           cat:"Cardio",     muscles:"Épaules, Bras, Cardio",              tip:"Genoux fléchis, ondulations continues.",      cardioType:"duration" },
   // FUNCTIONAL
-  { id:"kb_russian_swing",name:"KB Russian Swing",     cat:"Functional", muscles:"Fessiers, Ischio, Lombaires",       tip:"Charnière hanche pure, KB jusqu'aux épaules." },
-  { id:"kb_american_swing",name:"KB American Swing",   cat:"Functional", muscles:"Fessiers, Épaules, Full body",      tip:"KB au-dessus de la tête, bras tendus en haut." },
-  { id:"kb_snatch",       name:"KB Snatch",            cat:"Functional", muscles:"Full body, Épaules, Ischio",        tip:"Mouvement explosif, rotation du poignet en haut." },
-  { id:"kb_tgu",          name:"KB Turkish Get-Up",    cat:"Functional", muscles:"Full body, Stabilité, Épaules",     tip:"Regard sur la KB tout au long du mouvement." },
-  { id:"kb_clean_press",  name:"KB Clean & Press",     cat:"Functional", muscles:"Full body, Épaules, Jambes",        tip:"Clean explosif, presse stricte au-dessus." },
-  { id:"gorilla_row",     name:"Gorilla Row",          cat:"Functional", muscles:"Grand dorsal, Biceps, Core",        tip:"2 KB au sol, row alterné en gardant les hanches stables." },
-  { id:"farmer_walk",     name:"Farmer Walk",          cat:"Functional", muscles:"Trapèzes, Core, Avant-bras, Jambes", tip:"Dos droit, pas contrôlés, charge lourde." },
-  { id:"wall_ball",       name:"Wall Ball Shot",       cat:"Functional", muscles:"Full body, Quadriceps, Épaules",    tip:"Squat profond, lancer explosif à la cible." },
-  { id:"box_jump",        name:"Box Jump",             cat:"Functional", muscles:"Quadriceps, Fessiers, Explosivité", tip:"Atterrissage amorti, hanches en arrière." },
-  { id:"thruster",        name:"Thruster",             cat:"Functional", muscles:"Full body, Quadriceps, Épaules",    tip:"Squat + press en un mouvement continu." },
-  { id:"clean_jerk",      name:"Clean & Jerk",         cat:"Functional", muscles:"Full body, Olympique",              tip:"Phase 1 clean, phase 2 jerk au-dessus." },
-  { id:"barbell_snatch",  name:"Snatch barre",         cat:"Functional", muscles:"Full body, Explosivité, Olympique", tip:"Prise large, barre proche du corps, extension complète." },
-  { id:"battle_rope",     name:"Battle Rope",          cat:"Cardio",     muscles:"Épaules, Bras, Cardio",             tip:"Genoux fléchis, ondulations continues.",      cardioType:"duration" },
+  { id:"kb_russian_swing", name:"KB Russian Swing",      cat:"Functional", muscles:"Fessiers, Ischio, Lombaires",        tip:"Charnière hanche pure, KB jusqu'aux épaules." },
+  { id:"kb_american_swing",name:"KB American Swing",     cat:"Functional", muscles:"Fessiers, Épaules, Full body",       tip:"KB au-dessus de la tête, bras tendus en haut." },
+  { id:"kb_snatch",        name:"KB Snatch",             cat:"Functional", muscles:"Full body, Épaules, Ischio",         tip:"Mouvement explosif, rotation du poignet en haut." },
+  { id:"kb_tgu",           name:"KB Turkish Get-Up",     cat:"Functional", muscles:"Full body, Stabilité, Épaules",      tip:"Regard sur la KB tout au long du mouvement." },
+  { id:"kb_clean_press",   name:"KB Clean & Press",      cat:"Functional", muscles:"Full body, Épaules, Jambes",         tip:"Clean explosif, presse stricte au-dessus." },
+  { id:"farmer_walk",      name:"Farmer Walk",           cat:"Functional", muscles:"Trapèzes, Core, Avant-bras, Jambes", tip:"Dos droit, pas contrôlés, charge lourde." },
+  { id:"wall_ball",        name:"Wall Ball Shot",        cat:"Functional", muscles:"Full body, Quadriceps, Épaules",     tip:"Squat profond, lancer explosif à la cible." },
+  { id:"box_jump",         name:"Box Jump",              cat:"Functional", muscles:"Quadriceps, Fessiers, Explosivité",  tip:"Atterrissage amorti, hanches en arrière." },
+  { id:"thruster",         name:"Thruster",              cat:"Functional", muscles:"Full body, Quadriceps, Épaules",     tip:"Squat + press en un mouvement continu." },
+  { id:"clean_jerk",       name:"Clean & Jerk",          cat:"Functional", muscles:"Full body, Olympique",               tip:"Phase 1 clean, phase 2 jerk au-dessus." },
+  { id:"barbell_snatch",   name:"Snatch barre",          cat:"Functional", muscles:"Full body, Explosivité, Olympique",  tip:"Prise large, barre proche du corps, extension complète." },
 ];
 
 const CATS = ["Tous","Push","Pull","Legs","Musculation","Abdos","Mobilité","Cardio","Functional"];
@@ -143,7 +139,7 @@ const STATUS_COLOR = { actif:"#22c55e", pause:"#f59e0b", inactif:"#3d5278" };
 
 const calc1RM = (load, reps) => {
   if (!load||!reps||+reps===0||+reps>30) return null;
-  return Math.round(+load*(1 + +reps/30));
+  return Math.round(+load * (1 + +reps/30));
 };
 
 const rpeColor = (rpe) => {
@@ -165,28 +161,107 @@ const rpeLabel = (rpe) => {
   return "Maximal";
 };
 
-// Zone cardio colors
-const zoneColor = (z) => {
-  const zones = { "1":"#3b82f6","2":"#22c55e","3":"#f59e0b","4":"#f97316","5":"#e63946" };
-  return zones[z]||"#3d5278";
-};
-const zoneLabel = (z) => {
-  const labels = { "1":"Récup","2":"Aérobie","3":"Tempo","4":"Seuil","5":"VO2max" };
-  return labels[z]||"";
-};
+const zoneColor = (z) => ({ "1":"#3b82f6","2":"#22c55e","3":"#f59e0b","4":"#f97316","5":"#e63946" }[z]||"#3d5278");
+const zoneLabel = (z) => ({ "1":"Récup","2":"Aérobie","3":"Tempo","4":"Seuil","5":"VO2max" }[z]||"");
+
+// ── TEMPLATES PRÉ-DÉFINIS ────────────────────────────────────────────────────
+const DEFAULT_TEMPLATES = [
+  {
+    id:"tpl_push_a", name:"Push Day A", cat:"Push", color:"#1a6fff",
+    exercises:[
+      { libId:"bench_press",   name:"Développé couché",   sets:"4", reps:"6",  rest:"150" },
+      { libId:"incline_press", name:"Développé incliné",  sets:"3", reps:"10", rest:"90"  },
+      { libId:"incline_fly",   name:"Écarté incliné",     sets:"3", reps:"12", rest:"60"  },
+      { libId:"dips",          name:"Dips",               sets:"3", reps:"12", rest:"60"  },
+      { libId:"pushup",        name:"Pompes",             sets:"3", reps:"15", rest:"60"  },
+    ]
+  },
+  {
+    id:"tpl_push_b", name:"Push Day B", cat:"Push", color:"#1a6fff",
+    exercises:[
+      { libId:"overhead_press",  name:"Développé militaire",  sets:"4", reps:"8",  rest:"120" },
+      { libId:"bench_dumbbell",  name:"Développé haltères",   sets:"3", reps:"10", rest:"90"  },
+      { libId:"lateral_raise",   name:"Élévations latérales", sets:"3", reps:"15", rest:"60"  },
+      { libId:"skull_crusher",   name:"Skull crusher",        sets:"3", reps:"12", rest:"60"  },
+      { libId:"tricep_pushdown", name:"Pushdown triceps",     sets:"3", reps:"15", rest:"60"  },
+    ]
+  },
+  {
+    id:"tpl_back_a", name:"Back Day A", cat:"Pull", color:"#8b5cf6",
+    exercises:[
+      { libId:"barbell_row",  name:"Rowing barre",         sets:"4", reps:"8",  rest:"120" },
+      { libId:"dumbbell_row", name:"Rowing haltère",       sets:"3", reps:"10", rest:"90"  },
+      { libId:"lateral_raise",name:"Élévations latérales", sets:"3", reps:"15", rest:"60"  },
+      { libId:"pullup",       name:"Traction",             sets:"4", reps:"8",  rest:"120" },
+      { libId:"face_pull",    name:"Face pull",            sets:"3", reps:"15", rest:"60"  },
+    ]
+  },
+  {
+    id:"tpl_back_b", name:"Back Day B", cat:"Pull", color:"#8b5cf6",
+    exercises:[
+      { libId:"lat_pulldown", name:"Tirage poulie haute", sets:"4", reps:"10", rest:"90"  },
+      { libId:"gorilla_row",  name:"Gorilla Row",         sets:"3", reps:"10", rest:"90"  },
+      { libId:"face_pull",    name:"Face pull",           sets:"3", reps:"15", rest:"60"  },
+      { libId:"shrug",        name:"Haussements épaules", sets:"3", reps:"12", rest:"60"  },
+      { libId:"bicep_curl",   name:"Curl biceps",         sets:"3", reps:"12", rest:"60"  },
+      { libId:"hammer_curl",  name:"Curl marteau",        sets:"3", reps:"12", rest:"60"  },
+    ]
+  },
+  {
+    id:"tpl_leg_a", name:"Leg Day A", cat:"Legs", color:"#22c55e",
+    exercises:[
+      { libId:"back_squat",     name:"Back Squat",              sets:"4", reps:"6",  rest:"180" },
+      { libId:"hip_thrust",     name:"Hip Thrust",              sets:"4", reps:"10", rest:"90"  },
+      { libId:"bulgarian_split",name:"Fente bulgare",           sets:"3", reps:"10", rest:"90"  },
+      { libId:"rdl",            name:"Romanian Deadlift",       sets:"3", reps:"10", rest:"90"  },
+      { libId:"crab_walk",      name:"Marche crabe élastique",  sets:"3", reps:"20", rest:"60"  },
+      { libId:"kickback",       name:"Kickback fessier",        sets:"3", reps:"15", rest:"60"  },
+    ]
+  },
+  {
+    id:"tpl_leg_b", name:"Leg Day B", cat:"Legs", color:"#22c55e",
+    exercises:[
+      { libId:"front_squat",   name:"Front Squat",       sets:"4", reps:"6",  rest:"180" },
+      { libId:"leg_press",     name:"Presse à cuisses",  sets:"3", reps:"12", rest:"90"  },
+      { libId:"leg_curl",      name:"Leg curl",          sets:"3", reps:"12", rest:"60"  },
+      { libId:"glute_bridge",  name:"Pont fessier",      sets:"3", reps:"15", rest:"60"  },
+      { libId:"calf_raise",    name:"Mollets debout",    sets:"4", reps:"20", rest:"45"  },
+    ]
+  },
+  {
+    id:"tpl_functional", name:"WOD Functional", cat:"Functional", color:"#f97316",
+    exercises:[
+      { libId:"kb_russian_swing", name:"KB Russian Swing", sets:"5", reps:"15", rest:"60" },
+      { libId:"thruster",         name:"Thruster",         sets:"4", reps:"10", rest:"90" },
+      { libId:"box_jump",         name:"Box Jump",         sets:"4", reps:"10", rest:"60" },
+      { libId:"farmer_walk",      name:"Farmer Walk",      sets:"4", reps:"30", rest:"90" },
+      { libId:"wall_ball",        name:"Wall Ball Shot",   sets:"4", reps:"15", rest:"60" },
+    ]
+  },
+  {
+    id:"tpl_fullbody", name:"Full Body", cat:"Musculation", color:"#1a6fff",
+    exercises:[
+      { libId:"deadlift",       name:"Deadlift",           sets:"4", reps:"5",  rest:"180" },
+      { libId:"overhead_press", name:"Développé militaire",sets:"3", reps:"8",  rest:"120" },
+      { libId:"pullup",         name:"Traction",           sets:"3", reps:"8",  rest:"120" },
+      { libId:"back_squat",     name:"Back Squat",         sets:"3", reps:"8",  rest:"150" },
+      { libId:"plank",          name:"Gainage planche",    sets:"3", reps:"60s",rest:"60"  },
+    ]
+  },
+];
 
 const SAMPLE_CLIENTS = [{
   id:"tony", name:"Tony Parker", age:41, sport:"Basketball", since:"2024-01", status:"actif",
   objective:"Maintien forme & mobilité", progress:78, notes:"Attention genou droit. Préfère les séances du matin.",
   sessions:[
-    { id:"s1", date:"2026-04-15", present:true, duration:90, note:"Mobilité hanches", exercises:[
-      { id:"se1", libId:"deadlift", name:"Deadlift", sets:"4", reps:"8", load:"80", rest:"120", rpe:"7" },
-      { id:"se2", libId:"back_squat", name:"Back Squat", sets:"4", reps:"6", load:"100", rest:"150", rpe:"8" },
-      { id:"se3", libId:"run", name:"Course", duration:"20", speed:"12", zone:"2", cardioType:"run" },
+    { id:"s1", date:"2026-04-15", present:true, duration:90, note:"Mobilité hanches", templateId:"tpl_push_a", exercises:[
+      { id:"se1", libId:"bench_press",   name:"Développé couché", sets:"4", reps:"6",  load:"90",  rest:"150", rpe:"7" },
+      { id:"se2", libId:"incline_press", name:"Développé incliné",sets:"3", reps:"10", load:"70",  rest:"90",  rpe:"6" },
+      { id:"se3", libId:"dips",          name:"Dips",             sets:"3", reps:"12", load:"0",   rest:"60",  rpe:"7" },
     ]},
-    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Cardio + KB", exercises:[
-      { id:"se4", libId:"kb_russian_swing", name:"KB Russian Swing", sets:"5", reps:"15", load:"24", rest:"60", rpe:"7" },
-      { id:"se5", libId:"rowing_machine", name:"Rameur", duration:"15", watts:"200", zone:"3", cardioType:"watts" },
+    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Back Day", templateId:"tpl_back_a", exercises:[
+      { id:"se4", libId:"barbell_row",  name:"Rowing barre",sets:"4", reps:"8", load:"80", rest:"120", rpe:"7" },
+      { id:"se5", libId:"pullup",       name:"Traction",    sets:"4", reps:"8", load:"0",  rest:"120", rpe:"8" },
     ]},
     { id:"s3", date:"2026-03-03", present:false, duration:0, note:"Absent — voyage", exercises:[] },
   ],
@@ -197,8 +272,8 @@ const SAMPLE_CLIENTS = [{
   ],
   programs:[{ id:"p1", name:"Mobilité & Renforcement", weeks:8, startDate:"2026-03-01",
     exercises:[
-      { id:"e1", name:"Hip 90/90", sets:"3", reps:"45s", load:"", note:"Chaque côté", libId:"hip90" },
-      { id:"e2", name:"Back Squat", sets:"4", reps:"6", load:"100kg", note:"", libId:"back_squat" },
+      { id:"e1", name:"Hip 90/90",  sets:"3", reps:"45s", load:"",    note:"Chaque côté", libId:"hip90" },
+      { id:"e2", name:"Back Squat", sets:"4", reps:"6",   load:"100", note:"",            libId:"back_squat" },
     ]
   }],
   goals:[
@@ -237,12 +312,12 @@ const Bar = ({ value, color, h=5 }) => (
 );
 
 const Field = ({ label, value, onChange, type="text", placeholder, half, third }) => {
-  let width = "100%";
-  if (half) width = "calc(50% - 4px)";
-  if (third) width = "calc(33% - 4px)";
+  let width="100%";
+  if (half) width="calc(50% - 4px)";
+  if (third) width="calc(33% - 4px)";
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:4, width, flexShrink:0 }}>
-      {label && <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", fontFamily:"'Barlow',sans-serif" }}>{label}</label>}
+      {label&&<label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", fontFamily:"'Barlow',sans-serif" }}>{label}</label>}
       <input type={type} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder}
         style={{ background:"#000", border:"1.5px solid #0f2040", borderRadius:8, padding:"9px 10px", color:"#e8edf5", fontSize:13, fontFamily:"'Barlow',sans-serif", outline:"none", width:"100%", colorScheme:"dark", boxSizing:"border-box" }}
         onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
@@ -314,7 +389,6 @@ const StatusDot = ({ status }) => {
   );
 };
 
-// ── RPE SELECTOR ──────────────────────────────────────────────────────────────
 const RPESelector = ({ value, onChange }) => (
   <div style={{ width:"100%" }}>
     <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", display:"block", marginBottom:4 }}>
@@ -331,7 +405,6 @@ const RPESelector = ({ value, onChange }) => (
   </div>
 );
 
-// ── ZONE SELECTOR (Cardio) ────────────────────────────────────────────────────
 const ZoneSelector = ({ value, onChange }) => (
   <div style={{ width:"100%" }}>
     <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", display:"block", marginBottom:4 }}>
@@ -348,37 +421,34 @@ const ZoneSelector = ({ value, onChange }) => (
   </div>
 );
 
-// ── CARDIO FIELDS ─────────────────────────────────────────────────────────────
 const CardioFields = ({ ex, onChange }) => {
-  const type = ex.cardioType || "duration";
+  const type=ex.cardioType||"duration";
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
       <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
         <Field label="Durée (min)" type="number" value={ex.duration||""} onChange={v=>onChange("duration",v)} placeholder="20" half/>
-        {type==="run" && <Field label="Vitesse km/h" type="number" value={ex.speed||""} onChange={v=>onChange("speed",v)} placeholder="12" half/>}
-        {type==="watts" && <Field label="Watts" type="number" value={ex.watts||""} onChange={v=>onChange("watts",v)} placeholder="200" half/>}
+        {type==="run"&&<Field label="Vitesse km/h" type="number" value={ex.speed||""} onChange={v=>onChange("speed",v)} placeholder="12" half/>}
+        {type==="watts"&&<Field label="Watts" type="number" value={ex.watts||""} onChange={v=>onChange("watts",v)} placeholder="200" half/>}
       </div>
       <ZoneSelector value={ex.zone||""} onChange={v=>onChange("zone",v)}/>
     </div>
   );
 };
 
-// ── EXERCISE FIELDS (strength or cardio) ─────────────────────────────────────
 const ExerciseFields = ({ ex, onChange, onRemove, idx }) => {
-  const libEx = LIBRARY.find(l=>l.id===ex.libId);
-  const isCardio = libEx?.cat==="Cardio";
-  const isFunctional = libEx?.cat==="Functional";
+  const libEx=LIBRARY.find(l=>l.id===ex.libId);
+  const isCardio=libEx?.cat==="Cardio";
   return (
     <div style={{ background:"#0a1628", borderRadius:10, padding:10, marginBottom:8, border:"1px solid #0f2040" }}>
       <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:8 }}>
         <div style={{ width:32, height:16, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
         <span style={{ flex:1, fontSize:13, fontWeight:700 }}>{ex.name}</span>
-        {libEx && <Badge label={libEx.cat} color={CAT_COLOR[libEx.cat]||"#1a6fff"}/>}
+        {libEx&&<Badge label={libEx.cat} color={CAT_COLOR[libEx.cat]||"#1a6fff"}/>}
         <button onClick={onRemove} style={{ background:"none", border:"none", color:"#e63946", cursor:"pointer", fontSize:16, padding:0, flexShrink:0 }}>✕</button>
       </div>
-      {isCardio ? (
+      {isCardio?(
         <CardioFields ex={ex} onChange={(field,val)=>onChange(idx,field,val)}/>
-      ) : (
+      ):(
         <div>
           <div style={{ display:"flex", gap:6, flexWrap:"wrap", marginBottom:8 }}>
             <Field label="Séries" type="number" value={ex.sets||""} onChange={v=>onChange(idx,"sets",v)} placeholder="3" third/>
@@ -394,7 +464,240 @@ const ExerciseFields = ({ ex, onChange, onRemove, idx }) => {
   );
 };
 
-// ── PROGRESSION CHARTS ────────────────────────────────────────────────────────
+// ── SMART SESSION — applique un template avec les charges du client ─────────
+const applyTemplate = (template, clientSessions) => {
+  return template.exercises.map(tplEx => {
+    // Cherche la dernière charge utilisée pour cet exercice
+    let lastLoad = "";
+    let lastReps = tplEx.reps;
+    let lastRpe = "";
+    for (const s of [...clientSessions].sort((a,b)=>b.date.localeCompare(a.date))) {
+      const found = (s.exercises||[]).find(e=>e.libId===tplEx.libId);
+      if (found) {
+        lastLoad = found.load||"";
+        lastReps = found.reps||tplEx.reps;
+        lastRpe = found.rpe||"";
+        break;
+      }
+    }
+    // Suggestion de progression : si RPE ≤ 7 et charge > 0, suggère +2.5kg
+    let suggestedLoad = lastLoad;
+    if (lastLoad && +lastLoad > 0 && lastRpe && +lastRpe <= 7) {
+      suggestedLoad = String(+lastLoad + 2.5);
+    }
+    return {
+      id: "se"+Date.now()+Math.random(),
+      libId: tplEx.libId,
+      name: tplEx.name,
+      sets: tplEx.sets,
+      reps: lastReps,
+      load: suggestedLoad,
+      rest: tplEx.rest,
+      rpe: "",
+      note: lastLoad && suggestedLoad !== lastLoad ? `↑ +2.5kg vs dernière fois (${lastLoad}kg)` : lastLoad ? `Dernière fois: ${lastLoad}kg` : "",
+      cardioType: LIBRARY.find(l=>l.id===tplEx.libId)?.cardioType||"",
+    };
+  });
+};
+
+// ── TEMPLATE PICKER ──────────────────────────────────────────────────────────
+const TemplatePicker = ({ onSelect, onClose, allTemplates }) => {
+  const cats = [...new Set(allTemplates.map(t=>t.cat))];
+  const [selCat, setSelCat] = useState("Tous");
+  const filtered = selCat==="Tous" ? allTemplates : allTemplates.filter(t=>t.cat===selCat);
+  return (
+    <div style={{ background:"#0a1628", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:12 }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12 }}>
+        <span style={{ fontSize:13, fontWeight:800, fontFamily:"'Barlow Condensed',sans-serif", color:"#e8edf5", textTransform:"uppercase", letterSpacing:"0.06em" }}>Choisir un template</span>
+        <Btn small ghost onClick={onClose}>✕</Btn>
+      </div>
+      <div style={{ display:"flex", gap:5, marginBottom:12, overflowX:"auto", paddingBottom:4 }}>
+        {["Tous",...cats].map(cat=>(
+          <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"4px 12px", borderRadius:99, border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
+        ))}
+      </div>
+      <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+        {filtered.map(tpl=>(
+          <div key={tpl.id} onClick={()=>onSelect(tpl)}
+            style={{ background:"#070d1a", border:`1px solid ${tpl.color||"#0f2040"}33`, borderRadius:12, padding:"12px 14px", cursor:"pointer", display:"flex", alignItems:"center", gap:12, transition:"all .15s" }}>
+            <div style={{ width:4, height:40, borderRadius:99, background:tpl.color||"#1a6fff", flexShrink:0 }}/>
+            <div style={{ flex:1 }}>
+              <div style={{ fontWeight:800, fontSize:14, fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
+              <div style={{ fontSize:11, color:"#3d5278", marginTop:2 }}>{tpl.exercises.length} exercices · {tpl.cat}</div>
+              <div style={{ fontSize:10, color:"#3d5278", marginTop:2 }}>{tpl.exercises.map(e=>e.name).join(" · ")}</div>
+            </div>
+            <span style={{ fontSize:18, color:tpl.color||"#1a6fff" }}>→</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// ── TEMPLATES VIEW ────────────────────────────────────────────────────────────
+const TemplatesView = ({ templates, onBack, onSave }) => {
+  const [editingTpl, setEditingTpl] = useState(null);
+  const [newTpl, setNewTpl] = useState({ name:"", cat:"Push", color:"#1a6fff", exercises:[] });
+  const [showNew, setShowNew] = useState(false);
+  const [pickingEx, setPickingEx] = useState(false);
+  const [search, setSearch] = useState("");
+  const [selCat, setSelCat] = useState("Push");
+
+  const allTemplates = [...DEFAULT_TEMPLATES, ...templates];
+
+  function addExToNewTpl(ex) {
+    const libEx=LIBRARY.find(l=>l.id===ex.id);
+    const isCardio=libEx?.cat==="Cardio";
+    setNewTpl(p=>({...p, exercises:[...p.exercises, {
+      libId:ex.id, name:ex.name,
+      sets:isCardio?"":3, reps:isCardio?"":10, rest:60,
+      cardioType:libEx?.cardioType||""
+    }]}));
+    setPickingEx(false); setSearch("");
+  }
+
+  function saveNewTpl() {
+    if (!newTpl.name.trim()||!newTpl.exercises.length) return;
+    const saved=[...templates, { ...newTpl, id:"tpl_"+Date.now() }];
+    onSave(saved);
+    setNewTpl({ name:"", cat:"Push", color:"#1a6fff", exercises:[] });
+    setShowNew(false);
+  }
+
+  return (
+    <div style={{ minHeight:"100vh", background:"#000", color:"#e8edf5", fontFamily:"'Barlow',sans-serif", paddingBottom:48 }}>
+      <div style={{ padding:"16px" }}>
+        <button onClick={onBack} style={{ background:"none",border:"none",color:"#7a90b8",cursor:"pointer",fontSize:12,marginBottom:14,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Retour</button>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
+          <div style={{ fontSize:32,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif" }}>TEMPLATES</div>
+          <Btn small onClick={()=>setShowNew(!showNew)}>+ Nouveau</Btn>
+        </div>
+
+        {/* New template form */}
+        {showNew&&(
+          <div style={{ background:"#070d1a", border:"1px solid #1a6fff44", borderRadius:14, padding:14, marginBottom:20 }}>
+            <SecTitle c="Nouveau template"/>
+            <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:12 }}>
+              <Field label="Nom" value={newTpl.name} onChange={v=>setNewTpl(p=>({...p,name:v}))} placeholder="ex. Push Day C"/>
+              <div style={{ display:"flex", gap:6 }}>
+                {["Push","Pull","Legs","Functional","Abdos","Mobilité","Cardio"].map(cat=>(
+                  <button key={cat} onClick={()=>setNewTpl(p=>({...p,cat,color:CAT_COLOR[cat]||"#1a6fff"}))} style={{ flex:1, padding:"6px 4px", borderRadius:8, border:`1px solid ${newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:9, textTransform:"uppercase", cursor:"pointer" }}>{cat}</button>
+                ))}
+              </div>
+            </div>
+
+            {/* Exercise picker */}
+            <button onClick={()=>setPickingEx(!pickingEx)} style={{ width:"100%", background:"#0a1628", border:"1px solid #1a6fff44", borderRadius:8, padding:"8px 14px", color:"#1a6fff", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:12, textTransform:"uppercase", cursor:"pointer", marginBottom:10 }}>
+              💪 {pickingEx?"Fermer":"Ajouter des exercices"}
+            </button>
+
+            {pickingEx&&(
+              <div style={{ background:"#000", borderRadius:10, padding:10, marginBottom:10 }}>
+                <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 Rechercher..."
+                  style={{ width:"100%", background:"#070d1a", border:"1.5px solid #0f2040", borderRadius:8, padding:"7px 10px", color:"#e8edf5", fontSize:12, fontFamily:"'Barlow',sans-serif", outline:"none", marginBottom:8, colorScheme:"dark", boxSizing:"border-box" }}
+                  onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
+                <div style={{ display:"flex", gap:4, marginBottom:8, overflowX:"auto", paddingBottom:4 }}>
+                  {CATS.filter(c=>c!=="Tous").map(cat=>(
+                    <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"3px 8px", borderRadius:99, border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:9, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
+                  ))}
+                </div>
+                <div style={{ maxHeight:180, overflowY:"auto", display:"flex", flexDirection:"column", gap:4 }}>
+                  {LIBRARY.filter(ex=>{
+                    const mc=!search&&selCat?ex.cat===selCat:true;
+                    const ms=search?ex.name.toLowerCase().includes(search.toLowerCase()):true;
+                    return mc&&ms;
+                  }).map(ex=>(
+                    <div key={ex.id} onClick={()=>addExToNewTpl(ex)}
+                      style={{ display:"flex", alignItems:"center", gap:8, padding:"6px 8px", borderRadius:8, border:"1px solid #0f2040", background:"transparent", cursor:"pointer" }}>
+                      <div style={{ width:28, height:14, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
+                      <span style={{ flex:1, fontSize:11, fontWeight:600 }}>{ex.name}</span>
+                      <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Exercises in new template */}
+            {newTpl.exercises.map((ex,i)=>(
+              <div key={i} style={{ display:"flex", alignItems:"center", gap:8, padding:"8px 10px", background:"#0a1628", borderRadius:8, marginBottom:6, border:"1px solid #0f2040" }}>
+                <div style={{ width:28, height:14, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                <span style={{ flex:1, fontSize:12, fontWeight:600 }}>{ex.name}</span>
+                <div style={{ display:"flex", gap:4 }}>
+                  <input type="number" value={ex.sets||""} onChange={e=>setNewTpl(p=>({...p,exercises:p.exercises.map((x,j)=>j===i?{...x,sets:e.target.value}:x)}))} placeholder="Séries" style={{ width:44, background:"#000", border:"1px solid #0f2040", borderRadius:6, padding:"4px 6px", color:"#e8edf5", fontSize:11, colorScheme:"dark", textAlign:"center" }}/>
+                  <input type="number" value={ex.reps||""} onChange={e=>setNewTpl(p=>({...p,exercises:p.exercises.map((x,j)=>j===i?{...x,reps:e.target.value}:x)}))} placeholder="Reps" style={{ width:44, background:"#000", border:"1px solid #0f2040", borderRadius:6, padding:"4px 6px", color:"#e8edf5", fontSize:11, colorScheme:"dark", textAlign:"center" }}/>
+                </div>
+                <button onClick={()=>setNewTpl(p=>({...p,exercises:p.exercises.filter((_,j)=>j!==i)}))} style={{ background:"none", border:"none", color:"#e63946", cursor:"pointer", fontSize:14, padding:0 }}>✕</button>
+              </div>
+            ))}
+
+            {newTpl.exercises.length>0&&(
+              <div style={{ display:"flex", gap:8, marginTop:12 }}>
+                <Btn small onClick={saveNewTpl}>💾 Sauvegarder</Btn>
+                <Btn small ghost onClick={()=>{ setShowNew(false); setNewTpl({name:"",cat:"Push",color:"#1a6fff",exercises:[]}); }}>Annuler</Btn>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Default templates */}
+        <div style={{ fontSize:11, fontWeight:700, color:"#3d5278", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:10, display:"flex", alignItems:"center", gap:8 }}>
+          <div style={{ flex:1, height:1, background:"#0f2040" }}/> Templates de base <div style={{ flex:1, height:1, background:"#0f2040" }}/>
+        </div>
+        {DEFAULT_TEMPLATES.map((tpl,i)=>(
+          <div key={tpl.id} className="ch fu" style={{ background:"#070d1a", border:`1px solid ${tpl.color}33`, borderRadius:14, padding:14, marginBottom:10, animationDelay:`${i*.04}s` }}>
+            <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:8 }}>
+              <div style={{ width:4, height:44, borderRadius:99, background:tpl.color, flexShrink:0 }}/>
+              <div style={{ flex:1 }}>
+                <div style={{ fontWeight:900, fontSize:16, fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
+                <div style={{ fontSize:11, color:"#3d5278" }}>{tpl.exercises.length} exercices · <Badge label={tpl.cat} color={tpl.color}/></div>
+              </div>
+            </div>
+            <div style={{ display:"flex", flexDirection:"column", gap:4 }}>
+              {tpl.exercises.map((ex,j)=>(
+                <div key={j} style={{ display:"flex", alignItems:"center", gap:8, padding:"5px 0", borderBottom:j<tpl.exercises.length-1?"1px solid #0f204044":"none" }}>
+                  <div style={{ width:28, height:14, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                  <span style={{ flex:1, fontSize:12, color:"#e8edf5" }}>{ex.name}</span>
+                  <Badge label={`${ex.sets}×${ex.reps}`} color={tpl.color}/>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        {/* Custom templates */}
+        {templates.length>0&&(
+          <>
+            <div style={{ fontSize:11, fontWeight:700, color:"#3d5278", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:10, marginTop:20, display:"flex", alignItems:"center", gap:8 }}>
+              <div style={{ flex:1, height:1, background:"#0f2040" }}/> Mes templates <div style={{ flex:1, height:1, background:"#0f2040" }}/>
+            </div>
+            {templates.map((tpl,i)=>(
+              <SwipeToDelete key={tpl.id} onDelete={()=>onSave(templates.filter(t=>t.id!==tpl.id))}>
+                <div className="ch fu" style={{ background:"#070d1a", border:`1px solid ${tpl.color||"#1a6fff"}33`, borderRadius:14, padding:14 }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:8 }}>
+                    <div style={{ width:4, height:44, borderRadius:99, background:tpl.color||"#1a6fff", flexShrink:0 }}/>
+                    <div style={{ flex:1 }}>
+                      <div style={{ fontWeight:900, fontSize:16, fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
+                      <div style={{ fontSize:11, color:"#3d5278" }}>{tpl.exercises.length} exercices</div>
+                    </div>
+                  </div>
+                  {tpl.exercises.map((ex,j)=>(
+                    <div key={j} style={{ display:"flex", alignItems:"center", gap:8, padding:"5px 0", borderBottom:j<tpl.exercises.length-1?"1px solid #0f204044":"none" }}>
+                      <div style={{ width:28, height:14, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                      <span style={{ flex:1, fontSize:12, color:"#e8edf5" }}>{ex.name}</span>
+                      <Badge label={`${ex.sets}×${ex.reps}`} color={tpl.color||"#1a6fff"}/>
+                    </div>
+                  ))}
+                </div>
+              </SwipeToDelete>
+            ))}
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const ProgressionCharts = ({ metrics }) => {
   if (!metrics||metrics.length<2) return (
     <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:16, marginBottom:14, textAlign:"center", color:"#3d5278", fontSize:12 }}>
@@ -449,7 +752,6 @@ const ProgressionCharts = ({ metrics }) => {
   );
 };
 
-// ── CHARGES TAB ───────────────────────────────────────────────────────────────
 const ChargesTab = ({ sessions }) => {
   const bestPerEx={};
   sessions.forEach(s=>{
@@ -468,7 +770,7 @@ const ChargesTab = ({ sessions }) => {
     (s.exercises||[]).forEach(ex=>{
       if (!ex.libId||!ex.load||+ex.load<=0) return;
       if (!loadHistory[ex.libId]) loadHistory[ex.libId]=[];
-      loadHistory[ex.libId].push({ date:s.date, load:+ex.load, reps:+ex.reps||0 });
+      loadHistory[ex.libId].push({ date:s.date, load:+ex.load });
     });
   });
   const entries=Object.values(bestPerEx).sort((a,b)=>b.load-a.load);
@@ -495,10 +797,7 @@ const ChargesTab = ({ sessions }) => {
         const sparkMin=sparkLoads.length>1?Math.min(...sparkLoads)-2:0;
         const sparkMax=sparkLoads.length>1?Math.max(...sparkLoads)+2:ex.load+10;
         const SW=200, SH=30;
-        const sparkPts=sparkLoads.map((l,idx)=>({
-          x:sparkLoads.length>1?(idx/(sparkLoads.length-1))*(SW-10)+5:SW/2,
-          y:SH-((l-sparkMin)/(sparkMax-sparkMin||1))*(SH-6)-3
-        }));
+        const sparkPts=sparkLoads.map((l,idx)=>({ x:sparkLoads.length>1?(idx/(sparkLoads.length-1))*(SW-10)+5:SW/2, y:SH-((l-sparkMin)/(sparkMax-sparkMin||1))*(SH-6)-3 }));
         const sparkPath=sparkPts.map((p,idx)=>`${idx===0?"M":"L"} ${p.x} ${p.y}`).join(" ");
         return (
           <div key={ex.libId} className="ch fu" style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:10, animationDelay:`${i*.04}s` }}>
@@ -538,7 +837,6 @@ const ChargesTab = ({ sessions }) => {
   );
 };
 
-// ── MONTHLY REPORT ────────────────────────────────────────────────────────────
 const MonthlyReport = ({ sessions, metrics }) => {
   const now=new Date();
   const currentMonth=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
@@ -575,7 +873,6 @@ const MonthlyReport = ({ sessions, metrics }) => {
   );
 };
 
-// ── SESSION EXERCISE PICKER ───────────────────────────────────────────────────
 const SessionExercisePicker = ({ onAdd, onClose }) => {
   const [mode, setMode] = useState("cat");
   const [selCat, setSelCat] = useState("Push");
@@ -650,8 +947,8 @@ const PPLGenerator = ({ onAdd }) => {
   const [generated, setGenerated] = useState([]);
   const TYPES = {
     Push:["bench_press","overhead_press","incline_press","dips","lateral_raise","tricep_pushdown","cable_fly","pushup","bench_dumbbell"],
-    Pull:["pullup","barbell_row","deadlift","lat_pulldown","face_pull","bicep_curl","hammer_curl","dumbbell_row"],
-    Legs:["squat","back_squat","front_squat","rdl","lunge","bulgarian_split","leg_press","leg_curl","calf_raise","glute_bridge","goblet_squat"],
+    Pull:["pullup","barbell_row","deadlift","lat_pulldown","face_pull","bicep_curl","hammer_curl","dumbbell_row","gorilla_row"],
+    Legs:["squat","back_squat","front_squat","rdl","lunge","bulgarian_split","leg_press","leg_curl","calf_raise","glute_bridge","goblet_squat","hip_thrust","crab_walk","kickback"],
     Abdos:["ab_crunch","ab_wheel","leg_raise","russian_twist","hollow_body","sit_up","pallof_press"],
     Cardio:["run","bike","rowing_machine","assault_bike","skierg","jump_rope"],
     Functional:["kb_russian_swing","kb_american_swing","kb_snatch","gorilla_row","farmer_walk","wall_ball","thruster","box_jump"],
@@ -664,8 +961,8 @@ const PPLGenerator = ({ onAdd }) => {
     setGenerated(shuffled.slice(0,count).map(id=>{
       const ex=LIBRARY.find(l=>l.id===id);
       if (!ex) return null;
-      if (ex.cat==="Cardio") return {...ex, duration:"20", zone:"2", cardioType:ex.cardioType||"duration"};
-      return {...ex, sets:"4", reps:type==="Mobilité"?"60s":"8-12", load:"", rest:"60", rpe:""};
+      if (ex.cat==="Cardio") return {...ex,duration:"20",zone:"2",cardioType:ex.cardioType||"duration"};
+      return {...ex,sets:"4",reps:type==="Mobilité"?"60s":"8-12",load:"",rest:"60",rpe:""};
     }).filter(Boolean));
   }
   return (
@@ -682,10 +979,7 @@ const PPLGenerator = ({ onAdd }) => {
           {generated.map((ex,i)=>(
             <div key={i} style={{ display:"flex", alignItems:"center", gap:10, padding:"8px 0", borderBottom:i<generated.length-1?"1px solid #0f2040":"none" }}>
               <div style={{ width:36, height:18, borderRadius:6, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
-              <div style={{ flex:1 }}>
-                <div style={{ fontWeight:700, fontSize:13 }}>{ex.name}</div>
-                <div style={{ fontSize:10, color:"#3d5278" }}>{ex.muscles}</div>
-              </div>
+              <div style={{ flex:1 }}><div style={{ fontWeight:700, fontSize:13 }}>{ex.name}</div><div style={{ fontSize:10, color:"#3d5278" }}>{ex.muscles}</div></div>
               <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
             </div>
           ))}
@@ -700,6 +994,7 @@ const PPLGenerator = ({ onAdd }) => {
 };
 export default function App() {
   const [clients, setClients] = useState(SAMPLE_CLIENTS);
+  const [customTemplates, setCustomTemplates] = useState([]);
   const [fbStatus, setFbStatus] = useState("connecting");
   const [view, setView] = useState("dash");
   const [selId, setSelId] = useState(null);
@@ -710,6 +1005,7 @@ export default function App() {
   const [addOpen, setAddOpen] = useState(false);
   const [showNewSession, setShowNewSession] = useState(false);
   const [showExPicker, setShowExPicker] = useState(false);
+  const [showTemplatePicker, setShowTemplatePicker] = useState(false);
   const [editingClient, setEditingClient] = useState(false);
   const [editingSession, setEditingSession] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
@@ -727,34 +1023,45 @@ export default function App() {
   const [pendingSession, setPendingSession] = useState({ exercises:[] });
 
   const cl = clients.find(c=>c.id===selId);
+  const allTemplates = [...DEFAULT_TEMPLATES, ...customTemplates];
 
   useEffect(()=>{
     const unsub=onSnapshot(doc(db,"coach","data"),snap=>{
-      if (snap.exists()) { setClients(snap.data().clients||[]); }
-      else { saveToFirebase(SAMPLE_CLIENTS); }
+      if (snap.exists()) {
+        const data=snap.data();
+        setClients(data.clients||[]);
+        setCustomTemplates(data.customTemplates||[]);
+      } else { saveToFirebase(SAMPLE_CLIENTS,[]); }
       setFbStatus("live");
     },()=>setFbStatus("local"));
     return unsub;
   },[]);
 
-  const saveToFirebase = useCallback(async(data)=>{
-    try { await setDoc(doc(db,"coach","data"),{clients:data,updatedAt:Date.now()}); }
+  const saveToFirebase = useCallback(async(clients,templates)=>{
+    try { await setDoc(doc(db,"coach","data"),{clients,customTemplates:templates,updatedAt:Date.now()}); }
     catch(e) { console.error(e); }
   },[]);
 
-  const sync = useCallback((updated)=>{ setClients(updated); saveToFirebase(updated); },[saveToFirebase]);
-  const up = (id,patch) => sync(clients.map(c=>c.id===id?{...c,...patch}:c));
+  const sync = useCallback((updatedClients,updatedTemplates)=>{
+    const c=updatedClients||clients;
+    const t=updatedTemplates||customTemplates;
+    setClients(c); setCustomTemplates(t);
+    saveToFirebase(c,t);
+  },[clients,customTemplates,saveToFirebase]);
+
+  const up = (id,patch) => sync(clients.map(c=>c.id===id?{...c,...patch}:c),null);
+  const saveTemplates = (tpls) => sync(null,tpls);
 
   const openClient = (id) => {
     setSelId(id); setView("client"); setTab("sessions");
     setShowNewSession(false); setEditingClient(false); setEditingSession(null);
     setNewS({date:"",present:true,duration:"",note:""});
-    setPendingSession({exercises:[]}); setShowExPicker(false);
+    setPendingSession({exercises:[]}); setShowExPicker(false); setShowTemplatePicker(false);
   };
 
   function doAddClient() {
     if (!newC.name.trim()) return;
-    sync([...clients,{id:"c"+Date.now(),...newC,age:+newC.age,since:new Date().toISOString().slice(0,7),status:"actif",progress:0,sessions:[],metrics:[],programs:[],goals:[]}]);
+    sync([...clients,{id:"c"+Date.now(),...newC,age:+newC.age,since:new Date().toISOString().slice(0,7),status:"actif",progress:0,sessions:[],metrics:[],programs:[],goals:[]}],null);
     setNewC({name:"",age:"",sport:"",objective:"",notes:""}); setAddOpen(false);
   }
 
@@ -765,21 +1072,20 @@ export default function App() {
   }
 
   function doDeleteClient(id) {
-    sync(clients.filter(c=>c.id!==id));
+    sync(clients.filter(c=>c.id!==id),null);
     setView("dash"); setConfirmDelete(null);
   }
 
   function doArchiveClient(id) {
-    up(id,{status:"inactif"});
-    setView("dash");
+    up(id,{status:"inactif"}); setView("dash");
   }
 
   function doAddSession() {
     if (!newS.date||!cl) return;
-    const sess={ id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration, exercises:pendingSession.exercises||[] };
+    const sess={ id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration, exercises:pendingSession.exercises||[], templateId:pendingSession.templateId||null };
     up(selId,{sessions:[sess,...cl.sessions]});
     setNewS({date:"",present:true,duration:"",note:""});
-    setPendingSession({exercises:[]}); setShowExPicker(false); setShowNewSession(false);
+    setPendingSession({exercises:[]}); setShowExPicker(false); setShowNewSession(false); setShowTemplatePicker(false);
   }
 
   function doSaveEditSession() {
@@ -788,18 +1094,18 @@ export default function App() {
     setEditingSession(null);
   }
 
+  function applyTemplateToSession(tpl) {
+    const exercises = applyTemplate(tpl, cl.sessions);
+    setPendingSession({ exercises, templateId:tpl.id });
+    setShowTemplatePicker(false);
+  }
+
   function addExercisesToSession(exs) {
     setPendingSession(p=>({...p,exercises:[...p.exercises,...exs.map(ex=>{
       const libEx=LIBRARY.find(l=>l.id===ex.id);
       const isCardio=libEx?.cat==="Cardio";
-      return {
-        id:"se"+Date.now()+Math.random(), libId:ex.id, name:ex.name,
-        cardioType:libEx?.cardioType||"",
-        ...(isCardio
-          ? { duration:"", speed:"", watts:"", zone:"" }
-          : { sets:"3", reps:"10", load:"", rest:"60", rpe:"", note:"" }
-        )
-      };
+      return { id:"se"+Date.now()+Math.random(), libId:ex.id, name:ex.name, cardioType:libEx?.cardioType||"",
+        ...(isCardio?{duration:"",speed:"",watts:"",zone:""}:{sets:"3",reps:"10",load:"",rest:"60",rpe:"",note:""}) };
     })]}));
   }
 
@@ -811,13 +1117,8 @@ export default function App() {
     setEditingSession(p=>({...p,exercises:p.exercises.map((ex,i)=>i===idx?{...ex,[field]:val}:ex)}));
   }
 
-  function removeSessionEx(idx) {
-    setPendingSession(p=>({...p,exercises:p.exercises.filter((_,i)=>i!==idx)}));
-  }
-
-  function removeEditSessionEx(idx) {
-    setEditingSession(p=>({...p,exercises:p.exercises.filter((_,i)=>i!==idx)}));
-  }
+  function removeSessionEx(idx) { setPendingSession(p=>({...p,exercises:p.exercises.filter((_,i)=>i!==idx)})); }
+  function removeEditSessionEx(idx) { setEditingSession(p=>({...p,exercises:p.exercises.filter((_,i)=>i!==idx)})); }
 
   function doAddMetric() {
     if (!newM.date||!newM.weight||!cl) return;
@@ -833,7 +1134,7 @@ export default function App() {
 
   function doAddProgram() {
     if (!newP.name.trim()||!cl) return;
-    up(selId,{programs:[...cl.programs,{id:"p"+Date.now(),...newP,weeks:+newP.weeks,exercises:[]}]});
+    up(selId,{programs:[...cl.programs,{id:"p"+Date.now(),...newP,weeks:+newP.weeks,exercises:[]}]},null);
     setNewP({name:"",weeks:"8",startDate:""});
   }
 
@@ -856,7 +1157,12 @@ export default function App() {
     </div>
   );
 
-  // ── LIBRARY ────────────────────────────────────────────────────────────────
+  // ── TEMPLATES VIEW ────────────────────────────────────────────────────────
+  if (view==="templates") return wrap(
+    <TemplatesView templates={customTemplates} onBack={()=>setView("dash")} onSave={saveTemplates}/>
+  );
+
+  // ── LIBRARY ───────────────────────────────────────────────────────────────
   if (view==="library") {
     const filtered=LIBRARY.filter(e=>{
       const matchCat=libCat==="Tous"||e.cat===libCat;
@@ -901,7 +1207,7 @@ export default function App() {
     );
   }
 
-  // ── DASHBOARD ──────────────────────────────────────────────────────────────
+  // ── DASHBOARD ─────────────────────────────────────────────────────────────
   if (view==="dash") {
     const total=clients.reduce((a,c)=>a+c.sessions.filter(s=>s.present).length,0);
     const actif=clients.filter(c=>c.status==="actif").length;
@@ -915,7 +1221,8 @@ export default function App() {
         </div>
         <div style={{ display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:16 }}>
           <div style={{ fontSize:34,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:-0.5,lineHeight:1 }}>MES CLIENTS</div>
-          <div style={{ display:"flex",gap:8 }}>
+          <div style={{ display:"flex",gap:6 }}>
+            <Btn ghost small onClick={()=>setView("templates")}>📋 Templates</Btn>
             <Btn ghost small onClick={()=>setView("library")}>📚 Biblio</Btn>
             <Btn small onClick={()=>setAddOpen(true)}>+ Client</Btn>
           </div>
@@ -934,6 +1241,9 @@ export default function App() {
         {clients.map((c,i)=>{
           const a2=c.sessions.length?Math.round(c.sessions.filter(s=>s.present).length/c.sessions.length*100):0;
           const lw=c.metrics[0];
+          // Smart suggestion: last template used
+          const lastSession=c.sessions[0];
+          const lastTpl=lastSession?.templateId?allTemplates.find(t=>t.id===lastSession.templateId):null;
           return (
             <div key={c.id} className="ch fu" onClick={()=>openClient(c.id)}
               style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:15,marginBottom:10,cursor:"pointer",animationDelay:`${i*.05}s`,opacity:c.status==="inactif"?0.5:1 }}>
@@ -942,6 +1252,7 @@ export default function App() {
                 <div style={{ flex:1,minWidth:0 }}>
                   <div style={{ fontWeight:900,fontSize:16,fontFamily:"'Barlow Condensed',sans-serif",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{c.name.toUpperCase()}</div>
                   <div style={{ color:"#7a90b8",fontSize:12,marginTop:1 }}>{c.sport} · {c.objective}</div>
+                  {lastTpl&&<div style={{ fontSize:10,color:"#3d5278",marginTop:2 }}>Dernière séance : <b style={{ color:lastTpl.color||"#1a6fff" }}>{lastTpl.name}</b></div>}
                 </div>
                 <div style={{ display:"flex",flexDirection:"column",alignItems:"flex-end",gap:4,flexShrink:0 }}>
                   <Badge label={c.status} color={STATUS_COLOR[c.status]||"#3d5278"}/>
@@ -1002,7 +1313,7 @@ export default function App() {
     </>);
   }
 
-  // ── CLIENT DETAIL ──────────────────────────────────────────────────────────
+  // ── CLIENT DETAIL ─────────────────────────────────────────────────────────
   if (view==="client"&&cl) {
     const att=cl.sessions.length?Math.round(cl.sessions.filter(s=>s.present).length/cl.sessions.length*100):0;
     const lw=cl.metrics[0],pw=cl.metrics[1];
@@ -1016,6 +1327,11 @@ export default function App() {
       acc[month].push(s); return acc;
     },{});
     const sortedMonths=Object.keys(sessionsByMonth).sort((a,b)=>b.localeCompare(a));
+
+    // Smart suggestion
+    const lastTplId=cl.sessions.find(s=>s.templateId)?.templateId;
+    const lastTpl=lastTplId?allTemplates.find(t=>t.id===lastTplId):null;
+    const suggestedTpl=lastTpl?allTemplates.find(t=>t.cat===lastTpl.cat&&t.id!==lastTpl.id)||lastTpl:allTemplates[0];
 
     if (editingClient&&editC) return wrap(<>
       <div style={{ padding:"16px" }}>
@@ -1112,19 +1428,51 @@ export default function App() {
 
       <div style={{ padding:"14px" }}>
 
-        {/* ── SESSIONS ── */}
         {tab==="sessions"&&<div className="fu">
           <MonthlyReport sessions={cl.sessions} metrics={cl.metrics}/>
+
           {!showNewSession?(
-            <button onClick={()=>setShowNewSession(true)} style={{ width:"100%",background:"#070d1a",border:"2px dashed #1a6fff44",borderRadius:14,padding:"14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:14,letterSpacing:"0.06em",textTransform:"uppercase",cursor:"pointer",marginBottom:16,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
-              + Nouvelle séance
-            </button>
+            <div style={{ marginBottom:16 }}>
+              {/* Smart suggestion */}
+              {suggestedTpl&&(
+                <div style={{ background:`${suggestedTpl.color||"#1a6fff"}11`, border:`1px solid ${suggestedTpl.color||"#1a6fff"}44`, borderRadius:14, padding:12, marginBottom:10 }}>
+                  <div style={{ fontSize:10, color:"#7a90b8", marginBottom:6 }}>💡 Suggestion basée sur l'historique</div>
+                  <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                    <div style={{ flex:1 }}>
+                      <div style={{ fontWeight:800, fontSize:14, fontFamily:"'Barlow Condensed',sans-serif", color:suggestedTpl.color||"#1a6fff" }}>{suggestedTpl.name}</div>
+                      <div style={{ fontSize:11, color:"#3d5278" }}>{suggestedTpl.exercises.length} exercices · {suggestedTpl.exercises.map(e=>e.name).slice(0,3).join(", ")}...</div>
+                    </div>
+                    <Btn small onClick={()=>{ setShowNewSession(true); applyTemplateToSession(suggestedTpl); }} color={suggestedTpl.color||"#1a6fff"}>Utiliser →</Btn>
+                  </div>
+                </div>
+              )}
+              <button onClick={()=>setShowNewSession(true)} style={{ width:"100%",background:"#070d1a",border:"2px dashed #1a6fff44",borderRadius:14,padding:"14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:14,letterSpacing:"0.06em",textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
+                + Nouvelle séance
+              </button>
+            </div>
           ):(
             <div style={{ background:"#070d1a",border:"1px solid #1a6fff44",borderRadius:14,padding:14,marginBottom:16 }}>
               <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14 }}>
                 <SecTitle c="Nouvelle séance"/>
-                <button onClick={()=>{ setShowNewSession(false); setNewS({date:"",present:true,duration:"",note:""}); setPendingSession({exercises:[]}); setShowExPicker(false); }} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:18,padding:0 }}>✕</button>
+                <button onClick={()=>{ setShowNewSession(false); setNewS({date:"",present:true,duration:"",note:""}); setPendingSession({exercises:[]}); setShowExPicker(false); setShowTemplatePicker(false); }} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:18,padding:0 }}>✕</button>
               </div>
+
+              {/* Template picker button */}
+              <button onClick={()=>setShowTemplatePicker(!showTemplatePicker)} style={{ width:"100%",background:"#0a1628",border:"1px solid #f97316aa",borderRadius:8,padding:"8px 14px",color:"#f97316",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:10,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
+                📋 {showTemplatePicker?"Fermer":"Choisir un template de séance"}
+              </button>
+
+              {showTemplatePicker&&(
+                <TemplatePicker allTemplates={allTemplates} onSelect={applyTemplateToSession} onClose={()=>setShowTemplatePicker(false)}/>
+              )}
+
+              {pendingSession.templateId&&(
+                <div style={{ background:"#f9741611", border:"1px solid #f9741633", borderRadius:8, padding:"6px 12px", marginBottom:10, display:"flex", alignItems:"center", gap:8 }}>
+                  <span style={{ fontSize:11, color:"#f97316" }}>📋 Template : <b>{allTemplates.find(t=>t.id===pendingSession.templateId)?.name||"Custom"}</b></span>
+                  <button onClick={()=>setPendingSession(p=>({...p,templateId:null}))} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:12,padding:0,marginLeft:"auto" }}>✕</button>
+                </div>
+              )}
+
               <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:10 }}>
                 <Field label="Date" type="date" value={newS.date} onChange={v=>setNewS(p=>({...p,date:v}))} half/>
                 <Field label="Durée min" type="number" value={newS.duration} onChange={v=>setNewS(p=>({...p,duration:v}))} placeholder="60" half/>
@@ -1134,10 +1482,12 @@ export default function App() {
                 </div>
                 <Field label="Notes" value={newS.note} onChange={v=>setNewS(p=>({...p,note:v}))} placeholder="Observations..."/>
               </div>
+
               <button onClick={()=>setShowExPicker(!showExPicker)} style={{ width:"100%",background:"#0a1628",border:"1px solid #1a6fff44",borderRadius:8,padding:"8px 14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:showExPicker?10:0,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
-                💪 {showExPicker?"Fermer":"Ajouter des exercices"}
+                💪 {showExPicker?"Fermer":"Ajouter des exercices manuellement"}
               </button>
               {showExPicker&&<SessionExercisePicker onAdd={addExercisesToSession} onClose={()=>setShowExPicker(false)}/>}
+
               {pendingSession.exercises.length>0&&(
                 <div style={{ marginTop:10,marginBottom:10 }}>
                   <div style={{ fontSize:10,color:"#3d5278",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:8 }}>Exercices ({pendingSession.exercises.length})</div>
@@ -1150,7 +1500,6 @@ export default function App() {
             </div>
           )}
 
-          {/* Edit session modal */}
           {editingSession&&(
             <div style={{ position:"fixed",inset:0,background:"#000e",display:"flex",alignItems:"flex-end",zIndex:99 }} onClick={()=>setEditingSession(null)}>
               <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:"20px 20px 0 0",padding:"24px 18px 40px",width:"100%",maxHeight:"90vh",overflowY:"auto" }}>
@@ -1189,59 +1538,65 @@ export default function App() {
                   <span style={{ fontSize:10,fontWeight:700,color:"#3d5278",letterSpacing:"0.1em",textTransform:"uppercase",flexShrink:0 }}>{label}</span>
                   <div style={{ flex:1,height:1,background:"#0f2040" }}/>
                 </div>
-                {sessions.map((s,i)=>(
-                  <SwipeToDelete key={s.id} onDelete={()=>up(selId,{sessions:cl.sessions.filter(ss=>ss.id!==s.id)})}>
-                    <div className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:12,padding:"12px 14px" }}>
-                      <div style={{ display:"flex",gap:10,alignItems:"flex-start" }}>
-                        <div style={{ width:8,height:8,borderRadius:"50%",background:s.present?"#22c55e":"#e63946",marginTop:5,flexShrink:0 }}/>
-                        <div style={{ flex:1 }}>
-                          <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center" }}>
-                            <span style={{ fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",fontSize:15 }}>{s.date}</span>
-                            <div style={{ display:"flex",gap:6,alignItems:"center" }}>
-                              {s.duration>0&&<span style={{ fontSize:11,color:"#3d5278" }}>{s.duration}min</span>}
-                              <Badge label={s.present?"Présent":"Absent"} color={s.present?"#22c55e":"#e63946"}/>
-                              <button onClick={e=>{ e.stopPropagation(); setEditingSession({...s,exercises:[...(s.exercises||[])]}); }} style={{ background:"#112240",border:"1px solid #0f2040",borderRadius:6,padding:"3px 8px",color:"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,cursor:"pointer" }}>✏️</button>
+                {sessions.map((s,i)=>{
+                  const sTpl=s.templateId?allTemplates.find(t=>t.id===s.templateId):null;
+                  return (
+                    <SwipeToDelete key={s.id} onDelete={()=>up(selId,{sessions:cl.sessions.filter(ss=>ss.id!==s.id)})}>
+                      <div className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:12,padding:"12px 14px" }}>
+                        <div style={{ display:"flex",gap:10,alignItems:"flex-start" }}>
+                          <div style={{ width:8,height:8,borderRadius:"50%",background:s.present?"#22c55e":"#e63946",marginTop:5,flexShrink:0 }}/>
+                          <div style={{ flex:1 }}>
+                            <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+                              <div>
+                                <span style={{ fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",fontSize:15 }}>{s.date}</span>
+                                {sTpl&&<span style={{ marginLeft:6,fontSize:10,color:sTpl.color||"#1a6fff",fontWeight:700 }}>📋 {sTpl.name}</span>}
+                              </div>
+                              <div style={{ display:"flex",gap:6,alignItems:"center" }}>
+                                {s.duration>0&&<span style={{ fontSize:11,color:"#3d5278" }}>{s.duration}min</span>}
+                                <Badge label={s.present?"Présent":"Absent"} color={s.present?"#22c55e":"#e63946"}/>
+                                <button onClick={e=>{ e.stopPropagation(); setEditingSession({...s,exercises:[...(s.exercises||[])]}); }} style={{ background:"#112240",border:"1px solid #0f2040",borderRadius:6,padding:"3px 8px",color:"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,cursor:"pointer" }}>✏️</button>
+                              </div>
                             </div>
-                          </div>
-                          {s.note&&<div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{s.note}</div>}
-                          {s.exercises&&s.exercises.length>0&&(
-                            <div style={{ marginTop:8 }}>
-                              {s.exercises.map((ex,j)=>{
-                                const libEx=LIBRARY.find(l=>l.id===ex.libId);
-                                const isCardio=libEx?.cat==="Cardio";
-                                return (
-                                  <div key={j} style={{ display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:j<s.exercises.length-1?"1px solid #0f204044":"none" }}>
-                                    <div style={{ width:24,height:12,borderRadius:3,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-                                    <span style={{ fontSize:11,color:"#e8edf5",fontWeight:600,flex:1 }}>{ex.name}</span>
-                                    <div style={{ display:"flex",gap:4,flexShrink:0,flexWrap:"wrap",justifyContent:"flex-end" }}>
-                                      {isCardio ? <>
-                                        {ex.duration&&<Badge label={`${ex.duration}min`} color="#f59e0b"/>}
-                                        {ex.speed&&<Badge label={`${ex.speed}km/h`} color="#22c55e"/>}
-                                        {ex.watts&&<Badge label={`${ex.watts}W`} color="#8b5cf6"/>}
-                                        {ex.zone&&<Badge label={`Z${ex.zone}`} color={zoneColor(ex.zone)}/>}
-                                      </> : <>
-                                        {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
-                                        {ex.load&&+ex.load>0&&<Badge label={`${ex.load}kg`} color="#f59e0b"/>}
-                                        {ex.rest&&+ex.rest>0&&<Badge label={`${ex.rest}s`} color="#3d5278"/>}
-                                        {ex.rpe&&<Badge label={`RPE${ex.rpe}`} color={rpeColor(ex.rpe)}/>}
-                                      </>}
+                            {s.note&&<div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{s.note}</div>}
+                            {s.exercises&&s.exercises.length>0&&(
+                              <div style={{ marginTop:8 }}>
+                                {s.exercises.map((ex,j)=>{
+                                  const libEx=LIBRARY.find(l=>l.id===ex.libId);
+                                  const isCardio=libEx?.cat==="Cardio";
+                                  return (
+                                    <div key={j} style={{ display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:j<s.exercises.length-1?"1px solid #0f204044":"none" }}>
+                                      <div style={{ width:24,height:12,borderRadius:3,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                                      <span style={{ fontSize:11,color:"#e8edf5",fontWeight:600,flex:1 }}>{ex.name}</span>
+                                      <div style={{ display:"flex",gap:4,flexShrink:0,flexWrap:"wrap",justifyContent:"flex-end" }}>
+                                        {isCardio?<>
+                                          {ex.duration&&<Badge label={`${ex.duration}min`} color="#f59e0b"/>}
+                                          {ex.speed&&<Badge label={`${ex.speed}km/h`} color="#22c55e"/>}
+                                          {ex.watts&&<Badge label={`${ex.watts}W`} color="#8b5cf6"/>}
+                                          {ex.zone&&<Badge label={`Z${ex.zone}`} color={zoneColor(ex.zone)}/>}
+                                        </>:<>
+                                          {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
+                                          {ex.load&&+ex.load>0&&<Badge label={`${ex.load}kg`} color="#f59e0b"/>}
+                                          {ex.rest&&+ex.rest>0&&<Badge label={`${ex.rest}s`} color="#3d5278"/>}
+                                          {ex.rpe&&<Badge label={`RPE${ex.rpe}`} color={rpeColor(ex.rpe)}/>}
+                                          {ex.note&&ex.note.includes("↑")&&<Badge label="↑ Progression" color="#22c55e"/>}
+                                        </>}
+                                      </div>
                                     </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          )}
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </SwipeToDelete>
-                ))}
+                    </SwipeToDelete>
+                  );
+                })}
               </div>
             );
           })}
         </div>}
 
-        {/* ── METRICS ── */}
         {tab==="metrics"&&<div className="fu">
           <ProgressionCharts metrics={cl.metrics}/>
           <div style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:14 }}>
@@ -1279,7 +1634,6 @@ export default function App() {
           {!cl.metrics.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucune mesure enregistrée</div>}
         </div>}
 
-        {/* ── PROGRAMS ── */}
         {tab==="programs"&&<div className="fu">
           <div style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:14 }}>
             <SecTitle c="Nouveau programme"/>
@@ -1374,7 +1728,6 @@ export default function App() {
           {!cl.programs.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucun programme créé</div>}
         </div>}
 
-        {/* ── GOALS ── */}
         {tab==="goals"&&<div className="fu">
           <div style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:14 }}>
             <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10 }}>
@@ -1408,7 +1761,6 @@ export default function App() {
           {!cl.goals.length&&<div style={{ textAlign:"center",color:"#3d5278",padding:40 }}>Aucun objectif défini</div>}
         </div>}
 
-        {/* ── CHARGES ── */}
         {tab==="charges"&&<ChargesTab sessions={cl.sessions}/>}
 
       </div>
