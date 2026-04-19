@@ -29,7 +29,7 @@ const AnatomySVG = ({ id }) => {
 };
 
 const MUSCLE_GROUPS = {
-  "Pectoraux":["bench_press","incline_press","dips","cable_fly","pushup","bench_dumbbell"],
+  "Pectoraux":["bench_press","incline_press","dips","cable_fly","pushup","bench_dumbbell","incline_fly"],
   "Épaules":["overhead_press","lateral_raise","face_pull","shrug"],
   "Triceps":["overhead_press","dips","tricep_pushdown","skull_crusher","bench_press"],
   "Dorsaux":["pullup","barbell_row","dumbbell_row","lat_pulldown","deadlift","gorilla_row"],
@@ -43,7 +43,6 @@ const MUSCLE_GROUPS = {
 };
 
 const LIBRARY = [
-  // PUSH
   { id:"bench_press",      name:"Développé couché",      cat:"Push",       muscles:"Pectoraux, Triceps, Épaules",        tip:"Omoplates rétractées, coudes à 45°." },
   { id:"overhead_press",   name:"Développé militaire",   cat:"Push",       muscles:"Épaules, Triceps, Trapèzes",         tip:"Gainage abdominal, barre dans l'axe." },
   { id:"incline_press",    name:"Développé incliné",     cat:"Push",       muscles:"Pectoraux sup., Épaules",            tip:"Inclinaison 30-45°, contrôle en descente." },
@@ -55,7 +54,6 @@ const LIBRARY = [
   { id:"skull_crusher",    name:"Skull crusher",         cat:"Push",       muscles:"Triceps long",                       tip:"Coudes fixes, descente vers le front." },
   { id:"pushup",           name:"Pompes",                cat:"Push",       muscles:"Pectoraux, Triceps, Épaules",        tip:"Corps gainé, coudes à 45°." },
   { id:"bench_dumbbell",   name:"Développé haltères",    cat:"Push",       muscles:"Pectoraux, Triceps",                 tip:"Grande amplitude, coudes à 45°." },
-  // PULL
   { id:"pullup",           name:"Traction",              cat:"Pull",       muscles:"Grand dorsal, Biceps, Rhomboïdes",   tip:"Dépression scapulaire avant de tirer." },
   { id:"barbell_row",      name:"Rowing barre",          cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes, Biceps",   tip:"Dos plat, tirage vers le nombril." },
   { id:"dumbbell_row",     name:"Rowing haltère",        cat:"Pull",       muscles:"Grand dorsal, Rhomboïdes",           tip:"Coude près du corps, tirage jusqu'à la hanche." },
@@ -64,9 +62,8 @@ const LIBRARY = [
   { id:"bicep_curl",       name:"Curl biceps",           cat:"Pull",       muscles:"Biceps, Brachial",                   tip:"Coudes fixes, supination en haut." },
   { id:"hammer_curl",      name:"Curl marteau",          cat:"Pull",       muscles:"Biceps, Brachioradial",              tip:"Prise neutre, coudes fixes." },
   { id:"shrug",            name:"Haussements épaules",   cat:"Pull",       muscles:"Trapèzes supérieurs",                tip:"Mouvement vertical pur, pas de rotation." },
-  { id:"deadlift",         name:"Deadlift",              cat:"Pull",       muscles:"Ischio-jambiers, Lombaires, Fessiers", tip:"Dos plat, barre proche du corps." },
+  { id:"deadlift",         name:"Deadlift",              cat:"Pull",       muscles:"Ischio-jambiers, Lombaires, Fessiers",tip:"Dos plat, barre proche du corps." },
   { id:"gorilla_row",      name:"Gorilla Row",           cat:"Pull",       muscles:"Grand dorsal, Biceps, Core",         tip:"2 KB au sol, row alterné en gardant les hanches stables." },
-  // LEGS
   { id:"squat",            name:"Squat",                 cat:"Legs",       muscles:"Quadriceps, Fessiers, Ischio",       tip:"Pieds largeur épaules, genoux dans l'axe." },
   { id:"back_squat",       name:"Back Squat",            cat:"Legs",       muscles:"Quadriceps, Fessiers, Ischio",       tip:"Barre haute sur les trapèzes, dos droit." },
   { id:"front_squat",      name:"Front Squat",           cat:"Legs",       muscles:"Quadriceps, Core, Épaules",          tip:"Coudes hauts, barre sur les deltoïdes." },
@@ -82,10 +79,8 @@ const LIBRARY = [
   { id:"bulgarian_split",  name:"Fente bulgare",         cat:"Legs",       muscles:"Quadriceps, Fessiers",               tip:"Pied arrière surélevé, genou avant à 90°." },
   { id:"crab_walk",        name:"Marche crabe élastique",cat:"Legs",       muscles:"Fessiers, Abducteurs, Genoux",       tip:"Élastique au-dessus des genoux, dos droit, pas latéraux." },
   { id:"kickback",         name:"Kickback fessier",      cat:"Legs",       muscles:"Fessiers, Ischio-jambiers",          tip:"Contraction maximale en haut, contrôle en descente." },
-  // MUSCULATION
   { id:"plank",            name:"Gainage planche",       cat:"Musculation",muscles:"Abdominaux, Lombaires, Épaules",     tip:"Corps aligné, hanches ne tombent pas." },
   { id:"hip90",            name:"Hip 90/90",             cat:"Musculation",muscles:"Rotateurs hanche, Fessiers",         tip:"Deux jambes à 90°, bascule lente." },
-  // ABDOS
   { id:"ab_crunch",        name:"Crunch",                cat:"Abdos",      muscles:"Grand droit abdominal",              tip:"Expiration en montant, ne pas tirer la nuque." },
   { id:"ab_wheel",         name:"Ab Wheel (roulette)",   cat:"Abdos",      muscles:"Grand droit, Core profond",          tip:"Dos plat, bras tendus, ne pas creuser les reins." },
   { id:"leg_raise",        name:"Relevé de jambes",      cat:"Abdos",      muscles:"Abdominaux bas, Fléchisseurs hanche",tip:"Lombaires au sol, jambes quasi tendues." },
@@ -95,7 +90,6 @@ const LIBRARY = [
   { id:"pallof_press",     name:"Pallof Press",          cat:"Abdos",      muscles:"Obliques, Core anti-rotation",       tip:"Résister à la rotation, bras tendus devant." },
   { id:"sit_up",           name:"Sit-up",                cat:"Abdos",      muscles:"Grand droit, Fléchisseurs hanche",   tip:"Mouvement complet, expiration en montant." },
   { id:"cable_crunch",     name:"Crunch poulie haute",   cat:"Abdos",      muscles:"Grand droit abdominal",              tip:"Flexion du tronc, ne pas tirer avec les bras." },
-  // MOBILITÉ
   { id:"pigeon",           name:"Pigeon yoga",           cat:"Mobilité",   muscles:"Psoas, Rotateurs hanche",            tip:"Hanches au sol, 60-90s par côté." },
   { id:"catcow",           name:"Chat / Vache",          cat:"Mobilité",   muscles:"Rachis, Multifides",                 tip:"Mouvement fluide avec la respiration." },
   { id:"worldsgreatest",   name:"World's Greatest",      cat:"Mobilité",   muscles:"Full body, Hanche, Thoracique",      tip:"Rotation thoracique complète." },
@@ -104,17 +98,15 @@ const LIBRARY = [
   { id:"ankle_mob",        name:"Mobilité cheville",     cat:"Mobilité",   muscles:"Tibial antérieur, Mollets",          tip:"Genou dans l'axe du pied, talon au sol." },
   { id:"foam_roll",        name:"Foam roll dos",         cat:"Mobilité",   muscles:"Érecteurs, Thoracique",              tip:"Pause 20-30s sur les zones tendues." },
   { id:"shoulder_mob",     name:"Mobilité épaule",       cat:"Mobilité",   muscles:"Coiffe des rotateurs",               tip:"Mouvements lents et contrôlés." },
-  // CARDIO
-  { id:"run",              name:"Course / Jogging",      cat:"Cardio",     muscles:"Quadriceps, Ischio, Mollets",        tip:"Foulée médio-pied, 170-180 pas/min.",        cardioType:"run" },
-  { id:"bike",             name:"Vélo / Cycling",        cat:"Cardio",     muscles:"Quadriceps, Fessiers, Cardio",       tip:"Selle à hauteur de hanche, 80-90 rpm.",      cardioType:"watts" },
-  { id:"rowing_machine",   name:"Rameur",                cat:"Cardio",     muscles:"Full body, Dos, Cardio",             tip:"Jambes d'abord, puis dos, puis bras.",        cardioType:"watts" },
-  { id:"assault_bike",     name:"Assault Bike",          cat:"Cardio",     muscles:"Full body, Bras, Cardio",            tip:"Push/pull simultané bras et jambes.",         cardioType:"watts" },
-  { id:"skierg",           name:"SkiErg",                cat:"Cardio",     muscles:"Dorsaux, Épaules, Cardio",           tip:"Traction double bras, genoux légèrement fléchis.", cardioType:"watts" },
-  { id:"jumpingjack",      name:"Jumping Jack",          cat:"Cardio",     muscles:"Cardio, Coordination",               tip:"Rythme constant, atterrissage amorti.",       cardioType:"duration" },
-  { id:"jump_rope",        name:"Corde à sauter",        cat:"Cardio",     muscles:"Mollets, Cardio, Coordination",      tip:"Sauts légers, poignets qui tournent.",        cardioType:"duration" },
-  { id:"hiit_sprint",      name:"Sprint HIIT",           cat:"Cardio",     muscles:"Full body, Explosivité",             tip:"Effort max 20s, récup 40s.",                  cardioType:"run" },
-  { id:"battle_rope",      name:"Battle Rope",           cat:"Cardio",     muscles:"Épaules, Bras, Cardio",              tip:"Genoux fléchis, ondulations continues.",      cardioType:"duration" },
-  // FUNCTIONAL
+  { id:"run",              name:"Course / Jogging",      cat:"Cardio",     muscles:"Quadriceps, Ischio, Mollets",        tip:"Foulée médio-pied, 170-180 pas/min.",         cardioType:"run" },
+  { id:"bike",             name:"Vélo / Cycling",        cat:"Cardio",     muscles:"Quadriceps, Fessiers, Cardio",       tip:"Selle à hauteur de hanche, 80-90 rpm.",       cardioType:"watts" },
+  { id:"rowing_machine",   name:"Rameur",                cat:"Cardio",     muscles:"Full body, Dos, Cardio",             tip:"Jambes d'abord, puis dos, puis bras.",         cardioType:"watts" },
+  { id:"assault_bike",     name:"Assault Bike",          cat:"Cardio",     muscles:"Full body, Bras, Cardio",            tip:"Push/pull simultané bras et jambes.",          cardioType:"watts" },
+  { id:"skierg",           name:"SkiErg",                cat:"Cardio",     muscles:"Dorsaux, Épaules, Cardio",           tip:"Traction double bras, genoux légèrement fléchis.",cardioType:"watts" },
+  { id:"jumpingjack",      name:"Jumping Jack",          cat:"Cardio",     muscles:"Cardio, Coordination",               tip:"Rythme constant, atterrissage amorti.",        cardioType:"duration" },
+  { id:"jump_rope",        name:"Corde à sauter",        cat:"Cardio",     muscles:"Mollets, Cardio, Coordination",      tip:"Sauts légers, poignets qui tournent.",         cardioType:"duration" },
+  { id:"hiit_sprint",      name:"Sprint HIIT",           cat:"Cardio",     muscles:"Full body, Explosivité",             tip:"Effort max 20s, récup 40s.",                   cardioType:"run" },
+  { id:"battle_rope",      name:"Battle Rope",           cat:"Cardio",     muscles:"Épaules, Bras, Cardio",              tip:"Genoux fléchis, ondulations continues.",       cardioType:"duration" },
   { id:"kb_russian_swing", name:"KB Russian Swing",      cat:"Functional", muscles:"Fessiers, Ischio, Lombaires",        tip:"Charnière hanche pure, KB jusqu'aux épaules." },
   { id:"kb_american_swing",name:"KB American Swing",     cat:"Functional", muscles:"Fessiers, Épaules, Full body",       tip:"KB au-dessus de la tête, bras tendus en haut." },
   { id:"kb_snatch",        name:"KB Snatch",             cat:"Functional", muscles:"Full body, Épaules, Ischio",         tip:"Mouvement explosif, rotation du poignet en haut." },
@@ -126,6 +118,16 @@ const LIBRARY = [
   { id:"thruster",         name:"Thruster",              cat:"Functional", muscles:"Full body, Quadriceps, Épaules",     tip:"Squat + press en un mouvement continu." },
   { id:"clean_jerk",       name:"Clean & Jerk",          cat:"Functional", muscles:"Full body, Olympique",               tip:"Phase 1 clean, phase 2 jerk au-dessus." },
   { id:"barbell_snatch",   name:"Snatch barre",          cat:"Functional", muscles:"Full body, Explosivité, Olympique",  tip:"Prise large, barre proche du corps, extension complète." },
+  { id:"double_under",     name:"Double Under",          cat:"Functional", muscles:"Mollets, Cardio, Coordination",      tip:"Poignets rapides, saut légèrement plus haut qu'un simple." },
+  { id:"muscle_up",        name:"Muscle Up",             cat:"Functional", muscles:"Grand dorsal, Triceps, Épaules",     tip:"Traction explosive suivie d'un dip en haut de la barre." },
+  { id:"handstand_pushup", name:"Handstand Push-up",     cat:"Functional", muscles:"Épaules, Triceps, Core",             tip:"Tête touche le sol, extension complète des bras." },
+  { id:"toes_to_bar",      name:"Toes To Bar",           cat:"Functional", muscles:"Abdominaux, Fléchisseurs hanche",    tip:"Orteils touchent la barre, contrôle en descente." },
+  { id:"ring_dip",         name:"Ring Dip",              cat:"Functional", muscles:"Triceps, Pectoraux, Épaules",        tip:"Anneaux stables, descente contrôlée, extension complète." },
+  { id:"rope_climb",       name:"Corde lisse",           cat:"Functional", muscles:"Grand dorsal, Biceps, Core",         tip:"Technique L-sit ou jambes croisées pour économiser l'énergie." },
+  { id:"ghd_situp",        name:"GHD Sit-up",            cat:"Functional", muscles:"Abdominaux, Fléchisseurs hanche",    tip:"Extension complète en arrière, remontée explosive." },
+  { id:"box_step",         name:"Step Up Box",           cat:"Functional", muscles:"Quadriceps, Fessiers, Équilibre",    tip:"Pied entier sur la box, extension complète de la jambe." },
+  { id:"devil_press",      name:"Devil Press",           cat:"Functional", muscles:"Full body, Épaules, Cardio",         tip:"Burpee avec haltères + snatch au-dessus de la tête." },
+  { id:"sandbag_carry",    name:"Sandbag Carry",         cat:"Functional", muscles:"Core, Épaules, Jambes",              tip:"Sac serré contre la poitrine, dos droit." },
 ];
 
 const CATS = ["Tous","Push","Pull","Legs","Musculation","Abdos","Mobilité","Cardio","Functional"];
@@ -133,9 +135,155 @@ const CAT_COLOR = {
   Push:"#1a6fff", Pull:"#8b5cf6", Legs:"#22c55e", Musculation:"#1a6fff",
   Abdos:"#e63946", Mobilité:"#22c55e", Cardio:"#f59e0b", Functional:"#f97316"
 };
-const MONTH_NAMES = { "01":"Janvier","02":"Février","03":"Mars","04":"Avril","05":"Mai","06":"Juin","07":"Juillet","08":"Août","09":"Septembre","10":"Octobre","11":"Novembre","12":"Décembre" };
+const MONTH_NAMES = {"01":"Janvier","02":"Février","03":"Mars","04":"Avril","05":"Mai","06":"Juin","07":"Juillet","08":"Août","09":"Septembre","10":"Octobre","11":"Novembre","12":"Décembre"};
 const STATUS_OPTIONS = ["actif","pause","inactif"];
 const STATUS_COLOR = { actif:"#22c55e", pause:"#f59e0b", inactif:"#3d5278" };
+
+// ── WOD FORMATS ───────────────────────────────────────────────────────────────
+const WOD_FORMATS = [
+  { id:"amrap",    name:"AMRAP",    desc:"As Many Rounds As Possible",    color:"#e63946", icon:"🔄", fields:["duration"] },
+  { id:"emom",     name:"EMOM",     desc:"Every Minute On the Minute",    color:"#f97316", icon:"⏰", fields:["minutes","workPerMinute"] },
+  { id:"fortime",  name:"For Time", desc:"Finir le plus vite possible",   color:"#1a6fff", icon:"🏁", fields:["rounds","timecap"] },
+  { id:"timecap",  name:"Timecap",  desc:"Maximum dans le temps imparti", color:"#8b5cf6", icon:"⏱️", fields:["duration"] },
+  { id:"metcon",   name:"MetCon",   desc:"Metabolic Conditioning",        color:"#f59e0b", icon:"💪", fields:["rounds"] },
+  { id:"tabata",   name:"Tabata",   desc:"20s effort / 10s repos × 8",    color:"#22c55e", icon:"⚡", fields:["rounds"] },
+];
+
+// ── WOD BENCHMARKS ────────────────────────────────────────────────────────────
+const WOD_BENCHMARKS = [
+  // The Girls
+  {
+    id:"wod_cindy", name:"CINDY", type:"wod", format:"amrap", duration:20, color:"#e63946",
+    description:"AMRAP 20 min", category:"The Girls",
+    movements:[
+      { name:"Pull-ups",        reps:"5",  libId:"pullup" },
+      { name:"Push-ups",        reps:"10", libId:"pushup" },
+      { name:"Air Squats",      reps:"15", libId:"squat"  },
+    ],
+    scoreType:"rounds", tip:"Pace-toi dès le départ, reste constant sur les rounds."
+  },
+  {
+    id:"wod_annie", name:"ANNIE", type:"wod", format:"fortime", timecap:15, color:"#f97316",
+    description:"For Time", category:"The Girls",
+    movements:[
+      { name:"Double Unders", reps:"50-40-30-20-10", libId:"double_under" },
+      { name:"Sit-ups",       reps:"50-40-30-20-10", libId:"sit_up" },
+    ],
+    scoreType:"time", tip:"Enchaîne les double-unders sans t'arrêter, transitions rapides."
+  },
+  {
+    id:"wod_angie", name:"ANGIE", type:"wod", format:"fortime", timecap:30, color:"#8b5cf6",
+    description:"For Time", category:"The Girls",
+    movements:[
+      { name:"Pull-ups",   reps:"100", libId:"pullup" },
+      { name:"Push-ups",   reps:"100", libId:"pushup" },
+      { name:"Sit-ups",    reps:"100", libId:"sit_up"  },
+      { name:"Air Squats", reps:"100", libId:"squat"   },
+    ],
+    scoreType:"time", tip:"Complète chaque mouvement en entier avant de passer au suivant."
+  },
+  {
+    id:"wod_barbara", name:"BARBARA", type:"wod", format:"fortime", timecap:40, color:"#1a6fff",
+    description:"5 rounds For Time (3 min repos entre rounds)", category:"The Girls",
+    movements:[
+      { name:"Pull-ups",   reps:"20", libId:"pullup" },
+      { name:"Push-ups",   reps:"30", libId:"pushup" },
+      { name:"Sit-ups",    reps:"40", libId:"sit_up"  },
+      { name:"Air Squats", reps:"50", libId:"squat"   },
+    ],
+    scoreType:"time", tip:"3 min de repos entre chaque round. Reste strict sur la technique."
+  },
+  {
+    id:"wod_fran", name:"FRAN", type:"wod", format:"fortime", timecap:10, color:"#e63946",
+    description:"21-15-9 For Time", category:"The Girls",
+    movements:[
+      { name:"Thrusters (43kg)", reps:"21-15-9", libId:"thruster" },
+      { name:"Pull-ups",         reps:"21-15-9", libId:"pullup"   },
+    ],
+    scoreType:"time", tip:"WOD iconique. Objectif sub-5min pour les élites. Pace les thrusters."
+  },
+  {
+    id:"wod_grace", name:"GRACE", type:"wod", format:"fortime", timecap:10, color:"#f59e0b",
+    description:"30 reps For Time", category:"The Girls",
+    movements:[
+      { name:"Clean & Jerk (60kg)", reps:"30", libId:"clean_jerk" },
+    ],
+    scoreType:"time", tip:"Mouvement complet à chaque répétition. Rythme constant."
+  },
+  {
+    id:"wod_chelsea", name:"CHELSEA", type:"wod", format:"emom", minutes:30, color:"#22c55e",
+    description:"EMOM 30 min", category:"The Girls",
+    movements:[
+      { name:"Pull-ups",   reps:"5",  libId:"pullup" },
+      { name:"Push-ups",   reps:"10", libId:"pushup" },
+      { name:"Air Squats", reps:"15", libId:"squat"  },
+    ],
+    scoreType:"rounds", tip:"Même mouvements que Cindy mais en EMOM. Si tu rates une minute, continue."
+  },
+  // The Heroes
+  {
+    id:"wod_murph", name:"MURPH", type:"wod", format:"fortime", timecap:60, color:"#e63946",
+    description:"For Time (avec gilet 20lbs)", category:"The Heroes",
+    movements:[
+      { name:"Run",        reps:"1 mile",  libId:"run"    },
+      { name:"Pull-ups",   reps:"100",     libId:"pullup" },
+      { name:"Push-ups",   reps:"200",     libId:"pushup" },
+      { name:"Air Squats", reps:"300",     libId:"squat"  },
+      { name:"Run",        reps:"1 mile",  libId:"run"    },
+    ],
+    scoreType:"time", tip:"Partition suggérée : 20 rounds de 5 pull-ups / 10 push-ups / 15 squats."
+  },
+  {
+    id:"wod_dt", name:"DT", type:"wod", format:"fortime", timecap:20, color:"#8b5cf6",
+    description:"5 rounds For Time (70kg)", category:"The Heroes",
+    movements:[
+      { name:"Deadlift",          reps:"12", libId:"deadlift"   },
+      { name:"Hang Power Clean",  reps:"9",  libId:"clean_jerk" },
+      { name:"Push Jerk",         reps:"6",  libId:"clean_jerk" },
+    ],
+    scoreType:"time", tip:"Ne lâche pas la barre. Enchaîne les mouvements sans reposer la barre si possible."
+  },
+  {
+    id:"wod_jt", name:"JT", type:"wod", format:"fortime", timecap:20, color:"#f97316",
+    description:"21-15-9 For Time", category:"The Heroes",
+    movements:[
+      { name:"Handstand Push-ups", reps:"21-15-9", libId:"handstand_pushup" },
+      { name:"Ring Dips",          reps:"21-15-9", libId:"ring_dip"         },
+      { name:"Push-ups",           reps:"21-15-9", libId:"pushup"           },
+    ],
+    scoreType:"time", tip:"WOD très exigeant pour les épaules et triceps. Gère bien l'effort."
+  },
+  {
+    id:"wod_loredo", name:"LOREDO", type:"wod", format:"fortime", timecap:30, color:"#1a6fff",
+    description:"6 rounds For Time", category:"The Heroes",
+    movements:[
+      { name:"Run 400m",      reps:"400m", libId:"run"      },
+      { name:"Air Squats",    reps:"24",   libId:"squat"    },
+      { name:"Push-ups",      reps:"24",   libId:"pushup"   },
+      { name:"Walking Lunges",reps:"24",   libId:"lunge"    },
+    ],
+    scoreType:"time", tip:"Pace ton run dès le départ. Les lunges en fin sont très dures."
+  },
+  // Custom WODs populaires
+  {
+    id:"wod_karen", name:"KAREN", type:"wod", format:"fortime", timecap:15, color:"#f59e0b",
+    description:"For Time", category:"The Girls",
+    movements:[
+      { name:"Wall Ball Shot (9kg)", reps:"150", libId:"wall_ball" },
+    ],
+    scoreType:"time", tip:"Pace-toi ! 150 wall balls en continu est brutal. Sets de 10-15 avec courte pause."
+  },
+  {
+    id:"wod_helen", name:"HELEN", type:"wod", format:"fortime", timecap:15, color:"#22c55e",
+    description:"3 rounds For Time", category:"The Girls",
+    movements:[
+      { name:"Run 400m",       reps:"400m", libId:"run"             },
+      { name:"KB Swing (24kg)",reps:"21",   libId:"kb_russian_swing"},
+      { name:"Pull-ups",       reps:"12",   libId:"pullup"          },
+    ],
+    scoreType:"time", tip:"Enchaîne les 3 mouvements le plus vite possible. Sub-9min est bon."
+  },
+];
 
 const calc1RM = (load, reps) => {
   if (!load||!reps||+reps===0||+reps>30) return null;
@@ -164,105 +312,110 @@ const rpeLabel = (rpe) => {
 const zoneColor = (z) => ({ "1":"#3b82f6","2":"#22c55e","3":"#f59e0b","4":"#f97316","5":"#e63946" }[z]||"#3d5278");
 const zoneLabel = (z) => ({ "1":"Récup","2":"Aérobie","3":"Tempo","4":"Seuil","5":"VO2max" }[z]||"");
 
-// ── TEMPLATES PRÉ-DÉFINIS ────────────────────────────────────────────────────
+// ── DEFAULT TEMPLATES ─────────────────────────────────────────────────────────
 const DEFAULT_TEMPLATES = [
-  {
-    id:"tpl_push_a", name:"Push Day A", cat:"Push", color:"#1a6fff",
-    exercises:[
-      { libId:"bench_press",   name:"Développé couché",   sets:"4", reps:"6",  rest:"150" },
-      { libId:"incline_press", name:"Développé incliné",  sets:"3", reps:"10", rest:"90"  },
-      { libId:"incline_fly",   name:"Écarté incliné",     sets:"3", reps:"12", rest:"60"  },
-      { libId:"dips",          name:"Dips",               sets:"3", reps:"12", rest:"60"  },
-      { libId:"pushup",        name:"Pompes",             sets:"3", reps:"15", rest:"60"  },
-    ]
-  },
-  {
-    id:"tpl_push_b", name:"Push Day B", cat:"Push", color:"#1a6fff",
-    exercises:[
-      { libId:"overhead_press",  name:"Développé militaire",  sets:"4", reps:"8",  rest:"120" },
-      { libId:"bench_dumbbell",  name:"Développé haltères",   sets:"3", reps:"10", rest:"90"  },
-      { libId:"lateral_raise",   name:"Élévations latérales", sets:"3", reps:"15", rest:"60"  },
-      { libId:"skull_crusher",   name:"Skull crusher",        sets:"3", reps:"12", rest:"60"  },
-      { libId:"tricep_pushdown", name:"Pushdown triceps",     sets:"3", reps:"15", rest:"60"  },
-    ]
-  },
-  {
-    id:"tpl_back_a", name:"Back Day A", cat:"Pull", color:"#8b5cf6",
-    exercises:[
-      { libId:"barbell_row",  name:"Rowing barre",         sets:"4", reps:"8",  rest:"120" },
-      { libId:"dumbbell_row", name:"Rowing haltère",       sets:"3", reps:"10", rest:"90"  },
-      { libId:"lateral_raise",name:"Élévations latérales", sets:"3", reps:"15", rest:"60"  },
-      { libId:"pullup",       name:"Traction",             sets:"4", reps:"8",  rest:"120" },
-      { libId:"face_pull",    name:"Face pull",            sets:"3", reps:"15", rest:"60"  },
-    ]
-  },
-  {
-    id:"tpl_back_b", name:"Back Day B", cat:"Pull", color:"#8b5cf6",
-    exercises:[
-      { libId:"lat_pulldown", name:"Tirage poulie haute", sets:"4", reps:"10", rest:"90"  },
-      { libId:"gorilla_row",  name:"Gorilla Row",         sets:"3", reps:"10", rest:"90"  },
-      { libId:"face_pull",    name:"Face pull",           sets:"3", reps:"15", rest:"60"  },
-      { libId:"shrug",        name:"Haussements épaules", sets:"3", reps:"12", rest:"60"  },
-      { libId:"bicep_curl",   name:"Curl biceps",         sets:"3", reps:"12", rest:"60"  },
-      { libId:"hammer_curl",  name:"Curl marteau",        sets:"3", reps:"12", rest:"60"  },
-    ]
-  },
-  {
-    id:"tpl_leg_a", name:"Leg Day A", cat:"Legs", color:"#22c55e",
-    exercises:[
-      { libId:"back_squat",     name:"Back Squat",              sets:"4", reps:"6",  rest:"180" },
-      { libId:"hip_thrust",     name:"Hip Thrust",              sets:"4", reps:"10", rest:"90"  },
-      { libId:"bulgarian_split",name:"Fente bulgare",           sets:"3", reps:"10", rest:"90"  },
-      { libId:"rdl",            name:"Romanian Deadlift",       sets:"3", reps:"10", rest:"90"  },
-      { libId:"crab_walk",      name:"Marche crabe élastique",  sets:"3", reps:"20", rest:"60"  },
-      { libId:"kickback",       name:"Kickback fessier",        sets:"3", reps:"15", rest:"60"  },
-    ]
-  },
-  {
-    id:"tpl_leg_b", name:"Leg Day B", cat:"Legs", color:"#22c55e",
-    exercises:[
-      { libId:"front_squat",   name:"Front Squat",       sets:"4", reps:"6",  rest:"180" },
-      { libId:"leg_press",     name:"Presse à cuisses",  sets:"3", reps:"12", rest:"90"  },
-      { libId:"leg_curl",      name:"Leg curl",          sets:"3", reps:"12", rest:"60"  },
-      { libId:"glute_bridge",  name:"Pont fessier",      sets:"3", reps:"15", rest:"60"  },
-      { libId:"calf_raise",    name:"Mollets debout",    sets:"4", reps:"20", rest:"45"  },
-    ]
-  },
-  {
-    id:"tpl_functional", name:"WOD Functional", cat:"Functional", color:"#f97316",
-    exercises:[
-      { libId:"kb_russian_swing", name:"KB Russian Swing", sets:"5", reps:"15", rest:"60" },
-      { libId:"thruster",         name:"Thruster",         sets:"4", reps:"10", rest:"90" },
-      { libId:"box_jump",         name:"Box Jump",         sets:"4", reps:"10", rest:"60" },
-      { libId:"farmer_walk",      name:"Farmer Walk",      sets:"4", reps:"30", rest:"90" },
-      { libId:"wall_ball",        name:"Wall Ball Shot",   sets:"4", reps:"15", rest:"60" },
-    ]
-  },
-  {
-    id:"tpl_fullbody", name:"Full Body", cat:"Musculation", color:"#1a6fff",
-    exercises:[
-      { libId:"deadlift",       name:"Deadlift",           sets:"4", reps:"5",  rest:"180" },
-      { libId:"overhead_press", name:"Développé militaire",sets:"3", reps:"8",  rest:"120" },
-      { libId:"pullup",         name:"Traction",           sets:"3", reps:"8",  rest:"120" },
-      { libId:"back_squat",     name:"Back Squat",         sets:"3", reps:"8",  rest:"150" },
-      { libId:"plank",          name:"Gainage planche",    sets:"3", reps:"60s",rest:"60"  },
-    ]
-  },
+  { id:"tpl_push_a", name:"Push Day A", cat:"Push", color:"#1a6fff", exercises:[
+    { libId:"bench_press",   name:"Développé couché",   sets:"4", reps:"6",  rest:"150" },
+    { libId:"incline_press", name:"Développé incliné",  sets:"3", reps:"10", rest:"90"  },
+    { libId:"incline_fly",   name:"Écarté incliné",     sets:"3", reps:"12", rest:"60"  },
+    { libId:"dips",          name:"Dips",               sets:"3", reps:"12", rest:"60"  },
+    { libId:"pushup",        name:"Pompes",             sets:"3", reps:"15", rest:"60"  },
+  ]},
+  { id:"tpl_push_b", name:"Push Day B", cat:"Push", color:"#1a6fff", exercises:[
+    { libId:"overhead_press",  name:"Développé militaire",  sets:"4", reps:"8",  rest:"120" },
+    { libId:"bench_dumbbell",  name:"Développé haltères",   sets:"3", reps:"10", rest:"90"  },
+    { libId:"lateral_raise",   name:"Élévations latérales", sets:"3", reps:"15", rest:"60"  },
+    { libId:"skull_crusher",   name:"Skull crusher",        sets:"3", reps:"12", rest:"60"  },
+    { libId:"tricep_pushdown", name:"Pushdown triceps",     sets:"3", reps:"15", rest:"60"  },
+  ]},
+  { id:"tpl_back_a", name:"Back Day A", cat:"Pull", color:"#8b5cf6", exercises:[
+    { libId:"barbell_row",  name:"Rowing barre",         sets:"4", reps:"8",  rest:"120" },
+    { libId:"dumbbell_row", name:"Rowing haltère",       sets:"3", reps:"10", rest:"90"  },
+    { libId:"lateral_raise",name:"Élévations latérales", sets:"3", reps:"15", rest:"60"  },
+    { libId:"pullup",       name:"Traction",             sets:"4", reps:"8",  rest:"120" },
+    { libId:"face_pull",    name:"Face pull",            sets:"3", reps:"15", rest:"60"  },
+  ]},
+  { id:"tpl_back_b", name:"Back Day B", cat:"Pull", color:"#8b5cf6", exercises:[
+    { libId:"lat_pulldown", name:"Tirage poulie haute", sets:"4", reps:"10", rest:"90"  },
+    { libId:"gorilla_row",  name:"Gorilla Row",         sets:"3", reps:"10", rest:"90"  },
+    { libId:"face_pull",    name:"Face pull",           sets:"3", reps:"15", rest:"60"  },
+    { libId:"shrug",        name:"Haussements épaules", sets:"3", reps:"12", rest:"60"  },
+    { libId:"bicep_curl",   name:"Curl biceps",         sets:"3", reps:"12", rest:"60"  },
+    { libId:"hammer_curl",  name:"Curl marteau",        sets:"3", reps:"12", rest:"60"  },
+  ]},
+  { id:"tpl_leg_a", name:"Leg Day A", cat:"Legs", color:"#22c55e", exercises:[
+    { libId:"back_squat",     name:"Back Squat",             sets:"4", reps:"6",  rest:"180" },
+    { libId:"hip_thrust",     name:"Hip Thrust",             sets:"4", reps:"10", rest:"90"  },
+    { libId:"bulgarian_split",name:"Fente bulgare",          sets:"3", reps:"10", rest:"90"  },
+    { libId:"rdl",            name:"Romanian Deadlift",      sets:"3", reps:"10", rest:"90"  },
+    { libId:"crab_walk",      name:"Marche crabe élastique", sets:"3", reps:"20", rest:"60"  },
+    { libId:"kickback",       name:"Kickback fessier",       sets:"3", reps:"15", rest:"60"  },
+  ]},
+  { id:"tpl_leg_b", name:"Leg Day B", cat:"Legs", color:"#22c55e", exercises:[
+    { libId:"front_squat",  name:"Front Squat",      sets:"4", reps:"6",  rest:"180" },
+    { libId:"leg_press",    name:"Presse à cuisses", sets:"3", reps:"12", rest:"90"  },
+    { libId:"leg_curl",     name:"Leg curl",         sets:"3", reps:"12", rest:"60"  },
+    { libId:"glute_bridge", name:"Pont fessier",     sets:"3", reps:"15", rest:"60"  },
+    { libId:"calf_raise",   name:"Mollets debout",   sets:"4", reps:"20", rest:"45"  },
+  ]},
+  { id:"tpl_functional", name:"WOD Functional", cat:"Functional", color:"#f97316", exercises:[
+    { libId:"kb_russian_swing", name:"KB Russian Swing", sets:"5", reps:"15", rest:"60" },
+    { libId:"thruster",         name:"Thruster",         sets:"4", reps:"10", rest:"90" },
+    { libId:"box_jump",         name:"Box Jump",         sets:"4", reps:"10", rest:"60" },
+    { libId:"farmer_walk",      name:"Farmer Walk",      sets:"4", reps:"30", rest:"90" },
+    { libId:"wall_ball",        name:"Wall Ball Shot",   sets:"4", reps:"15", rest:"60" },
+  ]},
+  { id:"tpl_fullbody", name:"Full Body", cat:"Musculation", color:"#1a6fff", exercises:[
+    { libId:"deadlift",       name:"Deadlift",           sets:"4", reps:"5",  rest:"180" },
+    { libId:"overhead_press", name:"Développé militaire",sets:"3", reps:"8",  rest:"120" },
+    { libId:"pullup",         name:"Traction",           sets:"3", reps:"8",  rest:"120" },
+    { libId:"back_squat",     name:"Back Squat",         sets:"3", reps:"8",  rest:"150" },
+    { libId:"plank",          name:"Gainage planche",    sets:"3", reps:"60s",rest:"60"  },
+  ]},
 ];
+
+const applyTemplate = (template, clientSessions) => {
+  if (template.type==="wod") {
+    return template.movements.map(mv=>({
+      id:"se"+Date.now()+Math.random(),
+      libId:mv.libId||"", name:mv.name, reps:mv.reps,
+      sets:"1", load:"", rest:"", rpe:"", note:"", cardioType:"",
+      isWodMovement:true,
+    }));
+  }
+  return template.exercises.map(tplEx=>{
+    let lastLoad="", lastReps=tplEx.reps, lastRpe="";
+    for (const s of [...clientSessions].sort((a,b)=>b.date.localeCompare(a.date))) {
+      const found=(s.exercises||[]).find(e=>e.libId===tplEx.libId);
+      if (found) { lastLoad=found.load||""; lastReps=found.reps||tplEx.reps; lastRpe=found.rpe||""; break; }
+    }
+    let suggestedLoad=lastLoad;
+    if (lastLoad&&+lastLoad>0&&lastRpe&&+lastRpe<=7) suggestedLoad=String(+lastLoad+2.5);
+    return {
+      id:"se"+Date.now()+Math.random(), libId:tplEx.libId, name:tplEx.name,
+      sets:tplEx.sets, reps:lastReps, load:suggestedLoad, rest:tplEx.rest, rpe:"",
+      note:lastLoad&&suggestedLoad!==lastLoad?`↑ +2.5kg vs dernière fois (${lastLoad}kg)`:lastLoad?`Dernière fois: ${lastLoad}kg`:"",
+      cardioType:LIBRARY.find(l=>l.id===tplEx.libId)?.cardioType||"",
+    };
+  });
+};
 
 const SAMPLE_CLIENTS = [{
   id:"tony", name:"Tony Parker", age:41, sport:"Basketball", since:"2024-01", status:"actif",
   objective:"Maintien forme & mobilité", progress:78, notes:"Attention genou droit. Préfère les séances du matin.",
   sessions:[
-    { id:"s1", date:"2026-04-15", present:true, duration:90, note:"Mobilité hanches", templateId:"tpl_push_a", exercises:[
-      { id:"se1", libId:"bench_press",   name:"Développé couché", sets:"4", reps:"6",  load:"90",  rest:"150", rpe:"7" },
-      { id:"se2", libId:"incline_press", name:"Développé incliné",sets:"3", reps:"10", load:"70",  rest:"90",  rpe:"6" },
-      { id:"se3", libId:"dips",          name:"Dips",             sets:"3", reps:"12", load:"0",   rest:"60",  rpe:"7" },
+    { id:"s1", date:"2026-04-15", present:true, duration:90, note:"Push Day", templateId:"tpl_push_a", exercises:[
+      { id:"se1", libId:"bench_press",  name:"Développé couché", sets:"4", reps:"6",  load:"90", rest:"150", rpe:"7" },
+      { id:"se2", libId:"incline_press",name:"Développé incliné",sets:"3", reps:"10", load:"70", rest:"90",  rpe:"6" },
     ]},
-    { id:"s2", date:"2026-04-10", present:true, duration:75, note:"Back Day", templateId:"tpl_back_a", exercises:[
-      { id:"se4", libId:"barbell_row",  name:"Rowing barre",sets:"4", reps:"8", load:"80", rest:"120", rpe:"7" },
-      { id:"se5", libId:"pullup",       name:"Traction",    sets:"4", reps:"8", load:"0",  rest:"120", rpe:"8" },
-    ]},
+    { id:"s2", date:"2026-04-10", present:true, duration:30, note:"WOD Cindy", templateId:"wod_cindy",
+      isWod:true, wodFormat:"amrap", wodDuration:20, wodScore:"18 rounds + 5 pull-ups",
+      exercises:[
+        { id:"se3", libId:"pullup", name:"Pull-ups",   reps:"5",  isWodMovement:true },
+        { id:"se4", libId:"pushup", name:"Push-ups",   reps:"10", isWodMovement:true },
+        { id:"se5", libId:"squat",  name:"Air Squats", reps:"15", isWodMovement:true },
+      ]
+    },
     { id:"s3", date:"2026-03-03", present:false, duration:0, note:"Absent — voyage", exercises:[] },
   ],
   metrics:[
@@ -270,12 +423,10 @@ const SAMPLE_CLIENTS = [{
     { date:"2026-03-01", weight:93.5, chest:105, waist:87, hips:99, fatPct:14.8 },
     { date:"2026-02-01", weight:95.0, chest:106, waist:89, hips:100, fatPct:15.5 },
   ],
-  programs:[{ id:"p1", name:"Mobilité & Renforcement", weeks:8, startDate:"2026-03-01",
-    exercises:[
-      { id:"e1", name:"Hip 90/90",  sets:"3", reps:"45s", load:"",    note:"Chaque côté", libId:"hip90" },
-      { id:"e2", name:"Back Squat", sets:"4", reps:"6",   load:"100", note:"",            libId:"back_squat" },
-    ]
-  }],
+  programs:[{ id:"p1", name:"Mobilité & Renforcement", weeks:8, startDate:"2026-03-01", exercises:[
+    { id:"e1", name:"Hip 90/90",  sets:"3", reps:"45s", load:"",    note:"Chaque côté", libId:"hip90" },
+    { id:"e2", name:"Back Squat", sets:"4", reps:"6",   load:"100", note:"",            libId:"back_squat" },
+  ]}],
   goals:[
     { id:"g1", label:"Descendre à 90 kg",               done:false, deadline:"2026-06-01" },
     { id:"g2", label:"Masse grasse < 13%",               done:false, deadline:"2026-07-01" },
@@ -298,16 +449,16 @@ const GLOBAL_CSS = `
 `;
 
 const Avatar = ({ name, size=44 }) => {
-  const initials = name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
-  const hue = name.split("").reduce((a,c)=>a+c.charCodeAt(0),0) % 60 + 200;
-  return <div style={{ width:size, height:size, borderRadius:"50%", background:`linear-gradient(135deg,hsl(${hue},70%,14%),hsl(${hue},70%,26%))`, border:`2px solid hsl(${hue},65%,34%)`, display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:900, fontSize:size*.36, color:`hsl(${hue},80%,72%)`, flexShrink:0 }}>{initials}</div>;
+  const initials=name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+  const hue=name.split("").reduce((a,c)=>a+c.charCodeAt(0),0)%60+200;
+  return <div style={{ width:size,height:size,borderRadius:"50%",background:`linear-gradient(135deg,hsl(${hue},70%,14%),hsl(${hue},70%,26%))`,border:`2px solid hsl(${hue},65%,34%)`,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:900,fontSize:size*.36,color:`hsl(${hue},80%,72%)`,flexShrink:0 }}>{initials}</div>;
 };
 
-const Badge = ({ label, color }) => <span style={{ padding:"2px 9px", borderRadius:20, background:color+"18", color, border:`1px solid ${color}35`, fontSize:10, fontWeight:700, fontFamily:"'Barlow Condensed',sans-serif", letterSpacing:"0.08em", textTransform:"uppercase", flexShrink:0 }}>{label}</span>;
+const Badge = ({ label, color }) => <span style={{ padding:"2px 9px",borderRadius:20,background:color+"18",color,border:`1px solid ${color}35`,fontSize:10,fontWeight:700,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:"0.08em",textTransform:"uppercase",flexShrink:0 }}>{label}</span>;
 
 const Bar = ({ value, color, h=5 }) => (
-  <div style={{ background:"#0f2040", borderRadius:99, height:h, overflow:"hidden" }}>
-    <div style={{ height:"100%", borderRadius:99, background:color||"#1a6fff", width:`${Math.min(100,Math.max(0,value))}%`, transition:"width .7s", boxShadow:`0 0 8px ${color||"#1a6fff"}55` }}/>
+  <div style={{ background:"#0f2040",borderRadius:99,height:h,overflow:"hidden" }}>
+    <div style={{ height:"100%",borderRadius:99,background:color||"#1a6fff",width:`${Math.min(100,Math.max(0,value))}%`,transition:"width .7s",boxShadow:`0 0 8px ${color||"#1a6fff"}55` }}/>
   </div>
 );
 
@@ -316,62 +467,59 @@ const Field = ({ label, value, onChange, type="text", placeholder, half, third }
   if (half) width="calc(50% - 4px)";
   if (third) width="calc(33% - 4px)";
   return (
-    <div style={{ display:"flex", flexDirection:"column", gap:4, width, flexShrink:0 }}>
-      {label&&<label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", fontFamily:"'Barlow',sans-serif" }}>{label}</label>}
+    <div style={{ display:"flex",flexDirection:"column",gap:4,width,flexShrink:0 }}>
+      {label&&<label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase",fontFamily:"'Barlow',sans-serif" }}>{label}</label>}
       <input type={type} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder}
-        style={{ background:"#000", border:"1.5px solid #0f2040", borderRadius:8, padding:"9px 10px", color:"#e8edf5", fontSize:13, fontFamily:"'Barlow',sans-serif", outline:"none", width:"100%", colorScheme:"dark", boxSizing:"border-box" }}
+        style={{ background:"#000",border:"1.5px solid #0f2040",borderRadius:8,padding:"9px 10px",color:"#e8edf5",fontSize:13,fontFamily:"'Barlow',sans-serif",outline:"none",width:"100%",colorScheme:"dark",boxSizing:"border-box" }}
         onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
     </div>
   );
 };
 
 const Btn = ({ children, onClick, ghost, small, danger, color }) => (
-  <button onClick={onClick} style={{ padding:small?"6px 14px":"10px 22px", borderRadius:8, cursor:"pointer", border:ghost?"1.5px solid #0f2040":danger?"1.5px solid #e6394644":"none", background:ghost?"transparent":danger?"#e6394618":color||"#1a6fff", color:ghost?"#7a90b8":danger?"#e63946":"#fff", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:small?11:14, letterSpacing:"0.06em", textTransform:"uppercase", transition:"all .15s" }}>{children}</button>
+  <button onClick={onClick} style={{ padding:small?"6px 14px":"10px 22px",borderRadius:8,cursor:"pointer",border:ghost?"1.5px solid #0f2040":danger?"1.5px solid #e6394644":"none",background:ghost?"transparent":danger?"#e6394618":color||"#1a6fff",color:ghost?"#7a90b8":danger?"#e63946":"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:small?11:14,letterSpacing:"0.06em",textTransform:"uppercase",transition:"all .15s" }}>{children}</button>
 );
 
 const SecTitle = ({ c }) => (
-  <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:14 }}>
-    <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>
-    <span style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", fontFamily:"'Barlow Condensed',sans-serif" }}>{c}</span>
+  <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:14 }}>
+    <div style={{ width:3,height:16,borderRadius:99,background:"#1a6fff" }}/>
+    <span style={{ fontSize:11,fontWeight:700,color:"#1a6fff",letterSpacing:"0.1em",textTransform:"uppercase",fontFamily:"'Barlow Condensed',sans-serif" }}>{c}</span>
   </div>
 );
 
 const SwipeToDelete = ({ children, onDelete }) => {
-  const [startX, setStartX] = useState(null);
-  const [offsetX, setOffsetX] = useState(0);
-  const [revealed, setRevealed] = useState(false);
-  const [confirming, setConfirming] = useState(false);
-  const threshold = -75;
-  function onTouchStart(e) { setStartX(e.touches[0].clientX); }
-  function onTouchMove(e) {
-    if (startX===null||confirming) return;
+  const [startX,setStartX]=useState(null);
+  const [offsetX,setOffsetX]=useState(0);
+  const [revealed,setRevealed]=useState(false);
+  const [confirming,setConfirming]=useState(false);
+  const threshold=-75;
+  function onTouchStart(e){setStartX(e.touches[0].clientX);}
+  function onTouchMove(e){
+    if(startX===null||confirming)return;
     const diff=e.touches[0].clientX-startX;
-    if (diff<0) setOffsetX(Math.max(diff,-100));
-    else if (revealed) setOffsetX(Math.min(diff-100,0));
+    if(diff<0)setOffsetX(Math.max(diff,-100));
+    else if(revealed)setOffsetX(Math.min(diff-100,0));
   }
-  function onTouchEnd() {
+  function onTouchEnd(){
     setStartX(null);
-    if (offsetX<threshold) { setOffsetX(-100); setRevealed(true); }
-    else { setOffsetX(0); setRevealed(false); }
+    if(offsetX<threshold){setOffsetX(-100);setRevealed(true);}
+    else{setOffsetX(0);setRevealed(false);}
   }
-  function handleDelete() {
-    setConfirming(true);
-    setTimeout(()=>{ onDelete(); setConfirming(false); setOffsetX(0); setRevealed(false); },300);
-  }
-  function handleCancel() { setOffsetX(0); setRevealed(false); }
+  function handleDelete(){setConfirming(true);setTimeout(()=>{onDelete();setConfirming(false);setOffsetX(0);setRevealed(false);},300);}
+  function handleCancel(){setOffsetX(0);setRevealed(false);}
   return (
-    <div style={{ position:"relative", overflow:"hidden", borderRadius:14, marginBottom:10 }}>
-      <div style={{ position:"absolute", right:0, top:0, bottom:0, width:100, display:"flex", flexDirection:"column", borderRadius:"0 14px 14px 0", overflow:"hidden" }}>
-        <button onClick={handleDelete} style={{ flex:1, background:"#e63946", border:"none", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:2 }}>
+    <div style={{ position:"relative",overflow:"hidden",borderRadius:14,marginBottom:10 }}>
+      <div style={{ position:"absolute",right:0,top:0,bottom:0,width:100,display:"flex",flexDirection:"column",borderRadius:"0 14px 14px 0",overflow:"hidden" }}>
+        <button onClick={handleDelete} style={{ flex:1,background:"#e63946",border:"none",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:2 }}>
           <span style={{ fontSize:16 }}>🗑️</span>
-          <span style={{ color:"#fff", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, textTransform:"uppercase" }}>Supprimer</span>
+          <span style={{ color:"#fff",fontSize:9,fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,textTransform:"uppercase" }}>Supprimer</span>
         </button>
-        <button onClick={handleCancel} style={{ flex:0.6, background:"#0f2040", border:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>
-          <span style={{ color:"#7a90b8", fontSize:9, fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, textTransform:"uppercase" }}>Annuler</span>
+        <button onClick={handleCancel} style={{ flex:0.6,background:"#0f2040",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>
+          <span style={{ color:"#7a90b8",fontSize:9,fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,textTransform:"uppercase" }}>Annuler</span>
         </button>
       </div>
       <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}
-        style={{ transform:`translateX(${confirming?-120:offsetX}px)`, transition:startX?'none':'transform .3s ease', position:"relative", zIndex:1 }}>
+        style={{ transform:`translateX(${confirming?-120:offsetX}px)`,transition:startX?'none':'transform .3s ease',position:"relative",zIndex:1 }}>
         {children}
       </div>
     </div>
@@ -382,22 +530,22 @@ const StatusDot = ({ status }) => {
   const color=status==="live"?"#22c55e":status==="connecting"?"#f59e0b":"#3d5278";
   const label=status==="live"?"Sync temps réel active":status==="connecting"?"Connexion Firebase...":"Mode local";
   return (
-    <div style={{ display:"flex", alignItems:"center", gap:6, padding:"5px 14px", background:"#04080f", borderBottom:"1px solid #0f2040" }}>
-      <div style={{ width:6, height:6, borderRadius:"50%", background:color, boxShadow:status==="live"?`0 0 6px ${color}`:"none" }}/>
-      <span style={{ fontSize:10, color:"#3d5278" }}>{label}</span>
+    <div style={{ display:"flex",alignItems:"center",gap:6,padding:"5px 14px",background:"#04080f",borderBottom:"1px solid #0f2040" }}>
+      <div style={{ width:6,height:6,borderRadius:"50%",background:color,boxShadow:status==="live"?`0 0 6px ${color}`:"none" }}/>
+      <span style={{ fontSize:10,color:"#3d5278" }}>{label}</span>
     </div>
   );
 };
 
 const RPESelector = ({ value, onChange }) => (
   <div style={{ width:"100%" }}>
-    <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", display:"block", marginBottom:4 }}>
+    <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase",display:"block",marginBottom:4 }}>
       RPE {value?`${value}/10 — ${rpeLabel(value)}`:""}
     </label>
-    <div style={{ display:"flex", gap:3 }}>
+    <div style={{ display:"flex",gap:3 }}>
       {[1,2,3,4,5,6,7,8,9,10].map(n=>(
         <button key={n} onClick={()=>onChange(value===String(n)?"":String(n))}
-          style={{ flex:1, padding:"7px 0", borderRadius:6, border:`1px solid ${+value===n?rpeColor(n)+"88":"#0f2040"}`, background:+value===n?rpeColor(n)+"22":"transparent", color:+value===n?rpeColor(n):"#3d5278", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:11, cursor:"pointer", transition:"all .15s" }}>
+          style={{ flex:1,padding:"7px 0",borderRadius:6,border:`1px solid ${+value===n?rpeColor(n)+"88":"#0f2040"}`,background:+value===n?rpeColor(n)+"22":"transparent",color:+value===n?rpeColor(n):"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:11,cursor:"pointer",transition:"all .15s" }}>
           {n}
         </button>
       ))}
@@ -407,13 +555,13 @@ const RPESelector = ({ value, onChange }) => (
 
 const ZoneSelector = ({ value, onChange }) => (
   <div style={{ width:"100%" }}>
-    <label style={{ fontSize:9, fontWeight:700, color:"#3d5278", letterSpacing:"0.12em", textTransform:"uppercase", display:"block", marginBottom:4 }}>
+    <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase",display:"block",marginBottom:4 }}>
       Zone {value?`${value} — ${zoneLabel(value)}`:""}
     </label>
-    <div style={{ display:"flex", gap:4 }}>
+    <div style={{ display:"flex",gap:4 }}>
       {["1","2","3","4","5"].map(z=>(
         <button key={z} onClick={()=>onChange(value===z?"":z)}
-          style={{ flex:1, padding:"8px 0", borderRadius:6, border:`1px solid ${value===z?zoneColor(z)+"88":"#0f2040"}`, background:value===z?zoneColor(z)+"22":"transparent", color:value===z?zoneColor(z):"#3d5278", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:800, fontSize:12, cursor:"pointer", transition:"all .15s" }}>
+          style={{ flex:1,padding:"8px 0",borderRadius:6,border:`1px solid ${value===z?zoneColor(z)+"88":"#0f2040"}`,background:value===z?zoneColor(z)+"22":"transparent",color:value===z?zoneColor(z):"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:12,cursor:"pointer",transition:"all .15s" }}>
           Z{z}
         </button>
       ))}
@@ -424,8 +572,8 @@ const ZoneSelector = ({ value, onChange }) => (
 const CardioFields = ({ ex, onChange }) => {
   const type=ex.cardioType||"duration";
   return (
-    <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
-      <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+    <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
+      <div style={{ display:"flex",gap:6,flexWrap:"wrap" }}>
         <Field label="Durée (min)" type="number" value={ex.duration||""} onChange={v=>onChange("duration",v)} placeholder="20" half/>
         {type==="run"&&<Field label="Vitesse km/h" type="number" value={ex.speed||""} onChange={v=>onChange("speed",v)} placeholder="12" half/>}
         {type==="watts"&&<Field label="Watts" type="number" value={ex.watts||""} onChange={v=>onChange("watts",v)} placeholder="200" half/>}
@@ -438,19 +586,21 @@ const CardioFields = ({ ex, onChange }) => {
 const ExerciseFields = ({ ex, onChange, onRemove, idx }) => {
   const libEx=LIBRARY.find(l=>l.id===ex.libId);
   const isCardio=libEx?.cat==="Cardio";
+  const isWod=ex.isWodMovement;
   return (
-    <div style={{ background:"#0a1628", borderRadius:10, padding:10, marginBottom:8, border:"1px solid #0f2040" }}>
-      <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:8 }}>
-        <div style={{ width:32, height:16, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-        <span style={{ flex:1, fontSize:13, fontWeight:700 }}>{ex.name}</span>
+    <div style={{ background:"#0a1628",borderRadius:10,padding:10,marginBottom:8,border:"1px solid #0f2040" }}>
+      <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:8 }}>
+        <div style={{ width:32,height:16,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+        <span style={{ flex:1,fontSize:13,fontWeight:700 }}>{ex.name}</span>
+        {isWod&&<Badge label={`× ${ex.reps}`} color="#f97316"/>}
         {libEx&&<Badge label={libEx.cat} color={CAT_COLOR[libEx.cat]||"#1a6fff"}/>}
-        <button onClick={onRemove} style={{ background:"none", border:"none", color:"#e63946", cursor:"pointer", fontSize:16, padding:0, flexShrink:0 }}>✕</button>
+        <button onClick={onRemove} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:16,padding:0,flexShrink:0 }}>✕</button>
       </div>
-      {isCardio?(
+      {!isWod&&(isCardio?(
         <CardioFields ex={ex} onChange={(field,val)=>onChange(idx,field,val)}/>
       ):(
         <div>
-          <div style={{ display:"flex", gap:6, flexWrap:"wrap", marginBottom:8 }}>
+          <div style={{ display:"flex",gap:6,flexWrap:"wrap",marginBottom:8 }}>
             <Field label="Séries" type="number" value={ex.sets||""} onChange={v=>onChange(idx,"sets",v)} placeholder="3" third/>
             <Field label="Reps" type="number" value={ex.reps||""} onChange={v=>onChange(idx,"reps",v)} placeholder="10" third/>
             <Field label="Charge kg" type="number" value={ex.load||""} onChange={v=>onChange(idx,"load",v)} placeholder="0" third/>
@@ -459,240 +609,381 @@ const ExerciseFields = ({ ex, onChange, onRemove, idx }) => {
           </div>
           <RPESelector value={ex.rpe||""} onChange={v=>onChange(idx,"rpe",v)}/>
         </div>
-      )}
+      ))}
     </div>
   );
 };
 
-// ── SMART SESSION — applique un template avec les charges du client ─────────
-const applyTemplate = (template, clientSessions) => {
-  return template.exercises.map(tplEx => {
-    // Cherche la dernière charge utilisée pour cet exercice
-    let lastLoad = "";
-    let lastReps = tplEx.reps;
-    let lastRpe = "";
-    for (const s of [...clientSessions].sort((a,b)=>b.date.localeCompare(a.date))) {
-      const found = (s.exercises||[]).find(e=>e.libId===tplEx.libId);
-      if (found) {
-        lastLoad = found.load||"";
-        lastReps = found.reps||tplEx.reps;
-        lastRpe = found.rpe||"";
-        break;
-      }
-    }
-    // Suggestion de progression : si RPE ≤ 7 et charge > 0, suggère +2.5kg
-    let suggestedLoad = lastLoad;
-    if (lastLoad && +lastLoad > 0 && lastRpe && +lastRpe <= 7) {
-      suggestedLoad = String(+lastLoad + 2.5);
-    }
-    return {
-      id: "se"+Date.now()+Math.random(),
-      libId: tplEx.libId,
-      name: tplEx.name,
-      sets: tplEx.sets,
-      reps: lastReps,
-      load: suggestedLoad,
-      rest: tplEx.rest,
-      rpe: "",
-      note: lastLoad && suggestedLoad !== lastLoad ? `↑ +2.5kg vs dernière fois (${lastLoad}kg)` : lastLoad ? `Dernière fois: ${lastLoad}kg` : "",
-      cardioType: LIBRARY.find(l=>l.id===tplEx.libId)?.cardioType||"",
-    };
-  });
-};
+// ── WOD CREATOR ───────────────────────────────────────────────────────────────
+const WodCreator = ({ onSave, onClose, initialWod }) => {
+  const [format, setFormat] = useState(initialWod?.format||"amrap");
+  const [name, setName] = useState(initialWod?.name||"");
+  const [duration, setDuration] = useState(initialWod?.duration||"20");
+  const [rounds, setRounds] = useState(initialWod?.rounds||"3");
+  const [timecap, setTimecap] = useState(initialWod?.timecap||"20");
+  const [minutes, setMinutes] = useState(initialWod?.minutes||"20");
+  const [workPerMin, setWorkPerMin] = useState(initialWod?.workPerMinute||"");
+  const [score, setScore] = useState(initialWod?.score||"");
+  const [movements, setMovements] = useState(initialWod?.movements||[]);
+  const [search, setSearch] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
+  const [selCat, setSelCat] = useState("Functional");
 
-// ── TEMPLATE PICKER ──────────────────────────────────────────────────────────
-const TemplatePicker = ({ onSelect, onClose, allTemplates }) => {
-  const cats = [...new Set(allTemplates.map(t=>t.cat))];
-  const [selCat, setSelCat] = useState("Tous");
-  const filtered = selCat==="Tous" ? allTemplates : allTemplates.filter(t=>t.cat===selCat);
+  const fmt = WOD_FORMATS.find(f=>f.id===format);
+
+  function addMovement(ex) {
+    setMovements(p=>[...p,{ name:ex.name, reps:"", libId:ex.id }]);
+    setSearch(""); setShowSearch(false);
+  }
+
+  function saveWod() {
+    if (!movements.length) return;
+    const wod = {
+      id:"wod_custom_"+Date.now(), name:name||fmt?.name||"WOD Custom",
+      type:"wod", format, color:fmt?.color||"#e63946",
+      description:fmt?.desc||"", category:"Mes WODs",
+      movements, scoreType:["amrap","emom","timecap"].includes(format)?"rounds":"time",
+      duration:+duration, rounds:+rounds, timecap:+timecap,
+      minutes:+minutes, workPerMinute:workPerMin, score,
+    };
+    onSave(wod);
+  }
+
+  const filtered = LIBRARY.filter(ex=>{
+    if (search) return ex.name.toLowerCase().includes(search.toLowerCase());
+    return ex.cat===selCat;
+  });
+
   return (
-    <div style={{ background:"#0a1628", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:12 }}>
-      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12 }}>
-        <span style={{ fontSize:13, fontWeight:800, fontFamily:"'Barlow Condensed',sans-serif", color:"#e8edf5", textTransform:"uppercase", letterSpacing:"0.06em" }}>Choisir un template</span>
+    <div style={{ background:"#070d1a",border:"1px solid #f9741644",borderRadius:14,padding:14,marginBottom:14 }}>
+      <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14 }}>
+        <div style={{ fontSize:16,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",color:"#f97316" }}>🏋️ CRÉER UN WOD</div>
         <Btn small ghost onClick={onClose}>✕</Btn>
       </div>
-      <div style={{ display:"flex", gap:5, marginBottom:12, overflowX:"auto", paddingBottom:4 }}>
-        {["Tous",...cats].map(cat=>(
-          <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"4px 12px", borderRadius:99, border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
+
+      {/* Nom */}
+      <Field label="Nom du WOD (optionnel)" value={name} onChange={setName} placeholder="ex. Mon WOD du vendredi..."/>
+      <div style={{ height:10 }}/>
+
+      {/* Format selector */}
+      <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase",display:"block",marginBottom:8 }}>Format</label>
+      <div style={{ display:"flex",gap:6,marginBottom:14,overflowX:"auto",paddingBottom:4 }}>
+        {WOD_FORMATS.map(f=>(
+          <button key={f.id} onClick={()=>setFormat(f.id)}
+            style={{ padding:"8px 12px",borderRadius:10,border:`1px solid ${format===f.id?f.color:"#0f2040"}`,background:format===f.id?f.color+"22":"transparent",color:format===f.id?f.color:"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",cursor:"pointer",flexShrink:0,display:"flex",flexDirection:"column",alignItems:"center",gap:2 }}>
+            <span style={{ fontSize:16 }}>{f.icon}</span>
+            <span>{f.name}</span>
+            <span style={{ fontSize:8,color:format===f.id?f.color+"aa":"#3d5278",fontWeight:400,textTransform:"none" }}>{f.desc}</span>
+          </button>
         ))}
       </div>
-      <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
-        {filtered.map(tpl=>(
-          <div key={tpl.id} onClick={()=>onSelect(tpl)}
-            style={{ background:"#070d1a", border:`1px solid ${tpl.color||"#0f2040"}33`, borderRadius:12, padding:"12px 14px", cursor:"pointer", display:"flex", alignItems:"center", gap:12, transition:"all .15s" }}>
-            <div style={{ width:4, height:40, borderRadius:99, background:tpl.color||"#1a6fff", flexShrink:0 }}/>
-            <div style={{ flex:1 }}>
-              <div style={{ fontWeight:800, fontSize:14, fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
-              <div style={{ fontSize:11, color:"#3d5278", marginTop:2 }}>{tpl.exercises.length} exercices · {tpl.cat}</div>
-              <div style={{ fontSize:10, color:"#3d5278", marginTop:2 }}>{tpl.exercises.map(e=>e.name).join(" · ")}</div>
+
+      {/* Format-specific fields */}
+      <div style={{ display:"flex",gap:8,flexWrap:"wrap",marginBottom:14 }}>
+        {(format==="amrap"||format==="timecap")&&(
+          <Field label="Durée (min)" type="number" value={duration} onChange={setDuration} placeholder="20" half/>
+        )}
+        {format==="emom"&&(<>
+          <Field label="Durée totale (min)" type="number" value={minutes} onChange={setMinutes} placeholder="20" half/>
+          <Field label="Travail / minute (sec)" type="number" value={workPerMin} onChange={setWorkPerMin} placeholder="40" half/>
+        </>)}
+        {(format==="fortime"||format==="metcon")&&(<>
+          <Field label="Rounds" type="number" value={rounds} onChange={setRounds} placeholder="3" half/>
+          <Field label="Timecap (min)" type="number" value={timecap} onChange={setTimecap} placeholder="20" half/>
+        </>)}
+        {format==="tabata"&&(
+          <Field label="Rounds (× 8 = total)" type="number" value={rounds} onChange={setRounds} placeholder="1" half/>
+        )}
+        <Field label="Score / résultat" value={score} onChange={setScore} placeholder={["amrap","emom","timecap"].includes(format)?"ex. 18 rounds + 5 reps":"ex. 12:34"} half/>
+      </div>
+
+      {/* Movements */}
+      <label style={{ fontSize:9,fontWeight:700,color:"#3d5278",letterSpacing:"0.12em",textTransform:"uppercase",display:"block",marginBottom:8 }}>Mouvements</label>
+
+      {movements.map((mv,i)=>(
+        <div key={i} style={{ display:"flex",alignItems:"center",gap:8,padding:"8px 10px",background:"#0a1628",borderRadius:8,marginBottom:6,border:"1px solid #0f2040" }}>
+          <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={mv.libId}/></div>
+          <span style={{ flex:1,fontSize:12,fontWeight:700 }}>{mv.name}</span>
+          <input type="text" value={mv.reps} onChange={e=>setMovements(p=>p.map((x,j)=>j===i?{...x,reps:e.target.value}:x))}
+            placeholder="Reps / dist." style={{ width:80,background:"#000",border:"1px solid #0f2040",borderRadius:6,padding:"4px 8px",color:"#e8edf5",fontSize:12,colorScheme:"dark",textAlign:"center" }}/>
+          <button onClick={()=>setMovements(p=>p.filter((_,j)=>j!==i))} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:14,padding:0 }}>✕</button>
+        </div>
+      ))}
+
+      <button onClick={()=>setShowSearch(!showSearch)} style={{ width:"100%",background:"#0a1628",border:"1px solid #f9741644",borderRadius:8,padding:"8px 14px",color:"#f97316",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:showSearch?10:14 }}>
+        + Ajouter un mouvement
+      </button>
+
+      {showSearch&&(
+        <div style={{ background:"#000",borderRadius:10,padding:10,marginBottom:14,border:"1px solid #0f2040" }}>
+          <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 Rechercher..."
+            style={{ width:"100%",background:"#070d1a",border:"1.5px solid #0f2040",borderRadius:8,padding:"7px 10px",color:"#e8edf5",fontSize:12,fontFamily:"'Barlow',sans-serif",outline:"none",marginBottom:8,colorScheme:"dark",boxSizing:"border-box" }}
+            onFocus={e=>e.target.style.borderColor="#f97316"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
+          {!search&&(
+            <div style={{ display:"flex",gap:4,marginBottom:8,overflowX:"auto",paddingBottom:4 }}>
+              {CATS.filter(c=>c!=="Tous").map(cat=>(
+                <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"3px 8px",borderRadius:99,border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`,background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent",color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:9,textTransform:"uppercase",cursor:"pointer",flexShrink:0 }}>{cat}</button>
+              ))}
             </div>
-            <span style={{ fontSize:18, color:tpl.color||"#1a6fff" }}>→</span>
+          )}
+          <div style={{ maxHeight:160,overflowY:"auto",display:"flex",flexDirection:"column",gap:4 }}>
+            {filtered.map(ex=>(
+              <div key={ex.id} onClick={()=>addMovement(ex)}
+                style={{ display:"flex",alignItems:"center",gap:8,padding:"6px 8px",borderRadius:8,border:"1px solid #0f2040",cursor:"pointer" }}>
+                <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
+                <span style={{ flex:1,fontSize:11,fontWeight:600 }}>{ex.name}</span>
+                <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+      )}
+
+      {movements.length>0&&(
+        <div style={{ background:`${fmt?.color||"#f97316"}11`,borderRadius:10,padding:12,marginBottom:14,border:`1px solid ${fmt?.color||"#f97316"}33` }}>
+          <div style={{ fontSize:11,fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",color:fmt?.color||"#f97316",marginBottom:6 }}>
+            {fmt?.icon} {format.toUpperCase()} {format==="amrap"||format==="timecap"?`— ${duration} min`:format==="emom"?`— ${minutes} min`:format==="tabata"?"— 20s/10s × 8":format==="fortime"||format==="metcon"?`— ${rounds} rounds (Timecap: ${timecap} min)`:""}
+          </div>
+          {movements.map((mv,i)=>(
+            <div key={i} style={{ fontSize:12,color:"#e8edf5",padding:"3px 0",display:"flex",gap:8 }}>
+              <span style={{ color:fmt?.color||"#f97316",fontWeight:700,minWidth:20 }}>•</span>
+              <span>{mv.name}</span>
+              {mv.reps&&<span style={{ color:"#7a90b8" }}>× {mv.reps}</span>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div style={{ display:"flex",gap:8 }}>
+        <Btn onClick={saveWod} color={fmt?.color||"#f97316"}>💾 Sauvegarder ce WOD</Btn>
+        <Btn ghost small onClick={onClose}>Annuler</Btn>
       </div>
     </div>
   );
 };
 
-// ── TEMPLATES VIEW ────────────────────────────────────────────────────────────
-const TemplatesView = ({ templates, onBack, onSave }) => {
+// ── WOD CARD DISPLAY ──────────────────────────────────────────────────────────
+const WodCard = ({ wod, onSelect, compact }) => {
+  const fmt=WOD_FORMATS.find(f=>f.id===wod.format);
+  const fmtInfo = wod.format==="amrap"||wod.format==="timecap" ? `${wod.duration} min`
+    : wod.format==="emom" ? `${wod.minutes} min`
+    : wod.format==="tabata" ? "20s/10s × 8"
+    : `${wod.rounds} rounds`;
+  return (
+    <div onClick={()=>onSelect&&onSelect(wod)} className="ch fu"
+      style={{ background:"#070d1a",border:`1px solid ${wod.color||"#e63946"}33`,borderRadius:14,padding:14,marginBottom:10,cursor:onSelect?"pointer":"default" }}>
+      <div style={{ display:"flex",alignItems:"flex-start",gap:12,marginBottom:10 }}>
+        <div style={{ width:4,minHeight:44,borderRadius:99,background:wod.color||"#e63946",flexShrink:0 }}/>
+        <div style={{ flex:1 }}>
+          <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:4,flexWrap:"wrap" }}>
+            <div style={{ fontSize:18,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",color:wod.color||"#e63946" }}>{wod.name}</div>
+            <Badge label={`${fmt?.icon||""} ${wod.format?.toUpperCase()||""}`} color={wod.color||"#e63946"}/>
+            <Badge label={fmtInfo} color="#3d5278"/>
+            {wod.category&&<Badge label={wod.category} color="#0f2040"/>}
+          </div>
+          {wod.tip&&!compact&&<div style={{ fontSize:11,color:"#3d5278",marginBottom:8,fontStyle:"italic" }}>💡 {wod.tip}</div>}
+          <div style={{ display:"flex",flexDirection:"column",gap:4 }}>
+            {wod.movements.map((mv,i)=>(
+              <div key={i} style={{ display:"flex",alignItems:"center",gap:8 }}>
+                <div style={{ width:24,height:12,borderRadius:3,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={mv.libId}/></div>
+                <span style={{ fontSize:12,color:"#e8edf5",flex:1 }}>{mv.name}</span>
+                {mv.reps&&<span style={{ fontSize:11,color:wod.color||"#e63946",fontWeight:700 }}>× {mv.reps}</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {onSelect&&<div style={{ display:"flex",justifyContent:"flex-end" }}><Btn small color={wod.color||"#e63946"} onClick={()=>onSelect(wod)}>Utiliser ce WOD →</Btn></div>}
+    </div>
+  );
+};
+
+// ── TEMPLATES + WOD VIEW ──────────────────────────────────────────────────────
+const TemplatesView = ({ templates, customWods, onBack, onSave, onSaveWod }) => {
+  const [tplTab, setTplTab] = useState("templates");
   const [editingTpl, setEditingTpl] = useState(null);
   const [newTpl, setNewTpl] = useState({ name:"", cat:"Push", color:"#1a6fff", exercises:[] });
   const [showNew, setShowNew] = useState(false);
+  const [showWodCreator, setShowWodCreator] = useState(false);
   const [pickingEx, setPickingEx] = useState(false);
   const [search, setSearch] = useState("");
   const [selCat, setSelCat] = useState("Push");
-
-  const allTemplates = [...DEFAULT_TEMPLATES, ...templates];
+  const [wodFilter, setWodFilter] = useState("Tous");
 
   function addExToNewTpl(ex) {
     const libEx=LIBRARY.find(l=>l.id===ex.id);
     const isCardio=libEx?.cat==="Cardio";
-    setNewTpl(p=>({...p, exercises:[...p.exercises, {
-      libId:ex.id, name:ex.name,
-      sets:isCardio?"":3, reps:isCardio?"":10, rest:60,
-      cardioType:libEx?.cardioType||""
-    }]}));
+    setNewTpl(p=>({...p,exercises:[...p.exercises,{ libId:ex.id,name:ex.name,sets:isCardio?"":3,reps:isCardio?"":10,rest:60,cardioType:libEx?.cardioType||"" }]}));
     setPickingEx(false); setSearch("");
   }
 
   function saveNewTpl() {
     if (!newTpl.name.trim()||!newTpl.exercises.length) return;
-    const saved=[...templates, { ...newTpl, id:"tpl_"+Date.now() }];
-    onSave(saved);
-    setNewTpl({ name:"", cat:"Push", color:"#1a6fff", exercises:[] });
-    setShowNew(false);
+    onSave([...templates,{ ...newTpl,id:"tpl_"+Date.now() }]);
+    setNewTpl({ name:"",cat:"Push",color:"#1a6fff",exercises:[] }); setShowNew(false);
   }
 
+  const allWods=[...WOD_BENCHMARKS,...customWods];
+  const wodCategories=["Tous",...new Set(allWods.map(w=>w.category))];
+  const filteredWods=wodFilter==="Tous"?allWods:allWods.filter(w=>w.category===wodFilter);
+
   return (
-    <div style={{ minHeight:"100vh", background:"#000", color:"#e8edf5", fontFamily:"'Barlow',sans-serif", paddingBottom:48 }}>
+    <div style={{ minHeight:"100vh",background:"#000",color:"#e8edf5",fontFamily:"'Barlow',sans-serif",paddingBottom:48 }}>
       <div style={{ padding:"16px" }}>
         <button onClick={onBack} style={{ background:"none",border:"none",color:"#7a90b8",cursor:"pointer",fontSize:12,marginBottom:14,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Retour</button>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
-          <div style={{ fontSize:32,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif" }}>TEMPLATES</div>
-          <Btn small onClick={()=>setShowNew(!showNew)}>+ Nouveau</Btn>
+        <div style={{ fontSize:32,fontWeight:900,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:16 }}>TEMPLATES & WODs</div>
+
+        {/* Main tab */}
+        <div style={{ display:"flex",gap:2,background:"#070d1a",borderRadius:10,padding:3,border:"1px solid #0f2040",marginBottom:20 }}>
+          {[{id:"templates",label:"📋 Templates"},{id:"wods",label:"🏋️ WODs"}].map(t=>(
+            <button key={t.id} onClick={()=>setTplTab(t.id)} style={{ flex:1,padding:"10px 4px",borderRadius:8,border:"none",cursor:"pointer",background:tplTab===t.id?"#112240":"transparent",color:tplTab===t.id?"#e8edf5":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:13,textTransform:"uppercase",transition:"all .2s",borderBottom:tplTab===t.id?"2px solid #1a6fff":"2px solid transparent" }}>{t.label}</button>
+          ))}
         </div>
 
-        {/* New template form */}
-        {showNew&&(
-          <div style={{ background:"#070d1a", border:"1px solid #1a6fff44", borderRadius:14, padding:14, marginBottom:20 }}>
-            <SecTitle c="Nouveau template"/>
-            <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:12 }}>
-              <Field label="Nom" value={newTpl.name} onChange={v=>setNewTpl(p=>({...p,name:v}))} placeholder="ex. Push Day C"/>
-              <div style={{ display:"flex", gap:6 }}>
-                {["Push","Pull","Legs","Functional","Abdos","Mobilité","Cardio"].map(cat=>(
-                  <button key={cat} onClick={()=>setNewTpl(p=>({...p,cat,color:CAT_COLOR[cat]||"#1a6fff"}))} style={{ flex:1, padding:"6px 4px", borderRadius:8, border:`1px solid ${newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:9, textTransform:"uppercase", cursor:"pointer" }}>{cat}</button>
-                ))}
-              </div>
-            </div>
-
-            {/* Exercise picker */}
-            <button onClick={()=>setPickingEx(!pickingEx)} style={{ width:"100%", background:"#0a1628", border:"1px solid #1a6fff44", borderRadius:8, padding:"8px 14px", color:"#1a6fff", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:12, textTransform:"uppercase", cursor:"pointer", marginBottom:10 }}>
-              💪 {pickingEx?"Fermer":"Ajouter des exercices"}
-            </button>
-
-            {pickingEx&&(
-              <div style={{ background:"#000", borderRadius:10, padding:10, marginBottom:10 }}>
-                <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 Rechercher..."
-                  style={{ width:"100%", background:"#070d1a", border:"1.5px solid #0f2040", borderRadius:8, padding:"7px 10px", color:"#e8edf5", fontSize:12, fontFamily:"'Barlow',sans-serif", outline:"none", marginBottom:8, colorScheme:"dark", boxSizing:"border-box" }}
-                  onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
-                <div style={{ display:"flex", gap:4, marginBottom:8, overflowX:"auto", paddingBottom:4 }}>
-                  {CATS.filter(c=>c!=="Tous").map(cat=>(
-                    <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"3px 8px", borderRadius:99, border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:9, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
-                  ))}
-                </div>
-                <div style={{ maxHeight:180, overflowY:"auto", display:"flex", flexDirection:"column", gap:4 }}>
-                  {LIBRARY.filter(ex=>{
-                    const mc=!search&&selCat?ex.cat===selCat:true;
-                    const ms=search?ex.name.toLowerCase().includes(search.toLowerCase()):true;
-                    return mc&&ms;
-                  }).map(ex=>(
-                    <div key={ex.id} onClick={()=>addExToNewTpl(ex)}
-                      style={{ display:"flex", alignItems:"center", gap:8, padding:"6px 8px", borderRadius:8, border:"1px solid #0f2040", background:"transparent", cursor:"pointer" }}>
-                      <div style={{ width:28, height:14, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
-                      <span style={{ flex:1, fontSize:11, fontWeight:600 }}>{ex.name}</span>
-                      <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Exercises in new template */}
-            {newTpl.exercises.map((ex,i)=>(
-              <div key={i} style={{ display:"flex", alignItems:"center", gap:8, padding:"8px 10px", background:"#0a1628", borderRadius:8, marginBottom:6, border:"1px solid #0f2040" }}>
-                <div style={{ width:28, height:14, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-                <span style={{ flex:1, fontSize:12, fontWeight:600 }}>{ex.name}</span>
-                <div style={{ display:"flex", gap:4 }}>
-                  <input type="number" value={ex.sets||""} onChange={e=>setNewTpl(p=>({...p,exercises:p.exercises.map((x,j)=>j===i?{...x,sets:e.target.value}:x)}))} placeholder="Séries" style={{ width:44, background:"#000", border:"1px solid #0f2040", borderRadius:6, padding:"4px 6px", color:"#e8edf5", fontSize:11, colorScheme:"dark", textAlign:"center" }}/>
-                  <input type="number" value={ex.reps||""} onChange={e=>setNewTpl(p=>({...p,exercises:p.exercises.map((x,j)=>j===i?{...x,reps:e.target.value}:x)}))} placeholder="Reps" style={{ width:44, background:"#000", border:"1px solid #0f2040", borderRadius:6, padding:"4px 6px", color:"#e8edf5", fontSize:11, colorScheme:"dark", textAlign:"center" }}/>
-                </div>
-                <button onClick={()=>setNewTpl(p=>({...p,exercises:p.exercises.filter((_,j)=>j!==i)}))} style={{ background:"none", border:"none", color:"#e63946", cursor:"pointer", fontSize:14, padding:0 }}>✕</button>
-              </div>
-            ))}
-
-            {newTpl.exercises.length>0&&(
-              <div style={{ display:"flex", gap:8, marginTop:12 }}>
-                <Btn small onClick={saveNewTpl}>💾 Sauvegarder</Btn>
-                <Btn small ghost onClick={()=>{ setShowNew(false); setNewTpl({name:"",cat:"Push",color:"#1a6fff",exercises:[]}); }}>Annuler</Btn>
-              </div>
-            )}
+        {/* TEMPLATES TAB */}
+        {tplTab==="templates"&&(<>
+          <div style={{ display:"flex",justifyContent:"flex-end",marginBottom:14 }}>
+            <Btn small onClick={()=>setShowNew(!showNew)}>+ Nouveau template</Btn>
           </div>
-        )}
 
-        {/* Default templates */}
-        <div style={{ fontSize:11, fontWeight:700, color:"#3d5278", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:10, display:"flex", alignItems:"center", gap:8 }}>
-          <div style={{ flex:1, height:1, background:"#0f2040" }}/> Templates de base <div style={{ flex:1, height:1, background:"#0f2040" }}/>
-        </div>
-        {DEFAULT_TEMPLATES.map((tpl,i)=>(
-          <div key={tpl.id} className="ch fu" style={{ background:"#070d1a", border:`1px solid ${tpl.color}33`, borderRadius:14, padding:14, marginBottom:10, animationDelay:`${i*.04}s` }}>
-            <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:8 }}>
-              <div style={{ width:4, height:44, borderRadius:99, background:tpl.color, flexShrink:0 }}/>
-              <div style={{ flex:1 }}>
-                <div style={{ fontWeight:900, fontSize:16, fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
-                <div style={{ fontSize:11, color:"#3d5278" }}>{tpl.exercises.length} exercices · <Badge label={tpl.cat} color={tpl.color}/></div>
+          {showNew&&(
+            <div style={{ background:"#070d1a",border:"1px solid #1a6fff44",borderRadius:14,padding:14,marginBottom:20 }}>
+              <SecTitle c="Nouveau template"/>
+              <div style={{ display:"flex",flexDirection:"column",gap:10,marginBottom:12 }}>
+                <Field label="Nom" value={newTpl.name} onChange={v=>setNewTpl(p=>({...p,name:v}))} placeholder="ex. Push Day C"/>
+                <div style={{ display:"flex",gap:5,flexWrap:"wrap" }}>
+                  {["Push","Pull","Legs","Functional","Abdos","Mobilité","Cardio"].map(cat=>(
+                    <button key={cat} onClick={()=>setNewTpl(p=>({...p,cat,color:CAT_COLOR[cat]||"#1a6fff"}))} style={{ flex:1,minWidth:60,padding:"6px 4px",borderRadius:8,border:`1px solid ${newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`,background:newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent",color:newTpl.cat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:9,textTransform:"uppercase",cursor:"pointer" }}>{cat}</button>
+                  ))}
+                </div>
               </div>
+              <button onClick={()=>setPickingEx(!pickingEx)} style={{ width:"100%",background:"#0a1628",border:"1px solid #1a6fff44",borderRadius:8,padding:"8px 14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:10 }}>
+                💪 {pickingEx?"Fermer":"Ajouter des exercices"}
+              </button>
+              {pickingEx&&(
+                <div style={{ background:"#000",borderRadius:10,padding:10,marginBottom:10 }}>
+                  <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 Rechercher..."
+                    style={{ width:"100%",background:"#070d1a",border:"1.5px solid #0f2040",borderRadius:8,padding:"7px 10px",color:"#e8edf5",fontSize:12,fontFamily:"'Barlow',sans-serif",outline:"none",marginBottom:8,colorScheme:"dark",boxSizing:"border-box" }}
+                    onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
+                  <div style={{ display:"flex",gap:4,marginBottom:8,overflowX:"auto",paddingBottom:4 }}>
+                    {CATS.filter(c=>c!=="Tous").map(cat=>(
+                      <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"3px 8px",borderRadius:99,border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`,background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent",color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:9,textTransform:"uppercase",cursor:"pointer",flexShrink:0 }}>{cat}</button>
+                    ))}
+                  </div>
+                  <div style={{ maxHeight:180,overflowY:"auto",display:"flex",flexDirection:"column",gap:4 }}>
+                    {LIBRARY.filter(ex=>{ const mc=!search&&selCat?ex.cat===selCat:true; const ms=search?ex.name.toLowerCase().includes(search.toLowerCase()):true; return mc&&ms; }).map(ex=>(
+                      <div key={ex.id} onClick={()=>addExToNewTpl(ex)}
+                        style={{ display:"flex",alignItems:"center",gap:8,padding:"6px 8px",borderRadius:8,border:"1px solid #0f2040",cursor:"pointer" }}>
+                        <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
+                        <span style={{ flex:1,fontSize:11,fontWeight:600 }}>{ex.name}</span>
+                        <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {newTpl.exercises.map((ex,i)=>(
+                <div key={i} style={{ display:"flex",alignItems:"center",gap:8,padding:"8px 10px",background:"#0a1628",borderRadius:8,marginBottom:6,border:"1px solid #0f2040" }}>
+                  <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                  <span style={{ flex:1,fontSize:12,fontWeight:600 }}>{ex.name}</span>
+                  <input type="number" value={ex.sets||""} onChange={e=>setNewTpl(p=>({...p,exercises:p.exercises.map((x,j)=>j===i?{...x,sets:e.target.value}:x)}))} placeholder="S" style={{ width:36,background:"#000",border:"1px solid #0f2040",borderRadius:6,padding:"4px 4px",color:"#e8edf5",fontSize:11,colorScheme:"dark",textAlign:"center" }}/>
+                  <input type="text" value={ex.reps||""} onChange={e=>setNewTpl(p=>({...p,exercises:p.exercises.map((x,j)=>j===i?{...x,reps:e.target.value}:x)}))} placeholder="R" style={{ width:44,background:"#000",border:"1px solid #0f2040",borderRadius:6,padding:"4px 4px",color:"#e8edf5",fontSize:11,colorScheme:"dark",textAlign:"center" }}/>
+                  <button onClick={()=>setNewTpl(p=>({...p,exercises:p.exercises.filter((_,j)=>j!==i)}))} style={{ background:"none",border:"none",color:"#e63946",cursor:"pointer",fontSize:14,padding:0 }}>✕</button>
+                </div>
+              ))}
+              {newTpl.exercises.length>0&&(
+                <div style={{ display:"flex",gap:8,marginTop:12 }}>
+                  <Btn small onClick={saveNewTpl}>💾 Sauvegarder</Btn>
+                  <Btn small ghost onClick={()=>{ setShowNew(false); setNewTpl({name:"",cat:"Push",color:"#1a6fff",exercises:[]}); }}>Annuler</Btn>
+                </div>
+              )}
             </div>
-            <div style={{ display:"flex", flexDirection:"column", gap:4 }}>
+          )}
+
+          <div style={{ fontSize:11,fontWeight:700,color:"#3d5278",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10,display:"flex",alignItems:"center",gap:8 }}>
+            <div style={{ flex:1,height:1,background:"#0f2040" }}/> Templates de base <div style={{ flex:1,height:1,background:"#0f2040" }}/>
+          </div>
+          {DEFAULT_TEMPLATES.map((tpl,i)=>(
+            <div key={tpl.id} className="ch fu" style={{ background:"#070d1a",border:`1px solid ${tpl.color}33`,borderRadius:14,padding:14,marginBottom:10,animationDelay:`${i*.04}s` }}>
+              <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:8 }}>
+                <div style={{ width:4,height:44,borderRadius:99,background:tpl.color,flexShrink:0 }}/>
+                <div style={{ flex:1 }}>
+                  <div style={{ fontWeight:900,fontSize:16,fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
+                  <div style={{ fontSize:11,color:"#3d5278" }}>{tpl.exercises.length} exercices · <Badge label={tpl.cat} color={tpl.color}/></div>
+                </div>
+              </div>
               {tpl.exercises.map((ex,j)=>(
-                <div key={j} style={{ display:"flex", alignItems:"center", gap:8, padding:"5px 0", borderBottom:j<tpl.exercises.length-1?"1px solid #0f204044":"none" }}>
-                  <div style={{ width:28, height:14, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-                  <span style={{ flex:1, fontSize:12, color:"#e8edf5" }}>{ex.name}</span>
+                <div key={j} style={{ display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:j<tpl.exercises.length-1?"1px solid #0f204044":"none" }}>
+                  <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                  <span style={{ flex:1,fontSize:12,color:"#e8edf5" }}>{ex.name}</span>
                   <Badge label={`${ex.sets}×${ex.reps}`} color={tpl.color}/>
                 </div>
               ))}
             </div>
-          </div>
-        ))}
+          ))}
 
-        {/* Custom templates */}
-        {templates.length>0&&(
-          <>
-            <div style={{ fontSize:11, fontWeight:700, color:"#3d5278", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:10, marginTop:20, display:"flex", alignItems:"center", gap:8 }}>
-              <div style={{ flex:1, height:1, background:"#0f2040" }}/> Mes templates <div style={{ flex:1, height:1, background:"#0f2040" }}/>
+          {templates.length>0&&(<>
+            <div style={{ fontSize:11,fontWeight:700,color:"#3d5278",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10,marginTop:20,display:"flex",alignItems:"center",gap:8 }}>
+              <div style={{ flex:1,height:1,background:"#0f2040" }}/> Mes templates <div style={{ flex:1,height:1,background:"#0f2040" }}/>
             </div>
             {templates.map((tpl,i)=>(
               <SwipeToDelete key={tpl.id} onDelete={()=>onSave(templates.filter(t=>t.id!==tpl.id))}>
-                <div className="ch fu" style={{ background:"#070d1a", border:`1px solid ${tpl.color||"#1a6fff"}33`, borderRadius:14, padding:14 }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:8 }}>
-                    <div style={{ width:4, height:44, borderRadius:99, background:tpl.color||"#1a6fff", flexShrink:0 }}/>
+                <div className="ch fu" style={{ background:"#070d1a",border:`1px solid ${tpl.color||"#1a6fff"}33`,borderRadius:14,padding:14 }}>
+                  <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:8 }}>
+                    <div style={{ width:4,height:44,borderRadius:99,background:tpl.color||"#1a6fff",flexShrink:0 }}/>
                     <div style={{ flex:1 }}>
-                      <div style={{ fontWeight:900, fontSize:16, fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
-                      <div style={{ fontSize:11, color:"#3d5278" }}>{tpl.exercises.length} exercices</div>
+                      <div style={{ fontWeight:900,fontSize:16,fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
+                      <div style={{ fontSize:11,color:"#3d5278" }}>{tpl.exercises.length} exercices</div>
                     </div>
                   </div>
                   {tpl.exercises.map((ex,j)=>(
-                    <div key={j} style={{ display:"flex", alignItems:"center", gap:8, padding:"5px 0", borderBottom:j<tpl.exercises.length-1?"1px solid #0f204044":"none" }}>
-                      <div style={{ width:28, height:14, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-                      <span style={{ flex:1, fontSize:12, color:"#e8edf5" }}>{ex.name}</span>
+                    <div key={j} style={{ display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:j<tpl.exercises.length-1?"1px solid #0f204044":"none" }}>
+                      <div style={{ width:28,height:14,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+                      <span style={{ flex:1,fontSize:12,color:"#e8edf5" }}>{ex.name}</span>
                       <Badge label={`${ex.sets}×${ex.reps}`} color={tpl.color||"#1a6fff"}/>
                     </div>
                   ))}
                 </div>
               </SwipeToDelete>
             ))}
-          </>
-        )}
+          </>)}
+        </>)}
+
+        {/* WODs TAB */}
+        {tplTab==="wods"&&(<>
+          <div style={{ display:"flex",justifyContent:"flex-end",marginBottom:14 }}>
+            <Btn small color="#f97316" onClick={()=>setShowWodCreator(!showWodCreator)}>🏋️ Créer un WOD</Btn>
+          </div>
+
+          {showWodCreator&&(
+            <WodCreator
+              onSave={(wod)=>{ onSaveWod([...customWods,wod]); setShowWodCreator(false); }}
+              onClose={()=>setShowWodCreator(false)}
+            />
+          )}
+
+          {/* Category filter */}
+          <div style={{ display:"flex",gap:5,marginBottom:14,overflowX:"auto",paddingBottom:4 }}>
+            {wodCategories.map(cat=>(
+              <button key={cat} onClick={()=>setWodFilter(cat)} style={{ padding:"5px 12px",borderRadius:99,border:`1px solid ${wodFilter===cat?"#e63946":"#0f2040"}`,background:wodFilter===cat?"#e6394622":"transparent",color:wodFilter===cat?"#e63946":"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",cursor:"pointer",flexShrink:0 }}>{cat}</button>
+            ))}
+          </div>
+
+          {filteredWods.map((wod,i)=>(
+            <WodCard key={wod.id} wod={wod} compact={false}/>
+          ))}
+
+          {customWods.length>0&&(<>
+            <div style={{ fontSize:11,fontWeight:700,color:"#3d5278",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10,marginTop:10,display:"flex",alignItems:"center",gap:8 }}>
+              <div style={{ flex:1,height:1,background:"#0f2040" }}/> Mes WODs <div style={{ flex:1,height:1,background:"#0f2040" }}/>
+            </div>
+            {customWods.map((wod,i)=>(
+              <SwipeToDelete key={wod.id} onDelete={()=>onSaveWod(customWods.filter(w=>w.id!==wod.id))}>
+                <WodCard wod={wod} compact={false}/>
+              </SwipeToDelete>
+            ))}
+          </>)}
+        </>)}
       </div>
     </div>
   );
@@ -700,7 +991,7 @@ const TemplatesView = ({ templates, onBack, onSave }) => {
 
 const ProgressionCharts = ({ metrics }) => {
   if (!metrics||metrics.length<2) return (
-    <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:16, marginBottom:14, textAlign:"center", color:"#3d5278", fontSize:12 }}>
+    <div style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:16,marginBottom:14,textAlign:"center",color:"#3d5278",fontSize:12 }}>
       Ajoute au moins 2 mesures pour voir les graphiques 📈
     </div>
   );
@@ -716,13 +1007,13 @@ const ProgressionCharts = ({ metrics }) => {
     const delta=vals[vals.length-1]-vals[0];
     const isGood=(label==="Poids"||label==="MG %")?delta<=0:delta>=0;
     return (
-      <div style={{ background:"#04080f", borderRadius:10, padding:"12px 14px", marginBottom:10, border:"1px solid #0f2040" }}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:8 }}>
-          <span style={{ fontSize:11, fontWeight:700, color:"#7a90b8", textTransform:"uppercase", letterSpacing:"0.06em" }}>{label}</span>
-          <div style={{ display:"flex", gap:10, alignItems:"center" }}>
-            <span style={{ fontSize:11, color:"#3d5278" }}>{vals[0]}{unit}</span>
-            <span style={{ fontSize:11, color:isGood?"#22c55e":"#e63946", fontWeight:700 }}>{delta>0?"+":""}{delta.toFixed(1)}{unit}</span>
-            <span style={{ fontSize:14, fontWeight:900, color, fontFamily:"'Barlow Condensed',sans-serif" }}>{vals[vals.length-1]}{unit}</span>
+      <div style={{ background:"#04080f",borderRadius:10,padding:"12px 14px",marginBottom:10,border:"1px solid #0f2040" }}>
+        <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8 }}>
+          <span style={{ fontSize:11,fontWeight:700,color:"#7a90b8",textTransform:"uppercase",letterSpacing:"0.06em" }}>{label}</span>
+          <div style={{ display:"flex",gap:10,alignItems:"center" }}>
+            <span style={{ fontSize:11,color:"#3d5278" }}>{vals[0]}{unit}</span>
+            <span style={{ fontSize:11,color:isGood?"#22c55e":"#e63946",fontWeight:700 }}>{delta>0?"+":""}{delta.toFixed(1)}{unit}</span>
+            <span style={{ fontSize:14,fontWeight:900,color,fontFamily:"'Barlow Condensed',sans-serif" }}>{vals[vals.length-1]}{unit}</span>
           </div>
         </div>
         <svg width="100%" viewBox={`0 0 ${W} ${H}`}>
@@ -731,17 +1022,17 @@ const ProgressionCharts = ({ metrics }) => {
           <path d={path} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           {pts.map((p,i)=>(<circle key={i} cx={p.x} cy={p.y} r="3.5" fill={color} stroke="#000" strokeWidth="1.5"/>))}
         </svg>
-        <div style={{ display:"flex", justifyContent:"space-between", marginTop:4 }}>
-          <span style={{ fontSize:9, color:"#3d5278" }}>{sorted[0]?.date?.slice(5)}</span>
-          <span style={{ fontSize:9, color:"#3d5278" }}>{sorted[sorted.length-1]?.date?.slice(5)}</span>
+        <div style={{ display:"flex",justifyContent:"space-between",marginTop:4 }}>
+          <span style={{ fontSize:9,color:"#3d5278" }}>{sorted[0]?.date?.slice(5)}</span>
+          <span style={{ fontSize:9,color:"#3d5278" }}>{sorted[sorted.length-1]?.date?.slice(5)}</span>
         </div>
       </div>
     );
   };
   return (
     <div style={{ marginBottom:14 }}>
-      <div style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:12, display:"flex", alignItems:"center", gap:8 }}>
-        <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>TABLEAUX DE PROGRESSION
+      <div style={{ fontSize:11,fontWeight:700,color:"#1a6fff",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:12,display:"flex",alignItems:"center",gap:8 }}>
+        <div style={{ width:3,height:16,borderRadius:99,background:"#1a6fff" }}/>TABLEAUX DE PROGRESSION
       </div>
       <MiniChart data={sorted.map(m=>m.weight)} label="Poids" color="#1a6fff" unit="kg"/>
       <MiniChart data={sorted.map(m=>m.fatPct)} label="MG %" color="#e63946" unit="%"/>
@@ -757,35 +1048,35 @@ const ChargesTab = ({ sessions }) => {
   sessions.forEach(s=>{
     (s.exercises||[]).forEach(ex=>{
       const libEx=LIBRARY.find(l=>l.id===ex.libId);
-      if (!ex.libId||libEx?.cat==="Cardio") return;
+      if (!ex.libId||libEx?.cat==="Cardio"||ex.isWodMovement) return;
       if (!ex.load||+ex.load<=0) return;
       const load=+ex.load, reps=+ex.reps||0;
       if (!bestPerEx[ex.libId]||load>bestPerEx[ex.libId].load||(load===bestPerEx[ex.libId].load&&reps>bestPerEx[ex.libId].reps)) {
-        bestPerEx[ex.libId]={ libId:ex.libId, name:ex.name, load, reps, date:s.date, rpe:ex.rpe };
+        bestPerEx[ex.libId]={ libId:ex.libId,name:ex.name,load,reps,date:s.date,rpe:ex.rpe };
       }
     });
   });
   const loadHistory={};
   sessions.forEach(s=>{
     (s.exercises||[]).forEach(ex=>{
-      if (!ex.libId||!ex.load||+ex.load<=0) return;
+      if (!ex.libId||!ex.load||+ex.load<=0||ex.isWodMovement) return;
       if (!loadHistory[ex.libId]) loadHistory[ex.libId]=[];
-      loadHistory[ex.libId].push({ date:s.date, load:+ex.load });
+      loadHistory[ex.libId].push({ date:s.date,load:+ex.load });
     });
   });
   const entries=Object.values(bestPerEx).sort((a,b)=>b.load-a.load);
   const maxLoad=entries.length?Math.max(...entries.map(e=>e.load)):1;
   if (!entries.length) return (
-    <div style={{ textAlign:"center", color:"#3d5278", padding:60 }}>
-      <div style={{ fontSize:32, marginBottom:12 }}>🏋️</div>
-      <div style={{ fontSize:14, fontWeight:700, marginBottom:6 }}>Aucune charge enregistrée</div>
+    <div style={{ textAlign:"center",color:"#3d5278",padding:60 }}>
+      <div style={{ fontSize:32,marginBottom:12 }}>🏋️</div>
+      <div style={{ fontSize:14,fontWeight:700,marginBottom:6 }}>Aucune charge enregistrée</div>
       <div style={{ fontSize:12 }}>Ajoute des exercices avec charges dans tes séances</div>
     </div>
   );
   return (
     <div className="fu">
-      <div style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:14, display:"flex", alignItems:"center", gap:8 }}>
-        <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>RECORDS & 1RM ESTIMÉS
+      <div style={{ fontSize:11,fontWeight:700,color:"#1a6fff",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:14,display:"flex",alignItems:"center",gap:8 }}>
+        <div style={{ width:3,height:16,borderRadius:99,background:"#1a6fff" }}/>RECORDS & 1RM ESTIMÉS
       </div>
       {entries.map((ex,i)=>{
         const libEx=LIBRARY.find(l=>l.id===ex.libId);
@@ -796,29 +1087,29 @@ const ChargesTab = ({ sessions }) => {
         const sparkLoads=history.map(h=>h.load);
         const sparkMin=sparkLoads.length>1?Math.min(...sparkLoads)-2:0;
         const sparkMax=sparkLoads.length>1?Math.max(...sparkLoads)+2:ex.load+10;
-        const SW=200, SH=30;
+        const SW=200,SH=30;
         const sparkPts=sparkLoads.map((l,idx)=>({ x:sparkLoads.length>1?(idx/(sparkLoads.length-1))*(SW-10)+5:SW/2, y:SH-((l-sparkMin)/(sparkMax-sparkMin||1))*(SH-6)-3 }));
         const sparkPath=sparkPts.map((p,idx)=>`${idx===0?"M":"L"} ${p.x} ${p.y}`).join(" ");
         return (
-          <div key={ex.libId} className="ch fu" style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:10, animationDelay:`${i*.04}s` }}>
-            <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:10 }}>
-              <div style={{ width:48, height:24, borderRadius:8, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
-              <div style={{ flex:1, minWidth:0 }}>
-                <div style={{ fontWeight:800, fontSize:15, fontFamily:"'Barlow Condensed',sans-serif", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{ex.name}</div>
-                {libEx&&<div style={{ fontSize:10, color:"#3d5278" }}>{libEx.muscles}</div>}
-                <div style={{ fontSize:10, color:"#3d5278" }}>📅 {ex.date}</div>
+          <div key={ex.libId} className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:10,animationDelay:`${i*.04}s` }}>
+            <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:10 }}>
+              <div style={{ width:48,height:24,borderRadius:8,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.libId}/></div>
+              <div style={{ flex:1,minWidth:0 }}>
+                <div style={{ fontWeight:800,fontSize:15,fontFamily:"'Barlow Condensed',sans-serif",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{ex.name}</div>
+                {libEx&&<div style={{ fontSize:10,color:"#3d5278" }}>{libEx.muscles}</div>}
+                <div style={{ fontSize:10,color:"#3d5278" }}>📅 {ex.date}</div>
               </div>
-              <div style={{ textAlign:"right", flexShrink:0 }}>
-                <div style={{ fontSize:26, fontWeight:900, color:"#f59e0b", fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1 }}>{ex.load}<span style={{ fontSize:12 }}>kg</span></div>
-                <div style={{ fontSize:11, color:"#7a90b8" }}>× {ex.reps} reps</div>
-                {ex.rpe&&<div style={{ fontSize:10, color:rpeColor(ex.rpe), fontWeight:700 }}>RPE {ex.rpe}</div>}
-                {delta!==null&&<div style={{ fontSize:11, color:delta>=0?"#22c55e":"#e63946", fontWeight:700 }}>{delta>=0?"▲":"▼"} {Math.abs(delta)}kg</div>}
+              <div style={{ textAlign:"right",flexShrink:0 }}>
+                <div style={{ fontSize:26,fontWeight:900,color:"#f59e0b",fontFamily:"'Barlow Condensed',sans-serif",lineHeight:1 }}>{ex.load}<span style={{ fontSize:12 }}>kg</span></div>
+                <div style={{ fontSize:11,color:"#7a90b8" }}>× {ex.reps} reps</div>
+                {ex.rpe&&<div style={{ fontSize:10,color:rpeColor(ex.rpe),fontWeight:700 }}>RPE {ex.rpe}</div>}
+                {delta!==null&&<div style={{ fontSize:11,color:delta>=0?"#22c55e":"#e63946",fontWeight:700 }}>{delta>=0?"▲":"▼"} {Math.abs(delta)}kg</div>}
               </div>
             </div>
             {orm&&(
-              <div style={{ background:"#0a1628", borderRadius:10, padding:"8px 12px", marginBottom:10, display:"flex", justifyContent:"space-between", alignItems:"center", border:"1px solid #1a6fff22" }}>
-                <span style={{ fontSize:11, color:"#7a90b8", fontWeight:600 }}>1RM estimé (Epley)</span>
-                <span style={{ fontSize:18, fontWeight:900, color:"#1a6fff", fontFamily:"'Barlow Condensed',sans-serif" }}>{orm} kg</span>
+              <div style={{ background:"#0a1628",borderRadius:10,padding:"8px 12px",marginBottom:10,display:"flex",justifyContent:"space-between",alignItems:"center",border:"1px solid #1a6fff22" }}>
+                <span style={{ fontSize:11,color:"#7a90b8",fontWeight:600 }}>1RM estimé (Epley)</span>
+                <span style={{ fontSize:18,fontWeight:900,color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif" }}>{orm} kg</span>
               </div>
             )}
             {sparkLoads.length>1&&(
@@ -851,21 +1142,22 @@ const MonthlyReport = ({ sessions, metrics }) => {
   const firstWeight=thisMetrics[thisMetrics.length-1]?.weight||prevMetrics[prevMetrics.length-1]?.weight;
   const weightDelta=lastWeight&&firstWeight?+(lastWeight-firstWeight).toFixed(1):null;
   const monthLabel=MONTH_NAMES[String(now.getMonth()+1).padStart(2,"0")];
+  const wodCount=thisSessions.filter(s=>s.isWod).length;
   return (
-    <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
-      <div style={{ fontSize:11, fontWeight:700, color:"#1a6fff", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:12, display:"flex", alignItems:"center", gap:8 }}>
-        <div style={{ width:3, height:16, borderRadius:99, background:"#1a6fff" }}/>BILAN {monthLabel}
+    <div style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:14 }}>
+      <div style={{ fontSize:11,fontWeight:700,color:"#1a6fff",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:12,display:"flex",alignItems:"center",gap:8 }}>
+        <div style={{ width:3,height:16,borderRadius:99,background:"#1a6fff" }}/>BILAN {monthLabel}
       </div>
-      <div style={{ display:"flex", gap:8 }}>
+      <div style={{ display:"flex",gap:8,flexWrap:"wrap" }}>
         {[
-          { l:"Séances", v:thisPresent, prev:prevPresent, c:"#1a6fff" },
-          { l:"Absences", v:thisSessions.filter(s=>!s.present).length, prev:prevSessions.filter(s=>!s.present).length, c:"#e63946" },
-          { l:"Δ Poids", v:weightDelta!==null?`${weightDelta>0?"+":""}${weightDelta}kg`:"—", c:weightDelta!==null?(weightDelta<=0?"#22c55e":"#e63946"):"#3d5278", noDelta:true },
+          { l:"Séances",v:thisPresent,prev:prevPresent,c:"#1a6fff" },
+          { l:"WODs",v:wodCount,c:"#f97316",noDelta:true },
+          { l:"Δ Poids",v:weightDelta!==null?`${weightDelta>0?"+":""}${weightDelta}kg`:"—",c:weightDelta!==null?(weightDelta<=0?"#22c55e":"#e63946"):"#3d5278",noDelta:true },
         ].map(s=>(
-          <div key={s.l} style={{ flex:1, background:"#04080f", borderRadius:10, padding:"10px 12px", border:"1px solid #0f2040" }}>
-            <div style={{ fontSize:9, color:"#3d5278", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:4 }}>{s.l}</div>
-            <div style={{ fontSize:20, fontWeight:900, color:s.c, fontFamily:"'Barlow Condensed',sans-serif", lineHeight:1 }}>{s.v}</div>
-            {!s.noDelta&&<div style={{ fontSize:9, color:"#3d5278", marginTop:2 }}>vs {s.prev} mois préc.</div>}
+          <div key={s.l} style={{ flex:1,background:"#04080f",borderRadius:10,padding:"10px 12px",border:"1px solid #0f2040",minWidth:70 }}>
+            <div style={{ fontSize:9,color:"#3d5278",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:4 }}>{s.l}</div>
+            <div style={{ fontSize:20,fontWeight:900,color:s.c,fontFamily:"'Barlow Condensed',sans-serif",lineHeight:1 }}>{s.v}</div>
+            {!s.noDelta&&<div style={{ fontSize:9,color:"#3d5278",marginTop:2 }}>vs {s.prev} mois préc.</div>}
           </div>
         ))}
       </div>
@@ -874,87 +1166,141 @@ const MonthlyReport = ({ sessions, metrics }) => {
 };
 
 const SessionExercisePicker = ({ onAdd, onClose }) => {
-  const [mode, setMode] = useState("cat");
-  const [selCat, setSelCat] = useState("Push");
-  const [selMuscle, setSelMuscle] = useState("Pectoraux");
-  const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState([]);
+  const [mode,setMode]=useState("cat");
+  const [selCat,setSelCat]=useState("Push");
+  const [selMuscle,setSelMuscle]=useState("Pectoraux");
+  const [search,setSearch]=useState("");
+  const [selected,setSelected]=useState([]);
   const filtered=LIBRARY.filter(ex=>{
     if (search) return ex.name.toLowerCase().includes(search.toLowerCase())||ex.muscles.toLowerCase().includes(search.toLowerCase());
     if (mode==="cat") return ex.cat===selCat;
     if (mode==="muscle") return (MUSCLE_GROUPS[selMuscle]||[]).includes(ex.id);
     return true;
   });
-  function toggleEx(ex) { setSelected(prev=>prev.find(e=>e.id===ex.id)?prev.filter(e=>e.id!==ex.id):[...prev,ex]); }
-  function confirm() { onAdd(selected); onClose(); }
+  function toggleEx(ex){setSelected(prev=>prev.find(e=>e.id===ex.id)?prev.filter(e=>e.id!==ex.id):[...prev,ex]);}
+  function confirm(){onAdd(selected);onClose();}
   return (
-    <div style={{ background:"#0a1628", border:"1px solid #0f2040", borderRadius:12, padding:12, marginBottom:10 }}>
-      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
-        <span style={{ fontSize:11, fontWeight:700, color:"#1a6fff", textTransform:"uppercase", letterSpacing:"0.08em" }}>Choisir des exercices</span>
+    <div style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:12,padding:12,marginBottom:10 }}>
+      <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10 }}>
+        <span style={{ fontSize:11,fontWeight:700,color:"#1a6fff",textTransform:"uppercase",letterSpacing:"0.08em" }}>Choisir des exercices</span>
         <Btn small ghost onClick={onClose}>✕</Btn>
       </div>
       <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 Rechercher..."
-        style={{ width:"100%", background:"#000", border:"1.5px solid #0f2040", borderRadius:8, padding:"7px 10px", color:"#e8edf5", fontSize:12, fontFamily:"'Barlow',sans-serif", outline:"none", marginBottom:8, colorScheme:"dark", boxSizing:"border-box" }}
+        style={{ width:"100%",background:"#000",border:"1.5px solid #0f2040",borderRadius:8,padding:"7px 10px",color:"#e8edf5",fontSize:12,fontFamily:"'Barlow',sans-serif",outline:"none",marginBottom:8,colorScheme:"dark",boxSizing:"border-box" }}
         onFocus={e=>e.target.style.borderColor="#1a6fff"} onBlur={e=>e.target.style.borderColor="#0f2040"}/>
-      {!search&&(
-        <>
-          <div style={{ display:"flex", gap:5, marginBottom:8 }}>
-            {["cat","muscle"].map(m=>(
-              <button key={m} onClick={()=>setMode(m)} style={{ padding:"4px 12px", borderRadius:99, border:`1px solid ${mode===m?(m==="cat"?"#1a6fff":"#22c55e"):"#0f2040"}`, background:mode===m?(m==="cat"?"#1a6fff22":"#22c55e22"):"transparent", color:mode===m?(m==="cat"?"#1a6fff":"#22c55e"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer" }}>{m==="cat"?"Type":"Muscle"}</button>
+      {!search&&(<>
+        <div style={{ display:"flex",gap:5,marginBottom:8 }}>
+          {["cat","muscle"].map(m=>(
+            <button key={m} onClick={()=>setMode(m)} style={{ padding:"4px 12px",borderRadius:99,border:`1px solid ${mode===m?(m==="cat"?"#1a6fff":"#22c55e"):"#0f2040"}`,background:mode===m?(m==="cat"?"#1a6fff22":"#22c55e22"):"transparent",color:mode===m?(m==="cat"?"#1a6fff":"#22c55e"):"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase",cursor:"pointer" }}>{m==="cat"?"Type":"Muscle"}</button>
+          ))}
+        </div>
+        {mode==="cat"&&(
+          <div style={{ display:"flex",gap:4,marginBottom:8,overflowX:"auto",paddingBottom:4 }}>
+            {CATS.filter(c=>c!=="Tous").map(cat=>(
+              <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"3px 10px",borderRadius:99,border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`,background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent",color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase",cursor:"pointer",flexShrink:0 }}>{cat}</button>
             ))}
           </div>
-          {mode==="cat"&&(
-            <div style={{ display:"flex", gap:4, marginBottom:8, overflowX:"auto", paddingBottom:4 }}>
-              {CATS.filter(c=>c!=="Tous").map(cat=>(
-                <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"3px 10px", borderRadius:99, border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`, background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent", color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:10, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{cat}</button>
-              ))}
-            </div>
-          )}
-          {mode==="muscle"&&(
-            <div style={{ display:"flex", gap:4, marginBottom:8, overflowX:"auto", paddingBottom:4 }}>
-              {Object.keys(MUSCLE_GROUPS).map(mg=>(
-                <button key={mg} onClick={()=>setSelMuscle(mg)} style={{ padding:"3px 10px", borderRadius:99, border:`1px solid ${selMuscle===mg?"#22c55e":"#0f2040"}`, background:selMuscle===mg?"#22c55e22":"transparent", color:selMuscle===mg?"#22c55e":"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:9, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{mg}</button>
-              ))}
-            </div>
-          )}
-        </>
-      )}
-      <div style={{ maxHeight:200, overflowY:"auto", display:"flex", flexDirection:"column", gap:5, marginBottom:10 }}>
+        )}
+        {mode==="muscle"&&(
+          <div style={{ display:"flex",gap:4,marginBottom:8,overflowX:"auto",paddingBottom:4 }}>
+            {Object.keys(MUSCLE_GROUPS).map(mg=>(
+              <button key={mg} onClick={()=>setSelMuscle(mg)} style={{ padding:"3px 10px",borderRadius:99,border:`1px solid ${selMuscle===mg?"#22c55e":"#0f2040"}`,background:selMuscle===mg?"#22c55e22":"transparent",color:selMuscle===mg?"#22c55e":"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:9,textTransform:"uppercase",cursor:"pointer",flexShrink:0 }}>{mg}</button>
+            ))}
+          </div>
+        )}
+      </>)}
+      <div style={{ maxHeight:200,overflowY:"auto",display:"flex",flexDirection:"column",gap:5,marginBottom:10 }}>
         {filtered.map(ex=>{
           const isSel=selected.find(e=>e.id===ex.id);
           return (
             <div key={ex.id} onClick={()=>toggleEx(ex)}
-              style={{ display:"flex", alignItems:"center", gap:8, padding:"7px 10px", borderRadius:8, border:`1px solid ${isSel?"#1a6fff44":"#0f2040"}`, background:isSel?"#1a6fff0a":"transparent", cursor:"pointer" }}>
-              <div style={{ width:32, height:16, borderRadius:4, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
-              <div style={{ flex:1, minWidth:0 }}>
-                <div style={{ fontWeight:700, fontSize:12, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{ex.name}</div>
-                <div style={{ fontSize:9, color:"#3d5278" }}>{ex.muscles}</div>
+              style={{ display:"flex",alignItems:"center",gap:8,padding:"7px 10px",borderRadius:8,border:`1px solid ${isSel?"#1a6fff44":"#0f2040"}`,background:isSel?"#1a6fff0a":"transparent",cursor:"pointer" }}>
+              <div style={{ width:32,height:16,borderRadius:4,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
+              <div style={{ flex:1,minWidth:0 }}>
+                <div style={{ fontWeight:700,fontSize:12,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{ex.name}</div>
+                <div style={{ fontSize:9,color:"#3d5278" }}>{ex.muscles}</div>
               </div>
               <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
-              <div style={{ width:18, height:18, borderRadius:5, border:`2px solid ${isSel?"#1a6fff":"#0f2040"}`, background:isSel?"#1a6fff":"transparent", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:10, color:"#fff", fontWeight:900 }}>{isSel?"✓":""}</div>
+              <div style={{ width:18,height:18,borderRadius:5,border:`2px solid ${isSel?"#1a6fff":"#0f2040"}`,background:isSel?"#1a6fff":"transparent",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:10,color:"#fff",fontWeight:900 }}>{isSel?"✓":""}</div>
             </div>
           );
         })}
-        {filtered.length===0&&<div style={{ textAlign:"center", color:"#3d5278", padding:16, fontSize:11 }}>Aucun exercice trouvé</div>}
+        {filtered.length===0&&<div style={{ textAlign:"center",color:"#3d5278",padding:16,fontSize:11 }}>Aucun exercice trouvé</div>}
       </div>
       {selected.length>0&&<Btn small onClick={confirm}>✅ Ajouter {selected.length} exercice{selected.length>1?"s":""}</Btn>}
     </div>
   );
 };
 
+const TemplatePicker = ({ onSelect, onClose, allTemplates, allWods }) => {
+  const [pickerTab, setPickerTab] = useState("templates");
+  const [selCat, setSelCat] = useState("Tous");
+  const cats=[...new Set(allTemplates.map(t=>t.cat))];
+  const filtered=selCat==="Tous"?allTemplates:allTemplates.filter(t=>t.cat===selCat);
+  const wodCategories=["Tous",...new Set(allWods.map(w=>w.category))];
+  const [wodCat, setWodCat] = useState("Tous");
+  const filteredWods=wodCat==="Tous"?allWods:allWods.filter(w=>w.category===wodCat);
+  return (
+    <div style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:12 }}>
+      <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12 }}>
+        <span style={{ fontSize:13,fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",color:"#e8edf5",textTransform:"uppercase",letterSpacing:"0.06em" }}>Choisir un template</span>
+        <Btn small ghost onClick={onClose}>✕</Btn>
+      </div>
+      <div style={{ display:"flex",gap:2,background:"#070d1a",borderRadius:8,padding:3,marginBottom:12 }}>
+        {[{id:"templates",label:"📋 Templates"},{id:"wods",label:"🏋️ WODs"}].map(t=>(
+          <button key={t.id} onClick={()=>setPickerTab(t.id)} style={{ flex:1,padding:"7px 4px",borderRadius:6,border:"none",cursor:"pointer",background:pickerTab===t.id?"#112240":"transparent",color:pickerTab===t.id?"#e8edf5":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",transition:"all .2s",borderBottom:pickerTab===t.id?"2px solid #1a6fff":"2px solid transparent" }}>{t.label}</button>
+        ))}
+      </div>
+      {pickerTab==="templates"&&(<>
+        <div style={{ display:"flex",gap:5,marginBottom:10,overflowX:"auto",paddingBottom:4 }}>
+          {["Tous",...cats].map(cat=>(
+            <button key={cat} onClick={()=>setSelCat(cat)} style={{ padding:"4px 12px",borderRadius:99,border:`1px solid ${selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#0f2040"}`,background:selCat===cat?(CAT_COLOR[cat]||"#1a6fff")+"22":"transparent",color:selCat===cat?(CAT_COLOR[cat]||"#1a6fff"):"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase",cursor:"pointer",flexShrink:0 }}>{cat}</button>
+          ))}
+        </div>
+        <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
+          {filtered.map(tpl=>(
+            <div key={tpl.id} onClick={()=>onSelect(tpl)}
+              style={{ background:"#070d1a",border:`1px solid ${tpl.color||"#0f2040"}33`,borderRadius:12,padding:"12px 14px",cursor:"pointer",display:"flex",alignItems:"center",gap:12,transition:"all .15s" }}>
+              <div style={{ width:4,height:40,borderRadius:99,background:tpl.color||"#1a6fff",flexShrink:0 }}/>
+              <div style={{ flex:1 }}>
+                <div style={{ fontWeight:800,fontSize:14,fontFamily:"'Barlow Condensed',sans-serif" }}>{tpl.name}</div>
+                <div style={{ fontSize:11,color:"#3d5278",marginTop:2 }}>{tpl.exercises.length} exercices · {tpl.cat}</div>
+                <div style={{ fontSize:10,color:"#3d5278",marginTop:2 }}>{tpl.exercises.map(e=>e.name).slice(0,3).join(" · ")}...</div>
+              </div>
+              <span style={{ fontSize:18,color:tpl.color||"#1a6fff" }}>→</span>
+            </div>
+          ))}
+        </div>
+      </>)}
+      {pickerTab==="wods"&&(<>
+        <div style={{ display:"flex",gap:5,marginBottom:10,overflowX:"auto",paddingBottom:4 }}>
+          {wodCategories.map(cat=>(
+            <button key={cat} onClick={()=>setWodCat(cat)} style={{ padding:"4px 12px",borderRadius:99,border:`1px solid ${wodCat===cat?"#e63946":"#0f2040"}`,background:wodCat===cat?"#e6394622":"transparent",color:wodCat===cat?"#e63946":"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase",cursor:"pointer",flexShrink:0 }}>{cat}</button>
+          ))}
+        </div>
+        <div style={{ maxHeight:300,overflowY:"auto" }}>
+          {filteredWods.map(wod=>(
+            <WodCard key={wod.id} wod={wod} onSelect={onSelect} compact={true}/>
+          ))}
+        </div>
+      </>)}
+    </div>
+  );
+};
+
 const PPLGenerator = ({ onAdd }) => {
-  const [type, setType] = useState("Push");
-  const [generated, setGenerated] = useState([]);
-  const TYPES = {
+  const [type,setType]=useState("Push");
+  const [generated,setGenerated]=useState([]);
+  const TYPES={
     Push:["bench_press","overhead_press","incline_press","dips","lateral_raise","tricep_pushdown","cable_fly","pushup","bench_dumbbell"],
     Pull:["pullup","barbell_row","deadlift","lat_pulldown","face_pull","bicep_curl","hammer_curl","dumbbell_row","gorilla_row"],
     Legs:["squat","back_squat","front_squat","rdl","lunge","bulgarian_split","leg_press","leg_curl","calf_raise","glute_bridge","goblet_squat","hip_thrust","crab_walk","kickback"],
     Abdos:["ab_crunch","ab_wheel","leg_raise","russian_twist","hollow_body","sit_up","pallof_press"],
     Cardio:["run","bike","rowing_machine","assault_bike","skierg","jump_rope"],
-    Functional:["kb_russian_swing","kb_american_swing","kb_snatch","gorilla_row","farmer_walk","wall_ball","thruster","box_jump"],
+    Functional:["kb_russian_swing","kb_american_swing","kb_snatch","gorilla_row","farmer_walk","wall_ball","thruster","box_jump","devil_press","toes_to_bar"],
     Mobilité:["hip90","pigeon","catcow","worldsgreatest","thoracic_rot","hip_flexor","ankle_mob","foam_roll"],
   };
-  function generate() {
+  function generate(){
     const pool=TYPES[type]||[];
     const shuffled=[...pool].sort(()=>Math.random()-.5);
     const count=type==="Cardio"?4:type==="Mobilité"?5:6;
@@ -966,24 +1312,24 @@ const PPLGenerator = ({ onAdd }) => {
     }).filter(Boolean));
   }
   return (
-    <div style={{ background:"#070d1a", border:"1px solid #0f2040", borderRadius:14, padding:14, marginBottom:14 }}>
+    <div style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:14,marginBottom:14 }}>
       <SecTitle c="🎲 Générateur de séance"/>
-      <div style={{ display:"flex", gap:5, marginBottom:12, overflowX:"auto", paddingBottom:4 }}>
+      <div style={{ display:"flex",gap:5,marginBottom:12,overflowX:"auto",paddingBottom:4 }}>
         {Object.keys(TYPES).map(t=>(
-          <button key={t} onClick={()=>{setType(t);setGenerated([]);}} style={{ padding:"5px 12px", borderRadius:99, border:`1px solid ${type===t?(CAT_COLOR[t]||"#1a6fff"):"#0f2040"}`, background:type===t?(CAT_COLOR[t]||"#1a6fff")+"22":"transparent", color:type===t?(CAT_COLOR[t]||"#1a6fff"):"#7a90b8", fontFamily:"'Barlow Condensed',sans-serif", fontWeight:700, fontSize:11, textTransform:"uppercase", cursor:"pointer", flexShrink:0 }}>{t}</button>
+          <button key={t} onClick={()=>{setType(t);setGenerated([]);}} style={{ padding:"5px 12px",borderRadius:99,border:`1px solid ${type===t?(CAT_COLOR[t]||"#1a6fff"):"#0f2040"}`,background:type===t?(CAT_COLOR[t]||"#1a6fff")+"22":"transparent",color:type===t?(CAT_COLOR[t]||"#1a6fff"):"#7a90b8",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:11,textTransform:"uppercase",cursor:"pointer",flexShrink:0 }}>{t}</button>
         ))}
       </div>
       <Btn small onClick={generate}>🎲 Générer {type}</Btn>
       {generated.length>0&&(
         <div style={{ marginTop:12 }}>
           {generated.map((ex,i)=>(
-            <div key={i} style={{ display:"flex", alignItems:"center", gap:10, padding:"8px 0", borderBottom:i<generated.length-1?"1px solid #0f2040":"none" }}>
-              <div style={{ width:36, height:18, borderRadius:6, overflow:"hidden", flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
-              <div style={{ flex:1 }}><div style={{ fontWeight:700, fontSize:13 }}>{ex.name}</div><div style={{ fontSize:10, color:"#3d5278" }}>{ex.muscles}</div></div>
+            <div key={i} style={{ display:"flex",alignItems:"center",gap:10,padding:"8px 0",borderBottom:i<generated.length-1?"1px solid #0f2040":"none" }}>
+              <div style={{ width:36,height:18,borderRadius:6,overflow:"hidden",flexShrink:0 }}><AnatomySVG id={ex.id}/></div>
+              <div style={{ flex:1 }}><div style={{ fontWeight:700,fontSize:13 }}>{ex.name}</div><div style={{ fontSize:10,color:"#3d5278" }}>{ex.muscles}</div></div>
               <Badge label={ex.cat} color={CAT_COLOR[ex.cat]||"#1a6fff"}/>
             </div>
           ))}
-          <div style={{ marginTop:12, display:"flex", gap:8 }}>
+          <div style={{ marginTop:12,display:"flex",gap:8 }}>
             <Btn small onClick={()=>onAdd(generated)}>✅ Ajouter au programme</Btn>
             <Btn small ghost onClick={generate}>🔄 Regénérer</Btn>
           </div>
@@ -995,6 +1341,7 @@ const PPLGenerator = ({ onAdd }) => {
 export default function App() {
   const [clients, setClients] = useState(SAMPLE_CLIENTS);
   const [customTemplates, setCustomTemplates] = useState([]);
+  const [customWods, setCustomWods] = useState([]);
   const [fbStatus, setFbStatus] = useState("connecting");
   const [view, setView] = useState("dash");
   const [selId, setSelId] = useState(null);
@@ -1006,6 +1353,7 @@ export default function App() {
   const [showNewSession, setShowNewSession] = useState(false);
   const [showExPicker, setShowExPicker] = useState(false);
   const [showTemplatePicker, setShowTemplatePicker] = useState(false);
+  const [showWodCreator, setShowWodCreator] = useState(false);
   const [editingClient, setEditingClient] = useState(false);
   const [editingSession, setEditingSession] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
@@ -1021,9 +1369,12 @@ export default function App() {
   const [showGenerator, setShowGenerator] = useState(false);
   const [generatorPid, setGeneratorPid] = useState(null);
   const [pendingSession, setPendingSession] = useState({ exercises:[] });
+  const [pendingWod, setPendingWod] = useState(null);
+  const [sessionMode, setSessionMode] = useState("normal");
 
   const cl = clients.find(c=>c.id===selId);
   const allTemplates = [...DEFAULT_TEMPLATES, ...customTemplates];
+  const allWods = [...WOD_BENCHMARKS, ...customWods];
 
   useEffect(()=>{
     const unsub=onSnapshot(doc(db,"coach","data"),snap=>{
@@ -1031,37 +1382,40 @@ export default function App() {
         const data=snap.data();
         setClients(data.clients||[]);
         setCustomTemplates(data.customTemplates||[]);
-      } else { saveToFirebase(SAMPLE_CLIENTS,[]); }
+        setCustomWods(data.customWods||[]);
+      } else { saveToFirebase(SAMPLE_CLIENTS,[],[]); }
       setFbStatus("live");
     },()=>setFbStatus("local"));
     return unsub;
   },[]);
 
-  const saveToFirebase = useCallback(async(clients,templates)=>{
-    try { await setDoc(doc(db,"coach","data"),{clients,customTemplates:templates,updatedAt:Date.now()}); }
+  const saveToFirebase = useCallback(async(c,t,w)=>{
+    try { await setDoc(doc(db,"coach","data"),{clients:c,customTemplates:t,customWods:w,updatedAt:Date.now()}); }
     catch(e) { console.error(e); }
   },[]);
 
-  const sync = useCallback((updatedClients,updatedTemplates)=>{
-    const c=updatedClients||clients;
-    const t=updatedTemplates||customTemplates;
-    setClients(c); setCustomTemplates(t);
-    saveToFirebase(c,t);
-  },[clients,customTemplates,saveToFirebase]);
+  const sync = useCallback((uc,ut,uw)=>{
+    const c=uc||clients; const t=ut||customTemplates; const w=uw||customWods;
+    setClients(c); setCustomTemplates(t); setCustomWods(w);
+    saveToFirebase(c,t,w);
+  },[clients,customTemplates,customWods,saveToFirebase]);
 
-  const up = (id,patch) => sync(clients.map(c=>c.id===id?{...c,...patch}:c),null);
-  const saveTemplates = (tpls) => sync(null,tpls);
+  const up = (id,patch) => sync(clients.map(c=>c.id===id?{...c,...patch}:c),null,null);
+  const saveTemplates = (tpls) => sync(null,tpls,null);
+  const saveWods = (wods) => sync(null,null,wods);
 
   const openClient = (id) => {
     setSelId(id); setView("client"); setTab("sessions");
     setShowNewSession(false); setEditingClient(false); setEditingSession(null);
     setNewS({date:"",present:true,duration:"",note:""});
-    setPendingSession({exercises:[]}); setShowExPicker(false); setShowTemplatePicker(false);
+    setPendingSession({exercises:[]}); setPendingWod(null);
+    setShowExPicker(false); setShowTemplatePicker(false);
+    setShowWodCreator(false); setSessionMode("normal");
   };
 
   function doAddClient() {
     if (!newC.name.trim()) return;
-    sync([...clients,{id:"c"+Date.now(),...newC,age:+newC.age,since:new Date().toISOString().slice(0,7),status:"actif",progress:0,sessions:[],metrics:[],programs:[],goals:[]}],null);
+    sync([...clients,{id:"c"+Date.now(),...newC,age:+newC.age,since:new Date().toISOString().slice(0,7),status:"actif",progress:0,sessions:[],metrics:[],programs:[],goals:[]}],null,null);
     setNewC({name:"",age:"",sport:"",objective:"",notes:""}); setAddOpen(false);
   }
 
@@ -1072,20 +1426,37 @@ export default function App() {
   }
 
   function doDeleteClient(id) {
-    sync(clients.filter(c=>c.id!==id),null);
+    sync(clients.filter(c=>c.id!==id),null,null);
     setView("dash"); setConfirmDelete(null);
   }
 
-  function doArchiveClient(id) {
-    up(id,{status:"inactif"}); setView("dash");
-  }
+  function doArchiveClient(id) { up(id,{status:"inactif"}); setView("dash"); }
 
   function doAddSession() {
     if (!newS.date||!cl) return;
-    const sess={ id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration, exercises:pendingSession.exercises||[], templateId:pendingSession.templateId||null };
+    let sess;
+    if (sessionMode==="wod"&&pendingWod) {
+      sess = {
+        id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration,
+        isWod:true, templateId:pendingWod.id,
+        wodFormat:pendingWod.format, wodDuration:pendingWod.duration,
+        wodRounds:pendingWod.rounds, wodMinutes:pendingWod.minutes,
+        wodTimecap:pendingWod.timecap, wodScore:pendingWod.score||"",
+        wodName:pendingWod.name, wodColor:pendingWod.color,
+        exercises:(pendingWod.movements||[]).map(mv=>({
+          id:"se"+Date.now()+Math.random(), libId:mv.libId||"",
+          name:mv.name, reps:mv.reps, sets:"1", load:"", rest:"", rpe:"", isWodMovement:true,
+        })),
+      };
+    } else {
+      sess = { id:"s"+Date.now(), ...newS, present:newS.present===true, duration:+newS.duration, exercises:pendingSession.exercises||[], templateId:pendingSession.templateId||null };
+    }
     up(selId,{sessions:[sess,...cl.sessions]});
     setNewS({date:"",present:true,duration:"",note:""});
-    setPendingSession({exercises:[]}); setShowExPicker(false); setShowNewSession(false); setShowTemplatePicker(false);
+    setPendingSession({exercises:[]}); setPendingWod(null);
+    setShowExPicker(false); setShowNewSession(false);
+    setShowTemplatePicker(false); setShowWodCreator(false);
+    setSessionMode("normal");
   }
 
   function doSaveEditSession() {
@@ -1095,9 +1466,16 @@ export default function App() {
   }
 
   function applyTemplateToSession(tpl) {
-    const exercises = applyTemplate(tpl, cl.sessions);
-    setPendingSession({ exercises, templateId:tpl.id });
-    setShowTemplatePicker(false);
+    if (tpl.type==="wod") {
+      setPendingWod({...tpl, score:""});
+      setSessionMode("wod");
+      setShowTemplatePicker(false);
+    } else {
+      const exercises=applyTemplate(tpl,cl.sessions);
+      setPendingSession({exercises,templateId:tpl.id});
+      setSessionMode("normal");
+      setShowTemplatePicker(false);
+    }
   }
 
   function addExercisesToSession(exs) {
@@ -1109,14 +1487,8 @@ export default function App() {
     })]}));
   }
 
-  function updatePendingEx(idx,field,val) {
-    setPendingSession(p=>({...p,exercises:p.exercises.map((ex,i)=>i===idx?{...ex,[field]:val}:ex)}));
-  }
-
-  function updateEditSessionEx(idx,field,val) {
-    setEditingSession(p=>({...p,exercises:p.exercises.map((ex,i)=>i===idx?{...ex,[field]:val}:ex)}));
-  }
-
+  function updatePendingEx(idx,field,val) { setPendingSession(p=>({...p,exercises:p.exercises.map((ex,i)=>i===idx?{...ex,[field]:val}:ex)})); }
+  function updateEditSessionEx(idx,field,val) { setEditingSession(p=>({...p,exercises:p.exercises.map((ex,i)=>i===idx?{...ex,[field]:val}:ex)})); }
   function removeSessionEx(idx) { setPendingSession(p=>({...p,exercises:p.exercises.filter((_,i)=>i!==idx)})); }
   function removeEditSessionEx(idx) { setEditingSession(p=>({...p,exercises:p.exercises.filter((_,i)=>i!==idx)})); }
 
@@ -1134,7 +1506,7 @@ export default function App() {
 
   function doAddProgram() {
     if (!newP.name.trim()||!cl) return;
-    up(selId,{programs:[...cl.programs,{id:"p"+Date.now(),...newP,weeks:+newP.weeks,exercises:[]}]},null);
+    up(selId,{programs:[...cl.programs,{id:"p"+Date.now(),...newP,weeks:+newP.weeks,exercises:[]}]});
     setNewP({name:"",weeks:"8",startDate:""});
   }
 
@@ -1152,14 +1524,15 @@ export default function App() {
   }
 
   const wrap = (children) => (
-    <div style={{ minHeight:"100vh", background:"#000", color:"#e8edf5", fontFamily:"'Barlow',sans-serif", paddingBottom:48 }}>
+    <div style={{ minHeight:"100vh",background:"#000",color:"#e8edf5",fontFamily:"'Barlow',sans-serif",paddingBottom:48 }}>
       <style>{GLOBAL_CSS}</style><StatusDot status={fbStatus}/>{children}
     </div>
   );
 
   // ── TEMPLATES VIEW ────────────────────────────────────────────────────────
   if (view==="templates") return wrap(
-    <TemplatesView templates={customTemplates} onBack={()=>setView("dash")} onSave={saveTemplates}/>
+    <TemplatesView templates={customTemplates} customWods={customWods}
+      onBack={()=>setView("dash")} onSave={saveTemplates} onSaveWod={saveWods}/>
   );
 
   // ── LIBRARY ───────────────────────────────────────────────────────────────
@@ -1241,9 +1614,8 @@ export default function App() {
         {clients.map((c,i)=>{
           const a2=c.sessions.length?Math.round(c.sessions.filter(s=>s.present).length/c.sessions.length*100):0;
           const lw=c.metrics[0];
-          // Smart suggestion: last template used
           const lastSession=c.sessions[0];
-          const lastTpl=lastSession?.templateId?allTemplates.find(t=>t.id===lastSession.templateId):null;
+          const lastTpl=lastSession?.templateId?allTemplates.find(t=>t.id===lastSession.templateId)||allWods.find(w=>w.id===lastSession.templateId):null;
           return (
             <div key={c.id} className="ch fu" onClick={()=>openClient(c.id)}
               style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:14,padding:15,marginBottom:10,cursor:"pointer",animationDelay:`${i*.05}s`,opacity:c.status==="inactif"?0.5:1 }}>
@@ -1252,7 +1624,9 @@ export default function App() {
                 <div style={{ flex:1,minWidth:0 }}>
                   <div style={{ fontWeight:900,fontSize:16,fontFamily:"'Barlow Condensed',sans-serif",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{c.name.toUpperCase()}</div>
                   <div style={{ color:"#7a90b8",fontSize:12,marginTop:1 }}>{c.sport} · {c.objective}</div>
-                  {lastTpl&&<div style={{ fontSize:10,color:"#3d5278",marginTop:2 }}>Dernière séance : <b style={{ color:lastTpl.color||"#1a6fff" }}>{lastTpl.name}</b></div>}
+                  {lastTpl&&<div style={{ fontSize:10,color:"#3d5278",marginTop:2 }}>
+                    {lastSession?.isWod?"🏋️":"📋"} <b style={{ color:lastTpl.color||"#1a6fff" }}>{lastTpl.name}</b>
+                  </div>}
                 </div>
                 <div style={{ display:"flex",flexDirection:"column",alignItems:"flex-end",gap:4,flexShrink:0 }}>
                   <Badge label={c.status} color={STATUS_COLOR[c.status]||"#3d5278"}/>
@@ -1297,7 +1671,6 @@ export default function App() {
           </div>
         </div>
       )}
-
       {confirmDelete&&(
         <div style={{ position:"fixed",inset:0,background:"#000c",display:"flex",alignItems:"center",justifyContent:"center",zIndex:99,padding:24 }} onClick={()=>setConfirmDelete(null)}>
           <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #e6394644",borderRadius:20,padding:24,width:"100%",maxWidth:360 }}>
@@ -1328,10 +1701,13 @@ export default function App() {
     },{});
     const sortedMonths=Object.keys(sessionsByMonth).sort((a,b)=>b.localeCompare(a));
 
-    // Smart suggestion
     const lastTplId=cl.sessions.find(s=>s.templateId)?.templateId;
-    const lastTpl=lastTplId?allTemplates.find(t=>t.id===lastTplId):null;
-    const suggestedTpl=lastTpl?allTemplates.find(t=>t.cat===lastTpl.cat&&t.id!==lastTpl.id)||lastTpl:allTemplates[0];
+    const lastTpl=lastTplId?[...allTemplates,...allWods].find(t=>t.id===lastTplId):null;
+    const suggestedTpl=lastTpl
+      ? (lastTpl.type==="wod"
+          ? allWods.find(w=>w.category===lastTpl.category&&w.id!==lastTpl.id)||allWods[0]
+          : allTemplates.find(t=>t.cat===lastTpl.cat&&t.id!==lastTpl.id)||allTemplates[0])
+      : allTemplates[0];
 
     if (editingClient&&editC) return wrap(<>
       <div style={{ padding:"16px" }}>
@@ -1406,9 +1782,9 @@ export default function App() {
           {[
             {l:"Présences",v:cl.sessions.filter(s=>s.present).length,c:"#e8edf5"},
             {l:"Assiduité",v:`${att}%`,c:att>=80?"#22c55e":"#f59e0b"},
+            {l:"WODs",v:cl.sessions.filter(s=>s.isWod).length,c:"#f97316"},
             {l:"Poids",v:lw?`${lw.weight}kg`:"—",c:"#1a6fff"},
             {l:"Δ",v:wd!==null?`${wd>0?"+":""}${wd}kg`:"—",c:wd!==null?(wd<=0?"#22c55e":"#e63946"):"#3d5278"},
-            {l:"Objectifs",v:`${done}/${cl.goals.length}`,c:"#1a6fff"},
           ].map(s=>(
             <div key={s.l} style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:10,padding:"8px 12px",flexShrink:0 }}>
               <div style={{ fontSize:8,color:"#3d5278",fontWeight:700,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:3 }}>{s.l}</div>
@@ -1433,42 +1809,86 @@ export default function App() {
 
           {!showNewSession?(
             <div style={{ marginBottom:16 }}>
-              {/* Smart suggestion */}
               {suggestedTpl&&(
-                <div style={{ background:`${suggestedTpl.color||"#1a6fff"}11`, border:`1px solid ${suggestedTpl.color||"#1a6fff"}44`, borderRadius:14, padding:12, marginBottom:10 }}>
-                  <div style={{ fontSize:10, color:"#7a90b8", marginBottom:6 }}>💡 Suggestion basée sur l'historique</div>
-                  <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                <div style={{ background:`${suggestedTpl.color||"#1a6fff"}11`,border:`1px solid ${suggestedTpl.color||"#1a6fff"}44`,borderRadius:14,padding:12,marginBottom:10 }}>
+                  <div style={{ fontSize:10,color:"#7a90b8",marginBottom:6 }}>
+                    {suggestedTpl.type==="wod"?"🏋️ WOD suggéré":"💡 Suggestion basée sur l'historique"}
+                  </div>
+                  <div style={{ display:"flex",alignItems:"center",gap:10 }}>
                     <div style={{ flex:1 }}>
-                      <div style={{ fontWeight:800, fontSize:14, fontFamily:"'Barlow Condensed',sans-serif", color:suggestedTpl.color||"#1a6fff" }}>{suggestedTpl.name}</div>
-                      <div style={{ fontSize:11, color:"#3d5278" }}>{suggestedTpl.exercises.length} exercices · {suggestedTpl.exercises.map(e=>e.name).slice(0,3).join(", ")}...</div>
+                      <div style={{ fontWeight:800,fontSize:14,fontFamily:"'Barlow Condensed',sans-serif",color:suggestedTpl.color||"#1a6fff" }}>{suggestedTpl.name}</div>
+                      {suggestedTpl.type==="wod"
+                        ? <div style={{ fontSize:11,color:"#3d5278" }}>{suggestedTpl.description} · {suggestedTpl.movements?.length} mouvements</div>
+                        : <div style={{ fontSize:11,color:"#3d5278" }}>{suggestedTpl.exercises?.length} exercices · {suggestedTpl.exercises?.map(e=>e.name).slice(0,2).join(", ")}...</div>
+                      }
                     </div>
                     <Btn small onClick={()=>{ setShowNewSession(true); applyTemplateToSession(suggestedTpl); }} color={suggestedTpl.color||"#1a6fff"}>Utiliser →</Btn>
                   </div>
                 </div>
               )}
-              <button onClick={()=>setShowNewSession(true)} style={{ width:"100%",background:"#070d1a",border:"2px dashed #1a6fff44",borderRadius:14,padding:"14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:14,letterSpacing:"0.06em",textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
-                + Nouvelle séance
-              </button>
+              <div style={{ display:"flex",gap:8 }}>
+                <button onClick={()=>{ setShowNewSession(true); setSessionMode("normal"); }} style={{ flex:1,background:"#070d1a",border:"2px dashed #1a6fff44",borderRadius:14,padding:"14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:13,letterSpacing:"0.06em",textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:6 }}>
+                  💪 Séance
+                </button>
+                <button onClick={()=>{ setShowNewSession(true); setSessionMode("wod"); }} style={{ flex:1,background:"#070d1a",border:"2px dashed #f9741644",borderRadius:14,padding:"14px",color:"#f97316",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:13,letterSpacing:"0.06em",textTransform:"uppercase",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:6 }}>
+                  🏋️ WOD
+                </button>
+              </div>
             </div>
           ):(
-            <div style={{ background:"#070d1a",border:"1px solid #1a6fff44",borderRadius:14,padding:14,marginBottom:16 }}>
+            <div style={{ background:"#070d1a",border:`1px solid ${sessionMode==="wod"?"#f9741644":"#1a6fff44"}`,borderRadius:14,padding:14,marginBottom:16 }}>
               <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14 }}>
-                <SecTitle c="Nouvelle séance"/>
-                <button onClick={()=>{ setShowNewSession(false); setNewS({date:"",present:true,duration:"",note:""}); setPendingSession({exercises:[]}); setShowExPicker(false); setShowTemplatePicker(false); }} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:18,padding:0 }}>✕</button>
+                <SecTitle c={sessionMode==="wod"?"🏋️ Nouveau WOD":"💪 Nouvelle séance"}/>
+                <div style={{ display:"flex",gap:6,alignItems:"center" }}>
+                  <div style={{ display:"flex",gap:2,background:"#0a1628",borderRadius:8,padding:2 }}>
+                    <button onClick={()=>{ setSessionMode("normal"); setPendingWod(null); }} style={{ padding:"4px 10px",borderRadius:6,border:"none",cursor:"pointer",background:sessionMode==="normal"?"#1a6fff":"transparent",color:sessionMode==="normal"?"#fff":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase" }}>💪 Séance</button>
+                    <button onClick={()=>{ setSessionMode("wod"); setPendingSession({exercises:[]}); }} style={{ padding:"4px 10px",borderRadius:6,border:"none",cursor:"pointer",background:sessionMode==="wod"?"#f97316":"transparent",color:sessionMode==="wod"?"#fff":"#3d5278",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:10,textTransform:"uppercase" }}>🏋️ WOD</button>
+                  </div>
+                  <button onClick={()=>{ setShowNewSession(false); setNewS({date:"",present:true,duration:"",note:""}); setPendingSession({exercises:[]}); setPendingWod(null); setShowExPicker(false); setShowTemplatePicker(false); setShowWodCreator(false); setSessionMode("normal"); }} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:18,padding:0 }}>✕</button>
+                </div>
               </div>
 
-              {/* Template picker button */}
-              <button onClick={()=>setShowTemplatePicker(!showTemplatePicker)} style={{ width:"100%",background:"#0a1628",border:"1px solid #f97316aa",borderRadius:8,padding:"8px 14px",color:"#f97316",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:10,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
-                📋 {showTemplatePicker?"Fermer":"Choisir un template de séance"}
+              {/* Template / WOD picker button */}
+              <button onClick={()=>setShowTemplatePicker(!showTemplatePicker)} style={{ width:"100%",background:"#0a1628",border:`1px solid ${sessionMode==="wod"?"#f9741644":"#1a6fff44"}`,borderRadius:8,padding:"8px 14px",color:sessionMode==="wod"?"#f97316":"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:10,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
+                {sessionMode==="wod"?"🏋️":"📋"} {showTemplatePicker?"Fermer":sessionMode==="wod"?"Choisir un WOD":"Choisir un template"}
               </button>
 
               {showTemplatePicker&&(
-                <TemplatePicker allTemplates={allTemplates} onSelect={applyTemplateToSession} onClose={()=>setShowTemplatePicker(false)}/>
+                <TemplatePicker allTemplates={allTemplates} allWods={allWods} onSelect={applyTemplateToSession} onClose={()=>setShowTemplatePicker(false)}/>
               )}
 
-              {pendingSession.templateId&&(
-                <div style={{ background:"#f9741611", border:"1px solid #f9741633", borderRadius:8, padding:"6px 12px", marginBottom:10, display:"flex", alignItems:"center", gap:8 }}>
-                  <span style={{ fontSize:11, color:"#f97316" }}>📋 Template : <b>{allTemplates.find(t=>t.id===pendingSession.templateId)?.name||"Custom"}</b></span>
+              {/* WOD MODE */}
+              {sessionMode==="wod"&&(<>
+                {pendingWod?(
+                  <div style={{ marginBottom:10 }}>
+                    <WodCard wod={pendingWod} compact={true}/>
+                    <Field label="Score / Résultat" value={pendingWod.score||""} onChange={v=>setPendingWod(p=>({...p,score:v}))}
+                      placeholder={["amrap","emom","timecap"].includes(pendingWod.format)?"ex. 18 rounds + 5 reps":"ex. 12:34"}/>
+                    <div style={{ marginTop:8 }}>
+                      <button onClick={()=>setPendingWod(null)} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:11,fontFamily:"'Barlow',sans-serif",padding:0 }}>← Changer de WOD</button>
+                    </div>
+                  </div>
+                ):(
+                  !showTemplatePicker&&(
+                    <div style={{ marginBottom:10 }}>
+                      <button onClick={()=>setShowWodCreator(!showWodCreator)} style={{ width:"100%",background:"#0a1628",border:"1px solid #f9741644",borderRadius:8,padding:"8px 14px",color:"#f97316",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:10 }}>
+                        ✏️ {showWodCreator?"Fermer":"Créer un WOD personnalisé"}
+                      </button>
+                      {showWodCreator&&(
+                        <WodCreator
+                          onSave={(wod)=>{ setPendingWod({...wod,score:""}); setShowWodCreator(false); saveWods([...customWods,wod]); }}
+                          onClose={()=>setShowWodCreator(false)}
+                        />
+                      )}
+                    </div>
+                  )
+                )}
+              </>)}
+
+              {/* Template badge */}
+              {sessionMode==="normal"&&pendingSession.templateId&&(
+                <div style={{ background:"#f9741611",border:"1px solid #f9741633",borderRadius:8,padding:"6px 12px",marginBottom:10,display:"flex",alignItems:"center",gap:8 }}>
+                  <span style={{ fontSize:11,color:"#f97316" }}>📋 Template : <b>{allTemplates.find(t=>t.id===pendingSession.templateId)?.name||"Custom"}</b></span>
                   <button onClick={()=>setPendingSession(p=>({...p,templateId:null}))} style={{ background:"none",border:"none",color:"#3d5278",cursor:"pointer",fontSize:12,padding:0,marginLeft:"auto" }}>✕</button>
                 </div>
               )}
@@ -1483,23 +1903,28 @@ export default function App() {
                 <Field label="Notes" value={newS.note} onChange={v=>setNewS(p=>({...p,note:v}))} placeholder="Observations..."/>
               </div>
 
-              <button onClick={()=>setShowExPicker(!showExPicker)} style={{ width:"100%",background:"#0a1628",border:"1px solid #1a6fff44",borderRadius:8,padding:"8px 14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:showExPicker?10:0,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
-                💪 {showExPicker?"Fermer":"Ajouter des exercices manuellement"}
-              </button>
-              {showExPicker&&<SessionExercisePicker onAdd={addExercisesToSession} onClose={()=>setShowExPicker(false)}/>}
+              {sessionMode==="normal"&&(<>
+                <button onClick={()=>setShowExPicker(!showExPicker)} style={{ width:"100%",background:"#0a1628",border:"1px solid #1a6fff44",borderRadius:8,padding:"8px 14px",color:"#1a6fff",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:12,textTransform:"uppercase",cursor:"pointer",marginBottom:showExPicker?10:0,display:"flex",alignItems:"center",justifyContent:"center",gap:8 }}>
+                  💪 {showExPicker?"Fermer":"Ajouter des exercices manuellement"}
+                </button>
+                {showExPicker&&<SessionExercisePicker onAdd={addExercisesToSession} onClose={()=>setShowExPicker(false)}/>}
+                {pendingSession.exercises.length>0&&(
+                  <div style={{ marginTop:10,marginBottom:10 }}>
+                    <div style={{ fontSize:10,color:"#3d5278",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:8 }}>Exercices ({pendingSession.exercises.length})</div>
+                    {pendingSession.exercises.map((ex,i)=>(
+                      <ExerciseFields key={i} ex={ex} idx={i} onChange={updatePendingEx} onRemove={()=>removeSessionEx(i)}/>
+                    ))}
+                  </div>
+                )}
+              </>)}
 
-              {pendingSession.exercises.length>0&&(
-                <div style={{ marginTop:10,marginBottom:10 }}>
-                  <div style={{ fontSize:10,color:"#3d5278",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:8 }}>Exercices ({pendingSession.exercises.length})</div>
-                  {pendingSession.exercises.map((ex,i)=>(
-                    <ExerciseFields key={i} ex={ex} idx={i} onChange={updatePendingEx} onRemove={()=>removeSessionEx(i)}/>
-                  ))}
-                </div>
-              )}
-              <div style={{ marginTop:12 }}><Btn onClick={doAddSession}>Enregistrer la séance</Btn></div>
+              <div style={{ marginTop:12 }}><Btn onClick={doAddSession} color={sessionMode==="wod"?"#f97316":undefined}>
+                {sessionMode==="wod"?"🏋️ Enregistrer le WOD":"💪 Enregistrer la séance"}
+              </Btn></div>
             </div>
           )}
 
+          {/* Edit session modal */}
           {editingSession&&(
             <div style={{ position:"fixed",inset:0,background:"#000e",display:"flex",alignItems:"flex-end",zIndex:99 }} onClick={()=>setEditingSession(null)}>
               <div onClick={e=>e.stopPropagation()} className="fu" style={{ background:"#0a1628",border:"1px solid #0f2040",borderRadius:"20px 20px 0 0",padding:"24px 18px 40px",width:"100%",maxHeight:"90vh",overflowY:"auto" }}>
@@ -1513,8 +1938,11 @@ export default function App() {
                     <span style={{ fontSize:13,color:"#7a90b8",fontWeight:600 }}>Client présent(e)</span>
                   </div>
                   <Field label="Notes" value={editingSession.note||""} onChange={v=>setEditingSession(p=>({...p,note:v}))} placeholder="Observations..."/>
+                  {editingSession.isWod&&(
+                    <Field label="Score WOD" value={editingSession.wodScore||""} onChange={v=>setEditingSession(p=>({...p,wodScore:v}))} placeholder="ex. 18 rounds + 5 reps"/>
+                  )}
                 </div>
-                {(editingSession.exercises||[]).map((ex,i)=>(
+                {!editingSession.isWod&&(editingSession.exercises||[]).map((ex,i)=>(
                   <ExerciseFields key={i} ex={ex} idx={i} onChange={updateEditSessionEx} onRemove={()=>removeEditSessionEx(i)}/>
                 ))}
                 <div style={{ display:"flex",gap:10,marginTop:14 }}>
@@ -1539,17 +1967,19 @@ export default function App() {
                   <div style={{ flex:1,height:1,background:"#0f2040" }}/>
                 </div>
                 {sessions.map((s,i)=>{
-                  const sTpl=s.templateId?allTemplates.find(t=>t.id===s.templateId):null;
+                  const sTpl=s.templateId?[...allTemplates,...allWods].find(t=>t.id===s.templateId):null;
+                  const fmt=s.isWod?WOD_FORMATS.find(f=>f.id===s.wodFormat):null;
                   return (
                     <SwipeToDelete key={s.id} onDelete={()=>up(selId,{sessions:cl.sessions.filter(ss=>ss.id!==s.id)})}>
-                      <div className="ch fu" style={{ background:"#070d1a",border:"1px solid #0f2040",borderRadius:12,padding:"12px 14px" }}>
+                      <div className="ch fu" style={{ background:"#070d1a",border:`1px solid ${s.isWod?"#f9741633":"#0f2040"}`,borderRadius:12,padding:"12px 14px" }}>
                         <div style={{ display:"flex",gap:10,alignItems:"flex-start" }}>
                           <div style={{ width:8,height:8,borderRadius:"50%",background:s.present?"#22c55e":"#e63946",marginTop:5,flexShrink:0 }}/>
                           <div style={{ flex:1 }}>
-                            <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+                            <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:4 }}>
                               <div>
                                 <span style={{ fontWeight:800,fontFamily:"'Barlow Condensed',sans-serif",fontSize:15 }}>{s.date}</span>
-                                {sTpl&&<span style={{ marginLeft:6,fontSize:10,color:sTpl.color||"#1a6fff",fontWeight:700 }}>📋 {sTpl.name}</span>}
+                                {s.isWod&&<span style={{ marginLeft:6,fontSize:11,color:"#f97316",fontWeight:700 }}>🏋️ WOD</span>}
+                                {sTpl&&<span style={{ marginLeft:6,fontSize:10,color:sTpl.color||"#1a6fff",fontWeight:700 }}>{sTpl.name}</span>}
                               </div>
                               <div style={{ display:"flex",gap:6,alignItems:"center" }}>
                                 {s.duration>0&&<span style={{ fontSize:11,color:"#3d5278" }}>{s.duration}min</span>}
@@ -1558,7 +1988,24 @@ export default function App() {
                               </div>
                             </div>
                             {s.note&&<div style={{ color:"#7a90b8",fontSize:12,marginTop:3 }}>{s.note}</div>}
-                            {s.exercises&&s.exercises.length>0&&(
+
+                            {/* WOD display */}
+                            {s.isWod&&(
+                              <div style={{ marginTop:8,background:"#f9741611",borderRadius:8,padding:"8px 10px",border:"1px solid #f9741633" }}>
+                                {fmt&&<div style={{ fontSize:11,fontWeight:800,color:"#f97316",marginBottom:4 }}>{fmt.icon} {s.wodFormat?.toUpperCase()} {s.wodDuration?`— ${s.wodDuration} min`:s.wodRounds?`— ${s.wodRounds} rounds`:""}</div>}
+                                {s.exercises?.map((ex,j)=>(
+                                  <div key={j} style={{ display:"flex",alignItems:"center",gap:6,padding:"3px 0" }}>
+                                    <span style={{ color:"#f97316",fontSize:10 }}>•</span>
+                                    <span style={{ fontSize:11,color:"#e8edf5",flex:1 }}>{ex.name}</span>
+                                    {ex.reps&&<span style={{ fontSize:10,color:"#f97316",fontWeight:700 }}>× {ex.reps}</span>}
+                                  </div>
+                                ))}
+                                {s.wodScore&&<div style={{ marginTop:6,padding:"4px 8px",background:"#f9741622",borderRadius:6,fontSize:11,color:"#f97316",fontWeight:700 }}>🏆 Score : {s.wodScore}</div>}
+                              </div>
+                            )}
+
+                            {/* Normal session exercises */}
+                            {!s.isWod&&s.exercises&&s.exercises.length>0&&(
                               <div style={{ marginTop:8 }}>
                                 {s.exercises.map((ex,j)=>{
                                   const libEx=LIBRARY.find(l=>l.id===ex.libId);
@@ -1576,9 +2023,8 @@ export default function App() {
                                         </>:<>
                                           {ex.sets&&ex.reps&&<Badge label={`${ex.sets}×${ex.reps}`} color="#1a6fff"/>}
                                           {ex.load&&+ex.load>0&&<Badge label={`${ex.load}kg`} color="#f59e0b"/>}
-                                          {ex.rest&&+ex.rest>0&&<Badge label={`${ex.rest}s`} color="#3d5278"/>}
                                           {ex.rpe&&<Badge label={`RPE${ex.rpe}`} color={rpeColor(ex.rpe)}/>}
-                                          {ex.note&&ex.note.includes("↑")&&<Badge label="↑ Progression" color="#22c55e"/>}
+                                          {ex.note&&ex.note.includes("↑")&&<Badge label="↑ Prog." color="#22c55e"/>}
                                         </>}
                                       </div>
                                     </div>
